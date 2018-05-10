@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8298EAB6-0586-4BDA-9483-83624B66B13A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TerrariaUltraApocalypse</RootNamespace>
+    <AssemblyName>TerrariaUltraApocalypse</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="API\TerraEnergy\Block\Capacitor.cs" />
+    <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\BasicTECapacitor.cs" />
+    <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\EnergyCollector.cs" />
+    <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\TerraFurnace.cs" />
+    <Compile Include="API\TerraEnergy\Block\TerraWaste.cs" />
+    <Compile Include="API\TerraEnergy\Block\TUABlock.cs" />
+    <Compile Include="API\TerraEnergy\Core.cs" />
+    <Compile Include="API\TerraEnergy\Items\Block\BasicCapacitor.cs" />
+    <Compile Include="API\TerraEnergy\Items\Block\EnergyCollector.cs" />
+    <Compile Include="API\TerraEnergy\Items\Block\TerraFurnace.cs" />
+    <Compile Include="API\TerraEnergy\Items\Block\TerraWaste.cs" />
+    <Compile Include="API\TerraEnergy\Items\RodOfLinking.cs" />
+    <Compile Include="API\TerraEnergy\Items\TerraMeter.cs" />
+    <Compile Include="API\TerraEnergy\UI\FurnaceUI.cs" />
+    <Compile Include="API\TUAModItem.cs" />
+    <Compile Include="API\TUAModNPC.cs" />
+    <Compile Include="BackgroundSwapper.cs" />
+    <Compile Include="Biomes\Meteoridon.cs" />
+    <Compile Include="Buff\Debuff\EoA\NoMountDebuff.cs" />
+    <Compile Include="Buff\Debuff\EoC\EoCNerf.cs" />
+    <Compile Include="Buff\Debuff\EotW\ArrowDebuff.cs" />
+    <Compile Include="Buff\Debuff\EotW\BulletDebuff.cs" />
+    <Compile Include="Buff\Debuff\EotW\MagicDebuff.cs" />
+    <Compile Include="Buff\Debuff\EotW\MeleeDebuff.cs" />
+    <Compile Include="Dimension\LunarDimension\Solar.cs" />
+    <Compile Include="Dimension\TUADimension.cs" />
+    <Compile Include="Dimension\TUADimFile.cs" />
+    <Compile Include="Dimension\TUADimGenerator.cs" />
+    <Compile Include="Dusts\EotW\ArrowDust.cs" />
+    <Compile Include="Dusts\EotW\BulletDust.cs" />
+    <Compile Include="Dusts\EotW\MagicDust.cs" />
+    <Compile Include="Dusts\EotW\MeleeDust.cs" />
+    <Compile Include="Items\Block\ApocalypseDirt.cs" />
+    <Compile Include="Items\Block\Hopper.cs" />
+    <Compile Include="Items\Block\Meteoridon\MeteoridonWoodPlank.cs" />
+    <Compile Include="Items\EoA\SuspiciousBurnedEye.cs" />
+    <Compile Include="Items\TUAGlobalItem.cs" />
+    <Compile Include="Items\Weapons\MechanicalBow.cs" />
+    <Compile Include="Items\Weapons\MechanicalSniper.cs" />
+    <Compile Include="MainModifier.cs" />
+    <Compile Include="ModifyPath.cs" />
+    <Compile Include="MoonEvent\ApocalypseMoon.cs" />
+    <Compile Include="MoonEvent\ApocalypseWMoon.cs" />
+    <Compile Include="NPCs\EoA\EoAHeal.cs" />
+    <Compile Include="NPCs\EoA\Eye_of_Apocalypse_clone.cs" />
+    <Compile Include="NPCs\TUACustomSky.cs" />
+    <Compile Include="NPCs\TUAGlobalNPC.cs" />
+    <Compile Include="Projectiles\EoA\EoALaserWall.cs" />
+    <Compile Include="Projectiles\GhosterBullet.cs" />
+    <Compile Include="Projectiles\GodExplosiveArrow.cs" />
+    <Compile Include="Tiles\ApocalypseDirt.cs" />
+    <Compile Include="Tiles\EoA\Arena.cs" />
+    <Compile Include="Projectiles\EoA\FireBall.cs" />
+    <Compile Include="Tiles\Meteoridon\BrownIce.cs" />
+    <Compile Include="Tiles\Meteoridon\MeteoridonGrass.cs" />
+    <Compile Include="Tiles\Meteoridon\MeteoridonStone.cs" />
+    <Compile Include="Tiles\Meteoridon\MeteoridonTree.cs" />
+    <Compile Include="Tiles\Meteoridon\MeteoridonWood.cs" />
+    <Compile Include="TUAInterface.cs" />
+    <Compile Include="TUAPlayer.cs" />
+    <Compile Include="TUAWorld.cs" />
+    <Compile Include="RecipeForma.cs" />
+    <Compile Include="RecipeManager.cs" />
+    <Compile Include="Items\SetNight.cs" />
+    <Compile Include="Items\EoA\Spawner.cs" />
+    <Compile Include="NPCs\EoA\Eye_of_Apocalypse.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="TerrariaUltraApocalypse.cs" />
+    <Compile Include="World\OreSpread.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="BiomeLibs">
+      <HintPath>..\..\Tapocalypse\Mod Reader\BiomeLibrary\BiomeLibs.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Game\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Game.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Graphics\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Graphics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Xact, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Xact\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Xact.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="Terraria, Version=1.3.5.1, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Terraria.exe</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Items\Armor\" />
+    <Folder Include="Items\Block\PillarBiomeBlock\" />
+    <Folder Include="Tiles\PillarBiome\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>"D:\steam game\steamapps\steamapps\common\Terraria\Terraria.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
