@@ -48,7 +48,5 @@ namespace TerrariaUltraApocalypse
         {
             player.respawnTimer = 1;
         }
-
-        
     }
 }

@@ -9,6 +9,7 @@ using BiomeLibrary;
 using TerrariaUltraApocalypse.API.TerraEnergy.UI;
 using Terraria.UI;
 using System.Collections.Generic;
+using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
 
 namespace TerrariaUltraApocalypse
 {
@@ -27,7 +28,7 @@ namespace TerrariaUltraApocalypse
         private String savePath, worldPath, playerPath;
         private Texture2D logoOriginal;
 	    public static Texture2D[] originalMoon;
-        internal FurnaceUI furnaceUI;
+        public static FurnaceUI furnaceUI;
         public UserInterface furnaceInterface;
 
         public TerrariaUltraApocalypse()
@@ -63,6 +64,11 @@ namespace TerrariaUltraApocalypse
             
             r2.SetResult(ItemID.IronskinPotion, 1);
             r2.AddRecipe();
+
+            FurnaceRecipe r1 = FurnaceRecipeManager.CreateRecipe(this);
+            r1.addIngredient(ItemID.IronOre, 1);
+            r1.setResult(ItemID.IronskinPotion, 5);
+            r1.addRecipe();
         }
 
         public override void Load()

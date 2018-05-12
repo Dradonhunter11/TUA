@@ -11,6 +11,7 @@ using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
 using TerrariaUltraApocalypse.API.TerraEnergy.Items;
+using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
 
 namespace TerrariaUltraApocalypse.API.TerraEnergy.Block
 {
@@ -42,7 +43,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block
 
             Main.NewText("X " + i + " Y " + j);
 
-            int index = mod.GetTileEntity<BasicTECapacitorEntity>().Find(left, top);
+            int index = mod.GetTileEntity<CapacitorEntity>().Find(left, top);
 
             if (index == -1)
             {
@@ -86,47 +87,5 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block
             mod.GetTileEntity<CapacitorEntity>().Kill(i, j);
         }
     }
-    class CapacitorEntity : StorageEntity
-    {
-        public List<EnergyCollectorEntity> storedCollector = new List<EnergyCollectorEntity>();
-
-        public List<StorageEntity> storedFurnace = new List<StorageEntity>();
-        public int maxTransferRate;
-
-        public override void Update()
-        {
-            foreach (EnergyCollectorEntity i in storedCollector)
-            {
-                energy.addEnergy(i.energy.consumeEnergy(maxTransferRate));
-            }
-
-            foreach (StorageEntity i in storedFurnace)
-            {
-                i.energy.addEnergy(energy.consumeEnergy(maxTransferRate));
-            }
-        }
-
-        public void addCollector(EnergyCollectorEntity collector)
-        {
-            storedCollector.Add(collector);
-        }
-
-        public void addStorageEntity(StorageEntity furnace)
-        {
-            storedFurnace.Add(furnace);
-        }
-
-        public override bool ValidTile(int i, int j)
-        {
-            Tile tile = Main.tile[i, j];
-            //Main.NewText((tile.active() && (tile.type == mod.TileType<BasicTECapacitor>() || tile.type == mod.TileType<BasicTECapacitor>()) && tile.frameX == 0 && tile.frameY == 0));
-            return tile.active() && (tile.type == mod.TileType<BasicTECapacitor>()) && tile.frameX == 0 && tile.frameY == 0;
-        }
-
-        public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
-        {
-            Main.NewText("X " + i + " Y " + j);
-            return Place(i - 1, j - 1);
-        }
-    }
+    
 }

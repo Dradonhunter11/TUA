@@ -13,6 +13,7 @@ namespace TerrariaUltraApocalypse.API
     class TUAModItem : ModItem
     {
         public virtual bool ultra { get; set; }
+        public virtual bool furnace { get; set; }
 
         protected void manipulateUltraProperty(bool isExpert) {
             item.rare = -12;
@@ -51,6 +52,13 @@ namespace TerrariaUltraApocalypse.API
                 tooltips.Add(ultraline);
             }
             base.ModifyTooltips(tooltips);
+        }
+
+        public override void AddRecipes()
+        {
+            if (furnace) {
+
+            }
         }
     }
 }

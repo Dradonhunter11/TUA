@@ -46,6 +46,12 @@
     <Compile Include="API\TerraEnergy\Items\Block\TerraWaste.cs" />
     <Compile Include="API\TerraEnergy\Items\RodOfLinking.cs" />
     <Compile Include="API\TerraEnergy\Items\TerraMeter.cs" />
+    <Compile Include="API\TerraEnergy\MachineRecipe\BaseRecipe.cs" />
+    <Compile Include="API\TerraEnergy\MachineRecipe\Furnace\FurnaceRecipe.cs" />
+    <Compile Include="API\TerraEnergy\MachineRecipe\Furnace\FurnaceRecipeManager.cs" />
+    <Compile Include="API\TerraEnergy\TileEntities\CapacitorEntity.cs" />
+    <Compile Include="API\TerraEnergy\TileEntities\EnergyCollectorEntity.cs" />
+    <Compile Include="API\TerraEnergy\TileEntities\StorageEntity.cs" />
     <Compile Include="API\TerraEnergy\UI\FurnaceUI.cs" />
     <Compile Include="API\TUAModItem.cs" />
     <Compile Include="API\TUAModNPC.cs" />
@@ -132,6 +138,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="API\UI\" />
     <Folder Include="Items\Armor\" />
     <Folder Include="Items\Block\PillarBiomeBlock\" />
     <Folder Include="Tiles\PillarBiome\" />

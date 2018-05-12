@@ -25,7 +25,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
 
         UIText energyCounter = new UIText("");
 
-        private static TerraFurnaceEntity currentFurnace;
+        private TerraFurnaceEntity currentFurnace;
 
         public override void OnInitialize()
         {
@@ -39,17 +39,17 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
             furnaceUI.BackgroundColor = new Color(73, 94, 171);
 
             input.Width.Set(32, 0f);
-            input.Height.Set(0, 1f);
+            input.Height.Set(32, 0f);
             input.Top.Set(30, 0f);
             input.Left.Set(300, 0f);
-            //input.OnClick += inputSlotItem;
+            input.OnClick += inputSlotItem;
             furnaceUI.Append(input);
 
             output.Width.Set(32, 0f);
-            output.Height.Set(0, 1f);
+            output.Height.Set(32, 0f);
             output.Top.Set(120, 0f);
             output.Left.Set(300, 0f);
-            //output.OnClick += withdrawItem;
+            output.OnClick += withdrawItem;
             furnaceUI.Append(output);
 
             Texture2D buttonDeleteTexture = ModLoader.GetTexture("Terraria/UI/ButtonDelete");
@@ -70,32 +70,33 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
             Append(furnaceUI);
         }
 
-        
-
-        public static void receiveFurnaceEntity(TerraFurnaceEntity entity) {
+        public void receiveFurnaceEntity(TerraFurnaceEntity entity) {
             currentFurnace = entity;
-            FurnaceItemSlot.receiverFurnaceEntity(entity);
+            input.receiveFurnaceEntity(entity);
+            output.receiveFurnaceEntity(entity);
         }
 
         private void inputSlotItem(UIMouseEvent evt, UIElement listeningElement) {
             Item i = Main.mouseItem;
 
             if (i.Name != "") {
+                Main.mouseItem = null;
                 input.receiveEntityItem(i);
-                currentFurnace.setItem(input.sendItemToTileEntity());
                 return;
             }
 
             if (i.Name == "" && input.currentItem() != null) {
                 Main.mouseItem = input.currentItem();
                 input.receiveEntityItem(null);
-                currentFurnace.setItem(input.sendItemToTileEntity());
             }
         }
 
         private void withdrawItem(UIMouseEvent evt, UIElement listeningElement)
         {
-
+            if (currentFurnace.inventory[1] != null) {
+                Main.mouseItem = currentFurnace.inventory[1];
+                currentFurnace.inventory[1] = null;
+            }
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -120,34 +121,46 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
         class FurnaceItemSlot : UIItemSlot
         {
             private readonly String type;
-            private static TerraFurnaceEntity currentFurnace;
+            private TerraFurnaceEntity currentFurnace;
 
             public FurnaceItemSlot(String type, bool locked) : base(locked) {
                 this.type = type;
             }
 
-            public static void receiverFurnaceEntity(TerraFurnaceEntity terraFurnaceEntity) {
+            public void receiveFurnaceEntity(TerraFurnaceEntity terraFurnaceEntity) {
                 currentFurnace = terraFurnaceEntity;
             }
 
 
-            public override Item sendItemToTileEntity()
+            public override void sendItemToTileEntity()
             {
-                currentFurnace.setItem(currentItemInSlot);
-                
+                if (currentItemInSlot != null)
+                {
+                    currentFurnace.inventory[0] = currentItemInSlot;
+                }
+                Main.NewText(type);
+            }
 
-                return currentItemInSlot;
+            public override void sync()
+            {
+                if (type == "input") {
+                    currentItemInSlot = currentFurnace.inventory[0];
+                } else
+                {
+                    currentItemInSlot = currentFurnace.inventory[1];
+                }
             }
         }
     }
 
     abstract class UIItemSlot : UIElement
     {
-        protected Item currentItemInSlot = null;
+        protected Item currentItemInSlot = new Item();
         private bool update = false;
         private bool locked;
 
-        public abstract Item sendItemToTileEntity();
+        public abstract void sendItemToTileEntity();
+        public abstract void sync();
 
         public UIItemSlot(bool locked) {
             this.locked = locked;
@@ -158,31 +171,30 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
         }
 
         public UIItemSlot() {
-            Width.Set(32, 0f);
-            Height.Set(32, 0f);
+            Width.Set(64, 0f);
+            Height.Set(64, 0f);
         }
 
         public override void Click(UIMouseEvent evt)
         {
             Main.NewText(Main.mouseItem.Name);
-            if (!locked && currentItemInSlot == null && Main.mouseItem.Name != "") {
+            if (!locked && currentItemInSlot.Name == "" && Main.mouseItem.Name != "") {
                 currentItemInSlot = Main.mouseItem;
                 Main.mouseItem = new Item();
-                sendItemToTileEntity();
-                return;
-            }
+            } else
 
-            if (currentItemInSlot != null && Main.mouseItem.Name == "") {
+            if (currentItemInSlot.Name != "" && Main.mouseItem.Name == "") {
                 Main.mouseItem = currentItemInSlot;
-                currentItemInSlot = null;
-                return;
+                currentItemInSlot = new Item();
             }
+            update = true;
+            sendItemToTileEntity();
         }
 
         public override void Update(GameTime gameTime)
         {
             if (update) {
-                sendItemToTileEntity();
+                sync();
                 update = false;
             }
         }
@@ -199,7 +211,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
             CalculatedStyle innerDimensions = base.GetInnerDimensions();
             Vector2 drawPos = new Vector2(innerDimensions.X + 5f, innerDimensions.Y + 5f);
             spriteBatch.Draw(Main.inventoryBackTexture, drawPos, null, new Color(73, 94, 171), 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 0f);
-            if (currentItemInSlot != null)
+            if (currentItemInSlot.Name != "")
             {
                 spriteBatch.Draw(Main.itemTexture[currentItemInSlot.type], drawPos, new Rectangle(0,0,32,32), new Color(73, 94, 171), 0f, new Vector2(-5, -5), 1f, SpriteEffects.None, 0f);
             }
@@ -207,10 +219,10 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
         }
 
         public void UIClosing() {
-            if (currentItemInSlot != null) {
+            if (currentItemInSlot.Name != "") {
                 sendItemToTileEntity();
             } 
-            currentItemInSlot = null;
+            currentItemInSlot = new Item();
         }
     }
 }

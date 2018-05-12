@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
+using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
 
 namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 {

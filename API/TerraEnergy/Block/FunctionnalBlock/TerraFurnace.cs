@@ -8,6 +8,8 @@ using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 using TerrariaUltraApocalypse.API.TerraEnergy.Items;
+using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
+using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
 using TerrariaUltraApocalypse.API.TerraEnergy.UI;
 
 namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
@@ -80,11 +82,21 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
         public Item[] inventory = new Item[2];
 
+        public bool UIActive = false;
+
+        private int checkTimer = 20; //Maybe will reduce lag
+
+        private int progression = 0;
+
+        private FurnaceRecipe currentRecipe;
+
         public override void Load(TagCompound tag)
         {
-
+            
             maxEnergy = 50000;
             energy = new Core(maxEnergy);
+            inventory[0] = tag.Get<Item>("inputSlot");
+            inventory[1] = tag.Get<Item>("outputSlot");
             base.Load(tag);
         }
 
@@ -94,26 +106,46 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
         public TerraFurnaceEntity() {
             maxEnergy = 50000;
+            inventory[0] = null;
+            inventory[1] = null;
         }
 
         public void setItem(Item i) {
             inventory[0] = i;
         }
 
-        public Item sendItem(int i) {
-            return inventory[i];
+        public void sendEntityToUI() {
+            TerrariaUltraApocalypse.furnaceUI.receiveFurnaceEntity(this);
         }
 
-        public void sendEntityToUI() {
-            FurnaceUI.receiveFurnaceEntity(this);
+        public override TagCompound Save()
+        {
+            tag.Add("inputSlot", inventory[0]);
+            tag.Add("outputSlot", inventory[1]);
+            return base.Save();
         }
+
+        
 
         public override void Update()
         {
+            if (currentRecipe == null && checkTimer <= 0 && inventory[1].Name == "") {
+                currentRecipe = getRecipe();
+                checkTimer = 20;
+            }
+
+            if (currentRecipe != null) {
+                updateItem();
+                progression++;
+                
+            }
+
             if (boundCapacitor != null) {
                 Main.NewText("true");
                 energy.addEnergy(boundCapacitor.energy.consumeEnergy(boundCapacitor.maxTransferRate));
             }
+            checkTimer--;
+
         }
 
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
@@ -128,6 +160,31 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
             Main.NewText("here");
             Main.NewText((tile.active() && tile.type == mod.TileType<TerraFurnace>() && tile.frameX == 0 && tile.frameY == 0));
             return tile.active() && (tile.type == mod.TileType<TerraFurnace>()) && tile.frameX == 0 && tile.frameY == 0;
+        }
+
+
+
+        /*****************************************************************/
+        /*                         TIME FOR FUN :D                       */
+        /*****************************************************************/
+
+        private FurnaceRecipe getRecipe() {
+            if (inventory[0] != null || inventory[0].Name != "") {
+                if (FurnaceRecipeManager.getInstance().validRecipe(inventory[0])) {
+                    return FurnaceRecipeManager.getInstance().GetRecipe();
+                }
+            }
+            return null;
+        }
+
+        private void updateItem() {
+            if (progression >= currentRecipe.getCookTime()) {
+                inventory[0].stack -= currentRecipe.getIngredientStack();
+                
+                inventory[1] = currentRecipe.getResult();
+                currentRecipe = null;
+                progression = 0;
+            }
         }
     }
 }

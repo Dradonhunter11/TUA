@@ -17,6 +17,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Items.Block
 
         public override void SetDefaults()
         {
+            
             item.width = 32;
             item.height = 48;
             item.maxStack = 999;
