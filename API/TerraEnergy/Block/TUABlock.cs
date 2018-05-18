@@ -32,6 +32,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block
             {
                 return false;
             }
+
             return base.Autoload(ref name, ref texture);
         }
         

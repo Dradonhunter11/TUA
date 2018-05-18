@@ -33,12 +33,18 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
             TileObjectData.addTile(Type);
         }
 
+        public override void HitWire(int i, int j)
+        {
+            
+        }
+
         public override void RightClick(int i, int j)
         {
             Player player = Main.player[Main.myPlayer];
             Item currentSelectedItem = player.inventory[player.selectedItem];
 
             Tile tile = Main.tile[i, j];
+            
 
             int left = i - (tile.frameX / 18);
             int top = j - (tile.frameY / 18);
@@ -95,6 +101,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
             
             maxEnergy = 50000;
             energy = new Core(maxEnergy);
+            
             inventory[0] = tag.Get<Item>("inputSlot");
             inventory[1] = tag.Get<Item>("outputSlot");
             base.Load(tag);
@@ -120,6 +127,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
         public override TagCompound Save()
         {
+            tag = new TagCompound();
             tag.Add("inputSlot", inventory[0]);
             tag.Add("outputSlot", inventory[1]);
             return base.Save();
@@ -129,7 +137,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
         public override void Update()
         {
-            if (currentRecipe == null && checkTimer <= 0 && inventory[1].Name == "") {
+            if (currentRecipe == null && checkTimer <= 0 && inventory[1] == null) {
                 currentRecipe = getRecipe();
                 checkTimer = 20;
             }
@@ -169,7 +177,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
         /*****************************************************************/
 
         private FurnaceRecipe getRecipe() {
-            if (inventory[0] != null || inventory[0].Name != "") {
+            if (inventory[0] != null && inventory[0].Name != "") {
                 if (FurnaceRecipeManager.getInstance().validRecipe(inventory[0])) {
                     return FurnaceRecipeManager.getInstance().GetRecipe();
                 }

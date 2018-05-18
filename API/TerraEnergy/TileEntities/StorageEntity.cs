@@ -26,6 +26,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
             
             tag.Add("energy", energy.getCurrentEnergyLevel());
             return tag;
+            
         }
 
         public Core getEnergy()

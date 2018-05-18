@@ -38,15 +38,15 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
             
             furnaceUI.BackgroundColor = new Color(73, 94, 171);
 
-            input.Width.Set(32, 0f);
-            input.Height.Set(32, 0f);
+            input.Width.Set(64, 0f);
+            input.Height.Set(64, 0f);
             input.Top.Set(30, 0f);
             input.Left.Set(300, 0f);
             input.OnClick += inputSlotItem;
             furnaceUI.Append(input);
 
-            output.Width.Set(32, 0f);
-            output.Height.Set(32, 0f);
+            output.Width.Set(64, 0f);
+            output.Height.Set(64, 0f);
             output.Top.Set(120, 0f);
             output.Left.Set(300, 0f);
             output.OnClick += withdrawItem;
@@ -67,7 +67,12 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
             energyCounter.Width.Set(100, 0f);
             furnaceUI.Append(energyCounter);
 
+            input.initComponent();
+            output.initComponent();
+
             Append(furnaceUI);
+
+
         }
 
         public void receiveFurnaceEntity(TerraFurnaceEntity entity) {
@@ -134,10 +139,15 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
 
             public override void sendItemToTileEntity()
             {
-                if (currentItemInSlot != null)
+                if (type == "input")
                 {
                     currentFurnace.inventory[0] = currentItemInSlot;
                 }
+                else {
+                    currentFurnace.inventory[1] = currentItemInSlot;
+                }
+                
+
                 Main.NewText(type);
             }
 
@@ -150,17 +160,55 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
                     currentItemInSlot = currentFurnace.inventory[1];
                 }
             }
+
+            public override void Click(UIMouseEvent evt)
+            {
+                Main.NewText(Main.mouseItem.Name);
+                if (type == "input")
+                {
+                    inputProcess();
+                }
+                else 
+                {
+                    outputProcess();
+                }
+
+                sendItemToTileEntity();
+                update = true;
+            }
+
+            public void inputProcess() {
+                if (currentItemInSlot == null)
+                {
+                    currentItemInSlot = Main.mouseItem;
+                    Main.mouseItem = new Item();
+                }
+                else {
+                    outputProcess();
+                }
+            }
+
+            public void outputProcess() {
+                if (currentItemInSlot != null && (Main.mouseItem.Name == "" || Main.mouseItem == null)) {
+                    Item temp = currentItemInSlot.Clone();
+                    currentItemInSlot = null;
+                    Main.mouseItem = temp;
+                }
+            }
         }
     }
 
     abstract class UIItemSlot : UIElement
     {
+        internal float scale = .95f;
+
         protected Item currentItemInSlot = new Item();
-        private bool update = false;
+        protected bool update = false;
         private bool locked;
 
         public abstract void sendItemToTileEntity();
         public abstract void sync();
+        public UIText counter;
 
         public UIItemSlot(bool locked) {
             this.locked = locked;
@@ -173,23 +221,22 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
         public UIItemSlot() {
             Width.Set(64, 0f);
             Height.Set(64, 0f);
+            
         }
 
-        public override void Click(UIMouseEvent evt)
-        {
-            Main.NewText(Main.mouseItem.Name);
-            if (!locked && currentItemInSlot.Name == "" && Main.mouseItem.Name != "") {
-                currentItemInSlot = Main.mouseItem;
-                Main.mouseItem = new Item();
-            } else
 
-            if (currentItemInSlot.Name != "" && Main.mouseItem.Name == "") {
-                Main.mouseItem = currentItemInSlot;
-                currentItemInSlot = new Item();
+        public void initComponent() {
+            if (counter == null) {
+                counter = new UIText("");
+                counter.Width.Set(0f, 0f);
+                counter.Height.Set(0f, 0f);
+                counter.Top.Set(64 + 5, 0f);
+                counter.Left.Set(64 + 5, 0f);
+                base.Append(counter);
             }
-            update = true;
-            sendItemToTileEntity();
+            
         }
+        
 
         public override void Update(GameTime gameTime)
         {
@@ -197,6 +244,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
                 sync();
                 update = false;
             }
+            
         }
 
         public void receiveEntityItem(Item i) {
@@ -204,25 +252,50 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
             update = true;
         }
 
-        
-
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             CalculatedStyle innerDimensions = base.GetInnerDimensions();
             Vector2 drawPos = new Vector2(innerDimensions.X + 5f, innerDimensions.Y + 5f);
             spriteBatch.Draw(Main.inventoryBackTexture, drawPos, null, new Color(73, 94, 171), 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 0f);
-            if (currentItemInSlot.Name != "")
+            counter.SetText("", 1f, true);
+            if (currentItemInSlot != null)
             {
-                spriteBatch.Draw(Main.itemTexture[currentItemInSlot.type], drawPos, new Rectangle(0,0,32,32), new Color(73, 94, 171), 0f, new Vector2(-5, -5), 1f, SpriteEffects.None, 0f);
+                Texture2D itemTexture = Main.itemTexture[currentItemInSlot.type];
+                Rectangle r = itemTexture.Bounds;
+                Rectangle r2 = innerDimensions.ToRectangle();
+
+                int width = r.Width;
+                int height = r.Height;
+
+                float drawScale = 1f;
+                float availableWidth = (float)Main.inventoryBackTexture.Width * scale;
+
+                if (width > availableWidth || height > availableWidth)
+                {
+                    if (width > height)
+                    {
+                        drawScale = availableWidth / width;
+                    }
+                    else
+                    {
+                        drawScale = availableWidth / height;
+                    }
+                }
+
+                drawPos = new Vector2(innerDimensions.X + 10f, innerDimensions.Y + 10f);
+                Vector2 vector = Main.inventoryBackTexture.Size() * scale;
+                Vector2 pos2 = innerDimensions.Position() + vector / 2 - r2.Size() * drawScale / 2f; 
+
+                drawScale *= scale;
+                
+                spriteBatch.Draw(Main.itemTexture[currentItemInSlot.type], drawPos, null , Color.White, 0f, r2.Size() * (1f / 2f - 0.5f), drawScale, SpriteEffects.None, 0f);
+                counter.SetText(currentItemInSlot.stack.ToString(), 0.29f, true);
             }
             
         }
 
         public void UIClosing() {
-            if (currentItemInSlot.Name != "") {
-                sendItemToTileEntity();
-            } 
-            currentItemInSlot = new Item();
+            sendItemToTileEntity();
         }
     }
 }

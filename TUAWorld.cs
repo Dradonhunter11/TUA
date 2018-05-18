@@ -23,19 +23,27 @@ namespace TerrariaUltraApocalypse
         public static int apocalypseMoonPoint = 0;
         public static bool Apocalypse;
         public static bool UltraMode;
-        //private static TUADimension dimHandler = new TUADimension();
 
         public override void Initialize()
         {
+            
+            Func<bool> c = () => Main.hardMode;
             BiomeLibs.RegisterNewBiome("Plagues", 50, mod);
             BiomeLibs.AddBlockInBiome("Plagues", new String[] { "ApocalypseDirt" });
+            BiomeLibs.SetCondition("Plagues", c);
+
+
             BiomeLibs.RegisterNewBiome("Meteoridon", 50, mod);
             BiomeLibs.AddBlockInBiome("Meteoridon", new String[] { "MeteoridonStone", "MeteoridonGrass", "BrownIce" });
-            BiomeLibs.addHallowAltBiome("Meteoridon");
+            BiomeLibs.addHallowAltBiome("Meteoridon", "The world is getting fiery...");
+            BiomeLibs.SetCondition("Meteoridon", c);
+            
+
             BiomeLibs.RegisterNewBiome("Nebula", 200, mod);
             BiomeLibs.RegisterNewBiome("Vortex", 200, mod);
             BiomeLibs.RegisterNewBiome("Stardust", 200, mod);
             BiomeLibs.RegisterNewBiome("Solar", 200, mod);
+            BiomeLibs.AddBlockInBiome("Solar", new String[] { "SolarDirt", "SolarRock"});
         }
 
         public override TagCompound Save()
@@ -53,14 +61,12 @@ namespace TerrariaUltraApocalypse
             UltraMode = tag.GetBool("UltraMode");
             Apocalypse = tag.GetBool("EoADowned");
             TerrariaUltraApocalypse.EoCDeath = tag.GetInt("UltraEoCDowned");
-            //apocalypseMoon = tag.GetBool("apocalypseMoon");
-            //dimHandler.CreateDimension(null);
+            
         }
 
         public override void PostUpdate()
         {
 
-            
             if (Main.netMode != 1)
             {
                 for (int k = 0; k < Main.maxTilesX * Main.maxTilesY * 3E-05 * Main.worldRate; k++)
@@ -85,9 +91,6 @@ namespace TerrariaUltraApocalypse
 
             }
         }
-
-
-
 
         private void UpdateTile(int x, int y)
         {
@@ -258,104 +261,6 @@ namespace TerrariaUltraApocalypse
             System.IO.File.WriteAllText(@"C:\TerrariaTag\worldTaskafter.txt", text);
         }
         */
-        public void MERunner(int i, int j, float speedX = 0f, float speedY = 0f)
-        {
-            int num = WorldGen.genRand.Next(200, 250);
-            float num2 = (float)(Main.maxTilesX / 4200);
-            num = (int)((float)num * num2);
-            double num3 = (double)num;
-            Vector2 value;
-            value.X = (float)i;
-            value.Y = (float)j;
-            Vector2 value2;
-            value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
-            value2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
-            if (speedX != 0f || speedY != 0f)
-            {
-                value2.X = speedX;
-                value2.Y = speedY;
-            }
-            bool flag = true;
-            while (flag)
-            {
-                int num4 = (int)((double)value.X - num3 * 0.5);
-                int num5 = (int)((double)value.X + num3 * 0.5);
-                int num6 = (int)((double)value.Y - num3 * 0.5);
-                int num7 = (int)((double)value.Y + num3 * 0.5);
-                if (num4 < 0)
-                {
-                    num4 = 0;
-                }
-                if (num5 > Main.maxTilesX)
-                {
-                    num5 = Main.maxTilesX;
-                }
-                if (num6 < 0)
-                {
-                    num6 = 0;
-                }
-                if (num7 > Main.maxTilesY)
-                {
-                    num7 = Main.maxTilesY;
-                }
-                for (int k = num4; k < num5; k++)
-                {
-                    for (int l = num6; l < num7; l++)
-                    {
-                        if ((double)(System.Math.Abs((float)k - value.X) + System.Math.Abs((float)l - value.Y)) < (double)num * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
-                        {
-                            /*if (Main.tile[k, l].wall == 63 || Main.tile[k, l].wall == 65 || Main.tile[k, l].wall == 66 || Main.tile[k, l].wall == 68 || Main.tile[k, l].wall == 69 || Main.tile[k, l].wall == 81)
-                            {
-                                Main.tile[k, l].wall = TileDef.wallByName["Notch:MeteoridonGrassWall"]; //Will need to make this in the future
-                            }*/
-                            if (Main.tile[k, l].wall == 3 || Main.tile[k, l].wall == 83)
-                            {
-                                Main.tile[k, l].wall = 28;
-                            }
-                            if (Main.tile[k, l].type == 2 || Main.tile[k, l].type == 23 || Main.tile[k, l].type == 199)
-                            {
-                                Main.tile[k, l].type = (ushort)mod.TileType("MeteoridonGrass");
-                                WorldGen.SquareTileFrame(k, l, true);
-                            }
-                            else if (Main.tile[k, l].type == 1 || Main.tile[k, l].type == 25 || Main.tile[k, l].type == 203)
-                            {
-                                Main.tile[k, l].type = (ushort)mod.TileType("MeteoridonStone");
-                                WorldGen.SquareTileFrame(k, l, true);
-                            }
-                            /*else if (Main.tile[k, l].type == 53 || Main.tile[k, l].type == 123)
-                            {
-                                Main.tile[k, l].type = TileDef.byName["Notch:MeteoridonSand"];
-                                WorldGen.SquareTileFrame(k, l, true);
-                            }*/
-                            /*else if (Main.tile[k, l].type == 112 || Main.tile[k, l].type == 234)
-                            {
-                                Main.tile[k, l].type = TileDef.byName["Notch:MeteoridonSand"];
-                                WorldGen.SquareTileFrame(k, l, true);
-                            }*/
-                            else if (Main.tile[k, l].type == 161 || Main.tile[k, l].type == 163 || Main.tile[k, l].type == 200)
-                            {
-                                Main.tile[k, l].type = (ushort)mod.TileType("BrownIce");
-                                WorldGen.SquareTileFrame(k, l, true);
-                            }
-                        }
-                    }
-                }
-                value += value2;
-                value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-                if (value2.X > speedX + 1f)
-                {
-                    value2.X = speedX + 1f;
-                }
-                if (value2.X < speedX - 1f)
-                {
-                    value2.X = speedX - 1f;
-                }
-                if (value.X < -(float)num || value.Y < -(float)num || value.X > (float)(Main.maxTilesX + num) || value.Y > (float)(Main.maxTilesX + num))
-                {
-                    flag = false;
-                }
-            }
-            
-        }
+        
     }
 }

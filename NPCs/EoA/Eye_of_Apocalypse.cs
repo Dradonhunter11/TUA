@@ -250,11 +250,11 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
 
             if (phase1Attack >= 31 && phase1Attack < 40 && attackDelay % 10 == 0)
             {
-                spawnFloorFireBall(1, 4, 2f, 1.5f, 3f);
-                spawnFloorFireBall(1, 28, -2f, 1.5f, 3f);
-
-                spawnFloorFireBall(1, 28, 2f, 1.5f, 3f);
                 spawnFloorFireBall(1, 4, -2f, 1.5f, 3f);
+                spawnFloorFireBall(1, 28, 2f, 1.5f, 3f);
+
+                spawnFloorFireBall(1, 28, -2f, 1.5f, 3f);
+                spawnFloorFireBall(1, 4, 2f, 1.5f, 3f);
             }
 
             if (phase1Attack == 30 || phase1Attack == 60)

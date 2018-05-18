@@ -37,8 +37,9 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace
         }
 
         public void setResult(int itemID, int quantity = 1) {
+
             result = new Item();
-            result.type = itemID;
+            result.SetDefaults(itemID, false);
             result.stack = quantity;
             resultName = result.Name;
         }
@@ -46,6 +47,8 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace
         public void addRecipe() {
             FurnaceRecipeManager.addRecipe(this);
         }
+
+        
 
         internal bool checkQuantity(int i) {
             if (i >= ingredient.stack) {

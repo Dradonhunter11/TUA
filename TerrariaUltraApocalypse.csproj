@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>0</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,12 +37,14 @@
     <Compile Include="API\TerraEnergy\Block\Capacitor.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\BasicTECapacitor.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\EnergyCollector.cs" />
+    <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\TerraForge.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\TerraFurnace.cs" />
     <Compile Include="API\TerraEnergy\Block\TerraWaste.cs" />
     <Compile Include="API\TerraEnergy\Block\TUABlock.cs" />
     <Compile Include="API\TerraEnergy\Core.cs" />
     <Compile Include="API\TerraEnergy\Items\Block\BasicCapacitor.cs" />
     <Compile Include="API\TerraEnergy\Items\Block\EnergyCollector.cs" />
+    <Compile Include="API\TerraEnergy\Items\Block\TerraForge.cs" />
     <Compile Include="API\TerraEnergy\Items\Block\TerraFurnace.cs" />
     <Compile Include="API\TerraEnergy\Items\Block\TerraWaste.cs" />
     <Compile Include="API\TerraEnergy\Items\RodOfLinking.cs" />
@@ -52,6 +55,7 @@
     <Compile Include="API\TerraEnergy\TileEntities\CapacitorEntity.cs" />
     <Compile Include="API\TerraEnergy\TileEntities\EnergyCollectorEntity.cs" />
     <Compile Include="API\TerraEnergy\TileEntities\StorageEntity.cs" />
+    <Compile Include="API\TerraEnergy\UI\ForgeUI.cs" />
     <Compile Include="API\TerraEnergy\UI\FurnaceUI.cs" />
     <Compile Include="API\TUAModItem.cs" />
     <Compile Include="API\TUAModNPC.cs" />
@@ -63,17 +67,17 @@
     <Compile Include="Buff\Debuff\EotW\BulletDebuff.cs" />
     <Compile Include="Buff\Debuff\EotW\MagicDebuff.cs" />
     <Compile Include="Buff\Debuff\EotW\MeleeDebuff.cs" />
-    <Compile Include="Dimension\LunarDimension\Solar.cs" />
-    <Compile Include="Dimension\TUADimension.cs" />
-    <Compile Include="Dimension\TUADimFile.cs" />
-    <Compile Include="Dimension\TUADimGenerator.cs" />
+    <Compile Include="Dimension\DimGlobalNPC.cs" />
+    <Compile Include="Dimension\Sky\SolarScreenShaderData.cs" />
     <Compile Include="Dusts\EotW\ArrowDust.cs" />
     <Compile Include="Dusts\EotW\BulletDust.cs" />
     <Compile Include="Dusts\EotW\MagicDust.cs" />
     <Compile Include="Dusts\EotW\MeleeDust.cs" />
     <Compile Include="Items\Block\ApocalypseDirt.cs" />
     <Compile Include="Items\Block\Hopper.cs" />
+    <Compile Include="Items\Block\Machine\DivinePortal.cs" />
     <Compile Include="Items\Block\Meteoridon\MeteoridonWoodPlank.cs" />
+    <Compile Include="Items\Dimension\SolarCrystal.cs" />
     <Compile Include="Items\EoA\SuspiciousBurnedEye.cs" />
     <Compile Include="Items\TUAGlobalItem.cs" />
     <Compile Include="Items\Weapons\MechanicalBow.cs" />
@@ -92,11 +96,14 @@
     <Compile Include="Tiles\ApocalypseDirt.cs" />
     <Compile Include="Tiles\EoA\Arena.cs" />
     <Compile Include="Projectiles\EoA\FireBall.cs" />
+    <Compile Include="Tiles\Machine\DivinePortal.cs" />
     <Compile Include="Tiles\Meteoridon\BrownIce.cs" />
     <Compile Include="Tiles\Meteoridon\MeteoridonGrass.cs" />
     <Compile Include="Tiles\Meteoridon\MeteoridonStone.cs" />
     <Compile Include="Tiles\Meteoridon\MeteoridonTree.cs" />
     <Compile Include="Tiles\Meteoridon\MeteoridonWood.cs" />
+    <Compile Include="Tiles\PillarBiome\SolarDirt.cs" />
+    <Compile Include="Tiles\PillarBiome\SolarRock.cs" />
     <Compile Include="TUAInterface.cs" />
     <Compile Include="TUAPlayer.cs" />
     <Compile Include="TUAWorld.cs" />
@@ -112,8 +119,8 @@
     <Compile Include="World\OreSpread.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="BiomeLibs">
-      <HintPath>..\..\Tapocalypse\Mod Reader\BiomeLibrary\BiomeLibs.dll</HintPath>
+    <Reference Include="BiomeLibrary">
+      <HintPath>..\BiomeLibrary\bin\Debug\BiomeLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -136,12 +143,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Terraria.exe</HintPath>
     </Reference>
+    <Reference Include="Tmod">
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\Tmod.exe</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\UI\" />
     <Folder Include="Items\Armor\" />
     <Folder Include="Items\Block\PillarBiomeBlock\" />
-    <Folder Include="Tiles\PillarBiome\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

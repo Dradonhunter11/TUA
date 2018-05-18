@@ -10,6 +10,9 @@ using TerrariaUltraApocalypse.API.TerraEnergy.UI;
 using Terraria.UI;
 using System.Collections.Generic;
 using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
+using System.Reflection;
+using Terraria.Graphics.Effects;
+using TerrariaUltraApocalypse.Dimension.Sky;
 
 namespace TerrariaUltraApocalypse
 {
@@ -65,14 +68,29 @@ namespace TerrariaUltraApocalypse
             r2.SetResult(ItemID.IronskinPotion, 1);
             r2.AddRecipe();
 
+            addIngotRecipe(ItemID.CopperOre, ItemID.CopperBar);
+            addIngotRecipe(ItemID.TinOre, ItemID.TinBar);
+            addIngotRecipe(ItemID.IronOre, ItemID.IronBar);
+            addIngotRecipe(ItemID.LeadOre, ItemID.LeadBar);
+            addIngotRecipe(ItemID.SilverOre, ItemID.SilverBar);
+            addIngotRecipe(ItemID.TungstenOre, ItemID.TungstenBar);
+            addIngotRecipe(ItemID.GoldOre, ItemID.GoldBar);
+            addIngotRecipe(ItemID.PlatinumOre, ItemID.PlatinumBar);
+            addIngotRecipe(ItemID.CrimtaneOre, ItemID.CrimtaneBar);
+            addIngotRecipe(ItemID.DemoniteOre, ItemID.DemoniteBar);
+        }
+
+        public void addIngotRecipe(int itemID, int itemResult, int timer = 20) {
             FurnaceRecipe r1 = FurnaceRecipeManager.CreateRecipe(this);
-            r1.addIngredient(ItemID.IronOre, 1);
-            r1.setResult(ItemID.IronskinPotion, 5);
+            r1.addIngredient(itemID, 1);
+            r1.setResult(itemResult, 1);
+            r1.setCookTime(timer);
             r1.addRecipe();
         }
 
         public override void Load()
         {
+            
             savePath = Main.SavePath;
             worldPath = Main.WorldPath;
             playerPath = Main.PlayerPath;
@@ -97,6 +115,14 @@ namespace TerrariaUltraApocalypse
             furnaceUI.Activate();
             furnaceInterface = new UserInterface();
             furnaceInterface.SetState(furnaceUI);
+
+            Filters.Scene["TerrariaUltraApocalypse:TUAPlayer"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(25,0,0).UseOpacity(0.7f), EffectPriority.VeryHigh);
+            SkyManager.Instance["TerrariaUltraApocalypse:TUAPlayer"] = new TUACustomSky();
+
+            //FieldInfo info2 = typeof(Main).GetField("Windows", BindingFlags.Instance | BindingFlags.NonPublic);
+            //info2.SetValue(Main.instance.Window, "Terraria in terraria in terraria in terraria in terraria in terraria in terraria in terraria in terraria in terraria ");
+
+
         }
 
         public override void Unload()
@@ -116,11 +142,27 @@ namespace TerrariaUltraApocalypse
             }
         }
 
+        
+
         public override void UpdateMusic(ref int music)
         {
+            if (Main.myPlayer != -1 && Main.gameMenu && Main.LocalPlayer.name != "") {
+                TUAPlayer p = Main.player[Main.myPlayer].GetModPlayer<TUAPlayer>();
+                if (p != null) {
+                    if (p.currentDimension == "solar")
+                    {
+                        Main.WorldPath = Main.SavePath + "/World/solar";
 
+                    } else
+                    if (p.currentDimension == "overworld")
+                    {
+                        Main.WorldPath = Main.SavePath + "/World";
+                    }
+                }
+            }
             if (Main.myPlayer != -1 && !Main.gameMenu && Main.LocalPlayer.active)
             {
+                TUAPlayer p = Main.LocalPlayer.GetModPlayer<TUAPlayer>(this);
                 if (BiomeLibs.InBiome("Meteoridon"))
                 {
                     music = MusicID.TheHallow;
@@ -129,8 +171,12 @@ namespace TerrariaUltraApocalypse
                 {
                     music = MusicID.LunarBoss;
                 }
-                else if (TUAWorld.apocalypseMoon) {
+                else if (TUAWorld.apocalypseMoon)
+                {
                     music = MusicID.LunarBoss;
+                }
+                else if (p.currentDimension == "solar") {
+                    music = MusicID.TheTowers;
                 }
             }
 
