@@ -31,7 +31,8 @@ namespace TerrariaUltraApocalypse.Items.EoA
 
         public override bool UseItem(Player player)
         {
-            if (NPC.downedMoonlord) {
+            if (NPC.downedMoonlord)
+            {
                 NPC.SpawnOnPlayer(player.whoAmI, NPCID.EyeofCthulhu);
                 return true;
             }

@@ -31,7 +31,8 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Items
             this.linkedEntity = entity;
         }
 
-        public void saveCollectorLocation(Point16 location) {
+        public void saveCollectorLocation(Point16 location)
+        {
             currentStockedEntityLocation = location;
         }
 
@@ -46,11 +47,13 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Items
             return currentStockedEntityLocation;
         }
 
-        public StorageEntity getEntity() {
+        public StorageEntity getEntity()
+        {
             return linkedEntity;
         }
 
-        public int getXLoc() {
+        public int getXLoc()
+        {
             return xLoc;
         }
 

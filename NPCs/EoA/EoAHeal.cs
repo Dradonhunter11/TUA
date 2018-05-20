@@ -49,8 +49,10 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
 
         public override void AI()
         {
-            if (particleTimer == 0) {
-                for (int i = 0; i < 3; i++) {
+            if (particleTimer == 0)
+            {
+                for (int i = 0; i < 3; i++)
+                {
                     Dust.NewDust(new Vector2(npc.Center.X - 2, npc.Center.Y), 4, 4, DustID.Fire, 0f, -2f, 0, Color.LightGreen);
                     Dust.NewDust(new Vector2(npc.Center.X, npc.Center.Y), 4, 4, DustID.Fire, 0f, -2f, 0, Color.LightGreen);
                     Dust.NewDust(new Vector2(npc.Center.X + 2, npc.Center.Y), 4, 4, DustID.Fire, 0f, -2f, 0, Color.LightGreen);
@@ -70,7 +72,7 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
         {
             float k = 0f;
             double d = 100000;
-            
+
             target.HealEffect(500, true);
         }
         /*

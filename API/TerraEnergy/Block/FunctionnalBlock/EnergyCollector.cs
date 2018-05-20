@@ -53,7 +53,8 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
                 Main.NewText(se.getEnergy().getCurrentEnergyLevel() + " / " + se.getEnergy().getMaxEnergyLevel() + " TE");
             }
 
-            if (currentSelectedItem.type == mod.ItemType("RodOfLinking")) {
+            if (currentSelectedItem.type == mod.ItemType("RodOfLinking"))
+            {
                 RodOfLinking it = currentSelectedItem.modItem as RodOfLinking;
                 StorageEntity se = (StorageEntity)TileEntity.ByID[index];
                 it.saveCollectorLocation(se);
@@ -61,5 +62,5 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
             }
         }
     }
-    
+
 }

@@ -29,7 +29,7 @@ namespace TerrariaUltraApocalypse.Buff.Debuff.EotW
             player.rocketDamage *= -0f;
             player.thrownDamage *= -0f;
             player.minionDamage *= -0f;
-            
+
         }
     }
 }

@@ -45,14 +45,16 @@ namespace TerrariaUltraApocalypse.Items
         {
             Main.time = 0;
             Main.dayTime = false;
-            TUAWorld.swapDimension();
-            TUAWorld.apocalypseMoon = true;
+            //TUAWorld.apocalypseMoon = true;
+
+
             return true;
         }
 
         public override void UpdateInventory(Player player)
         {
-            if (item.expert) {
+            if (item.expert)
+            {
                 item.expert = false;
             }
         }

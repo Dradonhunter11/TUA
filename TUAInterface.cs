@@ -23,7 +23,7 @@ namespace TerrariaUltraApocalypse
             hallowAltEnablerPanel = new UITextPanel<string>("Hallow alt : ", 1f, false);
             hallowAltEnablerPanel.Width.Set(10f, 0.8f);
             hallowAltEnablerPanel.Height.Set(20f, 1f);
-            
+
 
             area.Append(hallowAltEnablerPanel);
         }

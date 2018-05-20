@@ -40,7 +40,7 @@ namespace TerrariaUltraApocalypse.API
             manipulateUltraProperty(true);
         }
 
-        protected String addUltraTooltip(String tooltip) {
+        protected String AddUltraTooltip(String tooltip) {
             return tooltip + "\nUltra";
         }
 

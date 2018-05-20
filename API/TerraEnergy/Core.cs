@@ -11,28 +11,34 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy
         private int maxEnergy;
         private int currentEnergy = 0;
 
-        public Core(int maxEnergy) {
+        public Core(int maxEnergy)
+        {
             this.maxEnergy = maxEnergy;
         }
 
-        public void addEnergy(int energyToAdd) {
+        public void addEnergy(int energyToAdd)
+        {
             currentEnergy += energyToAdd;
-            if (currentEnergy >= maxEnergy) {
+            if (currentEnergy >= maxEnergy)
+            {
                 currentEnergy = maxEnergy;
             }
         }
 
-        public int consumeEnergy(int energyToRemove) {
-            if (currentEnergy - energyToRemove < 0) {
+        public int consumeEnergy(int energyToRemove)
+        {
+            if (currentEnergy - energyToRemove < 0)
+            {
                 int leftover = currentEnergy;
-                currentEnergy =  0;
+                currentEnergy = 0;
                 return leftover;
             }
             currentEnergy -= energyToRemove;
             return energyToRemove;
         }
 
-        public int getCurrentEnergyLevel() {
+        public int getCurrentEnergyLevel()
+        {
             return currentEnergy;
         }
 
@@ -41,7 +47,8 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy
             return maxEnergy;
         }
 
-        public bool isFull() {
+        public bool isFull()
+        {
             return currentEnergy == maxEnergy;
         }
 

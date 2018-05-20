@@ -19,15 +19,29 @@ namespace TerrariaUltraApocalypse.NPCs
         private Texture2D pillarS = Main.npcTexture[NPCID.LunarTowerSolar];
         private bool pillarDirection = true;
 
+        private int maxSpawns = 50;
+        private float[] zDistance = new float[50];
+        private float[] xPos = new float[50];
+        private float[] yPos = new float[50];
+
+
         public override void Activate(Vector2 position, params object[] args)
         {
             if (!Main.gameMenu)
             {
+
                 TUAPlayer p = Main.LocalPlayer.GetModPlayer<TUAPlayer>();
                 if (p != null)
                 {
-                    if (p.currentDimension == "solar") {
+                    if (p.currentDimension == "solar")
+                    {
                         isActive = true;
+                    }
+                    for (int i = 0; i < 50; i++)
+                    {
+                        zDistance[i] = Main.rand.NextFloat(0.1f, 0.7f); // get a random 3rd Dimension distance
+                        xPos[i] = (Main.rand.NextFloat(0, Main.maxTilesX)) * 16; //makes so that objects dont spawn outside of the world
+                        yPos[i] = (Main.rand.NextFloat(50, 51)); //same for Y
                     }
                 }
             }
@@ -45,13 +59,21 @@ namespace TerrariaUltraApocalypse.NPCs
 
         public override void Draw(SpriteBatch spriteBatch, float minDepth, float maxDepth)
         {
-            //pillarS = Main.npcTexture[NPCID.LunarTowerSolar];
-            spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Color(25, 0, 0) * 0.9f);
-            spriteBatch.Draw(ModLoader.GetTexture("Terraria/npc_517"), new Vector2(Main.screenPosition.X - Main.LocalPlayer.position.X / 2, 100f + pillarVelocity / 5), ModLoader.GetTexture("Terraria/npc_517").Bounds, Color.White * 0.15f, 0, new Vector2(0, 0), 0.3f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(ModLoader.GetTexture("Terraria/npc_517"), new Vector2(100f, 100f + pillarVelocity / 5) , ModLoader.GetTexture("Terraria/npc_517").Bounds, Color.White * 0.15f, 0, new Vector2(0, 0), 0.3f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(ModLoader.GetTexture("Terraria/npc_517"), new Vector2(250f, 400f + pillarVelocity / 20), ModLoader.GetTexture("Terraria/npc_517").Bounds, Color.White * 0.3f, 0, new Vector2(0, 0), 0.6f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(ModLoader.GetTexture("Terraria/npc_517"), new Vector2(1200f, 200f + pillarVelocity / 5), ModLoader.GetTexture("Terraria/npc_517").Bounds, Color.White * 0.4f, 0, new Vector2(0, 0), 0.69f, SpriteEffects.None, 0f);
-            spriteBatch.Draw(ModLoader.GetTexture("Terraria/npc_517"), new Vector2(600f, 300f + pillarVelocity / 5), ModLoader.GetTexture("Terraria/npc_517").Bounds, Color.White * 0.1f, 0, new Vector2(0, 0), 0.15f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Main.blackTileTexture, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Color(70, 0, 0) * 0.9f);
+
+            for (int i = 0; i < 50; i++)
+            {
+                spriteBatch.Draw(ModLoader.GetTexture("Terraria/npc_517"),
+                new Vector2(Main.screenPosition.X / 2f - xPos[i], (yPos[i] + pillarVelocity / 5)),
+                ModLoader.GetTexture("Terraria/npc_517").Bounds,
+                Color.White * zDistance[i],
+                0,
+                new Vector2(0, 0),
+                zDistance[i],
+                SpriteEffects.None,
+                    0f
+            );
+            }
         }
 
         public override bool IsActive()
@@ -68,15 +90,19 @@ namespace TerrariaUltraApocalypse.NPCs
 
         public override void Update(GameTime gameTime)
         {
+            Main.cloudLimit = 0;
+
             if (pillarDirection)
             {
                 pillarVelocity--;
             }
-            else {
+            else
+            {
                 pillarVelocity++;
             }
 
-            if (pillarVelocity == 50 || pillarVelocity == -50) {
+            if (pillarVelocity == 50 || pillarVelocity == -50)
+            {
                 pillarDirection = !pillarDirection;
             }
         }

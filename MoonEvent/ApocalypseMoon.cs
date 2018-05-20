@@ -26,6 +26,7 @@ namespace TerrariaUltraApocalypse.MoonEvent
             npcList.Add(new int[] { NPCID.StardustCellBig, NPCID.StardustJellyfishBig, NPCID.StardustSoldier, NPCID.StardustSpiderBig, NPCID.StardustWormHead });
             npcList.Add(new int[] { NPCID.NebulaBeast, NPCID.NebulaBrain, NPCID.NebulaHeadcrab, NPCID.NebulaSoldier });
             npcList.Add(new int[] { NPCID.MoonLordCore });
+            
         }
 
         public override bool CheckDead(NPC npc)

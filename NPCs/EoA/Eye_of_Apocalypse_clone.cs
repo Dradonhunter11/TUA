@@ -23,11 +23,13 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
         private int arenaCenterX;
         private int arenaCenterY;
 
-        public void setMasterID(int masterID) {
+        public void setMasterID(int masterID)
+        {
             this.masterID = masterID;
         }
 
-        public String getPos() {
+        public String getPos()
+        {
             return pos;
         }
 
@@ -36,11 +38,13 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
             this.pos = pos;
         }
 
-        public void setPhase(int phase) {
+        public void setPhase(int phase)
+        {
             this.phase = phase;
         }
 
-        public void setTarget(string target) {
+        public void setTarget(string target)
+        {
             this.target = target;
         }
 
@@ -50,7 +54,8 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
             return player;
         }
 
-        public void receiverArenaCoordinate(int x, int y) {
+        public void receiverArenaCoordinate(int x, int y)
+        {
             arenaCenterX = x;
             arenaCenterY = y;
         }
@@ -60,7 +65,7 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
             DisplayName.SetDefault("Eye of apocalypse clone");
             DisplayName.AddTranslation(GameCulture.French, "Oeil de l'apocalypse - Clone");
             Main.npcFrameCount[npc.type] = 6;
-            
+
         }
 
         public override void AI()
@@ -79,7 +84,8 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
 
         }
 
-        public void setPositonFromPlayer(Player p) {
+        public void setPositonFromPlayer(Player p)
+        {
             if (target == "player")
             {
                 if (pos == "left")
@@ -118,12 +124,12 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
                     npc.position = new Vector2(arenaCenterX, arenaCenterY - 420);
                 }
             }
-            
+
         }
 
         public override void SetDefaults()
         {
-            
+
             npc.aiStyle = -1;
             npc.lifeMax = 1;
             npc.damage = 50;
@@ -144,7 +150,8 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
 
         public override void FindFrame(int frameHeight)
         {
-            if (animationTimer == 0) {
+            if (animationTimer == 0)
+            {
                 npc.frame.Y = frameHeight * currentFrame;
                 currentFrame++;
                 if (currentFrame == 3)

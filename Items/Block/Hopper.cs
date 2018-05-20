@@ -16,7 +16,7 @@ namespace TerrariaUltraApocalypse.Items.Block
     {
         private Item[] list;
 
-        
+
 
         public override void Update()
         {
@@ -26,7 +26,7 @@ namespace TerrariaUltraApocalypse.Items.Block
             }
             foreach (Item t in Main.item)
             {
-                if (t.position.X == Position.X && t.position.Y == Position.Y+1)
+                if (t.position.X == Position.X && t.position.Y == Position.Y + 1)
                 {
                     absorb(t);
                 }
@@ -48,7 +48,7 @@ namespace TerrariaUltraApocalypse.Items.Block
 
         public override bool ValidTile(int i, int j)
         {
-            
+
             throw new NotImplementedException();
         }
 
@@ -61,7 +61,8 @@ namespace TerrariaUltraApocalypse.Items.Block
         }
     }
 
-    public class HopperTile : ModTile {
+    public class HopperTile : ModTile
+    {
 
         public override void SetDefaults()
         {

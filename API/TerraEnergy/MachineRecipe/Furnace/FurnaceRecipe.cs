@@ -17,26 +17,31 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace
         private Item result;
         private string resultName;
 
-        public FurnaceRecipe(Mod mod) {
+        public FurnaceRecipe(Mod mod)
+        {
 
         }
 
-        public void setCookTime(int time) {
+        public void setCookTime(int time)
+        {
             cookTime = time;
         }
 
-        public int getCookTime() {
+        public int getCookTime()
+        {
             return cookTime;
         }
 
-        public void addIngredient(int itemID, int quantity = 1) {
+        public void addIngredient(int itemID, int quantity = 1)
+        {
             ingredient = new Item();
             ingredient.type = itemID;
             ingredient.stack = quantity;
             ingrediantName = ingredient.Name;
         }
 
-        public void setResult(int itemID, int quantity = 1) {
+        public void setResult(int itemID, int quantity = 1)
+        {
 
             result = new Item();
             result.SetDefaults(itemID, false);
@@ -44,32 +49,39 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace
             resultName = result.Name;
         }
 
-        public void addRecipe() {
+        public void addRecipe()
+        {
             FurnaceRecipeManager.addRecipe(this);
         }
 
-        
 
-        internal bool checkQuantity(int i) {
-            if (i >= ingredient.stack) {
+
+        internal bool checkQuantity(int i)
+        {
+            if (i >= ingredient.stack)
+            {
                 return true;
             }
             return false;
         }
 
-        internal bool checkItem(Item item) {
-            if (ingredient.type == item.type) {
+        internal bool checkItem(Item item)
+        {
+            if (ingredient.type == item.type)
+            {
                 return true;
             }
             return false;
         }
 
-        internal Item getResult() {
+        internal Item getResult()
+        {
             Item item = result.Clone();
             return item;
         }
 
-        internal int getIngredientStack() {
+        internal int getIngredientStack()
+        {
             return ingredient.stack;
         }
     }

@@ -11,25 +11,29 @@ namespace TerrariaUltraApocalypse
 {
     class RecipeManager
     {
-        public static void removeRecipe(int itemID) {
+        public static void removeRecipe(int itemID)
+        {
             RecipeFinder rf = new RecipeFinder();
             rf.SetResult(itemID);
 
-            foreach (Recipe r in rf.SearchRecipes()) {
+            foreach (Recipe r in rf.SearchRecipes())
+            {
                 RecipeEditor re = new RecipeEditor(r);
                 re.DeleteRecipe();
             }
-            
+
         }
 
-        public static ModRecipe createModRecipe(Mod mod) {
+        public static ModRecipe createModRecipe(Mod mod)
+        {
             return new ModRecipe(mod);
         }
 
         public static void addRecipe(Mod mod, String result, int resultAmount, RecipeForma recipe)
         {
             ModRecipe r = new ModRecipe(mod);
-            for (int i = 0; i < recipe.ingredient.Length; i++) {
+            for (int i = 0; i < recipe.ingredient.Length; i++)
+            {
                 r.AddIngredient(mod, recipe.ingredient[i], recipe.number[i]);
             }
             r.SetResult(mod, result, resultAmount);

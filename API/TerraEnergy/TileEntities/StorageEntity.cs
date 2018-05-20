@@ -23,10 +23,10 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
 
         public override TagCompound Save()
         {
-            
+
             tag.Add("energy", energy.getCurrentEnergyLevel());
             return tag;
-            
+
         }
 
         public Core getEnergy()

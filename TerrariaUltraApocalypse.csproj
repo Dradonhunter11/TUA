@@ -59,7 +59,6 @@
     <Compile Include="API\TerraEnergy\UI\FurnaceUI.cs" />
     <Compile Include="API\TUAModItem.cs" />
     <Compile Include="API\TUAModNPC.cs" />
-    <Compile Include="BackgroundSwapper.cs" />
     <Compile Include="Biomes\Meteoridon.cs" />
     <Compile Include="Buff\Debuff\EoA\NoMountDebuff.cs" />
     <Compile Include="Buff\Debuff\EoC\EoCNerf.cs" />
@@ -82,13 +81,11 @@
     <Compile Include="Items\TUAGlobalItem.cs" />
     <Compile Include="Items\Weapons\MechanicalBow.cs" />
     <Compile Include="Items\Weapons\MechanicalSniper.cs" />
-    <Compile Include="MainModifier.cs" />
-    <Compile Include="ModifyPath.cs" />
     <Compile Include="MoonEvent\ApocalypseMoon.cs" />
     <Compile Include="MoonEvent\ApocalypseWMoon.cs" />
     <Compile Include="NPCs\EoA\EoAHeal.cs" />
     <Compile Include="NPCs\EoA\Eye_of_Apocalypse_clone.cs" />
-    <Compile Include="NPCs\TUACustomSky.cs" />
+    <Compile Include="Dimension\Sky\TUACustomSky.cs" />
     <Compile Include="NPCs\TUAGlobalNPC.cs" />
     <Compile Include="Projectiles\EoA\EoALaserWall.cs" />
     <Compile Include="Projectiles\GhosterBullet.cs" />
@@ -151,6 +148,7 @@
     <Folder Include="API\UI\" />
     <Folder Include="Items\Armor\" />
     <Folder Include="Items\Block\PillarBiomeBlock\" />
+    <Folder Include="NPCs\Dimension\Solar\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

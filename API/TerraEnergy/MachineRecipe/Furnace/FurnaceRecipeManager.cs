@@ -14,30 +14,38 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace
         private static FurnaceRecipeManager instance;
         private FurnaceRecipe currentRecipe;
 
-        public static FurnaceRecipeManager getInstance() {
-            if (instance == null) {
+        public static FurnaceRecipeManager getInstance()
+        {
+            if (instance == null)
+            {
                 instance = new FurnaceRecipeManager();
             }
             return instance;
         }
 
-        private FurnaceRecipeManager() {
+        private FurnaceRecipeManager()
+        {
 
         }
 
-        public static FurnaceRecipe CreateRecipe(Mod mod) {
+        public static FurnaceRecipe CreateRecipe(Mod mod)
+        {
             FurnaceRecipe newRecipe = new FurnaceRecipe(mod);
             return newRecipe;
         }
 
-        internal static void addRecipe(FurnaceRecipe recipe) {
-            
+        internal static void addRecipe(FurnaceRecipe recipe)
+        {
+
             furnaceRecipeList.Add(recipe);
         }
 
-        public bool validRecipe(Item ingredient) {
-            foreach(FurnaceRecipe i in furnaceRecipeList) {
-                if (i.checkItem(ingredient) && i.checkQuantity(ingredient.stack)) {
+        public bool validRecipe(Item ingredient)
+        {
+            foreach (FurnaceRecipe i in furnaceRecipeList)
+            {
+                if (i.checkItem(ingredient) && i.checkQuantity(ingredient.stack))
+                {
                     currentRecipe = i;
                     return true;
                 }
@@ -45,7 +53,8 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace
             return false;
         }
 
-        public FurnaceRecipe GetRecipe() {
+        public FurnaceRecipe GetRecipe()
+        {
             return currentRecipe;
         }
     }

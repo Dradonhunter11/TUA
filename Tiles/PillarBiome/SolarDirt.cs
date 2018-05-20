@@ -24,8 +24,8 @@ namespace TerrariaUltraApocalypse.Tiles.PillarBiome
             drop = ItemID.DirtBlock;
             AddMapEntry(new Microsoft.Xna.Framework.Color(255, 120, 55));
 
-            
+
         }
-        
+
     }
 }

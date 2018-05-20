@@ -11,9 +11,10 @@ namespace TerrariaUltraApocalypse
         public String[] ingredient;
         public int[] number;
 
-        public RecipeForma(String[] ing, int[] num) {
+        public RecipeForma(String[] ing, int[] num)
+        {
             this.ingredient = ing;
             this.number = num;
-        } 
+        }
     }
 }

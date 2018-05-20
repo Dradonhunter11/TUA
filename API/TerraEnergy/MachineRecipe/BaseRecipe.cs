@@ -13,7 +13,5 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe
         private String result;
         private Mod mod;
         private List<String> ingredient;
-
-
     }
 }

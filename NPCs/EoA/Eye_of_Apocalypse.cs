@@ -41,7 +41,7 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
         private int animationTimer = 50;
 
         private string target = "player";
-        
+
 
         private EoAHeal currentDamageSource;
 
@@ -67,12 +67,13 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
             DisplayName.SetDefault("Eye of the Apocalypse - God of destruction");
             DisplayName.AddTranslation(GameCulture.French, "Oeil de l'apocalypse - Dieu de la destruction");
             Main.npcFrameCount[npc.type] = 6;
-            
+
         }
 
         private static Eye_of_Apocalypse_clone[] clone;
 
-        private static void initClone(Mod mod, NPC npc) {
+        private static void initClone(Mod mod, NPC npc)
+        {
             Player p = GetPlayer(npc);
             int clone1 = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("Eye_of_Apocalypse_clone"), 0);
             clone[0] = Main.npc[clone1].modNPC as Eye_of_Apocalypse_clone;
@@ -124,7 +125,8 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
             return pos;
         }
 
-        public Eye_of_Apocalypse_clone[] getClone() {
+        public Eye_of_Apocalypse_clone[] getClone()
+        {
             return clone;
         }
 
@@ -150,13 +152,17 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
             Vector2 distance = p.Center - npc.Center;
             npc.rotation = (float)Math.Atan2(distance.Y, distance.X) - subit;
 
-            if (getPos() == null) {
+            if (getPos() == null)
+            {
                 initClone(mod, npc);
                 setPos("top");
             }
-            if (p.active && !p.dead) {
-                if (phase == 1) {
-                    if (timer == 0) {
+            if (p.active && !p.dead)
+            {
+                if (phase == 1)
+                {
+                    if (timer == 0)
+                    {
                         swapClone(npc, Main.rand.Next(3));
                         timer = 5000;
                     }
@@ -174,13 +180,15 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
                 }
             }
 
-            if (p.dead) {
+            if (p.dead)
+            {
                 clearArena(p);
             }
             setPositonFromPlayer(p);
         }
 
-        private void swapClone(NPC npc, int cloneID) {
+        private void swapClone(NPC npc, int cloneID)
+        {
             int dust = Dust.NewDust(npc.Center, 50, 50, DustID.Fire, 6f, 6f, 100, Color.OrangeRed, 2);
             Main.dust[dust].noGravity = true;
             String oldpos = pos;
@@ -230,7 +238,7 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
                     attackDelay = 125;
                 }
 
-                if(phase1Attack >= 31 && phase1Attack < 40)
+                if (phase1Attack >= 31 && phase1Attack < 40)
                 {
                     for (int i = 0; i < h; i++)
                     {
@@ -238,7 +246,8 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
                         spawnTopLaser(1, i, 3f, 0);
                     }
                     attackDelay = 150;
-                } else if (phase1Attack >= 40 && phase1Attack < 50)
+                }
+                else if (phase1Attack >= 40 && phase1Attack < 50)
                 {
                     for (int i = 0; i > h; i++)
                     {
@@ -291,7 +300,8 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
             }
         }
 
-        private void phase2(Player p) {
+        private void phase2(Player p)
+        {
 
         }
 
@@ -300,9 +310,11 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
 
         }
 
-        private bool changePhase(int lifePhase, int requiredPhase) {
+        private bool changePhase(int lifePhase, int requiredPhase)
+        {
             Main.NewText(phase1Attack);
-            if (npc.life < lifePhase && phase1Attack == requiredPhase) {
+            if (npc.life < lifePhase && phase1Attack == requiredPhase)
+            {
                 phase1Attack++;
                 Main.NewText("test");
                 return true;
@@ -311,25 +323,30 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
         }
 
         //EoA will never use this method by itself, but it's used by the heal orb to bring him in the vulnerable phase
-        public void setTakeDamage() {
-            if (phase == 1) {
+        public void setTakeDamage()
+        {
+            if (phase == 1)
+            {
                 Main.NewText("<Eye of Apocalypse> : Don't think this will be this easy, this is FAR from my final form.", Color.Purple);
             }
             npc.dontTakeDamage = false;
             target = "player";
             setCloneTarget("player");
             spawnWall = false;
-            
+
             clearArena(GetPlayer(npc));
         }
 
-        public void setCloneTarget(string target) {
-            for (int i = 0; i < 3; i++) {
+        public void setCloneTarget(string target)
+        {
+            for (int i = 0; i < 3; i++)
+            {
                 clone[i].setTarget(target);
             }
         }
 
-        public void sendArenaCoordinate() {
+        public void sendArenaCoordinate()
+        {
             for (int i = 0; i < 3; i++)
             {
                 clone[i].receiverArenaCoordinate(arenaCenterX, arenaCenterY);
@@ -344,12 +361,14 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
 
         public override void FindFrame(int frameHeight)
         {
-            if(animationTimer == 0)
+            if (animationTimer == 0)
             {
-                if (phase != 3) {
+                if (phase != 3)
+                {
                     npc.frame.Y = frameHeight * currentFrame;
                     currentFrame++;
-                    if (currentFrame == 3) {
+                    if (currentFrame == 3)
+                    {
                         currentFrame = 1;
                     }
                 }
@@ -360,7 +379,7 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
 
         public override bool CheckDead()
         {
-            if(phase1pause)
+            if (phase1pause)
             {
                 npc.HealEffect(400000, true);
                 npc.life = 400000;
@@ -371,9 +390,11 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
             return true;
         }
 
-        private String getTranslatedQuote() {
-            if (Language.ActiveCulture == GameCulture.French) {
-                return freQuote[Main.rand.Next(freQuote.Length-1)];
+        private String getTranslatedQuote()
+        {
+            if (Language.ActiveCulture == GameCulture.French)
+            {
+                return freQuote[Main.rand.Next(freQuote.Length - 1)];
             }
             return engQuote[Main.rand.Next(engQuote.Length)];
         }
@@ -480,7 +501,7 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
 
         public void spawnOrb()
         {
-            int pellet = NPC.NewNPC(arenaCenterX- 256 + Main.rand.Next(10, 500), arenaCenterY + 256 - Main.rand.Next(10, 500), mod.NPCType("EoAHeal"));
+            int pellet = NPC.NewNPC(arenaCenterX - 256 + Main.rand.Next(10, 500), arenaCenterY + 256 - Main.rand.Next(10, 500), mod.NPCType("EoAHeal"));
             currentDamageSource = Main.npc[pellet].modNPC as EoAHeal;
             currentDamageSource.setOwner(npc.modNPC);
             phase1pause = true;
@@ -496,8 +517,9 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
         {
             int projectile = Projectile.NewProjectile((arenaCenterX + 256) - (x * 16), arenaCenterY + ((side == 0) ? 256 : -256), (int)speedX, (int)speedY, mod.ProjectileType("FireBall"), 50, 0f);
             Main.projectile[projectile].ai[0] = 0;
-            if (lifeTime != 0) {
-                Main.projectile[projectile].timeLeft *= (int) lifeTime;
+            if (lifeTime != 0)
+            {
+                Main.projectile[projectile].timeLeft *= (int)lifeTime;
             }
         }
 

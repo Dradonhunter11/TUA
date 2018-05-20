@@ -21,7 +21,8 @@ namespace TerrariaUltraApocalypse.Buff.Debuff.EoA
 
         public override void Update(Player player, ref int buffIndex)
         {
-            if (player.mount._active) {
+            if (player.mount._active)
+            {
                 player.mount._active = false;
             }
 
@@ -30,7 +31,8 @@ namespace TerrariaUltraApocalypse.Buff.Debuff.EoA
             player.noKnockback = true;
             player.teleporting = false;
 
-            if (player.releaseJump) {
+            if (player.releaseJump)
+            {
                 player.wingTime = 0;
             }
         }

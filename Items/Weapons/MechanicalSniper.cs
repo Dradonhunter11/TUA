@@ -39,7 +39,7 @@ namespace TerrariaUltraApocalypse.Items.Weapons
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage,
             ref float knockBack)
         {
-            
+
             if (player.statLife > 25)
             {
                 player.statLife -= 50;
@@ -54,9 +54,9 @@ namespace TerrariaUltraApocalypse.Items.Weapons
             Main.screenPosition.X += Main.zoomX * 10 + Main.mouseX;
             Main.screenPosition.Y += Main.zoomY * 10 + Main.mouseY + player.gravDir;
 
-            
-            
-            
+
+
+
             if ((double)(Vector2.Distance(screenPosition, Main.screenPosition) - Main.player[Main.myPlayer].velocity.Length()) >= 0.25)
             {
                 Main.screenPosition = Vector2.Lerp(screenPosition, Main.screenPosition, 0.5f);
@@ -74,7 +74,8 @@ namespace TerrariaUltraApocalypse.Items.Weapons
                 player.moveSpeed -= 3f;
                 player.stepSpeed -= 3f;
                 bonusHeld = true;
-            } else if (player.HeldItem != item && bonusHeld)
+            }
+            else if (player.HeldItem != item && bonusHeld)
             {
                 item.crit = 50;
                 player.moveSpeed += 3f;

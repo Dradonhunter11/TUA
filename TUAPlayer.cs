@@ -11,6 +11,10 @@ using TerrariaUltraApocalypse.Biomes;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
+using Terraria.GameContent.Achievements;
+using System.Reflection;
+using System.Reflection.Emit;
+using Terraria.ID;
 
 namespace TerrariaUltraApocalypse
 {
@@ -23,7 +27,7 @@ namespace TerrariaUltraApocalypse
 
         public static bool arenaActive = false;
 
-        
+
 
         public override TagCompound Save()
         {
@@ -37,11 +41,15 @@ namespace TerrariaUltraApocalypse
             currentDimension = tag.GetString("dimension");
         }
 
-        public void setWorldPath() {
-            if (currentDimension == "solar") {
+        public void setWorldPath()
+        {
+            if (currentDimension == "solar")
+            {
                 Main.WorldPath = Main.SavePath + "/World/solar";
-                
-            } else if (currentDimension == "overworld") {
+
+            }
+            else if (currentDimension == "overworld")
+            {
                 Main.WorldPath = Main.SavePath + "/World";
             }
         }
@@ -55,14 +63,15 @@ namespace TerrariaUltraApocalypse
                 item.stack = 1;
                 items.Add(item);
             }
-            
+
             base.SetupStartInventory(items);
         }
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
-            if (arenaActive) {
-                
+            if (arenaActive)
+            {
+
                 arenaActive = false;
                 damageSource = PlayerDeathReason.ByCustomReason(player.name + " think he was more powerful than the god of destruction... really?");
             }
@@ -72,6 +81,7 @@ namespace TerrariaUltraApocalypse
 
         public override void UpdateBiomeVisuals()
         {
+
             bool inSolar = currentDimension == "solar";
             player.ManageSpecialBiomeVisuals("TerrariaUltraApocalypse:TUAPlayer", inSolar, player.Center);
         }
@@ -80,5 +90,7 @@ namespace TerrariaUltraApocalypse
         {
             player.respawnTimer = 1;
         }
+
+
     }
 }

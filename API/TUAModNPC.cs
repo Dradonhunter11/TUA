@@ -13,7 +13,8 @@ namespace TerrariaUltraApocalypse.API
     {
         public override bool Autoload(ref string name)
         {
-            if (name == "TUAModNPC") {
+            if (name == "TUAModNPC")
+            {
                 return false;
             }
             return base.Autoload(ref name);
@@ -21,7 +22,8 @@ namespace TerrariaUltraApocalypse.API
 
         public override ModNPC NewInstance(NPC npcClone)
         {
-            if (TUAWorld.UltraMode) {
+            if (TUAWorld.UltraMode)
+            {
                 ultraScaleDifficylty(npcClone);
             }
             return base.NewInstance(npcClone);

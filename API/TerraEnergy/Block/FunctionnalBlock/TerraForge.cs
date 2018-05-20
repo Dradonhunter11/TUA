@@ -32,7 +32,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
             TileObjectData.addTile(Type);
 
             animationFrameHeight = 54;
-            
+
         }
 
         /*
@@ -126,11 +126,12 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
             }
         }*/
 
-        
+
         public override void AnimateTile(ref int frame, ref int frameCounter)
         {
             frameCounter++;
-            if (frameCounter > 15) {
+            if (frameCounter > 15)
+            {
                 currentFrame++;
                 if (currentFrame == 0)
                 {
@@ -140,7 +141,8 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
                 {
                     frame = 1;
                 }
-                else if (currentFrame == 2) {
+                else if (currentFrame == 2)
+                {
                     frame = 2;
                 }
 
@@ -150,7 +152,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
                 }
                 frameCounter = 0;
             }
-            
+
         }
 
         public override void RightClick(int i, int j)
@@ -177,10 +179,10 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
             TerraForgeEntity tfe = (TerraForgeEntity)TileEntity.ByID[index];
 
             tfe.setAnimateState(!tfe.getAnimateState());
-            
+
         }
 
-        
+
     }
 
     class TerraForgeEntity : StorageEntity
@@ -189,27 +191,33 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
         private bool animate = true;
         private int animationTimer = 25;
 
-        public bool getAnimateState() {
+        public bool getAnimateState()
+        {
             return animate;
         }
 
-        public void setAnimateState(bool state) {
+        public void setAnimateState(bool state)
+        {
             animate = state;
         }
 
-        public int getCurrentFrame() {
+        public int getCurrentFrame()
+        {
             return currentFrame;
         }
 
-        public void setCurrentFrame(int frame) {
+        public void setCurrentFrame(int frame)
+        {
             currentFrame = frame;
         }
 
-        public int getTimer() {
+        public int getTimer()
+        {
             return animationTimer;
         }
 
-        public void substractTimer() {
+        public void substractTimer()
+        {
             animationTimer--;
         }
 

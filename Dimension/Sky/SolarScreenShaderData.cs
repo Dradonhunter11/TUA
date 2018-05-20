@@ -10,10 +10,11 @@ namespace TerrariaUltraApocalypse.Dimension.Sky
 {
     class SolarScreenShaderData : ScreenShaderData
     {
+        //soon
         public SolarScreenShaderData(string passName) : base(passName)
         {
         }
 
-        
+
     }
 }

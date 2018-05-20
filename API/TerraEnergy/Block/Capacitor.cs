@@ -22,7 +22,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block
         public ModTileEntity GetCapacitorEntity()
         {
             return mod.GetTileEntity<CapacitorEntity>();
-            
+
         }
 
         public override void SetDefaults()
@@ -52,7 +52,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block
             }
             if (currentSelectedItem.type == mod.ItemType("TerraMeter"))
             {
-                
+
                 StorageEntity se = (StorageEntity)TileEntity.ByID[index];
                 Main.NewText(se.getEnergy().getCurrentEnergyLevel() + " / " + se.getEnergy().getMaxEnergyLevel() + " TE in this Capacitor");
             }
@@ -62,18 +62,22 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block
                 RodOfLinking it = currentSelectedItem.modItem as RodOfLinking;
                 StorageEntity se = it.getEntity();
 
-                if (se == null) {
+                if (se == null)
+                {
                     Main.NewText("The rod of linking is vound to nothing");
                     return;
                 }
 
                 CapacitorEntity ce = (CapacitorEntity)TileEntity.ByID[index];
 
-                if (se.type == mod.TileEntityType("EnergyCollectorEntity")) {
+                if (se.type == mod.TileEntityType("EnergyCollectorEntity"))
+                {
                     EnergyCollectorEntity ece = se as EnergyCollectorEntity;
                     ece.linkToCapacitor(ce);
-                    
-                } else if (se.type == mod.TileEntityType("TerraFurnaceEntity")) {
+
+                }
+                else if (se.type == mod.TileEntityType("TerraFurnaceEntity"))
+                {
                     TerraFurnaceEntity tfe = se as TerraFurnaceEntity;
                     tfe.linkToCapacitor(ce);
                 }
@@ -87,5 +91,5 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block
             mod.GetTileEntity<CapacitorEntity>().Kill(i, j);
         }
     }
-    
+
 }

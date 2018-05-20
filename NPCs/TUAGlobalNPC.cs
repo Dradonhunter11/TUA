@@ -54,11 +54,13 @@ namespace TerrariaUltraApocalypse.NPCs
                 npc.defense = 50;
                 npc.lifeMax *= (TerrariaUltraApocalypse.EoCDeath + 1) * 2;
                 //Main.NewText("<Eye of cthulhu> - You really think we would let the lord dying from you? Well, welcome to the ultra mode muhahaha", Color.White);
-            } else if (npc.type == NPCID.EaterofWorldsHead)
+            }
+            else if (npc.type == NPCID.EaterofWorldsHead)
             {
                 npc.lifeMax = 30000;
 
-            } else if (npc.type == NPCID.EaterofWorldsBody)
+            }
+            else if (npc.type == NPCID.EaterofWorldsBody)
             {
                 npc.lifeMax = 1;
                 npc.dontTakeDamage = true;
@@ -288,7 +290,7 @@ namespace TerrariaUltraApocalypse.NPCs
             else if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail)
             {
                 int dust = 0;
-                
+
                 if (npc.type == NPCID.EaterofWorldsHead /*&& npc.boss && NPC.downedMoonlord*/)
                 {
                     npc.GivenName = "Ultra Eater of the World";
@@ -298,7 +300,8 @@ namespace TerrariaUltraApocalypse.NPCs
                     npc.lifeMax = 1;
                 }
 
-                if (cooldown == 0) {
+                if (cooldown == 0)
+                {
                     mode = Main.rand.Next(0, 4);
                     cooldown = 90000;
                 }
@@ -309,9 +312,11 @@ namespace TerrariaUltraApocalypse.NPCs
             base.AI(npc);
         }
 
-        private void changeEotWDust(int dust, NPC npc) {
-            switch (mode) {
-                case 0 :
+        private void changeEotWDust(int dust, NPC npc)
+        {
+            switch (mode)
+            {
+                case 0:
                     dust = Dust.NewDust(new Vector2(npc.position.X - Main.rand.Next(0, 25), npc.position.Y + Main.rand.Next(0, 10)), 8, 8, mod.DustType("ArrowDust"));
                     Main.dust[dust].velocity *= 0.2f;
                     Main.player[Main.myPlayer].AddBuff(mod.BuffType("ArrowDebuff"), 99999, false);
@@ -319,21 +324,21 @@ namespace TerrariaUltraApocalypse.NPCs
                     Main.player[Main.myPlayer].ClearBuff(mod.BuffType("MeleeDebuff"));
                     Main.player[Main.myPlayer].ClearBuff(mod.BuffType("MagicDebuff"));
                     break;
-                case 1 :
+                case 1:
                     dust = Dust.NewDust(new Vector2(npc.position.X - Main.rand.Next(0, 25), npc.position.Y + Main.rand.Next(0, 10)), 8, 8, mod.DustType("MeleeDust"));
                     Main.player[Main.myPlayer].AddBuff(mod.BuffType("MeleeDebuff"), 99999, false);
                     Main.player[Main.myPlayer].ClearBuff(mod.BuffType("ArrowDebuff"));
                     Main.player[Main.myPlayer].ClearBuff(mod.BuffType("BulletDebuff"));
                     Main.player[Main.myPlayer].ClearBuff(mod.BuffType("MagicDebuff"));
                     break;
-                case 2 :
+                case 2:
                     dust = Dust.NewDust(new Vector2(npc.position.X - Main.rand.Next(0, 25), npc.position.Y + Main.rand.Next(0, 10)), 8, 8, mod.DustType("MagicDust"));
                     Main.player[Main.myPlayer].AddBuff(mod.BuffType("MagicDebuff"), 99999, false);
                     Main.player[Main.myPlayer].ClearBuff(mod.BuffType("ArrowDebuff"));
                     Main.player[Main.myPlayer].ClearBuff(mod.BuffType("BulletDebuff"));
                     Main.player[Main.myPlayer].ClearBuff(mod.BuffType("MeleeDebuff"));
                     break;
-                case 3 :
+                case 3:
                     dust = Dust.NewDust(new Vector2(npc.position.X - Main.rand.Next(0, 25), npc.position.Y + Main.rand.Next(0, 10)), 8, 8, mod.DustType("BulletDust"));
                     Main.player[Main.myPlayer].AddBuff(mod.BuffType("BulletDebuff"), 99999, false);
                     Main.player[Main.myPlayer].ClearBuff(mod.BuffType("ArrowDebuff"));
@@ -396,7 +401,7 @@ namespace TerrariaUltraApocalypse.NPCs
                 npc.life = 1;
                 npc.HealEffect(-1);
             }
-            
+
             return base.CheckDead(npc);
         }
 
@@ -404,7 +409,7 @@ namespace TerrariaUltraApocalypse.NPCs
         {
             if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail && NPC.downedMoonlord)
             {
-                
+
             }
             base.OnHitPlayer(npc, target, damage, crit);
         }
@@ -414,12 +419,14 @@ namespace TerrariaUltraApocalypse.NPCs
             if (/*TerrariaUltraApocalypse.UltraMode &&*/ npc.type == NPCID.EyeofCthulhu && NPC.downedMoonlord)
             {
                 currentDamage += damage;
-                if (currentDamage >= damageCap) {
+                if (currentDamage >= damageCap)
+                {
                     damage = 0;
                 }
             }
 
-            if (npc.type == NPCID.EaterofWorldsHead && NPC.downedMoonlord /*&& TerrariaUltraApocalypse.UltraMode*/) {
+            if (npc.type == NPCID.EaterofWorldsHead && NPC.downedMoonlord /*&& TerrariaUltraApocalypse.UltraMode*/)
+            {
                 if (projectile.arrow && mode == 0)
                 {
                     damage *= 5;
@@ -432,7 +439,8 @@ namespace TerrariaUltraApocalypse.NPCs
                 {
                     damage *= 5;
                 }
-                else if (projectile.magic && mode == 3) {
+                else if (projectile.magic && mode == 3)
+                {
                     damage *= 5;
                 }
             }
@@ -444,13 +452,13 @@ namespace TerrariaUltraApocalypse.NPCs
             if (/*TerrariaUltraApocalypse.UltraMode &&*/ npc.type == NPCID.EyeofCthulhu && NPC.downedMoonlord)
             {
                 currentDamage += (int)damage;
-                damageCap = (int) (1250 * TerrariaUltraApocalypse.EoCDeath * 1.5);
+                damageCap = (int)(1250 * TerrariaUltraApocalypse.EoCDeath * 1.5);
                 if (immunityCooldown != 0 && currentDamage >= damageCap)
                 {
                     damage = 0;
                     crit = false;
                 }
-                
+
             }
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }

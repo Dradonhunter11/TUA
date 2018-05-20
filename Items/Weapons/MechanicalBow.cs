@@ -22,8 +22,8 @@ namespace TerrariaUltraApocalypse.Items.Weapons
             DisplayName.SetDefault("Divine apocalyptic god Bow");
             Tooltip.SetDefault("Forged from the rest of an ancient corrupted god...\nWon't consumme arrow\n");
             Tooltip.AddTranslation(GameCulture.French, "Forger a partir des restes d'un ancien dieu corrompu...\nNe consumme pas de flèche");
-            Tooltip.SetDefault(addUltraTooltip(Tooltip.GetDefault()));
-            Tooltip.AddTranslation(GameCulture.French, addUltraTooltip(Tooltip.GetTranslation(GameCulture.French)));
+            Tooltip.SetDefault(AddUltraTooltip(Tooltip.GetDefault()));
+            Tooltip.AddTranslation(GameCulture.French, AddUltraTooltip(Tooltip.GetTranslation(GameCulture.French)));
         }
 
         public override void SetDefaults()
@@ -65,7 +65,8 @@ namespace TerrariaUltraApocalypse.Items.Weapons
             return false;
         }
 
-        public void extendsAI() {
+        public void extendsAI()
+        {
 
         }
 
@@ -74,7 +75,7 @@ namespace TerrariaUltraApocalypse.Items.Weapons
             manipulateUltraProperty(false);
         }
 
-        
+
 
         public override void Update(ref float gravity, ref float maxFallSpeed)
         {

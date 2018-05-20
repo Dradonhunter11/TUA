@@ -30,7 +30,8 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
     class BasicTECapacitorEntity : CapacitorEntity
     {
-        public BasicTECapacitorEntity() {
+        public BasicTECapacitorEntity()
+        {
             maxEnergy = 1000000;
             maxTransferRate = 50;
         }
