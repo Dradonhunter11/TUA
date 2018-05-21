@@ -81,10 +81,10 @@ namespace TerrariaUltraApocalypse.Items.Dimension
             WorldFile.saveWorld(false, true);
             WorldGen.clearWorld();
 
-            WorldGen.generateWorld(-1);
+	        SolarWorldGen.GenerateSolarWorld(-1);
             itemUseCooldown = 500;
 
-            TUAWorld.solarWorldGen(mod);
+            //TUAWorld.solarWorldGen(mod);
             WorldGen.EveryTileFrame();
         }
 
