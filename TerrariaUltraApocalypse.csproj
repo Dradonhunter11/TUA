@@ -59,7 +59,6 @@
     <Compile Include="API\TerraEnergy\UI\FurnaceUI.cs" />
     <Compile Include="API\TUAModItem.cs" />
     <Compile Include="API\TUAModNPC.cs" />
-    <Compile Include="Biomes\Meteoridon.cs" />
     <Compile Include="Buff\Debuff\EoA\NoMountDebuff.cs" />
     <Compile Include="Buff\Debuff\EoC\EoCNerf.cs" />
     <Compile Include="Buff\Debuff\EotW\ArrowDebuff.cs" />
@@ -90,6 +89,7 @@
     <Compile Include="Projectiles\EoA\EoALaserWall.cs" />
     <Compile Include="Projectiles\GhosterBullet.cs" />
     <Compile Include="Projectiles\GodExplosiveArrow.cs" />
+    <Compile Include="SolarWorldGen.cs" />
     <Compile Include="Tiles\ApocalypseDirt.cs" />
     <Compile Include="Tiles\EoA\Arena.cs" />
     <Compile Include="Projectiles\EoA\FireBall.cs" />
@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\UI\" />
+    <Folder Include="Biomes\" />
     <Folder Include="Items\Armor\" />
     <Folder Include="Items\Block\PillarBiomeBlock\" />
     <Folder Include="NPCs\Dimension\Solar\" />
@@ -154,6 +155,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"D:\steam game\steamapps\steamapps\common\Terraria\Terraria.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>"C:\Terraria Decompile\Terraria 1.3.5.2 (Steam)\tModLoaderServerDebug.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

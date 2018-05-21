@@ -18,31 +18,31 @@ namespace TerrariaUltraApocalypse
 	{
 		public static List<GenPass> GetPasses(WorldGenerator generator)
 		{
-			FieldInfo info = typeof(WorldGenerator).GetRuntimeField("_passes");
+			FieldInfo info = typeof(WorldGenerator).GetField("_passes", BindingFlags.Instance | BindingFlags.NonPublic);
 			return (List<GenPass>)info.GetValue(generator);
 		}
 
 		public static float GetTotalLoadWeight(WorldGenerator generator)
 		{
-			FieldInfo info = typeof(WorldGenerator).GetRuntimeField("_totalLoadWeight");
+			FieldInfo info = typeof(WorldGenerator).GetField("_totalLoadWeight", BindingFlags.Instance | BindingFlags.NonPublic);
 			return (float)info.GetValue(generator);
 		}
 
 		public static void SetTotalLoadWeight(WorldGenerator generator, float weight)
 		{
-			FieldInfo info = typeof(WorldGenerator).GetRuntimeField("_totalLoadWeight");
+			FieldInfo info = typeof(WorldGenerator).GetField("_totalLoadWeight", BindingFlags.Instance | BindingFlags.NonPublic);
 			info.SetValue(generator, weight);
 		}
 
 		public static WorldGenerator _generator
 		{
 			get {
-				FieldInfo info = typeof(WorldGen).GetRuntimeField("_generator");
+				FieldInfo info = typeof(WorldGen).GetField("_generator", BindingFlags.NonPublic | BindingFlags.Static);
 				return (WorldGenerator)info.GetValue(null);
 			}
 			set
 			{
-				FieldInfo info = typeof(WorldGen).GetRuntimeField("_generator");
+				FieldInfo info = typeof(WorldGen).GetField("_generator", BindingFlags.NonPublic | BindingFlags.Static);
 				info.SetValue(null, value);
 			}
 		}
