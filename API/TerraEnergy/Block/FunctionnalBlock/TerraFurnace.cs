@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -197,10 +198,10 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
         private void updateItem()
         {
-            if (progression >= currentRecipe.getCookTime())
+            if (progression >= currentRecipe.getCookTime() && energy.consumeEnergy(50) == 50)
             {
                 inventory[0].stack -= currentRecipe.getIngredientStack();
-
+                
                 inventory[1] = currentRecipe.getResult();
                 currentRecipe = null;
                 progression = 0;

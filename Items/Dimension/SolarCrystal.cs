@@ -56,14 +56,12 @@ namespace TerrariaUltraApocalypse.Items.Dimension
                         info.SetValue(Main.ActiveWorldFileData, Main.SavePath + "/World/Solar/" + Main.worldName + ".wld");
                         generateDimension();
                         p.player.Spawn();
-
                         return true;
                     }
 
                     info.SetValue(Main.ActiveWorldFileData, Main.SavePath + "/World/Solar/" + Main.worldName + ".wld");
                     itemUseCooldown = 500;
                     WorldGen.EveryTileFrame();
-                    WorldFile.saveWorld(false, true);
                     WorldGen.playWorld();
                     return true;
                 }
