@@ -67,6 +67,7 @@
     <Compile Include="Buff\Debuff\EotW\MeleeDebuff.cs" />
     <Compile Include="Dimension\DimGlobalNPC.cs" />
     <Compile Include="Dimension\Sky\SolarScreenShaderData.cs" />
+    <Compile Include="Dimension\World\SolarWorld.cs" />
     <Compile Include="Dusts\EotW\ArrowDust.cs" />
     <Compile Include="Dusts\EotW\BulletDust.cs" />
     <Compile Include="Dusts\EotW\MagicDust.cs" />
@@ -89,7 +90,6 @@
     <Compile Include="Projectiles\EoA\EoALaserWall.cs" />
     <Compile Include="Projectiles\GhosterBullet.cs" />
     <Compile Include="Projectiles\GodExplosiveArrow.cs" />
-    <Compile Include="SolarWorldGen.cs" />
     <Compile Include="Tiles\ApocalypseDirt.cs" />
     <Compile Include="Tiles\EoA\Arena.cs" />
     <Compile Include="Projectiles\EoA\FireBall.cs" />
@@ -109,10 +109,16 @@
     <Compile Include="Items\SetNight.cs" />
     <Compile Include="Items\EoA\Spawner.cs" />
     <Compile Include="NPCs\EoA\Eye_of_Apocalypse.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="TerrariaUltraApocalypse.cs" />
     <Compile Include="World\OreSpread.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="BiomeLibrary">
+      <HintPath>..\BiomeLibrary\bin\Debug\BiomeLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.dll</HintPath>
@@ -129,32 +135,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Xact\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Xact.dll</HintPath>
     </Reference>
-    <Reference Include="ReLogic">
-      <HintPath>..\..\..\ModLoader\References\ReLogic.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="Terraria">
-      <HintPath>..\..\..\..\..\..\..\Terraria\Terraria tModLoader 1.3.5.3\Terraria.exe</HintPath>
-    </Reference>
     <Reference Include="Tmod">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\Tmod.exe</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\UI\" />
-    <Folder Include="Biomes\" />
+    <Folder Include="Dimension\Item\" />
     <Folder Include="Items\Armor\" />
     <Folder Include="Items\Block\PillarBiomeBlock\" />
     <Folder Include="NPCs\Dimension\Solar\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BiomeLibrary\BiomeLibrary.csproj">
-      <Project>{db077e76-d4c4-4671-9ea5-ab4a466b1d94}</Project>
-      <Name>BiomeLibrary</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Terraria Decompile\Terraria 1.3.5.2 (Steam)\tModLoaderServerDebug.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>"D:\steam game\steamapps\steamapps\common\Terraria\Terraria.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
 </Project>
