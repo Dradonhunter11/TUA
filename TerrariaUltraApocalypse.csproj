@@ -59,7 +59,6 @@
     <Compile Include="API\TerraEnergy\UI\FurnaceUI.cs" />
     <Compile Include="API\TUAModItem.cs" />
     <Compile Include="API\TUAModNPC.cs" />
-    <Compile Include="Biomes\Meteoridon.cs" />
     <Compile Include="Buff\Debuff\EoA\NoMountDebuff.cs" />
     <Compile Include="Buff\Debuff\EoC\EoCNerf.cs" />
     <Compile Include="Buff\Debuff\EotW\ArrowDebuff.cs" />
@@ -68,6 +67,7 @@
     <Compile Include="Buff\Debuff\EotW\MeleeDebuff.cs" />
     <Compile Include="Dimension\DimGlobalNPC.cs" />
     <Compile Include="Dimension\Sky\SolarScreenShaderData.cs" />
+    <Compile Include="Dimension\World\SolarWorld.cs" />
     <Compile Include="Dusts\EotW\ArrowDust.cs" />
     <Compile Include="Dusts\EotW\BulletDust.cs" />
     <Compile Include="Dusts\EotW\MagicDust.cs" />
@@ -136,16 +136,13 @@
       <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Xact\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Xact.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="Terraria, Version=1.3.5.1, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Terraria.exe</HintPath>
-    </Reference>
     <Reference Include="Tmod">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\Tmod.exe</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\UI\" />
+    <Folder Include="Dimension\Item\" />
     <Folder Include="Items\Armor\" />
     <Folder Include="Items\Block\PillarBiomeBlock\" />
     <Folder Include="NPCs\Dimension\Solar\" />

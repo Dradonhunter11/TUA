@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using BiomeLibrary;
 using Terraria.ModLoader;
 using Terraria;
-using TerrariaUltraApocalypse.Biomes;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
