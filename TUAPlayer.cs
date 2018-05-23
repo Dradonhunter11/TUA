@@ -14,6 +14,7 @@ using Terraria.GameContent.Achievements;
 using System.Reflection;
 using System.Reflection.Emit;
 using Terraria.ID;
+using Dimlibs;
 
 namespace TerrariaUltraApocalypse
 {
@@ -22,32 +23,17 @@ namespace TerrariaUltraApocalypse
         public static bool meteoridonZone = false;
         public static bool blueSoul = false;
         public static Vector2 arenaCenter;
-        public string currentDimension = "overworld";
-
         public static bool arenaActive = false;
-
-
-
-        public override TagCompound Save()
-        {
-            TagCompound tag = new TagCompound();
-            tag.Add("dimension", currentDimension);
-            return tag;
-        }
-
-        public override void Load(TagCompound tag)
-        {
-            currentDimension = tag.GetString("dimension");
-        }
 
         public void setWorldPath()
         {
-            if (currentDimension == "solar")
+
+            if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
             {
                 Main.WorldPath = Main.SavePath + "/World/solar";
 
             }
-            else if (currentDimension == "overworld")
+            else if (Dimlibs.Dimlibs.getPlayerDim() == "overworld")
             {
                 Main.WorldPath = Main.SavePath + "/World";
             }
@@ -80,9 +66,11 @@ namespace TerrariaUltraApocalypse
 
         public override void UpdateBiomeVisuals()
         {
-
-            bool inSolar = currentDimension == "solar";
-            player.ManageSpecialBiomeVisuals("TerrariaUltraApocalypse:TUAPlayer", inSolar, player.Center);
+            if (Dimlibs.Dimlibs.getPlayerDim() != null) {
+                bool inSolar = Dimlibs.Dimlibs.getPlayerDim() == "solar";
+                player.ManageSpecialBiomeVisuals("TerrariaUltraApocalypse:TUAPlayer", inSolar, player.Center);
+            }
+            
         }
 
         public override void UpdateDead()

@@ -15,6 +15,7 @@ using Terraria.ModLoader.IO;
 using Terraria.World.Generation;
 using TerrariaUltraApocalypse.Dimension;
 using Terraria.ID;
+using Dimlibs;
 
 namespace TerrariaUltraApocalypse
 {
@@ -52,7 +53,7 @@ namespace TerrariaUltraApocalypse
 
         private void RegisterSolar()
         {
-            Func<bool> c = () => Main.LocalPlayer.GetModPlayer<TUAPlayer>().currentDimension == "solar";
+            Func<bool> c = () => Main.LocalPlayer.GetModPlayer<DimPlayer>().getCurrentDimension() == "solar";
             BiomeLibs.RegisterNewBiome("Solar", 200, mod);
             BiomeLibs.AddBlockInBiome("Solar", new String[] { "SolarDirt", "SolarRock" });
             BiomeLibs.SetCondition("solar", c);

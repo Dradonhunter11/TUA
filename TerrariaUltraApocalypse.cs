@@ -14,6 +14,7 @@ using System.Reflection;
 using Terraria.Graphics.Effects;
 using TerrariaUltraApocalypse.Dimension.Sky;
 using Terraria.Localization;
+using Dimlibs;
 
 namespace TerrariaUltraApocalypse
 {
@@ -150,7 +151,7 @@ namespace TerrariaUltraApocalypse
 
             if (Main.myPlayer != -1 && Main.gameMenu && Main.LocalPlayer.name != "")
             {
-                TUAPlayer p = Main.player[Main.myPlayer].GetModPlayer<TUAPlayer>();
+                DimPlayer p = Main.player[Main.myPlayer].GetModPlayer<DimPlayer>();
                 FieldInfo info = typeof(LanguageManager).GetField("_localizedTexts", BindingFlags.Instance | BindingFlags.NonPublic);
                 Dictionary<string, LocalizedText> dictionary = info.GetValue(LanguageManager.Instance) as Dictionary<string, LocalizedText>;
 
@@ -162,7 +163,7 @@ namespace TerrariaUltraApocalypse
             }
             if (Main.myPlayer != -1 && !Main.gameMenu && Main.LocalPlayer.active)
             {
-                TUAPlayer p = Main.LocalPlayer.GetModPlayer<TUAPlayer>(this);
+                DimPlayer p = Main.LocalPlayer.GetModPlayer<DimPlayer>(this);
                 if (BiomeLibs.InBiome("Meteoridon"))
                 {
                     music = MusicID.TheHallow;
@@ -175,7 +176,7 @@ namespace TerrariaUltraApocalypse
                 {
                     music = MusicID.LunarBoss;
                 }
-                else if (p.currentDimension == "solar")
+                else if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
                 {
                     music = MusicID.TheTowers;
                     Main.musicBox = 36;
@@ -185,35 +186,34 @@ namespace TerrariaUltraApocalypse
 
         }
 
-        private static void setDimensionPath(TUAPlayer p, Dictionary<string, LocalizedText> dictionary, FieldInfo textInfo)
+        private static void setDimensionPath(DimPlayer p, Dictionary<string, LocalizedText> dictionary, FieldInfo textInfo)
         {
-            if (p != null)
+
+            if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
             {
-                if (p.currentDimension == "solar")
+                Main.WorldPath = Main.SavePath + "/World/solar";
+                Main.LocalPlayer.zone3[4] = false;
+
+                if (Main.menuMode == 16)
                 {
-                    Main.WorldPath = Main.SavePath + "/World/solar";
-                    Main.LocalPlayer.zone3[4] = false;
-
-                    if (Main.menuMode == 16)
-                    {
-                        Main.menuMode = 6;
-                    }
-
-                    if (Main.menuMode == 6)
-                    {
-                        textInfo.SetValue(dictionary["UI.New"], "Option blocked");
-                        textInfo.SetValue(dictionary["UI.SelectWorld"], "Dimension : Solar");
-                    }
-
-
+                    Main.menuMode = 6;
                 }
-                else
-                if (p.currentDimension == "overworld")
+
+                if (Main.menuMode == 6)
                 {
-
-                    Main.WorldPath = Main.SavePath + "/World";
+                    textInfo.SetValue(dictionary["UI.New"], "Option blocked");
+                    textInfo.SetValue(dictionary["UI.SelectWorld"], "Dimension : Solar");
                 }
+
+
             }
+            else
+            if (Dimlibs.Dimlibs.getPlayerDim() == "overworld")
+            {
+
+                Main.WorldPath = Main.SavePath + "/World";
+            }
+            
         }
 
         private static void resetMenu(Dictionary<string, LocalizedText> dictionary, FieldInfo textInfo)
