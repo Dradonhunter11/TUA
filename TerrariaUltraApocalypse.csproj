@@ -35,6 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Achievement\EnterHardmode.cs" />
+    <Compile Include="Achievement\ItBegin.cs" />
+    <Compile Include="API\Achievements\AchievementManager.cs" />
+    <Compile Include="API\Achievements\AchievementPlayer.cs" />
+    <Compile Include="API\Achievements\AchievementTemplate\ModAchievement.cs" />
     <Compile Include="API\TerraEnergy\Block\Capacitor.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\BasicTECapacitor.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\EnergyCollector.cs" />
@@ -153,6 +158,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Program Files (x86)\Steam\steamapps\common\Terraria\Tmod.exe" -build "$(ProjectDir)" -eac "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>"D:\steam game\steamapps\steamapps\common\Terraria\Terraria.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

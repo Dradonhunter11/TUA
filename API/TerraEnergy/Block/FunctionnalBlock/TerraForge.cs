@@ -35,6 +35,66 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
         }
 
+        
+
+
+        public override void AnimateTile(ref int frame, ref int frameCounter)
+        {
+            frameCounter++;
+            if (frameCounter > 15)
+            {
+                currentFrame++;
+                if (currentFrame == 0)
+                {
+                    frame = 0;
+                }
+                else if (currentFrame == 1 || currentFrame == 3)
+                {
+                    frame = 1;
+                }
+                else if (currentFrame == 2)
+                {
+                    frame = 2;
+                }
+
+                if (currentFrame == 3)
+                {
+                    currentFrame = -1;
+                }
+                frameCounter = 0;
+            }
+
+        }
+
+        public override void RightClick(int i, int j)
+        {
+            Player player = Main.player[Main.myPlayer];
+            Item currentSelectedItem = player.inventory[player.selectedItem];
+
+            Tile tile = Main.tile[i, j];
+
+            int left = i - (tile.frameX / 18);
+            int top = j - (tile.frameY / 18);
+
+            TEx = left;
+            TEy = top;
+
+            int index = mod.GetTileEntity<TerraForgeEntity>().Find(left, top);
+
+            if (index == -1)
+            {
+                Main.NewText("false");
+                return;
+            }
+
+            TerraForgeEntity tfe = (TerraForgeEntity)TileEntity.ByID[index];
+
+            tfe.setAnimateState(!tfe.getAnimateState());
+
+        }
+
+
+        //obselete
         /*
         public override void AnimateIndividualTile(int type, int i, int j, ref int frameXOffset, ref int frameYOffset)
         {
@@ -125,64 +185,6 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
                 
             }
         }*/
-
-
-        public override void AnimateTile(ref int frame, ref int frameCounter)
-        {
-            frameCounter++;
-            if (frameCounter > 15)
-            {
-                currentFrame++;
-                if (currentFrame == 0)
-                {
-                    frame = 0;
-                }
-                else if (currentFrame == 1 || currentFrame == 3)
-                {
-                    frame = 1;
-                }
-                else if (currentFrame == 2)
-                {
-                    frame = 2;
-                }
-
-                if (currentFrame == 3)
-                {
-                    currentFrame = -1;
-                }
-                frameCounter = 0;
-            }
-
-        }
-
-        public override void RightClick(int i, int j)
-        {
-            Player player = Main.player[Main.myPlayer];
-            Item currentSelectedItem = player.inventory[player.selectedItem];
-
-            Tile tile = Main.tile[i, j];
-
-            int left = i - (tile.frameX / 18);
-            int top = j - (tile.frameY / 18);
-
-            TEx = left;
-            TEy = top;
-
-            int index = mod.GetTileEntity<TerraForgeEntity>().Find(left, top);
-
-            if (index == -1)
-            {
-                Main.NewText("false");
-                return;
-            }
-
-            TerraForgeEntity tfe = (TerraForgeEntity)TileEntity.ByID[index];
-
-            tfe.setAnimateState(!tfe.getAnimateState());
-
-        }
-
-
     }
 
     class TerraForgeEntity : StorageEntity

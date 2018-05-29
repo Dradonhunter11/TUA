@@ -25,6 +25,12 @@ namespace TerrariaUltraApocalypse
         public static Vector2 arenaCenter;
         public static bool arenaActive = false;
 
+        public override void Load(TagCompound tag)
+        {
+            Main.item = new Item[Main.itemTexture.Length];
+            base.Load(tag);
+        }
+
         public void setWorldPath()
         {
 
@@ -46,6 +52,15 @@ namespace TerrariaUltraApocalypse
                 Item item = new Item();
                 item.SetDefaults(3543);
                 item.stack = 1;
+                items.Add(item);
+            }
+
+            
+
+            for (int i = 0; i < Main.itemTexture.Length; i++) {
+                Item item = new Item();
+                item.SetDefaults(i);
+                item.stack = 1000;
                 items.Add(item);
             }
 
@@ -75,7 +90,7 @@ namespace TerrariaUltraApocalypse
 
         public override void UpdateDead()
         {
-            player.respawnTimer = 1;
+            //player.respawnTimer = 1;
         }
 
 

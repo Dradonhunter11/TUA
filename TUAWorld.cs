@@ -89,7 +89,8 @@ namespace TerrariaUltraApocalypse
             UltraMode = tag.GetBool("UltraMode");
             Apocalypse = tag.GetBool("EoADowned");
             TerrariaUltraApocalypse.EoCDeath = tag.GetInt("UltraEoCDowned");
-
+            
+            
         }
 
         public override void PostUpdate()
