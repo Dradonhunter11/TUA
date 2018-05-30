@@ -52,7 +52,7 @@ namespace TerrariaUltraApocalypse.NPCs
             {
                 npc.damage = 50;
                 npc.defense = 50;
-                npc.lifeMax *= (TerrariaUltraApocalypse.EoCDeath + 1) * 2;
+                npc.lifeMax *= (TUAWorld.EoCDeath + 1) * 2;
                 //Main.NewText("<Eye of cthulhu> - You really think we would let the lord dying from you? Well, welcome to the ultra mode muhahaha", Color.White);
             }
             else if (npc.type == NPCID.EaterofWorldsHead)
@@ -389,7 +389,7 @@ namespace TerrariaUltraApocalypse.NPCs
                     spawnClone1 = false;
                     spawnClone2 = false;
                     spawnClone3 = false;
-                    TerrariaUltraApocalypse.EoCDeath++;
+                    TUAWorld.EoCDeath++;
                     p.ClearBuff(mod.BuffType("EoCNerf"));
                     return true;
                 }
@@ -452,7 +452,7 @@ namespace TerrariaUltraApocalypse.NPCs
             if (/*TerrariaUltraApocalypse.UltraMode &&*/ npc.type == NPCID.EyeofCthulhu && NPC.downedMoonlord)
             {
                 currentDamage += (int)damage;
-                damageCap = (int)(1250 * TerrariaUltraApocalypse.EoCDeath * 1.5);
+                damageCap = (int)(1250 * TUAWorld.EoCDeath * 1.5);
                 if (immunityCooldown != 0 && currentDamage >= damageCap)
                 {
                     damage = 0;

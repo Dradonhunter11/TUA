@@ -37,9 +37,18 @@
   <ItemGroup>
     <Compile Include="Achievement\EnterHardmode.cs" />
     <Compile Include="Achievement\ItBegin.cs" />
+    <Compile Include="Achievement\UltraEoC.cs" />
+    <Compile Include="Achievement\YouMadeADoor.cs" />
     <Compile Include="API\Achievements\AchievementManager.cs" />
     <Compile Include="API\Achievements\AchievementPlayer.cs" />
     <Compile Include="API\Achievements\AchievementTemplate\ModAchievement.cs" />
+    <Compile Include="API\Achievements\AchievementUIComponent\AchievementSlot.cs" />
+    <Compile Include="API\Achievements\AchievementUIComponent\AchievementSlotElement\AchievementDescriptionText.cs" />
+    <Compile Include="API\Achievements\AchievementUIComponent\AchievementSlotElement\AchievementPic.cs" />
+    <Compile Include="API\Achievements\AchievementUIComponent\AchievementSlotElement\AchievementNameText.cs" />
+    <Compile Include="API\Achievements\AchievementUIComponent\AchievementSlotElement\AchievementReward.cs" />
+    <Compile Include="API\Achievements\AchievementUIComponent\AchievementUI.cs" />
+    <Compile Include="API\Achievements\AchievementUIComponent\AchivementUIList.cs" />
     <Compile Include="API\TerraEnergy\Block\Capacitor.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\BasicTECapacitor.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\EnergyCollector.cs" />
@@ -126,6 +135,9 @@
     </Reference>
     <Reference Include="Dimlibs">
       <HintPath>..\Dimlibs\bin\Debug\Dimlibs.dll</HintPath>
+    </Reference>
+    <Reference Include="Libraries.ReLogic.ReLogic">
+      <HintPath>..\..\..\..\..\..\Terraria Full source\code\Terraria\Libraries.ReLogic.ReLogic.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>

@@ -15,6 +15,8 @@ using System.Reflection;
 using System.Reflection.Emit;
 using Terraria.ID;
 using Dimlibs;
+using Terraria.GameInput;
+using TerrariaUltraApocalypse.API.Achievements.AchievementUIComponent;
 
 namespace TerrariaUltraApocalypse
 {
@@ -93,6 +95,12 @@ namespace TerrariaUltraApocalypse
             //player.respawnTimer = 1;
         }
 
-
+        public override void ProcessTriggers(TriggersSet triggersSet)
+        {
+            if (TerrariaUltraApocalypse.openAchievementMenu.JustReleased)
+            {
+                AchievementUI.visible = true;
+            }
+        }
     }
 }

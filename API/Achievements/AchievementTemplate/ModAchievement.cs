@@ -17,6 +17,8 @@ namespace TerrariaUltraApocalypse.API.Achievements.AchievementTemplate
         public bool done;
         public string name = "default";
         public string description = "Undefined";
+        public string rewardDesc = "";
+
         public Func<bool> condition;
         public Mod mod;
         public Texture2D texture;

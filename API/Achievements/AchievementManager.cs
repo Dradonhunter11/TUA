@@ -53,6 +53,9 @@ namespace TerrariaUltraApocalypse.API.Achievements
             }
         }
 
-        
+        public List<ModAchievement> getList()
+        {
+            return achievementsList;
+        }
     }
 }

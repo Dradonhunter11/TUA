@@ -15,7 +15,9 @@ namespace TerrariaUltraApocalypse.Achievement
         public override void setDefault()
         {
             name = "It's only the beginning...";
-            description = "Defeat the moon lord and trigger the ultra mode";
+            description = "Defeat the Moon Lord  and trigger Ultra Mode";
+            rewardDesc = "[i:" + ModLoader.GetMod("TerrariaUltraApocalypse").ItemType("SolarCrystal") + "]";
+
             condition = () => NPC.downedMoonlord;
         }
 

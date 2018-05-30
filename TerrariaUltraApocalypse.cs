@@ -19,6 +19,7 @@ using System.Runtime.CompilerServices;
 using System.IO;
 using TerrariaUltraApocalypse.API.Achievements;
 using TerrariaUltraApocalypse.Achievement;
+using TerrariaUltraApocalypse.API.Achievements.AchievementUIComponent;
 
 namespace TerrariaUltraApocalypse
 {
@@ -29,7 +30,7 @@ namespace TerrariaUltraApocalypse
     {
 
 
-        public static int EoCDeath;
+        
 
         public static bool EoCUltraActivated = false;
         private Type t2d = typeof(Texture2D);
@@ -37,9 +38,12 @@ namespace TerrariaUltraApocalypse
         private String savePath, worldPath, playerPath;
         private Texture2D logoOriginal;
         public static Texture2D[] originalMoon;
-        public Texture2D texture;
         public static FurnaceUI furnaceUI;
         public UserInterface furnaceInterface;
+
+        public static ModHotKey openAchievementMenu;
+        public static AchievementUI achievementUI;
+        public UserInterface achievementInterface;
 
         public TerrariaUltraApocalypse()
         {
@@ -98,8 +102,8 @@ namespace TerrariaUltraApocalypse
 
         public override void Load()
         {
-            
-            
+            openAchievementMenu = RegisterHotKey("Open ModAchivement Menu", "O");
+
             savePath = Main.SavePath;
             worldPath = Main.WorldPath;
             playerPath = Main.PlayerPath;
@@ -122,19 +126,27 @@ namespace TerrariaUltraApocalypse
             furnaceInterface = new UserInterface();
             furnaceInterface.SetState(furnaceUI);
 
+            loadAchievement();
+
+            achievementUI = new AchievementUI();
+            achievementUI.Activate();
+            achievementInterface = new UserInterface();
+            achievementInterface.SetState(achievementUI);
+
             Filters.Scene["TerrariaUltraApocalypse:TUAPlayer"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
             SkyManager.Instance["TerrariaUltraApocalypse:TUAPlayer"] = new TUACustomSky();
-
-            loadAchievement();
         }
 
         public void loadAchievement()
         {
             AchievementManager.GetInstance().AddAchievement(new EnterHardmode());
             AchievementManager.GetInstance().AddAchievement(new ItBegin());
+            AchievementManager.GetInstance().AddAchievement(new UltraEoC());
+            AchievementManager.GetInstance().AddAchievement(new YouMadeADoor());
         }
 
-        public void test([CallerFilePath] String classPath = "") {
+        public void test([CallerFilePath] String classPath = "")
+        {
             ErrorLogger.Log(classPath);
             String path = Path.GetPathRoot(classPath);
             ErrorLogger.Log(path);
@@ -155,6 +167,10 @@ namespace TerrariaUltraApocalypse
             if (furnaceInterface != null && FurnaceUI.visible)
             {
                 furnaceInterface.Update(gameTime);
+            }
+            if (achievementInterface != null && AchievementUI.visible)
+            {
+                achievementInterface.Update(gameTime);
             }
         }
 
@@ -207,8 +223,8 @@ namespace TerrariaUltraApocalypse
 
                 if (Main.menuMode == 6)
                 {
-                    textInfo.SetValue(dictionary["UI.New"], "Option blocked");
-                    textInfo.SetValue(dictionary["UI.SelectWorld"], "Dimension : Solar");
+                    //textInfo.SetValue(dictionary["UI.New"], "Option blocked");
+                    //textInfo.SetValue(dictionary["UI.SelectWorld"], "Dimension : Solar");
                 }
             }
         }
@@ -239,6 +255,19 @@ namespace TerrariaUltraApocalypse
                     },
                     InterfaceScaleType.UI)
                 );
+
+                layers.Insert(MouseTextIndex, new LegacyGameInterfaceLayer(
+                    "TUA : Mod Achievement List",
+                    delegate
+                    {
+                        if (AchievementUI.visible)
+                        {
+                            achievementUI.Draw(Main.spriteBatch);
+                        }
+                        return true;
+                    },
+                    InterfaceScaleType.UI)
+                );
             }
         }
 
@@ -247,8 +276,8 @@ namespace TerrariaUltraApocalypse
             Mod bossChecklist = ModLoader.GetMod("BossChecklist");
             if (bossChecklist != null)
             {
-                bossChecklist.Call("AddBossWithInfo", "Eye of cthulhu (Ultra Version)", 16.0f, (Func<bool>)(() => TerrariaUltraApocalypse.EoCDeath >= 1), "Use a [i:" + ItemID.SuspiciousLookingEye + "] at night after Moon lord has been defeated");
-                bossChecklist.Call("AddBossWithInfo", "Eye of Apocalypse", 16.1f, (Func<bool>)(() => TUAWorld.UltraMode), "Use a [i:" + ItemType("Spawner") + "] after --1sing Ay. 0F C1^lh> in ^1tra and murder it, if you can...");
+                bossChecklist.Call("AddBossWithInfo", "Eye of cthulhu (Ultra Version)", 16.0f, (Func<bool>)(() => TUAWorld.EoCDeath >= 1), "Use a [i:" + ItemID.SuspiciousLookingEye + "] at night after Moon lord has been defeated");
+                bossChecklist.Call("AddBossWithInfo", "Eye of Apocalypse - God of destruction", 16.1f, (Func<bool>)(() => TUAWorld.UltraMode), "Use a [i:" + ItemType("Spawner") + "] after --1sing Ay. 0F C1^lh> in ^1tra and murder it, if you can...");
             }
         }
     }
