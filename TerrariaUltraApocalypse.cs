@@ -14,6 +14,12 @@ using System.Reflection;
 using Terraria.Graphics.Effects;
 using TerrariaUltraApocalypse.Dimension.Sky;
 using Terraria.Localization;
+using Dimlibs;
+using System.Runtime.CompilerServices;
+using System.IO;
+using TerrariaUltraApocalypse.API.Achievements;
+using TerrariaUltraApocalypse.Achievement;
+using TerrariaUltraApocalypse.API.Achievements.AchievementUIComponent;
 
 namespace TerrariaUltraApocalypse
 {
@@ -23,8 +29,8 @@ namespace TerrariaUltraApocalypse
     class TerrariaUltraApocalypse : Mod
     {
 
-
-        public static int EoCDeath;
+        internal static bool devMode = true;
+        
 
         public static bool EoCUltraActivated = false;
         private Type t2d = typeof(Texture2D);
@@ -34,6 +40,10 @@ namespace TerrariaUltraApocalypse
         public static Texture2D[] originalMoon;
         public static FurnaceUI furnaceUI;
         public UserInterface furnaceInterface;
+
+        public static ModHotKey openAchievementMenu;
+        public static AchievementUI achievementUI;
+        public UserInterface achievementInterface;
 
         public TerrariaUltraApocalypse()
         {
@@ -92,6 +102,7 @@ namespace TerrariaUltraApocalypse
 
         public override void Load()
         {
+            openAchievementMenu = RegisterHotKey("Open ModAchievement Menu", "O");
 
             savePath = Main.SavePath;
             worldPath = Main.WorldPath;
@@ -115,13 +126,31 @@ namespace TerrariaUltraApocalypse
             furnaceInterface = new UserInterface();
             furnaceInterface.SetState(furnaceUI);
 
+            loadAchievement();
+
+            achievementUI = new AchievementUI();
+            achievementUI.Activate();
+            achievementInterface = new UserInterface();
+            achievementInterface.SetState(achievementUI);
+
             Filters.Scene["TerrariaUltraApocalypse:TUAPlayer"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
             SkyManager.Instance["TerrariaUltraApocalypse:TUAPlayer"] = new TUACustomSky();
+        }
 
-            //FieldInfo info2 = typeof(Main).GetField("Windows", BindingFlags.Instance | BindingFlags.NonPublic);
-            //info2.SetValue(Main.instance.Window, "Terraria in terraria in terraria in terraria in terraria in terraria in terraria in terraria in terraria in terraria ");
+        public void loadAchievement()
+        {
+            AchievementManager.GetInstance().AddAchievement(new EnterHardmode());
+            AchievementManager.GetInstance().AddAchievement(new ItBegin());
+            AchievementManager.GetInstance().AddAchievement(new UltraEoC());
+            AchievementManager.GetInstance().AddAchievement(new YouMadeADoor());
+            AchievementManager.GetInstance().AddAchievement(new DradonFailed());
+        }
 
-
+        public void test([CallerFilePath] String classPath = "")
+        {
+            ErrorLogger.Log(classPath);
+            String path = Path.GetPathRoot(classPath);
+            ErrorLogger.Log(path);
         }
 
         public override void Unload()
@@ -140,29 +169,27 @@ namespace TerrariaUltraApocalypse
             {
                 furnaceInterface.Update(gameTime);
             }
+            if (achievementInterface != null && AchievementUI.visible)
+            {
+                achievementInterface.Update(gameTime);
+            }
         }
 
-
-
-        public override void UpdateMusic(ref int music)
+        public override void UpdateMusic(ref int music, ref MusicPriority musicPriority)
         {
-
-
             if (Main.myPlayer != -1 && Main.gameMenu && Main.LocalPlayer.name != "")
             {
-                TUAPlayer p = Main.player[Main.myPlayer].GetModPlayer<TUAPlayer>();
+                DimPlayer p = Main.player[Main.myPlayer].GetModPlayer<DimPlayer>();
                 FieldInfo info = typeof(LanguageManager).GetField("_localizedTexts", BindingFlags.Instance | BindingFlags.NonPublic);
                 Dictionary<string, LocalizedText> dictionary = info.GetValue(LanguageManager.Instance) as Dictionary<string, LocalizedText>;
 
                 FieldInfo textInfo = typeof(LocalizedText).GetField("value", BindingFlags.Instance | BindingFlags.NonPublic);
+                setDimensionOption(p, dictionary, info);
                 resetMenu(dictionary, textInfo);
-                setDimensionPath(p, dictionary, textInfo);
-
-
             }
             if (Main.myPlayer != -1 && !Main.gameMenu && Main.LocalPlayer.active)
             {
-                TUAPlayer p = Main.LocalPlayer.GetModPlayer<TUAPlayer>(this);
+                DimPlayer p = Main.LocalPlayer.GetModPlayer<DimPlayer>(this);
                 if (BiomeLibs.InBiome("Meteoridon"))
                 {
                     music = MusicID.TheHallow;
@@ -175,43 +202,31 @@ namespace TerrariaUltraApocalypse
                 {
                     music = MusicID.LunarBoss;
                 }
-                else if (p.currentDimension == "solar")
+                else if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
                 {
                     music = MusicID.TheTowers;
                     Main.musicBox = 36;
+                    
                 }
             }
 
 
         }
 
-        private static void setDimensionPath(TUAPlayer p, Dictionary<string, LocalizedText> dictionary, FieldInfo textInfo)
+        private static void setDimensionOption(DimPlayer p, Dictionary<string, LocalizedText> dictionary, FieldInfo textInfo)
         {
-            if (p != null)
+
+            if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
             {
-                if (p.currentDimension == "solar")
+                if (Main.menuMode == 16)
                 {
-                    Main.WorldPath = Main.SavePath + "/World/solar";
-                    Main.LocalPlayer.zone3[4] = false;
-
-                    if (Main.menuMode == 16)
-                    {
-                        Main.menuMode = 6;
-                    }
-
-                    if (Main.menuMode == 6)
-                    {
-                        textInfo.SetValue(dictionary["UI.New"], "Option blocked");
-                        textInfo.SetValue(dictionary["UI.SelectWorld"], "Dimension : Solar");
-                    }
-
-
+                    Main.menuMode = 6;
                 }
-                else
-                if (p.currentDimension == "overworld")
-                {
 
-                    Main.WorldPath = Main.SavePath + "/World";
+                if (Main.menuMode == 6)
+                {
+                    //textInfo.SetValue(dictionary["UI.New"], "Option blocked");
+                    //textInfo.SetValue(dictionary["UI.SelectWorld"], "Dimension : Solar");
                 }
             }
         }
@@ -242,6 +257,19 @@ namespace TerrariaUltraApocalypse
                     },
                     InterfaceScaleType.UI)
                 );
+
+                layers.Insert(MouseTextIndex, new LegacyGameInterfaceLayer(
+                    "TUA : Mod Achievement List",
+                    delegate
+                    {
+                        if (AchievementUI.visible)
+                        {
+                            achievementUI.Draw(Main.spriteBatch);
+                        }
+                        return true;
+                    },
+                    InterfaceScaleType.UI)
+                );
             }
         }
 
@@ -250,10 +278,9 @@ namespace TerrariaUltraApocalypse
             Mod bossChecklist = ModLoader.GetMod("BossChecklist");
             if (bossChecklist != null)
             {
-                bossChecklist.Call("AddBossWithInfo", "Eye of cthulhu (Ultra Version)", 16.0f, (Func<bool>)(() => TerrariaUltraApocalypse.EoCDeath >= 1), "Use a [i:" + ItemID.SuspiciousLookingEye + "] at night after Moon lord has been defeated");
-                bossChecklist.Call("AddBossWithInfo", "Eye of Apocalypse", 16.1f, (Func<bool>)(() => TUAWorld.UltraMode), "Use a [i:" + ItemType("Spawner") + "] after --1sing Ay. 0F C1^lh> in ^1tra and murder it, if you can...");
+                bossChecklist.Call("AddBossWithInfo", "Eye of cthulhu (Ultra Version)", 16.0f, (Func<bool>)(() => TUAWorld.EoCDeath >= 1), "Use a [i:" + ItemID.SuspiciousLookingEye + "] at night after Moon lord has been defeated");
+                bossChecklist.Call("AddBossWithInfo", "Eye of Apocalypse - God of destruction", 16.1f, (Func<bool>)(() => TUAWorld.UltraMode), "Use a [i:" + ItemType("Spawner") + "] after --1sing Ay. 0F C1^lh> in ^1tra and murder it, if you can...");
             }
-
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dimlibs;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,7 +14,6 @@ namespace TerrariaUltraApocalypse.Dimension
     {
 
         private static List<int[]> npcList = new List<int[]>();
-        private static bool initialMessage = false;
 
         public DimGlobalNPC()
         {
@@ -25,8 +25,7 @@ namespace TerrariaUltraApocalypse.Dimension
 
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
-            TUAPlayer p = Main.LocalPlayer.GetModPlayer<TUAPlayer>();
-            if (p.currentDimension == "solar")
+            if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
             {
                 pool.Clear();
                 pool.Add(npcList[1][0], 10f);

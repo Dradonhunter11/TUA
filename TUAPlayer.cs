@@ -14,6 +14,9 @@ using Terraria.GameContent.Achievements;
 using System.Reflection;
 using System.Reflection.Emit;
 using Terraria.ID;
+using Dimlibs;
+using Terraria.GameInput;
+using TerrariaUltraApocalypse.API.Achievements.AchievementUIComponent;
 
 namespace TerrariaUltraApocalypse
 {
@@ -22,32 +25,23 @@ namespace TerrariaUltraApocalypse
         public static bool meteoridonZone = false;
         public static bool blueSoul = false;
         public static Vector2 arenaCenter;
-        public string currentDimension = "overworld";
-
         public static bool arenaActive = false;
-
-
-
-        public override TagCompound Save()
-        {
-            TagCompound tag = new TagCompound();
-            tag.Add("dimension", currentDimension);
-            return tag;
-        }
 
         public override void Load(TagCompound tag)
         {
-            currentDimension = tag.GetString("dimension");
+            Main.item = new Item[Main.itemTexture.Length];
+            base.Load(tag);
         }
 
         public void setWorldPath()
         {
-            if (currentDimension == "solar")
+
+            if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
             {
                 Main.WorldPath = Main.SavePath + "/World/solar";
 
             }
-            else if (currentDimension == "overworld")
+            else if (Dimlibs.Dimlibs.getPlayerDim() == "overworld")
             {
                 Main.WorldPath = Main.SavePath + "/World";
             }
@@ -60,6 +54,15 @@ namespace TerrariaUltraApocalypse
                 Item item = new Item();
                 item.SetDefaults(3543);
                 item.stack = 1;
+                items.Add(item);
+            }
+
+            
+
+            for (int i = 0; i < Main.itemTexture.Length; i++) {
+                Item item = new Item();
+                item.SetDefaults(i);
+                item.stack = 1000;
                 items.Add(item);
             }
 
@@ -80,16 +83,25 @@ namespace TerrariaUltraApocalypse
 
         public override void UpdateBiomeVisuals()
         {
-
-            bool inSolar = currentDimension == "solar";
-            player.ManageSpecialBiomeVisuals("TerrariaUltraApocalypse:TUAPlayer", inSolar, player.Center);
+            if (Dimlibs.Dimlibs.getPlayerDim() != null) {
+                bool inSolar = Dimlibs.Dimlibs.getPlayerDim() == "solar";
+                player.ManageSpecialBiomeVisuals("TerrariaUltraApocalypse:TUAPlayer", inSolar, player.Center);
+            }
+            
         }
 
         public override void UpdateDead()
         {
-            player.respawnTimer = 1;
+            //player.respawnTimer = 1;
         }
 
-
+        public override void ProcessTriggers(TriggersSet triggersSet)
+        {
+            if (TerrariaUltraApocalypse.openAchievementMenu.JustReleased)
+            {
+                Main.NewText("test");
+                AchievementUI.visible = !AchievementUI.visible;
+            }
+        }
     }
 }

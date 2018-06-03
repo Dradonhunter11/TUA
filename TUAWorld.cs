@@ -1,20 +1,10 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using BiomeLibrary;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.GameContent.Generation;
-using Terraria.World;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.World.Generation;
-using TerrariaUltraApocalypse.Dimension;
 using Terraria.ID;
+using Dimlibs;
 
 namespace TerrariaUltraApocalypse
 {
@@ -24,6 +14,7 @@ namespace TerrariaUltraApocalypse
         public static int apocalypseMoonPoint = 0;
         public static bool Apocalypse;
         public static bool UltraMode;
+        public static int EoCDeath;
 
         public override void Initialize()
         {
@@ -52,7 +43,7 @@ namespace TerrariaUltraApocalypse
 
         private void RegisterSolar()
         {
-            Func<bool> c = () => Main.LocalPlayer.GetModPlayer<TUAPlayer>().currentDimension == "solar";
+            Func<bool> c = () => Main.LocalPlayer.GetModPlayer<DimPlayer>().getCurrentDimension() == "solar";
             BiomeLibs.RegisterNewBiome("Solar", 200, mod);
             BiomeLibs.AddBlockInBiome("Solar", new String[] { "SolarDirt", "SolarRock" });
             BiomeLibs.SetCondition("solar", c);
@@ -78,7 +69,7 @@ namespace TerrariaUltraApocalypse
             TagCompound tc = new TagCompound();
             tc.Add("UltraMode", UltraMode);
             tc.Add("EoADowned", Apocalypse);
-            tc.Add("UltraEoCDowned", TerrariaUltraApocalypse.EoCDeath);
+            tc.Add("UltraEoCDowned", EoCDeath);
             //tc.Add("apocalypseMoon", apocalypseMoon);
             return tc;
         }
@@ -87,7 +78,8 @@ namespace TerrariaUltraApocalypse
         {
             UltraMode = tag.GetBool("UltraMode");
             Apocalypse = tag.GetBool("EoADowned");
-            TerrariaUltraApocalypse.EoCDeath = tag.GetInt("UltraEoCDowned");
+            EoCDeath = tag.GetInt("UltraEoCDowned");
+
 
         }
 

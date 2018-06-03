@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
+using Dimlibs;
 
 namespace TerrariaUltraApocalypse.NPCs
 {
@@ -30,10 +31,9 @@ namespace TerrariaUltraApocalypse.NPCs
             if (!Main.gameMenu)
             {
 
-                TUAPlayer p = Main.LocalPlayer.GetModPlayer<TUAPlayer>();
-                if (p != null)
+                if (Dimlibs.Dimlibs.getPlayerDim() != "overworld")
                 {
-                    if (p.currentDimension == "solar")
+                    if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
                     {
                         isActive = true;
                     }

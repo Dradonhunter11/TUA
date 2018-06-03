@@ -45,7 +45,7 @@ namespace TerrariaUltraApocalypse.Items
         {
             Main.time = 0;
             Main.dayTime = false;
-            //TUAWorld.apocalypseMoon = true;
+            TUAWorld.apocalypseMoon = true;
 
 
             return true;

@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TerrariaUltraApocalypse</RootNamespace>
     <AssemblyName>TerrariaUltraApocalypse</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -21,7 +22,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>0</WarningLevel>
+    <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -34,6 +35,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Achievement\DradonFailed.cs" />
+    <Compile Include="Achievement\EnterHardmode.cs" />
+    <Compile Include="Achievement\ItBegin.cs" />
+    <Compile Include="Achievement\UltraEoC.cs" />
+    <Compile Include="Achievement\YouMadeADoor.cs" />
+    <Compile Include="API\Achievements\AchievementManager.cs" />
+    <Compile Include="API\Achievements\AchievementPlayer.cs" />
+    <Compile Include="API\Achievements\AchievementTemplate\ModAchievement.cs" />
+    <Compile Include="API\Achievements\AchievementUIComponent\AchievementSlot.cs" />
+    <Compile Include="API\Achievements\AchievementUIComponent\AchievementSlotElement\AchievementDescriptionText.cs" />
+    <Compile Include="API\Achievements\AchievementUIComponent\AchievementSlotElement\AchievementPic.cs" />
+    <Compile Include="API\Achievements\AchievementUIComponent\AchievementSlotElement\AchievementNameText.cs" />
+    <Compile Include="API\Achievements\AchievementUIComponent\AchievementSlotElement\AchievementReward.cs" />
+    <Compile Include="API\Achievements\AchievementUIComponent\AchievementUI.cs" />
+    <Compile Include="API\Achievements\AchievementUIComponent\AchivementUIList.cs" />
     <Compile Include="API\TerraEnergy\Block\Capacitor.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\BasicTECapacitor.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\EnergyCollector.cs" />
@@ -57,6 +73,7 @@
     <Compile Include="API\TerraEnergy\TileEntities\StorageEntity.cs" />
     <Compile Include="API\TerraEnergy\UI\ForgeUI.cs" />
     <Compile Include="API\TerraEnergy\UI\FurnaceUI.cs" />
+    <Compile Include="API\TUADimItem.cs" />
     <Compile Include="API\TUAModItem.cs" />
     <Compile Include="API\TUAModNPC.cs" />
     <Compile Include="Buff\Debuff\EoA\NoMountDebuff.cs" />
@@ -67,7 +84,6 @@
     <Compile Include="Buff\Debuff\EotW\MeleeDebuff.cs" />
     <Compile Include="Dimension\DimGlobalNPC.cs" />
     <Compile Include="Dimension\Sky\SolarScreenShaderData.cs" />
-    <Compile Include="Dimension\World\SolarWorld.cs" />
     <Compile Include="Dusts\EotW\ArrowDust.cs" />
     <Compile Include="Dusts\EotW\BulletDust.cs" />
     <Compile Include="Dusts\EotW\MagicDust.cs" />
@@ -86,10 +102,13 @@
     <Compile Include="NPCs\EoA\EoAHeal.cs" />
     <Compile Include="NPCs\EoA\Eye_of_Apocalypse_clone.cs" />
     <Compile Include="Dimension\Sky\TUACustomSky.cs" />
+    <Compile Include="NPCs\Memefest\InsanlyHardEoCForNothing.cs" />
+    <Compile Include="NPCs\Meteoridon\MeteoridonEye.cs" />
     <Compile Include="NPCs\TUAGlobalNPC.cs" />
     <Compile Include="Projectiles\EoA\EoALaserWall.cs" />
     <Compile Include="Projectiles\GhosterBullet.cs" />
     <Compile Include="Projectiles\GodExplosiveArrow.cs" />
+    <Compile Include="SolarWorldGen.cs" />
     <Compile Include="Tiles\ApocalypseDirt.cs" />
     <Compile Include="Tiles\EoA\Arena.cs" />
     <Compile Include="Projectiles\EoA\FireBall.cs" />
@@ -109,15 +128,19 @@
     <Compile Include="Items\SetNight.cs" />
     <Compile Include="Items\EoA\Spawner.cs" />
     <Compile Include="NPCs\EoA\Eye_of_Apocalypse.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="TerrariaUltraApocalypse.cs" />
     <Compile Include="World\OreSpread.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="BiomeLibrary">
+    <Reference Include="BiomeLibrary, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\BiomeLibrary\bin\Debug\BiomeLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Dimlibs">
+      <HintPath>..\Dimlibs\bin\Debug\Dimlibs.dll</HintPath>
+    </Reference>
+    <Reference Include="Libraries.ReLogic.ReLogic">
+      <HintPath>..\..\..\..\..\..\Terraria Full source\code\Terraria\Libraries.ReLogic.ReLogic.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -136,13 +159,14 @@
       <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Xact\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Xact.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="Tmod">
+    <Reference Include="Tmod, Version=1.3.5.1, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\Tmod.exe</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API\UI\" />
-    <Folder Include="Dimension\Item\" />
+    <Folder Include="Biomes\" />
     <Folder Include="Items\Armor\" />
     <Folder Include="Items\Block\PillarBiomeBlock\" />
     <Folder Include="NPCs\Dimension\Solar\" />
