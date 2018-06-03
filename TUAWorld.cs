@@ -1,19 +1,8 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using BiomeLibrary;
-using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.GameContent.Generation;
-using Terraria.World;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.World.Generation;
-using TerrariaUltraApocalypse.Dimension;
 using Terraria.ID;
 using Dimlibs;
 
@@ -90,8 +79,8 @@ namespace TerrariaUltraApocalypse
             UltraMode = tag.GetBool("UltraMode");
             Apocalypse = tag.GetBool("EoADowned");
             EoCDeath = tag.GetInt("UltraEoCDowned");
-            
-            
+
+
         }
 
         public override void PostUpdate()

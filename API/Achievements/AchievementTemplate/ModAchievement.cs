@@ -14,9 +14,10 @@ namespace TerrariaUltraApocalypse.API.Achievements.AchievementTemplate
 {
     abstract class ModAchievement
     {
-        public bool done;
-        public string name = "default";
-        public string description = "Undefined";
+
+        public bool done; //Was originally supposed to apply client directly, but I ended up saving on player
+        public string name = "default"; //Achievement name
+        public string description = "Undefined"; //Achievement description
         public string rewardDesc = "";
 
         public Func<bool> condition;

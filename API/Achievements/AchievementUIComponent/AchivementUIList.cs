@@ -16,15 +16,15 @@ namespace TerrariaUltraApocalypse.API.Achievements.AchievementUIComponent
     {
         public override void OnInitialize()
         {
-            Width.Set(580, 0f);
+            Width.Set(590, 0f);
             Height.Set(360, 0f);
             SetPadding(0);
 
             _scrollbar = new UIScrollbar();
-            _scrollbar.Width.Set(10, 0f);
-            _scrollbar.Height.Set(360, 0f);
-            _scrollbar.Left.Set(580, 0f);
-            _scrollbar.Top.Set(0, 0f);
+            _scrollbar.Width.Set(18, 0f);
+            _scrollbar.Height.Set(340, 0f);
+            _scrollbar.Left.Set(575, 0f);
+            _scrollbar.Top.Set(5, 0f);
             _scrollbar.SetPadding(0);
             Append(_scrollbar);
 
@@ -45,6 +45,11 @@ namespace TerrariaUltraApocalypse.API.Achievements.AchievementUIComponent
                 Add(slot);
                 index++;
             }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
         }
     }
 }

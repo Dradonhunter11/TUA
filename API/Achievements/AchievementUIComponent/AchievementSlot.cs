@@ -73,9 +73,14 @@ namespace TerrariaUltraApocalypse.API.Achievements.AchievementUIComponent
                 achievementReward = new AchievementReward();
                 achievementReward.setText(achievement.rewardDesc);
                 achievementReward.Top.Set(45f, 0f);
-                achievementReward.Left.Set(-104f, 0f);
+                achievementReward.Left.Set(-124f, 0f);
                 panel.Append(achievementReward);
             }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
         }
 
 

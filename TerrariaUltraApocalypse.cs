@@ -29,7 +29,7 @@ namespace TerrariaUltraApocalypse
     class TerrariaUltraApocalypse : Mod
     {
 
-
+        internal static bool devMode = true;
         
 
         public static bool EoCUltraActivated = false;
@@ -102,7 +102,7 @@ namespace TerrariaUltraApocalypse
 
         public override void Load()
         {
-            openAchievementMenu = RegisterHotKey("Open ModAchivement Menu", "O");
+            openAchievementMenu = RegisterHotKey("Open ModAchievement Menu", "O");
 
             savePath = Main.SavePath;
             worldPath = Main.WorldPath;
@@ -143,6 +143,7 @@ namespace TerrariaUltraApocalypse
             AchievementManager.GetInstance().AddAchievement(new ItBegin());
             AchievementManager.GetInstance().AddAchievement(new UltraEoC());
             AchievementManager.GetInstance().AddAchievement(new YouMadeADoor());
+            AchievementManager.GetInstance().AddAchievement(new DradonFailed());
         }
 
         public void test([CallerFilePath] String classPath = "")
@@ -205,6 +206,7 @@ namespace TerrariaUltraApocalypse
                 {
                     music = MusicID.TheTowers;
                     Main.musicBox = 36;
+                    
                 }
             }
 

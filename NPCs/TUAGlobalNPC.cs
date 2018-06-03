@@ -9,6 +9,8 @@ using Terraria.ID;
 using Terraria.Localization;
 using TerrariaUltraApocalypse;
 using Microsoft.Xna.Framework;
+using BiomeLibrary;
+using TerrariaUltraApocalypse.NPCs.Meteoridon;
 
 namespace TerrariaUltraApocalypse.NPCs
 {
@@ -461,6 +463,15 @@ namespace TerrariaUltraApocalypse.NPCs
 
             }
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
+        }
+
+        public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+        {
+            if (BiomeLibs.InBiome("meteoridon"))
+            {
+                pool.Clear();
+                pool.Add(mod.NPCType<MeteoridonEye>(), 5f);
+            }
         }
     }
 }

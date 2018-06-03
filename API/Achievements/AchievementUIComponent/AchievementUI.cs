@@ -18,6 +18,9 @@ namespace TerrariaUltraApocalypse.API.Achievements.AchievementUIComponent
         private UIPanel title;
         private AchivementUIList list;
         public static bool visible = false;
+        private int alphaBg = 125;
+        private int alphaBorder = 200;
+
 
         public override void OnInitialize()
         {
@@ -28,7 +31,8 @@ namespace TerrariaUltraApocalypse.API.Achievements.AchievementUIComponent
             panel.Top.Set(Main.screenHeight/2 - 200, 0f);
             panel.Left.Set(Main.screenWidth/2 - 300, 0f);
             panel.SetPadding(0);
-
+            
+            
             list = new AchivementUIList();
 
             list.Left.Set(5f, 0f);
@@ -50,6 +54,11 @@ namespace TerrariaUltraApocalypse.API.Achievements.AchievementUIComponent
 
             Append(panel);
             Append(title);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
         }
     }
 }

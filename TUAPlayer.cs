@@ -99,7 +99,8 @@ namespace TerrariaUltraApocalypse
         {
             if (TerrariaUltraApocalypse.openAchievementMenu.JustReleased)
             {
-                AchievementUI.visible = true;
+                Main.NewText("test");
+                AchievementUI.visible = !AchievementUI.visible;
             }
         }
     }

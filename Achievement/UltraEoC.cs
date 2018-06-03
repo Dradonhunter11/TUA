@@ -14,7 +14,7 @@ namespace TerrariaUltraApocalypse.Achievement
         public override void setDefault()
         {
             name = "Ultra Eye of cthulhu";
-            description = "Kill the ultra eye of cthulu 10 time";
+            description = "Kill the Ultra Eye of Cthulhu 10 time";
             rewardDesc = "[i:" + ModLoader.GetMod("TerrariaUltraApocalypse").ItemType("Spawner") + "]";
             condition = () => (TUAWorld.EoCDeath >= 10);
         }

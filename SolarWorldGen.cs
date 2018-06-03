@@ -727,7 +727,7 @@ namespace TerrariaUltraApocalypse
             {
                 progress.Message = Lang.gen[27].Value;
                 //Liquid.QuickWater(3, -1, -1);
-                WorldGen.WaterCheck();
+                //WorldGen.WaterCheck();
                 int k = 0;
                 Liquid.quickSettle = true;
                 while (k < 10)
@@ -760,67 +760,14 @@ namespace TerrariaUltraApocalypse
                         }
                         Liquid.UpdateLiquid();
                     }
-                    WorldGen.WaterCheck();
+                    //WorldGen.WaterCheck();
                     progress.Set((float)k * 0.1f / 3f + 0.66f);
                 }
                 Liquid.quickSettle = false;
                 Main.tileSolid[190] = true;
             });
 
-            AddGenerationPass("Waterfalls", delegate (GenerationProgress progress)
-            {
-                progress.Message = Lang.gen[69].Value;
-                for (int k = 20; k < Main.maxTilesX - 20; k++)
-                {
-                    float num = (float)k / (float)Main.maxTilesX;
-                    progress.Set(num * 0.5f);
-                    for (int l = 20; l < Main.maxTilesY - 20; l++)
-                    {
-                        if (WorldGen.SolidTile(k, l) && !Main.tile[k - 1, l].active() && WorldGen.SolidTile(k, l + 1) && !Main.tile[k + 1, l].active() && (Main.tile[k - 1, l].liquid > 0 || Main.tile[k + 1, l].liquid > 0))
-                        {
-                            bool flag2 = true;
-                            int num2 = WorldGen.genRand.Next(8, 20);
-                            int num3 = WorldGen.genRand.Next(8, 20);
-                            num2 = l - num2;
-                            num3 += l;
-                            for (int m = num2; m <= num3; m++)
-                            {
-                                if (Main.tile[k, m].halfBrick())
-                                {
-                                    flag2 = false;
-                                }
-                            }
-                            if ((Main.tile[k, l].type == 75 || Main.tile[k, l].type == 76) && WorldGen.genRand.Next(10) != 0)
-                            {
-                                flag2 = false;
-                            }
-                            if (flag2)
-                            {
-                                WorldGen.PoundTile(k, l);
-                            }
-                        }
-                    }
-                }
-                for (int n = 20; n < Main.maxTilesX - 20; n++)
-                {
-                    float num4 = (float)n / (float)Main.maxTilesX;
-                    progress.Set(num4 * 0.5f + 0.5f);
-                    for (int num5 = 20; num5 < Main.maxTilesY - 20; num5++)
-                    {
-                        if (Main.tile[n, num5].type != 48 && Main.tile[n, num5].type != 232 && WorldGen.SolidTile(n, num5) && WorldGen.SolidTile(n, num5 + 1))
-                        {
-                            if (!WorldGen.SolidTile(n + 1, num5) && Main.tile[n - 1, num5].halfBrick() && Main.tile[n - 2, num5].liquid > 0)
-                            {
-                                WorldGen.PoundTile(n, num5);
-                            }
-                            if (!WorldGen.SolidTile(n - 1, num5) && Main.tile[n + 1, num5].halfBrick() && Main.tile[n + 2, num5].liquid > 0)
-                            {
-                                WorldGen.PoundTile(n, num5);
-                            }
-                        }
-                    }
-                }
-            });
+            
 
             // TODO: More Simple Gen Stuff like Floating Island Houses/Jungle Trees etc
 
@@ -1192,7 +1139,7 @@ namespace TerrariaUltraApocalypse
             {
                 progress.Message = Lang.gen[27].Value;
                 //Liquid.QuickWater(3, -1, -1);
-                WorldGen.WaterCheck();
+                //WorldGen.WaterCheck();
                 int k = 0;
                 Liquid.quickSettle = true;
                 while (k < 10)
@@ -1225,7 +1172,7 @@ namespace TerrariaUltraApocalypse
                         }
                         Liquid.UpdateLiquid();
                     }
-                    WorldGen.WaterCheck();
+                    //WorldGen.WaterCheck();
                     progress.Set((float)k * 0.1f / 3f + 0.66f);
                 }
                 Liquid.quickSettle = false;
