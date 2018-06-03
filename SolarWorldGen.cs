@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -16,9 +17,13 @@ namespace TerrariaUltraApocalypse
 {
 	public class SolarWorldGen : Dimlibs.API.DimGenerator
 	{
+		public static bool GetMudwall()
+		{
+			FieldInfo info = typeof(WorldGen).GetField("mudWall", BindingFlags.Static | BindingFlags.NonPublic);
+			return (bool)info.GetValue(null);
+		}
 
-
-        public override void ModifyGenerationPass(int seed, GenerationProgress customProgressObject)
+		public override void ModifyGenerationPass(int seed, GenerationProgress customProgressObject)
         {
             
             AddGenerationPass("Reset", delegate (GenerationProgress progress)
@@ -295,8 +300,8 @@ namespace TerrariaUltraApocalypse
                     }
                     for (int m = 0; m < 10; m++)
                     {
-                        WorldGen.TileRunner(array[m], array2[m], (double)WorldGen.genRand.Next(5, 8), WorldGen.genRand.Next(6, 9), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarDirt"), true, -2f, -0.3f, false, true);
-                        WorldGen.TileRunner(array[m], array2[m], (double)WorldGen.genRand.Next(5, 8), WorldGen.genRand.Next(6, 9), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarDirt"), true, 2f, -0.3f, false, true);
+                        SolarWorldGen.TileRunner(array[m], array2[m], (double)WorldGen.genRand.Next(5, 8), WorldGen.genRand.Next(6, 9), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarDirt"), true, -2f, -0.3f, false, true);
+                        SolarWorldGen.TileRunner(array[m], array2[m], (double)WorldGen.genRand.Next(5, 8), WorldGen.genRand.Next(6, 9), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarDirt"), true, 2f, -0.3f, false, true);
                     }
                 }
             });
@@ -351,7 +356,7 @@ namespace TerrariaUltraApocalypse
                 progress.Message = Lang.gen[4].Value;
                 for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.00015); k++)
                 {
-                    WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(0, (int)WorldGen.worldSurfaceLow + 1), (double)WorldGen.genRand.Next(4, 15), WorldGen.genRand.Next(5, 40), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarRock"), false, 0f, 0f, false, true);
+                    SolarWorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(0, (int)WorldGen.worldSurfaceLow + 1), (double)WorldGen.genRand.Next(4, 15), WorldGen.genRand.Next(5, 40), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarRock"), false, 0f, 0f, false, true);
                 }
                 for (int l = 0; l < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.0002); l++)
                 {
@@ -361,11 +366,11 @@ namespace TerrariaUltraApocalypse
                     {
                         num2 = WorldGen.genRand.Next((int)WorldGen.worldSurfaceLow, (int)worldSurfaceHigh + 1);
                     }
-                    WorldGen.TileRunner(num, num2, (double)WorldGen.genRand.Next(4, 10), WorldGen.genRand.Next(5, 30), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarRock"), false, 0f, 0f, false, true);
+                    SolarWorldGen.TileRunner(num, num2, (double)WorldGen.genRand.Next(4, 10), WorldGen.genRand.Next(5, 30), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarRock"), false, 0f, 0f, false, true);
                 }
                 for (int m = 0; m < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.0045); m++)
                 {
-                    WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)worldSurfaceHigh, (int)rockLayerHigh + 1), (double)WorldGen.genRand.Next(2, 7), WorldGen.genRand.Next(2, 23), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarRock"), false, 0f, 0f, false, true);
+                    SolarWorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)worldSurfaceHigh, (int)rockLayerHigh + 1), (double)WorldGen.genRand.Next(2, 7), WorldGen.genRand.Next(2, 23), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarRock"), false, 0f, 0f, false, true);
                 }
             });
             AddGenerationPass("Dirt In Rocks", delegate (GenerationProgress progress)
@@ -373,7 +378,7 @@ namespace TerrariaUltraApocalypse
                 progress.Message = Lang.gen[5].Value;
                 for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.005); k++)
                 {
-                    WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)rockLayerLow, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 6), WorldGen.genRand.Next(2, 40), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarDirt"), false, 0f, 0f, false, true);
+                    SolarWorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)rockLayerLow, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 6), WorldGen.genRand.Next(2, 40), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarDirt"), false, 0f, 0f, false, true);
                 }
             });
 
@@ -391,8 +396,8 @@ namespace TerrariaUltraApocalypse
                     {
                         type = -2;
                     }
-                    WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)worldSurfaceHigh, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 5), WorldGen.genRand.Next(2, 20), type, false, 0f, 0f, false, true);
-                    WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)worldSurfaceHigh, Main.maxTilesY), (double)WorldGen.genRand.Next(8, 15), WorldGen.genRand.Next(7, 30), type, false, 0f, 0f, false, true);
+                    SolarWorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)worldSurfaceHigh, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 5), WorldGen.genRand.Next(2, 20), type, false, 0f, 0f, false, true);
+                    SolarWorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)worldSurfaceHigh, Main.maxTilesY), (double)WorldGen.genRand.Next(8, 15), WorldGen.genRand.Next(7, 30), type, false, 0f, 0f, false, true);
                 }
             });
             AddGenerationPass("Dirt Layer Caves", delegate (GenerationProgress progress)
@@ -409,7 +414,7 @@ namespace TerrariaUltraApocalypse
                         {
                             type = -2;
                         }
-                        WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)WorldGen.worldSurfaceLow, (int)rockLayerHigh + 1), (double)WorldGen.genRand.Next(5, 15), WorldGen.genRand.Next(30, 200), type, false, 0f, 0f, false, true);
+                        SolarWorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)WorldGen.worldSurfaceLow, (int)rockLayerHigh + 1), (double)WorldGen.genRand.Next(5, 15), WorldGen.genRand.Next(30, 200), type, false, 0f, 0f, false, true);
                     }
                 }
             });
@@ -427,7 +432,7 @@ namespace TerrariaUltraApocalypse
                         {
                             type = -2;
                         }
-                        WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)rockLayerHigh, Main.maxTilesY), (double)WorldGen.genRand.Next(6, 20), WorldGen.genRand.Next(50, 300), type, false, 0f, 0f, false, true);
+                        SolarWorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)rockLayerHigh, Main.maxTilesY), (double)WorldGen.genRand.Next(6, 20), WorldGen.genRand.Next(50, 300), type, false, 0f, 0f, false, true);
                     }
                 }
             });
@@ -446,7 +451,7 @@ namespace TerrariaUltraApocalypse
                     {
                         if (Main.tile[i2, num].active())
                         {
-                            WorldGen.TileRunner(i2, num, (double)WorldGen.genRand.Next(3, 6), WorldGen.genRand.Next(5, 50), -1, false, (float)WorldGen.genRand.Next(-10, 11) * 0.1f, 1f, false, true);
+                            SolarWorldGen.TileRunner(i2, num, (double)WorldGen.genRand.Next(3, 6), WorldGen.genRand.Next(5, 50), -1, false, (float)WorldGen.genRand.Next(-10, 11) * 0.1f, 1f, false, true);
                             break;
                         }
                         num++;
@@ -464,7 +469,7 @@ namespace TerrariaUltraApocalypse
                     {
                         if (Main.tile[i2, num2].active())
                         {
-                            WorldGen.TileRunner(i2, num2, (double)WorldGen.genRand.Next(10, 15), WorldGen.genRand.Next(50, 130), -1, false, (float)WorldGen.genRand.Next(-10, 11) * 0.1f, 2f, false, true);
+                            SolarWorldGen.TileRunner(i2, num2, (double)WorldGen.genRand.Next(10, 15), WorldGen.genRand.Next(50, 130), -1, false, (float)WorldGen.genRand.Next(-10, 11) * 0.1f, 2f, false, true);
                             break;
                         }
                         num2++;
@@ -482,9 +487,9 @@ namespace TerrariaUltraApocalypse
                     {
                         if (Main.tile[i2, num3].active())
                         {
-                            WorldGen.TileRunner(i2, num3, (double)WorldGen.genRand.Next(12, 25), WorldGen.genRand.Next(150, 500), -1, false, (float)WorldGen.genRand.Next(-10, 11) * 0.1f, 4f, false, true);
-                            WorldGen.TileRunner(i2, num3, (double)WorldGen.genRand.Next(8, 17), WorldGen.genRand.Next(60, 200), -1, false, (float)WorldGen.genRand.Next(-10, 11) * 0.1f, 2f, false, true);
-                            WorldGen.TileRunner(i2, num3, (double)WorldGen.genRand.Next(5, 13), WorldGen.genRand.Next(40, 170), -1, false, (float)WorldGen.genRand.Next(-10, 11) * 0.1f, 2f, false, true);
+                            SolarWorldGen.TileRunner(i2, num3, (double)WorldGen.genRand.Next(12, 25), WorldGen.genRand.Next(150, 500), -1, false, (float)WorldGen.genRand.Next(-10, 11) * 0.1f, 4f, false, true);
+                            SolarWorldGen.TileRunner(i2, num3, (double)WorldGen.genRand.Next(8, 17), WorldGen.genRand.Next(60, 200), -1, false, (float)WorldGen.genRand.Next(-10, 11) * 0.1f, 2f, false, true);
+                            SolarWorldGen.TileRunner(i2, num3, (double)WorldGen.genRand.Next(5, 13), WorldGen.genRand.Next(40, 170), -1, false, (float)WorldGen.genRand.Next(-10, 11) * 0.1f, 2f, false, true);
                             break;
                         }
                         num3++;
@@ -502,7 +507,7 @@ namespace TerrariaUltraApocalypse
                     {
                         if (Main.tile[i2, num4].active())
                         {
-                            WorldGen.TileRunner(i2, num4, (double)WorldGen.genRand.Next(7, 12), WorldGen.genRand.Next(150, 250), -1, false, 0f, 1f, true, true);
+                            SolarWorldGen.TileRunner(i2, num4, (double)WorldGen.genRand.Next(7, 12), WorldGen.genRand.Next(150, 250), -1, false, 0f, 1f, true, true);
                             break;
                         }
                         num4++;
@@ -514,7 +519,7 @@ namespace TerrariaUltraApocalypse
                 {
                     try
                     {
-                        WorldGen.Caverer(WorldGen.genRand.Next(100, Main.maxTilesX - 100), WorldGen.genRand.Next((int)Main.rockLayer, Main.maxTilesY - 400));
+                        SolarWorldGen.Caverer(WorldGen.genRand.Next(100, Main.maxTilesX - 100), WorldGen.genRand.Next((int)Main.rockLayer, Main.maxTilesY - 400));
                     }
                     catch
                     {
@@ -522,7 +527,7 @@ namespace TerrariaUltraApocalypse
                     num6++;
                 }
             });
-            AddGenerationPass("Grass", delegate (GenerationProgress progress)
+            /*AddGenerationPass("Grass", delegate (GenerationProgress progress)
             {
                 for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.002); k++)
                 {
@@ -549,7 +554,7 @@ namespace TerrariaUltraApocalypse
                         Main.tile[num, num2].type = 2;
                     }
                 }
-            });
+            });*/
 
             // TODO: Your gen passes here
 
@@ -787,7 +792,7 @@ namespace TerrariaUltraApocalypse
                                 {
                                     Main.tile[k, l].active(false);
                                 }
-                                if (Main.tile[k + 1, l].type == 137 || Main.tile[k - 1, l].type == 137)
+                                if (Main.tile[k + 1, l].type == TileID.Traps || Main.tile[k - 1, l].type == TileID.Traps)
                                 {
                                     Main.tile[k, l].active(false);
                                 }
@@ -798,7 +803,7 @@ namespace TerrariaUltraApocalypse
                                 {
                                     Main.tile[k, l].active(false);
                                 }
-                                if (Main.tile[k + 1, l].type == 137 || Main.tile[k - 1, l].type == 137)
+                                if (Main.tile[k + 1, l].type == TileID.Traps || Main.tile[k - 1, l].type == TileID.Traps)
                                 {
                                     Main.tile[k, l].active(false);
                                 }
@@ -894,7 +899,7 @@ namespace TerrariaUltraApocalypse
                     num3++;
                 }
             });
-            AddGenerationPass("Grass Wall", delegate (GenerationProgress progress)
+            /*AddGenerationPass("Grass Wall", delegate (GenerationProgress progress)
             {
                 WorldGen.maxTileCount = 3500;
                 for (int k = 50; k < Main.maxTilesX - 50; k++)
@@ -983,12 +988,12 @@ namespace TerrariaUltraApocalypse
                         num7++;
                     }
                 }
-            });
+            });*/
             // TODO: Gen pre-spawned npcs like the Guide
 
             // TODO: Gen plants such as sunflowers/trees
 
-            AddGenerationPass("Weeds", delegate (GenerationProgress progress)
+            /*AddGenerationPass("Weeds", delegate (GenerationProgress progress)
             {
                 progress.Message = Lang.gen[42].Value;
                 if (Main.halloween)
@@ -1012,7 +1017,7 @@ namespace TerrariaUltraApocalypse
                     }
                 }
                 WorldGen.AddPlants();
-            });
+            });*/
 
             /*AddGenerationPass("Vines", delegate (GenerationProgress progress)
 			{
@@ -1190,14 +1195,13 @@ namespace TerrariaUltraApocalypse
                             {
                                 if (Main.tile[k, m].liquid >= 128)
                                 {
-                                    int num2 = 373;
-                                    if (Main.tile[k, m].lava())
+                                    int num2 = TileID.WaterDrip;
+	                                if (Main.tile[k, m].lava())
+	                                {
+		                                num2 = TileID.LavaDrip;
+	                                } else if (Main.tile[k, m].honey())
                                     {
-                                        num2 = 374;
-                                    }
-                                    else if (Main.tile[k, m].honey())
-                                    {
-                                        num2 = 375;
+                                        num2 = TileID.HoneyDrip;
                                     }
                                     int maxValue = l - m;
                                     if (WorldGen.genRand.Next(maxValue) <= 1)
@@ -1217,14 +1221,14 @@ namespace TerrariaUltraApocalypse
                                 {
                                     if (Main.tile[k, n].liquid >= 200)
                                     {
-                                        int num3 = 373;
+                                        int num3 = TileID.WaterDrip;
                                         if (Main.tile[k, n].lava())
                                         {
-                                            num3 = 374;
+                                            num3 = TileID.LavaDrip;
                                         }
                                         else if (Main.tile[k, n].honey())
                                         {
-                                            num3 = 375;
+                                            num3 = TileID.HoneyDrip;
                                         }
                                         int num4 = n - l;
                                         if (WorldGen.genRand.Next(num4 * 3) <= 1)
@@ -1574,5 +1578,505 @@ namespace TerrariaUltraApocalypse
                 Main.AnglerQuestSwap();
             });
         }
-    }
+
+		public static void Caverer(int X, int Y)
+		{
+			int num = WorldGen.genRand.Next(2);
+			if (num == 0)
+			{
+				int num2 = WorldGen.genRand.Next(7, 9);
+				float num3 = (float)WorldGen.genRand.Next(100) * 0.01f;
+				float num4 = 1f - num3;
+				if (WorldGen.genRand.Next(2) == 0)
+				{
+					num3 = -num3;
+				}
+				if (WorldGen.genRand.Next(2) == 0)
+				{
+					num4 = -num4;
+				}
+				Vector2 vector = new Vector2((float)X, (float)Y);
+				for (int i = 0; i < num2; i++)
+				{
+					vector = SolarWorldGen.digTunnel(vector.X, vector.Y, num3, num4, WorldGen.genRand.Next(6, 20), WorldGen.genRand.Next(4, 9), false);
+					num3 += (float)WorldGen.genRand.Next(-20, 21) * 0.1f;
+					num4 += (float)WorldGen.genRand.Next(-20, 21) * 0.1f;
+					if ((double)num3 < -1.5)
+					{
+						num3 = -1.5f;
+					}
+					if ((double)num3 > 1.5)
+					{
+						num3 = 1.5f;
+					}
+					if ((double)num4 < -1.5)
+					{
+						num4 = -1.5f;
+					}
+					if ((double)num4 > 1.5)
+					{
+						num4 = 1.5f;
+					}
+					float num5 = (float)WorldGen.genRand.Next(100) * 0.01f;
+					float num6 = 1f - num5;
+					if (WorldGen.genRand.Next(2) == 0)
+					{
+						num5 = -num5;
+					}
+					if (WorldGen.genRand.Next(2) == 0)
+					{
+						num6 = -num6;
+					}
+					Vector2 vector2 = SolarWorldGen.digTunnel(vector.X, vector.Y, num5, num6, WorldGen.genRand.Next(30, 50), WorldGen.genRand.Next(3, 6), false);
+					SolarWorldGen.TileRunner((int)vector2.X, (int)vector2.Y, (double)WorldGen.genRand.Next(10, 20), WorldGen.genRand.Next(5, 10), -1, false, 0f, 0f, false, true);
+				}
+				return;
+			}
+			if (num == 1)
+			{
+				int num7 = WorldGen.genRand.Next(15, 30);
+				float num8 = (float)WorldGen.genRand.Next(100) * 0.01f;
+				float num9 = 1f - num8;
+				if (WorldGen.genRand.Next(2) == 0)
+				{
+					num8 = -num8;
+				}
+				if (WorldGen.genRand.Next(2) == 0)
+				{
+					num9 = -num9;
+				}
+				Vector2 vector3 = new Vector2((float)X, (float)Y);
+				for (int j = 0; j < num7; j++)
+				{
+					vector3 = SolarWorldGen.digTunnel(vector3.X, vector3.Y, num8, num9, WorldGen.genRand.Next(5, 15),
+						WorldGen.genRand.Next(2, 6), true);
+					num8 += (float)WorldGen.genRand.Next(-20, 21) * 0.1f;
+					num9 += (float)WorldGen.genRand.Next(-20, 21) * 0.1f;
+					if ((double)num8 < -1.5)
+					{
+						num8 = -1.5f;
+					}
+					if ((double)num8 > 1.5)
+					{
+						num8 = 1.5f;
+					}
+					if ((double)num9 < -1.5)
+					{
+						num9 = -1.5f;
+					}
+					if ((double)num9 > 1.5)
+					{
+						num9 = 1.5f;
+					}
+				}
+			}
+		}
+
+		public static Vector2 digTunnel(float X, float Y, float xDir, float yDir, int Steps, int Size, bool Wet = false)
+		{
+			float num = X;
+			float num2 = Y;
+			try
+			{
+				float num3 = 0f;
+				float num4 = 0f;
+				float num5 = (float)Size;
+				num = MathHelper.Clamp(num, num5 + 1f, (float)Main.maxTilesX - num5 - 1f);
+				num2 = MathHelper.Clamp(num2, num5 + 1f, (float)Main.maxTilesY - num5 - 1f);
+				for (int i = 0; i < Steps; i++)
+				{
+					int num6 = (int)(num - num5);
+					while ((float)num6 <= num + num5)
+					{
+						int num7 = (int)(num2 - num5);
+						while ((float)num7 <= num2 + num5)
+						{
+							if ((double)(Math.Abs((float)num6 - num) + Math.Abs((float)num7 - num2)) < (double)num5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.005) && num6 >= 0 && num6 < Main.maxTilesX && num7 >= 0 && num7 < Main.maxTilesY)
+							{
+								Main.tile[num6, num7].active(false);
+								if (Wet)
+								{
+									Main.tile[num6, num7].liquid = 255;
+									Main.tile[num6, num7].lava(true); // Added for only lava
+								}
+							}
+							num7++;
+						}
+						num6++;
+					}
+					num5 += (float)WorldGen.genRand.Next(-50, 51) * 0.03f;
+					if ((double)num5 < (double)Size * 0.6)
+					{
+						num5 = (float)Size * 0.6f;
+					}
+					if (num5 > (float)(Size * 2))
+					{
+						num5 = (float)Size * 2f;
+					}
+					num3 += (float)WorldGen.genRand.Next(-20, 21) * 0.01f;
+					num4 += (float)WorldGen.genRand.Next(-20, 21) * 0.01f;
+					if (num3 < -1f)
+					{
+						num3 = -1f;
+					}
+					if (num3 > 1f)
+					{
+						num3 = 1f;
+					}
+					if (num4 < -1f)
+					{
+						num4 = -1f;
+					}
+					if (num4 > 1f)
+					{
+						num4 = 1f;
+					}
+					num += (xDir + num3) * 0.6f;
+					num2 += (yDir + num4) * 0.6f;
+				}
+			}
+			catch
+			{
+			}
+			return new Vector2(num, num2);
+		}
+
+		public static void TileRunner(int i, int j, double strength, int steps, int type, bool addTile = false, float speedX = 0f, float speedY = 0f, bool noYChange = false, bool overRide = true)
+		{
+			double num = strength;
+			float num2 = (float)steps;
+			Vector2 value;
+			value.X = (float)i;
+			value.Y = (float)j;
+			Vector2 value2;
+			value2.X = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			value2.Y = (float)WorldGen.genRand.Next(-10, 11) * 0.1f;
+			if (speedX != 0f || speedY != 0f)
+			{
+				value2.X = speedX;
+				value2.Y = speedY;
+			}
+			bool flag = type == 368;
+			bool flag2 = type == 367;
+			while (num > 0.0 && num2 > 0f)
+			{
+				if (value.Y < 0f && num2 > 0f && type == 59)
+				{
+					num2 = 0f;
+				}
+				num = strength * (double)(num2 / (float)steps);
+				num2 -= 1f;
+				int num3 = (int)((double)value.X - num * 0.5);
+				int num4 = (int)((double)value.X + num * 0.5);
+				int num5 = (int)((double)value.Y - num * 0.5);
+				int num6 = (int)((double)value.Y + num * 0.5);
+				if (num3 < 1)
+				{
+					num3 = 1;
+				}
+				if (num4 > Main.maxTilesX - 1)
+				{
+					num4 = Main.maxTilesX - 1;
+				}
+				if (num5 < 1)
+				{
+					num5 = 1;
+				}
+				if (num6 > Main.maxTilesY - 1)
+				{
+					num6 = Main.maxTilesY - 1;
+				}
+				for (int k = num3; k < num4; k++)
+				{
+					for (int l = num5; l < num6; l++)
+					{
+						if ((double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < strength * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
+						{
+							if (GetMudwall() && (double)l > Main.worldSurface && Main.tile[k, l - 1].wall != 2 && l < Main.maxTilesY - 210 - WorldGen.genRand.Next(3))
+							{
+								if (l > WorldGen.lavaLine - WorldGen.genRand.Next(0, 4) - 50)
+								{
+									if (Main.tile[k, l - 1].wall != 64 && Main.tile[k, l + 1].wall != 64 && Main.tile[k - 1, l].wall != 64 && Main.tile[k, l + 1].wall != 64)
+									{
+										WorldGen.PlaceWall(k, l, 15, true);
+									}
+								}
+								else if (Main.tile[k, l - 1].wall != 15 && Main.tile[k, l + 1].wall != 15 && Main.tile[k - 1, l].wall != 15 && Main.tile[k, l + 1].wall != 15)
+								{
+									WorldGen.PlaceWall(k, l, 64, true);
+								}
+							}
+							if (type < 0)
+							{
+								if (type == -2 && Main.tile[k, l].active() && (l < WorldGen.waterLine || l > WorldGen.lavaLine))
+								{
+									Main.tile[k, l].liquid = 255;
+									//if (l > WorldGen.lavaLine)
+									//{
+										Main.tile[k, l].lava(true);
+									//}
+								}
+								Main.tile[k, l].active(false);
+							}
+							else
+							{
+								if (flag && (double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < strength * 0.3 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.01))
+								{
+									WorldGen.PlaceWall(k, l, 180, true);
+								}
+								if (flag2 && (double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < strength * 0.3 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.01))
+								{
+									WorldGen.PlaceWall(k, l, 178, true);
+								}
+								if (overRide || !Main.tile[k, l].active())
+								{
+									Tile tile = Main.tile[k, l];
+									bool flag3 = Main.tileStone[type] && tile.type != 1;
+									if (!TileID.Sets.CanBeClearedDuringGeneration[(int)tile.type])
+									{
+										flag3 = true;
+									}
+									ushort type2 = tile.type;
+									if (type2 <= 147)
+									{
+										if (type2 <= 45)
+										{
+											if (type2 != 1)
+											{
+												if (type2 == 45)
+												{
+													goto IL_575;
+												}
+											}
+											else if (type == 59 && (double)l < Main.worldSurface + (double)WorldGen.genRand.Next(-50, 50))
+											{
+												flag3 = true;
+											}
+										}
+										else if (type2 != 53)
+										{
+											if (type2 == 147)
+											{
+												goto IL_575;
+											}
+										}
+										else
+										{
+											if (type == 40)
+											{
+												flag3 = true;
+											}
+											if ((double)l < Main.worldSurface && type != 59)
+											{
+												flag3 = true;
+											}
+										}
+									}
+									else if (type2 <= 196)
+									{
+										switch (type2)
+										{
+											case 189:
+											case 190:
+												goto IL_575;
+											default:
+												if (type2 == 196)
+												{
+													goto IL_575;
+												}
+												break;
+										}
+									}
+									else
+									{
+										switch (type2)
+										{
+											case 367:
+											case 368:
+												if (type == 59)
+												{
+													flag3 = true;
+												}
+												break;
+											default:
+												switch (type2)
+												{
+													case 396:
+													case 397:
+														flag3 = !TileID.Sets.Ore[type];
+														break;
+												}
+												break;
+										}
+									}
+									IL_5B7:
+									if (!flag3)
+									{
+										tile.type = (ushort)type;
+										goto IL_5C5;
+									}
+									goto IL_5C5;
+									IL_575:
+									flag3 = true;
+									goto IL_5B7;
+								}
+								IL_5C5:
+								if (addTile)
+								{
+									Main.tile[k, l].active(true);
+									Main.tile[k, l].liquid = 0;
+									Main.tile[k, l].lava(false);
+								}
+								if (noYChange && (double)l < Main.worldSurface && type != 59)
+								{
+									Main.tile[k, l].wall = 2;
+								}
+								if (type == 59 && l > WorldGen.waterLine && Main.tile[k, l].liquid > 0)
+								{
+									Main.tile[k, l].lava(false);
+									Main.tile[k, l].liquid = 0;
+								}
+							}
+						}
+					}
+				}
+				value += value2;
+				if (num > 50.0)
+				{
+					value += value2;
+					num2 -= 1f;
+					value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+					value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+					if (num > 100.0)
+					{
+						value += value2;
+						num2 -= 1f;
+						value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+						value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+						if (num > 150.0)
+						{
+							value += value2;
+							num2 -= 1f;
+							value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+							value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+							if (num > 200.0)
+							{
+								value += value2;
+								num2 -= 1f;
+								value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+								value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+								if (num > 250.0)
+								{
+									value += value2;
+									num2 -= 1f;
+									value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+									value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+									if (num > 300.0)
+									{
+										value += value2;
+										num2 -= 1f;
+										value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+										value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+										if (num > 400.0)
+										{
+											value += value2;
+											num2 -= 1f;
+											value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+											value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+											if (num > 500.0)
+											{
+												value += value2;
+												num2 -= 1f;
+												value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+												value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+												if (num > 600.0)
+												{
+													value += value2;
+													num2 -= 1f;
+													value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+													value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+													if (num > 700.0)
+													{
+														value += value2;
+														num2 -= 1f;
+														value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+														value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+														if (num > 800.0)
+														{
+															value += value2;
+															num2 -= 1f;
+															value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+															value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+															if (num > 900.0)
+															{
+																value += value2;
+																num2 -= 1f;
+																value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+																value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+				if (value2.X > 1f)
+				{
+					value2.X = 1f;
+				}
+				if (value2.X < -1f)
+				{
+					value2.X = -1f;
+				}
+				if (!noYChange)
+				{
+					value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+					if (value2.Y > 1f)
+					{
+						value2.Y = 1f;
+					}
+					if (value2.Y < -1f)
+					{
+						value2.Y = -1f;
+					}
+				}
+				else if (type != 59 && num < 3.0)
+				{
+					if (value2.Y > 1f)
+					{
+						value2.Y = 1f;
+					}
+					if (value2.Y < -1f)
+					{
+						value2.Y = -1f;
+					}
+				}
+				if (type == 59 && !noYChange)
+				{
+					if ((double)value2.Y > 0.5)
+					{
+						value2.Y = 0.5f;
+					}
+					if ((double)value2.Y < -0.5)
+					{
+						value2.Y = -0.5f;
+					}
+					if ((double)value.Y < Main.rockLayer + 100.0)
+					{
+						value2.Y = 1f;
+					}
+					if (value.Y > (float)(Main.maxTilesY - 300))
+					{
+						value2.Y = -1f;
+					}
+				}
+			}
+		}
+	}
 }
