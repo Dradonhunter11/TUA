@@ -11,6 +11,7 @@ namespace TerrariaUltraApocalypse.API
 {
     class TUAModNPC : ModNPC
     {
+
         public override bool Autoload(ref string name)
         {
             if (name == "TUAModNPC")
@@ -31,5 +32,7 @@ namespace TerrariaUltraApocalypse.API
 
         //This method is used to do NPC scaling in Ultra mode
         public virtual void ultraScaleDifficylty(NPC npc) { }
+
+       
     }
 }

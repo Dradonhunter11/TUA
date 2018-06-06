@@ -10,14 +10,14 @@ using TerrariaUltraApocalypse.API;
 
 namespace TerrariaUltraApocalypse.NPCs.Memefest
 {
-    class InsanlyHardEoCForNothing : TUAModNPC
+    class EvenMoreHarderEoCForNoReason : TUAModNPC
     {
         private int _currentFrame = 1;
         private int _animationTimer = 50;
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Insanly Hard Eye of Cthulhu for nothing");
+            DisplayName.SetDefault("Even more insane than the insane eye of cthulhu, yup it's possible");
             Main.npcFrameCount[npc.type] = 6;
         }
 
@@ -25,9 +25,9 @@ namespace TerrariaUltraApocalypse.NPCs.Memefest
         {
             npc.width = 100;
             npc.height = 110;
-            npc.damage = 1;
-            npc.defense = 0;
-            npc.lifeMax = 28000;
+            npc.damage = 25;
+            npc.defense = 4;
+            npc.lifeMax = 56000;
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
             npc.knockBackResist = 0f;
@@ -35,18 +35,13 @@ namespace TerrariaUltraApocalypse.NPCs.Memefest
             npc.noTileCollide = true;
             npc.timeLeft = NPC.activeTime * 30;
             npc.boss = true;
-            npc.value = 30000f;
-            npc.npcSlots = 5f;
+            npc.value = 300000f;
+            npc.npcSlots = 7f;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
         {
             npc.lifeMax = (int)(npc.lifeMax * 0.65 * bossLifeScale);
-        }
-
-        public override void ultraScaleDifficylty(NPC npc)
-        {
-            npc.lifeMax = (int)(npc.lifeMax * 5 * (TUAWorld.EoCDeath + 1));
         }
 
         public override void NPCLoot()
@@ -154,7 +149,7 @@ namespace TerrariaUltraApocalypse.NPCs.Memefest
                 {
                     _currentFrame = 1;
                 }
-                if (npc.ai[0] > 1f) // Phase 2
+                if (npc.ai[0] > 0f) // Phase 2
                 {
                     npc.frame.Y += frameHeight * 3;
                 }
@@ -239,7 +234,7 @@ namespace TerrariaUltraApocalypse.NPCs.Memefest
                 dust2.velocity.Y = dust2.velocity.Y * 0.1f;
             }
 
-            if (dead) // Only night-time with living player
+            if (/*Main.dayTime || */dead) // Only night-time with living player
             {
                 npc.velocity.Y = npc.velocity.Y - 0.04f;
                 if (npc.timeLeft > 10)
@@ -315,13 +310,13 @@ namespace TerrariaUltraApocalypse.NPCs.Memefest
             if (Main.netMode != 1)
             {
                 npc.TargetClosest();
-                var multiplier = 40f;
+                var multiplier = 20f;
                 var npcCenter = new Vector2(npc.position.X + npc.width * 0.5f, npc.position.Y + npc.height * 0.5f);
 
                 var xSpeed = Main.player[npc.target].position.X + Main.player[npc.target].width / 2f - npcCenter.X;
                 var ySpeed = Main.player[npc.target].position.Y + Main.player[npc.target].height / 2f - npcCenter.Y;
                 var speed = Math.Abs(Main.player[npc.target].velocity.X) + Math.Abs(Main.player[npc.target].velocity.Y) / 4f;
-                 speed += 10000f - speed;
+                speed += 10f - speed;
 
                 if (speed < 5f)
                 {
@@ -334,9 +329,35 @@ namespace TerrariaUltraApocalypse.NPCs.Memefest
                 }
                 speed *= 2f;
 
+                float dist = Vector2.Distance(npc.position, Main.player[npc.target].position);
+                //bool faster = npc.velocity.X < Main.player[npc.target].velocity.X && npc.velocity.Y < Main.player[npc.target].velocity.Y;
+                float velocity = Main.player[npc.target].velocity.Length();
+                bool catchUp = (dist > 240 && velocity > 7) || Main.rand.Next(30) == 0;
+
+                if (catchUp)
+                {
+                    npc.damage = 100;
+                    npc.defense = -75;
+                    npc.ai[0] = 1f;
+                }
+                else
+                {
+                    npc.damage = 25;
+                    npc.defense = 4;
+                    npc.ai[0] = 0f;
+                }
+
                 // Bezerk Dash Speed is calculated by taking the distance to the player minus the player's velocity multiplied by the distance
-                //xSpeed -= Main.player[npc.target].velocity.X * speed;
-                //ySpeed -= Main.player[npc.target].velocity.Y * speed / 4f;
+                if (catchUp)
+                {
+                    multiplier = 40;
+                }
+                else
+                {
+                    multiplier = 15;
+                    xSpeed -= Main.player[npc.target].velocity.X * speed;
+                    ySpeed -= Main.player[npc.target].velocity.Y * speed / 4f;
+                }
                 xSpeed *= 1f + Main.rand.Next(-10, 11) * 0.01f;
                 ySpeed *= 1f + Main.rand.Next(-10, 11) * 0.01f;
                 xSpeed *= 1f + Main.rand.Next(-10, 11) * 0.01f;
@@ -372,8 +393,15 @@ namespace TerrariaUltraApocalypse.NPCs.Memefest
                 npc.velocity.X = npc.velocity.X + Main.rand.Next(-20, 21) * 0.1f;
                 npc.velocity.Y = npc.velocity.Y + Main.rand.Next(-20, 21) * 0.1f;
 
-                // Play Bezerk sound
-                Main.PlaySound(36, (int)npc.position.X, (int)npc.position.Y, -1);
+                if (catchUp)
+                {
+                    // Play Bezerk sound
+                    Main.PlaySound(36, (int)npc.position.X, (int)npc.position.Y, -1);
+                }
+                else
+                {
+                    Main.PlaySound(36, (int)npc.position.X, (int)npc.position.Y, 0);
+                }
 
                 AIGotoPhase(AIPhase.Cooldown);
 
@@ -388,7 +416,7 @@ namespace TerrariaUltraApocalypse.NPCs.Memefest
 
         public void AICooldown()
         {
-            var bezerkDistanceLimit = 20f;
+            var bezerkDistanceLimit = 10f;
             float bezerkDelay = 0;//13f;
 
             npc.ai[2] += 1f;

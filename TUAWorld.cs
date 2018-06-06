@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ID;
 using Dimlibs;
+using TerrariaUltraApocalypse.API;
 
 namespace TerrariaUltraApocalypse
 {
@@ -200,6 +201,7 @@ namespace TerrariaUltraApocalypse
             {
                 Main.moonTexture = TerrariaUltraApocalypse.originalMoon;
             }
+            ModExtension.ForceSpawnNPC();
         }
 
         public static void solarWorldGen(Mod mod)

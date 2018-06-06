@@ -31,6 +31,13 @@ namespace TerrariaUltraApocalypse.API.Achievements
 
         public void addAchievementToList(ModAchievement achievement)
         {
+            foreach (string s in doneAchievementList)
+            {
+                if (s == achievement.name)
+                {
+                    return;
+                }
+            }
             doneAchievementList.Add(achievement.name);
         }
 

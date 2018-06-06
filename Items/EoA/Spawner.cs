@@ -35,7 +35,7 @@ namespace TerrariaUltraApocalypse.Items.EoA
 
         public override bool UseItem(Player player)
         {
-            //if (NPC.downedMoonlord && TerrariaUltraApocalypse.EoCDeath >= 10)
+            //if (downedMoonlord && TerrariaUltraApocalypse.EoCDeath >= 10)
             //{
             if (!Main.expertMode)
             {
@@ -45,7 +45,7 @@ namespace TerrariaUltraApocalypse.Items.EoA
             Main.NewText("The apocalypse is coming, be aware...", Microsoft.Xna.Framework.Color.DarkGoldenrod);
             Main.PlaySound(SoundID.MoonLord, player.position, 0);
             NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Eye_of_Apocalypse"));
-            //NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - 360, mod.NPCType("Eye_of_Apocalypse"));
+            //NewNPC((int)player.Center.X, (int)player.Center.Y - 360, mod.NPCType("Eye_of_Apocalypse"));
             return true;
             //}
             //else

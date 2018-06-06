@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace TerrariaUltraApocalypse.Tiles.Meteoridon
@@ -16,8 +17,11 @@ namespace TerrariaUltraApocalypse.Tiles.Meteoridon
             get { return ModLoader.GetMod("TerrariaUltraApocalypse"); }
         }
 
+        
+
         public override int DropWood()
         {
+            
             return mod.ItemType("MeteoridonWoodPlank");
         }
 

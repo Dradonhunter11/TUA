@@ -50,6 +50,7 @@
     <Compile Include="API\Achievements\AchievementUIComponent\AchievementSlotElement\AchievementReward.cs" />
     <Compile Include="API\Achievements\AchievementUIComponent\AchievementUI.cs" />
     <Compile Include="API\Achievements\AchievementUIComponent\AchivementUIList.cs" />
+    <Compile Include="API\ModExtension.cs" />
     <Compile Include="API\TerraEnergy\Block\Capacitor.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\BasicTECapacitor.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\EnergyCollector.cs" />
@@ -76,6 +77,10 @@
     <Compile Include="API\TUADimItem.cs" />
     <Compile Include="API\TUAModItem.cs" />
     <Compile Include="API\TUAModNPC.cs" />
+    <Compile Include="API\VoidClass\VoidDamageItem.cs" />
+    <Compile Include="API\VoidClass\VoidDamageNPC.cs" />
+    <Compile Include="API\VoidClass\VoidDamagePlayer.cs" />
+    <Compile Include="API\VoidClass\VoidDamageProjectile.cs" />
     <Compile Include="Buff\Debuff\EoA\NoMountDebuff.cs" />
     <Compile Include="Buff\Debuff\EoC\EoCNerf.cs" />
     <Compile Include="Buff\Debuff\EotW\ArrowDebuff.cs" />
@@ -88,12 +93,16 @@
     <Compile Include="Dusts\EotW\BulletDust.cs" />
     <Compile Include="Dusts\EotW\MagicDust.cs" />
     <Compile Include="Dusts\EotW\MeleeDust.cs" />
+    <Compile Include="Dusts\FireDust.cs" />
+    <Compile Include="Dusts\TUAGlobalDust.cs" />
     <Compile Include="Items\Block\ApocalypseDirt.cs" />
     <Compile Include="Items\Block\Hopper.cs" />
     <Compile Include="Items\Block\Machine\DivinePortal.cs" />
     <Compile Include="Items\Block\Meteoridon\MeteoridonWoodPlank.cs" />
     <Compile Include="Items\Dimension\SolarCrystal.cs" />
     <Compile Include="Items\EoA\SuspiciousBurnedEye.cs" />
+    <Compile Include="Items\Food\Poutine.cs" />
+    <Compile Include="Items\Meteoridon\MeteorideScale.cs" />
     <Compile Include="Items\TUAGlobalItem.cs" />
     <Compile Include="Items\Weapons\MechanicalBow.cs" />
     <Compile Include="Items\Weapons\MechanicalSniper.cs" />
@@ -102,6 +111,7 @@
     <Compile Include="NPCs\EoA\EoAHeal.cs" />
     <Compile Include="NPCs\EoA\Eye_of_Apocalypse_clone.cs" />
     <Compile Include="Dimension\Sky\TUACustomSky.cs" />
+    <Compile Include="NPCs\Memefest\EvenMoreHarderEoCForNoReason.cs" />
     <Compile Include="NPCs\Memefest\InsanlyHardEoCForNothing.cs" />
     <Compile Include="NPCs\Meteoridon\MeteoridonEye.cs" />
     <Compile Include="NPCs\TUAGlobalNPC.cs" />

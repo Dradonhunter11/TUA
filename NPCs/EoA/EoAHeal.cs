@@ -60,6 +60,7 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
                 particleTimer = 10;
             }
             particleTimer--;
+            
         }
 
         public override bool CheckDead()
@@ -80,7 +81,7 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
         {
             if (animationTimer == 0) {
                 currentFrame = (currentFrame == 1) ? 0 : 1;
-                npc.frame.Y = frameHeight * currentFrame;
+                frame.Y = frameHeight * currentFrame;
                 animationTimer = 50;
             }
             animationTimer--;

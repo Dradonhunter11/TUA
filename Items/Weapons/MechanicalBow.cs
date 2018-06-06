@@ -11,10 +11,11 @@ using Terraria.Localization;
 using Terraria.ModLoader.IO;
 using System.IO;
 using TerrariaUltraApocalypse.API;
+using TerrariaUltraApocalypse.API.VoidClass;
 
 namespace TerrariaUltraApocalypse.Items.Weapons
 {
-    class MechanicalBow : TUAModItem
+    class MechanicalBow : VoidDamageItem
     {
         public override void SetStaticDefaults()
         {
@@ -26,7 +27,9 @@ namespace TerrariaUltraApocalypse.Items.Weapons
             Tooltip.AddTranslation(GameCulture.French, AddUltraTooltip(Tooltip.GetTranslation(GameCulture.French)));
         }
 
-        public override void SetDefaults()
+        
+
+        public override void safeSetDefaults()
         {
             item.width = 32;
             item.height = 50;
@@ -42,7 +45,8 @@ namespace TerrariaUltraApocalypse.Items.Weapons
             item.useAnimation = 10;
             item.useTime = 20;
             item.useAmmo = AmmoID.Arrow;
-            ultra = true;
+            setVoidDamage(50);
+            
         }
 
         public override void AddRecipes()
@@ -63,26 +67,6 @@ namespace TerrariaUltraApocalypse.Items.Weapons
         public override bool ConsumeAmmo(Player player)
         {
             return false;
-        }
-
-        public void extendsAI()
-        {
-
-        }
-
-        public override void PostReforge()
-        {
-            manipulateUltraProperty(false);
-        }
-
-
-
-        public override void Update(ref float gravity, ref float maxFallSpeed)
-        {
-            if (item.owner == 0)
-            {
-                manipulateUltraProperty(true);
-            }
         }
     }
 }

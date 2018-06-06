@@ -467,11 +467,14 @@ namespace TerrariaUltraApocalypse.NPCs
 
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
-            if (BiomeLibs.InBiome("meteoridon"))
+            if (BiomeLibs.InBiome("Meteoridon"))
             {
                 pool.Clear();
                 pool.Add(mod.NPCType<MeteoridonEye>(), 5f);
             }
+           
         }
+
+
     }
 }

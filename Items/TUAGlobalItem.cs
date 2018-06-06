@@ -13,8 +13,14 @@ namespace TerrariaUltraApocalypse.Items
 {
     class TUAGlobalItem : GlobalItem
     {
+        
+
         public override void SetDefaults(Item item)
         {
+            if (item.type == ItemID.Mushroom || item.type == ItemID.LesserHealingPotion || item.type == ItemID.HealingPotion) {
+                item.potion = false;
+                
+            }
             if (item.type == ItemID.SuspiciousLookingEye) {
                 item.consumable = false;
                 if (NPC.downedMoonlord)
@@ -34,7 +40,38 @@ namespace TerrariaUltraApocalypse.Items
 
         public override bool UseItem(Item item, Player player)
         {
-            if (item.type == ItemID.SuspiciousLookingEye)
+            
+            if (item.type == ItemID.Mushroom)
+            {
+                if (player.HasBuff(BuffID.PotionSickness))
+                {
+                    return false;
+                }
+
+                player.HealEffect(15, true);
+                player.AddBuff(BuffID.PotionSickness, 600, true);
+            } else if (item.type == ItemID.LesserHealingPotion)
+            {
+                if (player.HasBuff(BuffID.PotionSickness))
+                {
+                    return false;
+                }
+
+                player.HealEffect(35, true);
+                player.AddBuff(BuffID.PotionSickness, 1500, true);
+            }
+            else if (item.type == ItemID.HealingPotion)
+            {
+                if (player.HasBuff(BuffID.PotionSickness))
+                {
+                    return false;
+                }
+
+                player.HealEffect(60, true);
+                player.AddBuff(BuffID.PotionSickness, 1800, true);
+            }
+
+            else if (item.type == ItemID.SuspiciousLookingEye)
             {
                 Main.NewText("<Eye of cthulhu> - You really think we would let the lord dying from a simple terrarian? Well, welcome to the ultra mode muhahaha", Color.White);
                 item = mod.GetItem("SuspiciousBurnedEye").item;
@@ -43,7 +80,10 @@ namespace TerrariaUltraApocalypse.Items
             {
                 Main.NewText("<Eater of the world> - Corruption, waste and plague should be one, the ancient god gace us the power to corrupt a world!", Color.White);
             }
-
+            if (item.potion)
+            {
+                return true;
+            }
             return base.UseItem(item, player);
         }
 
@@ -58,6 +98,10 @@ namespace TerrariaUltraApocalypse.Items
                 TooltipLine line = new TooltipLine(mod, "Ultra", "It grew... stronger... and worst...");
                 line.overrideColor = Color.DarkRed;
                 tooltips.Add(line);
+                
+            }
+            if (item.type == ItemID.Mushroom)
+            {
                 
             }
             base.ModifyTooltips(item, tooltips);

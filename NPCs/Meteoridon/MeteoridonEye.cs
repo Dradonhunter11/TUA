@@ -214,14 +214,16 @@ namespace TerrariaUltraApocalypse.NPCs.Meteoridon
             {
                 return;
             }
+            Item.NewItem(npc.Center, mod.ItemType("MeteorideScale"), Main.rand.Next(1, 2), true);
         }
 
         public void spawnAbunchOfDust()
         {
             for (int i = 0; i < 5; i++)
             {
-                int d = Dust.NewDust(npc.Center, 5, 5, DustID.Fire, (Main.rand.NextBool()) ? 1 : -1, (Main.rand.NextBool()) ? 1 : -1, 0, Color.White, 0.25f);
-                Main.dust[d].scale = 0.25f * chargePower / 10;
+                 int d = Dust.NewDust(npc.Center, 5, 5, mod.DustType("FireDust"), (Main.rand.NextBool()) ? 1 : -1, (Main.rand.NextBool()) ? 1 : -1, 0, Color.White, 0.25f);
+                Main.dust[d].scale = 0.25f * chargePower / 50;
+                
             }
         }
 
