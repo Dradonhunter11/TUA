@@ -454,11 +454,12 @@ namespace TerrariaUltraApocalypse.NPCs
             if (/*TerrariaUltraApocalypse.UltraMode &&*/ npc.type == NPCID.EyeofCthulhu && NPC.downedMoonlord)
             {
                 currentDamage += (int)damage;
-                damageCap = (int)(1250 * TUAWorld.EoCDeath * 1.5);
+                damageCap = (int)(750 * TUAWorld.EoCDeath * 1.5);
+                
                 if (immunityCooldown != 0 && currentDamage >= damageCap)
                 {
                     damage = 0;
-                    crit = false;
+                    return false;
                 }
 
             }

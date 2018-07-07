@@ -20,8 +20,9 @@ namespace TerrariaUltraApocalypse.Items.Weapons
         public override void SetStaticDefaults()
         {
             DisplayName.AddTranslation(GameCulture.French, "L'arc des dieux apocalyptic");
-            DisplayName.SetDefault("Divine apocalyptic god Bow");
-            Tooltip.SetDefault("Forged from the rest of an ancient corrupted god...\nWon't consumme arrow\n");
+            DisplayName.SetDefault("The god feather");
+            Tooltip.AddLine("Forged from the rest of an ancient corrupted god...");
+            Tooltip.AddLine("Won't consume arrows");
             Tooltip.AddTranslation(GameCulture.French, "Forger a partir des restes d'un ancien dieu corrompu...\nNe consumme pas de flèche");
             Tooltip.SetDefault(AddUltraTooltip(Tooltip.GetDefault()));
             Tooltip.AddTranslation(GameCulture.French, AddUltraTooltip(Tooltip.GetTranslation(GameCulture.French)));
@@ -45,8 +46,10 @@ namespace TerrariaUltraApocalypse.Items.Weapons
             item.useAnimation = 10;
             item.useTime = 20;
             item.useAmmo = AmmoID.Arrow;
+            item.crit = 50;
             setVoidDamage(50);
-            
+            VoidDamage = 50;
+            haveNormalDamage = true;
         }
 
         public override void AddRecipes()

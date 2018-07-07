@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace TerrariaUltraApocalypse.API
 {
     class TUAModNPC : ModNPC
     {
+        public override bool CloneNewInstances { get { return true; } }
 
         public override bool Autoload(ref string name)
         {
@@ -33,6 +35,7 @@ namespace TerrariaUltraApocalypse.API
         //This method is used to do NPC scaling in Ultra mode
         public virtual void ultraScaleDifficylty(NPC npc) { }
 
-       
+        
+
     }
 }

@@ -20,6 +20,7 @@ using System.IO;
 using TerrariaUltraApocalypse.API.Achievements;
 using TerrariaUltraApocalypse.Achievement;
 using TerrariaUltraApocalypse.API.Achievements.AchievementUIComponent;
+using TerrariaUltraApocalypse.Items.Meteoridon;
 
 namespace TerrariaUltraApocalypse
 {
@@ -44,6 +45,8 @@ namespace TerrariaUltraApocalypse
         public static ModHotKey openAchievementMenu;
         public static AchievementUI achievementUI;
         public UserInterface achievementInterface;
+
+
 
         public TerrariaUltraApocalypse()
         {
@@ -89,6 +92,8 @@ namespace TerrariaUltraApocalypse
             addIngotRecipe(ItemID.PlatinumOre, ItemID.PlatinumBar);
             addIngotRecipe(ItemID.CrimtaneOre, ItemID.CrimtaneBar);
             addIngotRecipe(ItemID.DemoniteOre, ItemID.DemoniteBar);
+
+            RecipeManager.GetAllRecipeByIngredientAndReplace(ItemID.PixieDust, ItemType<MeteorideScale>());
         }
 
         public void addIngotRecipe(int itemID, int itemResult, int timer = 20)
@@ -139,11 +144,12 @@ namespace TerrariaUltraApocalypse
 
         public void loadAchievement()
         {
-            AchievementManager.GetInstance().AddAchievement(new EnterHardmode());
-            AchievementManager.GetInstance().AddAchievement(new ItBegin());
-            AchievementManager.GetInstance().AddAchievement(new UltraEoC());
-            AchievementManager.GetInstance().AddAchievement(new YouMadeADoor());
-            AchievementManager.GetInstance().AddAchievement(new DradonFailed());
+            AchievementManager.GetInstance().AddAchievement(new EnterHardmode(this));
+            AchievementManager.GetInstance().AddAchievement(new ItBegin(this));
+            AchievementManager.GetInstance().AddAchievement(new UltraEoC(this));
+            AchievementManager.GetInstance().AddAchievement(new YouMadeADoor(this));
+            AchievementManager.GetInstance().AddAchievement(new DradonFailed(this));
+            AchievementManager.GetInstance().AddAchievement(new EoAKill(this));
         }
 
         public void test([CallerFilePath] String classPath = "")
@@ -279,7 +285,7 @@ namespace TerrariaUltraApocalypse
             if (bossChecklist != null)
             {
                 bossChecklist.Call("AddBossWithInfo", "Eye of cthulhu (Ultra Version)", 16.0f, (Func<bool>)(() => TUAWorld.EoCDeath >= 1), "Use a [i:" + ItemID.SuspiciousLookingEye + "] at night after Moon lord has been defeated");
-                bossChecklist.Call("AddBossWithInfo", "Eye of Apocalypse - God of destruction", 16.1f, (Func<bool>)(() => TUAWorld.UltraMode), "Use a [i:" + ItemType("Spawner") + "] after --1sing Ay. 0F C1^lh> in ^1tra and murder it, if you can...");
+                bossChecklist.Call("AddBossWithInfo", "Eye of EoADowned - God of destruction", 16.1f, (Func<bool>)(() => TUAWorld.UltraMode), "Use a [i:" + ItemType("Spawner") + "] after --1sing Ay. 0F C1^lh> in ^1tra and murder it, if you can...");
             }
         }
     }

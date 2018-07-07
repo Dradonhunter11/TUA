@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using TerrariaUltraApocalypse.API.Achievements.AchievementTemplate;
 
 namespace TerrariaUltraApocalypse.Achievement
@@ -22,6 +23,10 @@ namespace TerrariaUltraApocalypse.Achievement
         {
             int i = Item.NewItem(p.Center, ItemID.AvengerEmblem, 1, true, 0, true, false);
             
+        }
+
+        public EnterHardmode(Mod mod) : base(mod)
+        {
         }
     }
 }

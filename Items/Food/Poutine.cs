@@ -27,7 +27,7 @@ namespace TerrariaUltraApocalypse.Items.Food
             item.useStyle = 1;
             item.useTime = 10;
             item.useAnimation = 20;
-            item.rare = 9;
+            item.rare = 99;
             item.lavaWet = true;
             item.consumable = true;
             item.maxStack = 30;

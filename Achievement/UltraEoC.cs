@@ -23,5 +23,9 @@ namespace TerrariaUltraApocalypse.Achievement
         {
             int i = Item.NewItem(p.Center, ModLoader.GetMod("TerrariaUltraApocalypse").ItemType("Spawner"), 1, true, 0, true, false);
         }
+
+        public UltraEoC(Mod mod) : base(mod)
+        {
+        }
     }
 }

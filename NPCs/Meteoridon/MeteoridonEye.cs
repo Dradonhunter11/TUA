@@ -16,7 +16,7 @@ namespace TerrariaUltraApocalypse.NPCs.Meteoridon
         private int animationTimer = 25;
         private int currentFrame = 1;
         private bool aggro = false;
-        private int wanderingTimer = Main.rand.Next(100, 400);
+        private int wanderingTimer;
         private int chargeTimer = 50;
         private int chargePower = 0;
         private bool chargeReady = false;
@@ -37,6 +37,12 @@ namespace TerrariaUltraApocalypse.NPCs.Meteoridon
             return (float)Math.Sqrt(distance.X * distance.X + distance.Y * distance.Y);
         }
 
+        public override int SpawnNPC(int tileX, int tileY)
+        {
+            wanderingTimer = Main.rand.Next(100, 400);
+            return base.SpawnNPC(tileX, tileY);
+        }
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Strange Eye");
@@ -54,6 +60,7 @@ namespace TerrariaUltraApocalypse.NPCs.Meteoridon
             npc.aiStyle = -1;
             npc.noGravity = true;
             npc.knockBackResist = 100;
+            
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -122,7 +129,7 @@ namespace TerrariaUltraApocalypse.NPCs.Meteoridon
                 {
                     Vector2 nPos = npc.Center;
                     Vector2 pPos = p.Center;
-                    npc.velocity = (pPos - nPos) * chargePower / 250;
+                    npc.velocity = (pPos - nPos) * chargePower / 500;
                     chargeReady = true;
                 }
             }

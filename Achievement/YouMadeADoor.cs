@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using TerrariaUltraApocalypse.API.Achievements.AchievementTemplate;
 
 namespace TerrariaUltraApocalypse.Achievement
@@ -22,6 +23,10 @@ namespace TerrariaUltraApocalypse.Achievement
         public override void reward(Player p)
         {
             Item.NewItem(p.Center, ItemID.WoodenDoor, 99, true, 0, true, false);
+        }
+
+        public YouMadeADoor(Mod mod) : base(mod)
+        {
         }
     }
 }

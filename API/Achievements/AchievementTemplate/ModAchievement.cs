@@ -24,15 +24,28 @@ namespace TerrariaUltraApocalypse.API.Achievements.AchievementTemplate
         public Mod mod;
         public Texture2D texture;
 
-        public ModAchievement()
+        public ModAchievement(Mod mod)
         {
+            this.mod = mod;
             setDefault();
+            AutoLoad(mod);
         } 
 
         public virtual bool AutoLoad(Mod mod, [CallerFilePath] String classPath = "")
         {
-            ModAchievement achievement = (ModAchievement)Activator.CreateInstance(GetType());
+            //ModAchievement achievement = (ModAchievement)Activator.CreateInstance(GetType());
+            try
+            {
+                string t = (GetType().FullName).Replace('.', '/')
+                           .Replace(mod.File.name, "")
+                           .Remove(0, 1);
 
+                texture = mod.GetTexture(t);
+            }
+            catch (Exception e)
+            {
+            }
+            
             return true;
         }
 

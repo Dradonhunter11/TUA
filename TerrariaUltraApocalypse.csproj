@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="Achievement\DradonFailed.cs" />
     <Compile Include="Achievement\EnterHardmode.cs" />
+    <Compile Include="Achievement\EoAKill.cs" />
     <Compile Include="Achievement\ItBegin.cs" />
     <Compile Include="Achievement\UltraEoC.cs" />
     <Compile Include="Achievement\YouMadeADoor.cs" />
@@ -67,6 +68,8 @@
     <Compile Include="API\TerraEnergy\Items\RodOfLinking.cs" />
     <Compile Include="API\TerraEnergy\Items\TerraMeter.cs" />
     <Compile Include="API\TerraEnergy\MachineRecipe\BaseRecipe.cs" />
+    <Compile Include="API\TerraEnergy\MachineRecipe\Forge\ForgeRecipe.cs" />
+    <Compile Include="API\TerraEnergy\MachineRecipe\Forge\ForgeRecipeManager.cs" />
     <Compile Include="API\TerraEnergy\MachineRecipe\Furnace\FurnaceRecipe.cs" />
     <Compile Include="API\TerraEnergy\MachineRecipe\Furnace\FurnaceRecipeManager.cs" />
     <Compile Include="API\TerraEnergy\TileEntities\CapacitorEntity.cs" />
@@ -77,6 +80,7 @@
     <Compile Include="API\TUADimItem.cs" />
     <Compile Include="API\TUAModItem.cs" />
     <Compile Include="API\TUAModNPC.cs" />
+    <Compile Include="API\VoidClass\VoidDamageGlobalNPC.cs" />
     <Compile Include="API\VoidClass\VoidDamageItem.cs" />
     <Compile Include="API\VoidClass\VoidDamageNPC.cs" />
     <Compile Include="API\VoidClass\VoidDamagePlayer.cs" />
@@ -98,6 +102,7 @@
     <Compile Include="Items\Block\ApocalypseDirt.cs" />
     <Compile Include="Items\Block\Hopper.cs" />
     <Compile Include="Items\Block\Machine\DivinePortal.cs" />
+    <Compile Include="Items\Block\Meteoridon\MeteoridonStone.cs" />
     <Compile Include="Items\Block\Meteoridon\MeteoridonWoodPlank.cs" />
     <Compile Include="Items\Dimension\SolarCrystal.cs" />
     <Compile Include="Items\EoA\SuspiciousBurnedEye.cs" />
@@ -106,6 +111,7 @@
     <Compile Include="Items\TUAGlobalItem.cs" />
     <Compile Include="Items\Weapons\MechanicalBow.cs" />
     <Compile Include="Items\Weapons\MechanicalSniper.cs" />
+    <Compile Include="Items\Weapons\SpectrumBlade.cs" />
     <Compile Include="MoonEvent\ApocalypseMoon.cs" />
     <Compile Include="MoonEvent\ApocalypseWMoon.cs" />
     <Compile Include="NPCs\EoA\EoAHeal.cs" />
@@ -113,8 +119,13 @@
     <Compile Include="Dimension\Sky\TUACustomSky.cs" />
     <Compile Include="NPCs\Memefest\EvenMoreHarderEoCForNoReason.cs" />
     <Compile Include="NPCs\Memefest\InsanlyHardEoCForNothing.cs" />
+    <Compile Include="NPCs\Meteoridon\ChaosMeteoridon.cs" />
+    <Compile Include="NPCs\Meteoridon\Meteoride.cs" />
     <Compile Include="NPCs\Meteoridon\MeteoridonEye.cs" />
     <Compile Include="NPCs\TUAGlobalNPC.cs" />
+    <Compile Include="API\VoidClass\VoidItemPrefix.cs" />
+    <Compile Include="Prefixes\Multishot.cs" />
+    <Compile Include="Prefixes\VoidItem\Collapsing.cs" />
     <Compile Include="Projectiles\EoA\EoALaserWall.cs" />
     <Compile Include="Projectiles\GhosterBullet.cs" />
     <Compile Include="Projectiles\GodExplosiveArrow.cs" />
@@ -180,6 +191,7 @@
     <Folder Include="Items\Armor\" />
     <Folder Include="Items\Block\PillarBiomeBlock\" />
     <Folder Include="NPCs\Dimension\Solar\" />
+    <Folder Include="Tiles\Furniture\Demon\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

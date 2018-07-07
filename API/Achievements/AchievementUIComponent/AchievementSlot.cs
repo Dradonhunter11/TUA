@@ -24,6 +24,7 @@ namespace TerrariaUltraApocalypse.API.Achievements.AchievementUIComponent
         private AchievementNameText achievementName;
         private AchievementDescriptionText achievementDescription;
         private AchievementReward achievementReward;
+        
         private UIText achievementCompleted;
 
         private AchievementPic picture;
@@ -36,8 +37,6 @@ namespace TerrariaUltraApocalypse.API.Achievements.AchievementUIComponent
             panel.Width.Set(575, 0f);
             panel.Height.Set(87, 0f);
 
-
-            picture = new AchievementPic();
             picture.Left.Set(5, 0f);
             picture.Top.Set(9, 0f);
 
@@ -63,9 +62,17 @@ namespace TerrariaUltraApocalypse.API.Achievements.AchievementUIComponent
 
         internal void setProperties(ModAchievement achievement, int i)
         {
+            picture = new AchievementPic();
             panel = new UIPanel();
             name = achievement.name;
             description = achievement.description;
+            if (achievement.texture != null)
+            {
+                picture.setTexture(achievement.texture);
+            }
+
+           
+
             //completed = p.checkAchievement(achievement.name);
             index = i;
             if (achievement.rewardDesc != "")

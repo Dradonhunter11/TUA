@@ -19,6 +19,8 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
     [AutoloadBossHead]
     class Eye_of_Apocalypse : ModNPC
     {
+        public override bool CloneNewInstances { get { return true; } }
+
 
         private String pos = null;
         private static int teleportTimer = 5000;
@@ -64,7 +66,7 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye of the Apocalypse - God of destruction");
+            DisplayName.SetDefault("Eye of the EoADowned - God of destruction");
             DisplayName.AddTranslation(GameCulture.French, "Oeil de l'apocalypse - Dieu de la destruction");
             Main.npcFrameCount[npc.type] = 6;
 
@@ -98,7 +100,7 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
             npc.knockBackResist = 0f;
             npc.width = 110;
             npc.height = 166;
-            npc.value = Item.buyPrice(0, 20, 0, 0);
+            npc.value = Item.buyPrice(20, 0, 0, 0);
             npc.npcSlots = 15f;
             npc.boss = true;
             npc.lavaImmune = true;
@@ -286,11 +288,11 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
                 npc.dontTakeDamage = true;
                 if (phase1Attack == 0)
                 {
-                    Main.NewText("<Eye of Apocalypse> : Terrarian, get ready to suffer. As the god of destruction, you should be erased from this world. You scealed our master and you'll pay for it! Now that the moon lord is dead, we are all awake and are ready to unslead the god of element.", Color.Purple);
+                    Main.NewText("<Eye of EoADowned> : Terrarian, get ready to suffer. As the god of destruction, you should be erased from this world. You scealed our master and you'll pay for it! Now that the moon lord is dead, we are all awake and are ready to unslead the god of element.", Color.Purple);
                 }
                 else if (phase1Attack == 31)
                 {
-                    Main.NewText("<Eye of Apocalypse> : How fun is it to be trap like a vulgar fly? I hope you are having fun here because you'll be trapped for the eternity!", Color.Purple);
+                    Main.NewText("<Eye of EoADowned> : How fun is it to be trap like a vulgar fly? I hope you are having fun here because you'll be trapped for the eternity!", Color.Purple);
                 }
 
                 Main.NewText("Your soul feels heavy in all the sudden...", Color.DarkCyan);
@@ -327,7 +329,7 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
         {
             if (phase == 1)
             {
-                Main.NewText("<Eye of Apocalypse> : Don't think this will be this easy, this is FAR from my final form.", Color.Purple);
+                Main.NewText("<Eye of EoADowned> : Don't think this will be this easy, this is FAR from my final form.", Color.Purple);
             }
             npc.dontTakeDamage = false;
             target = "player";
@@ -367,9 +369,9 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
                 {
                     npc.frame.Y = frameHeight * currentFrame;
                     currentFrame++;
-                    if (currentFrame == 3)
+                    if (currentFrame == 2)
                     {
-                        currentFrame = 1;
+                        currentFrame = 0;
                     }
                 }
                 animationTimer = 25;

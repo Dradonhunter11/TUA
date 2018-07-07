@@ -13,15 +13,26 @@ namespace TerrariaUltraApocalypse.Items
 {
     class TUAGlobalItem : GlobalItem
     {
-        
+        public bool multishot = false;
+        public override bool InstancePerEntity
+        {
+            get { return true; }
+        }
+
+        public override bool CloneNewInstances
+        {
+            get { return true; }
+        }
 
         public override void SetDefaults(Item item)
         {
-            if (item.type == ItemID.Mushroom || item.type == ItemID.LesserHealingPotion || item.type == ItemID.HealingPotion) {
+            if (item.type == ItemID.Mushroom || item.type == ItemID.LesserHealingPotion || item.type == ItemID.HealingPotion)
+            {
                 item.potion = false;
-                
+
             }
-            if (item.type == ItemID.SuspiciousLookingEye) {
+            if (item.type == ItemID.SuspiciousLookingEye)
+            {
                 item.consumable = false;
                 if (NPC.downedMoonlord)
                 {
@@ -40,7 +51,7 @@ namespace TerrariaUltraApocalypse.Items
 
         public override bool UseItem(Item item, Player player)
         {
-            
+
             if (item.type == ItemID.Mushroom)
             {
                 if (player.HasBuff(BuffID.PotionSickness))
@@ -50,7 +61,8 @@ namespace TerrariaUltraApocalypse.Items
 
                 player.HealEffect(15, true);
                 player.AddBuff(BuffID.PotionSickness, 600, true);
-            } else if (item.type == ItemID.LesserHealingPotion)
+            }
+            else if (item.type == ItemID.LesserHealingPotion)
             {
                 if (player.HasBuff(BuffID.PotionSickness))
                 {
@@ -94,15 +106,16 @@ namespace TerrariaUltraApocalypse.Items
                 TooltipLine line = new TooltipLine(mod, "Ultra", "Maybe this isn't a good idea");
                 tooltips.Add(line);
             }
-            if (item.type == ItemID.WormFood) {
+            if (item.type == ItemID.WormFood)
+            {
                 TooltipLine line = new TooltipLine(mod, "Ultra", "It grew... stronger... and worst...");
                 line.overrideColor = Color.DarkRed;
                 tooltips.Add(line);
-                
+
             }
             if (item.type == ItemID.Mushroom)
             {
-                
+
             }
             base.ModifyTooltips(item, tooltips);
         }
@@ -119,8 +132,10 @@ namespace TerrariaUltraApocalypse.Items
         {
             if (item.type == ItemID.SuspiciousLookingEye)
             {
-                for (int i = 0; i < player.inventory.Length; i++) {
-                    if (player.inventory[i].type == ItemID.SuspiciousLookingEye) {
+                for (int i = 0; i < player.inventory.Length; i++)
+                {
+                    if (player.inventory[i].type == ItemID.SuspiciousLookingEye)
+                    {
                         player.inventory[i].type = mod.ItemType("SuspiciousBurnedEye");
                     }
                 }

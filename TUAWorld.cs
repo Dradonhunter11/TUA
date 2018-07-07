@@ -13,7 +13,7 @@ namespace TerrariaUltraApocalypse
     {
         public static bool apocalypseMoon = false;
         public static int apocalypseMoonPoint = 0;
-        public static bool Apocalypse;
+        public static bool EoADowned;
         public static bool UltraMode;
         public static int EoCDeath;
 
@@ -69,7 +69,7 @@ namespace TerrariaUltraApocalypse
         {
             TagCompound tc = new TagCompound();
             tc.Add("UltraMode", UltraMode);
-            tc.Add("EoADowned", Apocalypse);
+            tc.Add("EoADowned", EoADowned);
             tc.Add("UltraEoCDowned", EoCDeath);
             //tc.Add("apocalypseMoon", apocalypseMoon);
             return tc;
@@ -78,9 +78,8 @@ namespace TerrariaUltraApocalypse
         public override void Load(TagCompound tag)
         {
             UltraMode = tag.GetBool("UltraMode");
-            Apocalypse = tag.GetBool("EoADowned");
+            EoADowned = tag.GetBool("EoADowned");
             EoCDeath = tag.GetInt("UltraEoCDowned");
-
 
         }
 

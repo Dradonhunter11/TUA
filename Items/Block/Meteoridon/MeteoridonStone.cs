@@ -3,24 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Terraria;
 using Terraria.ModLoader;
 
-
-namespace TerrariaUltraApocalypse.Items.Block
+namespace TerrariaUltraApocalypse.Items.Block.Meteoridon
 {
-    class ApocalypseDirt : ModItem
+    class MeteoridonStone : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("EoADowned Dirt");
-            Tooltip.SetDefault("You cheated to obtain this :P");
+            DisplayName.SetDefault("Strange Rock");
         }
 
         public override void SetDefaults()
         {
-            item.width = 16;
-            item.height = 16;
+            item.width = 22;
+            item.height = 24;
             item.maxStack = 999;
             item.consumable = true;
             item.useTurn = true;
@@ -28,7 +25,7 @@ namespace TerrariaUltraApocalypse.Items.Block
             item.useTime = 10;
             item.useStyle = 1;
             item.autoReuse = true;
-            item.createTile = mod.TileType("ApocalypseDirt");
+            item.createTile = mod.TileType("MeteoridonStone");
         }
     }
 }

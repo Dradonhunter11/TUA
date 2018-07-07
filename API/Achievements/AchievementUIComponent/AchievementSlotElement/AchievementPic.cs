@@ -21,9 +21,17 @@ namespace TerrariaUltraApocalypse.API.Achievements.AchievementUIComponent.Achiev
             Height.Set(64, 0f);
         }
 
+        public void setTexture(Texture2D picture)
+        {
+            this.picture = picture;
+        }
+
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
-            picture = ModLoader.GetMod("TerrariaUltraApocalypse").GetTexture("Achievement/Default");
+            if (picture == null)
+            {
+                picture = ModLoader.GetMod("TerrariaUltraApocalypse").GetTexture("Achievement/Default");
+            }
             CalculatedStyle innerDim = base.GetInnerDimensions();
             Vector2 picturePos = new Vector2(innerDim.X + 5f, innerDim.Y + 5);
             Rectangle r = picture.Bounds;

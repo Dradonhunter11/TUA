@@ -25,5 +25,9 @@ namespace TerrariaUltraApocalypse.Achievement
         {
             int i = Item.NewItem(p.Center, ModLoader.GetMod("TerrariaUltraApocalypse").ItemType("SolarCrystal"), 1, true, 0, true, false);
         }
+
+        public ItBegin(Mod mod) : base(mod)
+        {
+        }
     }
 }
