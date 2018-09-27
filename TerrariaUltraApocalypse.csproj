@@ -253,6 +253,7 @@
     <Compile Include="UIHijack\MainMenu\MainMenuUI.cs" />
     <Compile Include="UIHijack\MainMenu\MenuButton.cs" />
     <Compile Include="UIHijack\MainMenu\ModSettingsUI.cs" />
+    <Compile Include="UIHijack\MainMenu\UITUACredit.cs" />
     <Compile Include="UIHijack\WorldSelection\ModElement\CalamityElement.cs" />
     <Compile Include="UIHijack\WorldSelection\ModElement\EnigmaElement.cs" />
     <Compile Include="UIHijack\WorldSelection\ModElement\FargoElement.cs" />

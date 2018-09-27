@@ -18,7 +18,7 @@ namespace TerrariaUltraApocalypse.API.Dev
         private List<string> SteamId64List;
         
         private static SteamID64Checker instance;
-        private static string CurrentSteamID64 = "76561198062217769";
+        private static string CurrentSteamID64;
 
         public static SteamID64Checker getInstance()
         {
@@ -48,6 +48,11 @@ namespace TerrariaUltraApocalypse.API.Dev
         public bool verifyID()
         { 
             return SteamId64List.Contains(CurrentSteamID64);
+        }
+
+        public bool checkSpecificID(String ID)
+        {
+            return CurrentSteamID64 == ID;
         }
 
         public void CopyIDToClipboard()

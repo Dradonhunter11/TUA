@@ -1,1 +1,10 @@
-Terraria Ultra Apocalypse is a pretty cool mod, it does...this. Modify this file with a description of your mod.
+========
+Current features:
+=========
+Automation and Electricity! Smelt bars in Furnaces automatically!
+New Dimensions- Travel to entirely new worlds of the Celestial Pillars!
+New Hell Alternate- The Wasteland!
+Mob Spawners in new Dungeon Structures to discover
+New Ultra difficulty
+New Ultra boss
+--------
