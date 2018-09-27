@@ -28,7 +28,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
             disableSmartCursor = true;
         }
 
-        public override void RightClick(int i, int j)
+        public override void NewRightClick(int i, int j)
         {
             Player player = Main.player[Main.myPlayer];
             Item currentSelectedItem = player.inventory[player.selectedItem];

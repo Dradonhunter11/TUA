@@ -2,10 +2,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using TerrariaUltraApocalypse.API;
+using TerrariaUltraApocalypse.NPCs.EoA;
 
 namespace TerrariaUltraApocalypse.Items.EoA
 {
-    public class Spawner : ModItem
+    class Spawner : TUAModLegacyItem
     {
         public override void SetStaticDefaults()
         {
@@ -26,6 +28,8 @@ namespace TerrariaUltraApocalypse.Items.EoA
             item.stack = 20;
             item.UseSound = SoundID.Item1;
             item.consumable = false;
+
+            
         }
 
         public override bool CanUseItem(Player player)
@@ -45,14 +49,9 @@ namespace TerrariaUltraApocalypse.Items.EoA
             Main.NewText("The apocalypse is coming, be aware...", Microsoft.Xna.Framework.Color.DarkGoldenrod);
             Main.PlaySound(SoundID.MoonLord, player.position, 0);
             NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Eye_of_Apocalypse"));
-            //NewNPC((int)player.Center.X, (int)player.Center.Y - 360, mod.NPCType("Eye_of_Apocalypse"));
+            int npcID = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - 350, mod.NPCType<Eye_of_Apocalypse>());
+            Main.npc[npcID].ai[0] = npcID;
             return true;
-            //}
-            //else
-            //{
-            //    Main.NewText("You did not prove that you are worth for the god", Microsoft.Xna.Framework.Color.DarkGoldenrod);
-            //}
-            //return false;
         }
 
         public override void AddRecipes()
@@ -65,11 +64,6 @@ namespace TerrariaUltraApocalypse.Items.EoA
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
-
-            ModRecipe recipe2 = new ModRecipe(mod);
-            recipe2.AddIngredient(ItemID.DirtBlock, 10);
-            recipe2.SetResult(this);
-            recipe2.AddRecipe();
         }
     }
 }

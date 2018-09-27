@@ -14,8 +14,10 @@ namespace TerrariaUltraApocalypse.API
     {
         public virtual bool ultra { get; set; }
         public virtual bool furnace { get; set; }
+        public override bool CloneNewInstances { get { return true; } }
 
         protected void manipulateUltraProperty(bool isExpert) {
+            
             item.rare = -12;
             if (isExpert)
             {

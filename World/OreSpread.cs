@@ -14,7 +14,7 @@ namespace TerrariaUltraApocalypse.World
 
         public override void PostUpdate()
         {
-
+            /*
             if (Main.netMode != 1)
             {
                 for (int k = 0; k < Main.maxTilesX * Main.maxTilesY * 3E-05 * Main.worldRate; k++)
@@ -36,7 +36,7 @@ namespace TerrariaUltraApocalypse.World
                     }
                 }
 
-            }
+            }*/
         }
 
 

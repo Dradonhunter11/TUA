@@ -11,6 +11,8 @@ namespace TerrariaUltraApocalypse
 {
     class RecipeManager
     {
+        private static List<Recipe> removedRecipes = new List<Recipe>();
+
         public static void removeRecipe(int itemID)
         {
             RecipeFinder rf = new RecipeFinder();
@@ -56,6 +58,33 @@ namespace TerrariaUltraApocalypse
                     Main.recipe[Recipe.numRecipes] = r;
                     Recipe.numRecipes++;
                 }
+            }
+        }
+
+
+        public static void setAllFurnaceRecipeSystem()
+        {
+            RecipeFinder rf = new RecipeFinder();
+            rf.AddTile(TileID.Furnaces);
+
+            foreach (Recipe r in rf.SearchRecipes())
+            {
+                Recipe recipe = r;
+                if (recipe.requiredItem.Length == 1)
+                {
+                    TerrariaUltraApocalypse.instance.addFurnaceRecipe(recipe.requiredItem[0].type, recipe.createItem.type, 20);
+                    removedRecipes.Add(r);
+                    RecipeEditor re = new RecipeEditor(r);
+                    re.DeleteRecipe();
+                }
+            }
+        }
+
+        public static void setBackAllRecipe()
+        {
+            foreach (var recipe in removedRecipes)
+            {
+                
             }
         }
 

@@ -20,8 +20,8 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Items
 
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 30;
+            item.width = 34;
+            item.height = 34;
             item.useStyle = 4;
             item.consumable = false;
         }

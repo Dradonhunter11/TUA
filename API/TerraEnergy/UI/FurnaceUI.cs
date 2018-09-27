@@ -10,22 +10,50 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
+using Terraria.UI.Chat;
+using TerrariaUltraApocalypse.API.CustomInventory;
+using TerrariaUltraApocalypse.API.CustomInventory.UI;
+using TerrariaUltraApocalypse.API.FurnaceRework;
 using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
+using TerrariaUltraApocalypse.API.UI;
 
 namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
 {
     class FurnaceUI : UIState
     {
         public UIPanel furnaceUI;
+        public UIPanelTrigger upgradeUI;
         public static bool visible = false;
 
-        private FurnaceItemSlot input = new FurnaceItemSlot("input", false);
+        private readonly InputOutputSlot _input;
+        private readonly InputOutputSlot _output;
+        private readonly FuelSlot _fuel;
+        private readonly UIEnergyBar _energyBar;
+        private String _furnaceName = "";
 
-        private FurnaceItemSlot output = new FurnaceItemSlot("output", true);
+        public FurnaceUI(ExtraSlot input, ExtraSlot output, Core core, String furnaceName)
+        {
+            this._input = new InputOutputSlot(input, Main.inventoryBack10Texture);
+            this._output = new InputOutputSlot(output, Main.inventoryBack10Texture);
+            this._furnaceName = furnaceName;
 
-        UIText energyCounter = new UIText("");
+            _energyBar = new UIEnergyBar(core);
+            
+        }
 
-        private TerraFurnaceEntity currentFurnace;
+        public FurnaceUI(ExtraSlot input, ExtraSlot output, ExtraSlot fuel, BudgetCore core, String furnaceName)
+        {
+            this._input = new InputOutputSlot(input, Main.inventoryBack10Texture);
+            this._output = new InputOutputSlot(output, Main.inventoryBack10Texture);
+
+            if (core != null)
+            {
+                _energyBar = new UIEnergyBar(core);
+            }
+
+            this._fuel = new FuelSlot(fuel, Main.inventoryBack10Texture, core);
+            this._furnaceName = furnaceName;
+        }
 
         public override void OnInitialize()
         {
@@ -33,24 +61,38 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
             furnaceUI.SetPadding(0);
             furnaceUI.Width.Set(400, 0f);
             furnaceUI.Height.Set(200, 0f);
-            furnaceUI.Top.Set(Main.screenHeight / 2, 0f);
-            furnaceUI.Left.Set(Main.screenWidth / 2, 0f);
+            furnaceUI.Top.Set(Main.screenHeight / 2 - 100, 0f);
+            furnaceUI.Left.Set(Main.screenWidth / 2 - 200, 0f);
 
-            furnaceUI.BackgroundColor = new Color(73, 94, 171);
+            upgradeUI = new UIPanelTrigger();
+            upgradeUI.SetPadding(0);
+            upgradeUI.Width.Set(200, 0f);
+            upgradeUI.Height.Set(150, 0f);
+            upgradeUI.Top.Set(Main.screenHeight / 2 - 100, 0f);
+            upgradeUI.Left.Set(Main.screenWidth / 2 + 215, 0f);
 
-            input.Width.Set(64, 0f);
-            input.Height.Set(64, 0f);
-            input.Top.Set(30, 0f);
-            input.Left.Set(300, 0f);
-            input.OnClick += inputSlotItem;
-            furnaceUI.Append(input);
+            //furnaceUI.BackgroundColor = new Color(73, 94, 171);
+            _output.Top.Set(60, 0f);
+            _output.Left.Set(300, 0f);
+            
+            if (_fuel != null)
+            {
+                _input.Top.Set(30, 0f);
+                _input.Left.Set(50, 0f);
 
-            output.Width.Set(64, 0f);
-            output.Height.Set(64, 0f);
-            output.Top.Set(120, 0f);
-            output.Left.Set(300, 0f);
-            output.OnClick += withdrawItem;
-            furnaceUI.Append(output);
+                _fuel.Top.Set(90, 0f);
+                _fuel.Left.Set(50, 0f);
+                furnaceUI.Append(_fuel);
+            }
+            else
+            {
+                _input.Top.Set(60, 0f);
+                _input.Left.Set(50, 0f);
+            }
+
+
+            furnaceUI.Append(_input);
+            furnaceUI.Append(_output);
 
             Texture2D buttonDeleteTexture = ModLoader.GetTexture("Terraria/UI/ButtonDelete");
             UIImageButton closeButton = new UIImageButton(buttonDeleteTexture);
@@ -61,264 +103,41 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
             closeButton.OnClick += new MouseEvent(CloseButtonClicked);
             furnaceUI.Append(closeButton);
 
-            energyCounter = new UIText("");
-            energyCounter.Left.Set(10, 0f);
-            energyCounter.Top.Set(5, 0f);
-            energyCounter.Width.Set(100, 0f);
-            furnaceUI.Append(energyCounter);
-
-            input.initComponent();
-            output.initComponent();
-
+            
+            _energyBar.Top.Set(180f, 0);
+            _energyBar.Left.Set(10f, 0);
+            _energyBar.Height.Set(14f, 0);
+            _energyBar.Width.Set(386f, 0);
+            furnaceUI.Append(_energyBar);
+            
             Append(furnaceUI);
-
-
+            Append(upgradeUI);
         }
 
-        public void receiveFurnaceEntity(TerraFurnaceEntity entity)
-        {
-            currentFurnace = entity;
-            input.receiveFurnaceEntity(entity);
-            output.receiveFurnaceEntity(entity);
-        }
-
-        private void inputSlotItem(UIMouseEvent evt, UIElement listeningElement)
-        {
-            Item i = Main.mouseItem;
-
-            if (i.Name != "")
-            {
-                Main.mouseItem = null;
-                input.receiveEntityItem(i);
-                return;
-            }
-
-            if (i.Name == "" && input.currentItem() != null)
-            {
-                Main.mouseItem = input.currentItem();
-                input.receiveEntityItem(null);
-            }
-        }
-
-        private void withdrawItem(UIMouseEvent evt, UIElement listeningElement)
-        {
-            if (currentFurnace.inventory[1] != null)
-            {
-                Main.mouseItem = currentFurnace.inventory[1];
-                currentFurnace.inventory[1] = null;
-            }
-        }
-
-        protected override void DrawSelf(SpriteBatch spriteBatch)
-        {
-            energyCounter.SetText(currentFurnace.getEnergy().getCurrentEnergyLevel() + " / " + currentFurnace.getMaxEnergyStored() + " TE" + "\nTerra Furnace");
-            input.receiveEntityItem(currentFurnace.inventory[0]);
-            output.receiveEntityItem(currentFurnace.inventory[1]);
-        }
 
         private void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
-            clearContent();
-            visible = false;
+            TerrariaUltraApocalypse.furnaceInterface.IsVisible = false;
+            Main.playerInventory = false;
         }
 
-        public void clearContent()
+        protected override void DrawChildren(SpriteBatch spriteBatch)
         {
-            currentFurnace = null;
-            input.UIClosing();
-            output.UIClosing();
-        }
-
-        class FurnaceItemSlot : UIItemSlot
-        {
-            private readonly String type;
-            private TerraFurnaceEntity currentFurnace;
-
-            public FurnaceItemSlot(String type, bool locked) : base(locked)
+            base.DrawChildren(spriteBatch);
+            Vector2 nameDrawingPosition = new Vector2(Main.screenWidth / 2 - 60, Main.screenHeight / 2 - 95);
+            ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, _furnaceName,
+                nameDrawingPosition, Color.White, 0f, Vector2.Zero,
+                Vector2.One);
+            upgradeUI.isVisible = false;
+            if (_furnaceName.Equals("Adamantite Forge") || _furnaceName.Equals("Titanium Forge"))
             {
-                this.type = type;
+
+                upgradeUI.isVisible = true;
+                Vector2 UpgradeDrawingPosition = new Vector2(Main.screenWidth / 2 + 230, Main.screenHeight / 2 - 95);
+                ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, "Upgrade",
+                    UpgradeDrawingPosition, Color.White, 0f, Vector2.Zero,
+                    Vector2.One);
             }
-
-            public void receiveFurnaceEntity(TerraFurnaceEntity terraFurnaceEntity)
-            {
-                currentFurnace = terraFurnaceEntity;
-            }
-
-
-            public override void sendItemToTileEntity()
-            {
-                if (type == "input")
-                {
-                    currentFurnace.inventory[0] = currentItemInSlot;
-                }
-                else
-                {
-                    currentFurnace.inventory[1] = currentItemInSlot;
-                }
-
-
-                Main.NewText(type);
-            }
-
-            public override void sync()
-            {
-                if (type == "input")
-                {
-                    currentItemInSlot = currentFurnace.inventory[0];
-                }
-                else
-                {
-                    currentItemInSlot = currentFurnace.inventory[1];
-                }
-            }
-
-            public override void Click(UIMouseEvent evt)
-            {
-                Main.NewText(Main.mouseItem.Name);
-                if (type == "input")
-                {
-                    inputProcess();
-                }
-                else
-                {
-                    outputProcess();
-                }
-
-                sendItemToTileEntity();
-                update = true;
-            }
-
-            public void inputProcess()
-            {
-                if (currentItemInSlot == null)
-                {
-                    currentItemInSlot = Main.mouseItem;
-                    Main.mouseItem = new Item();
-                }
-                else
-                {
-                    outputProcess();
-                }
-            }
-
-            public void outputProcess()
-            {
-                if (currentItemInSlot != null && (Main.mouseItem.Name == "" || Main.mouseItem == null))
-                {
-                    Item temp = currentItemInSlot.Clone();
-                    currentItemInSlot = null;
-                    Main.mouseItem = temp;
-                }
-            }
-        }
-    }
-
-    abstract class UIItemSlot : UIElement
-    {
-        internal float scale = .95f;
-
-        protected Item currentItemInSlot = new Item();
-        protected bool update = false;
-        private bool locked;
-
-        public abstract void sendItemToTileEntity();
-        public abstract void sync();
-        public UIText counter;
-
-        public UIItemSlot(bool locked)
-        {
-            this.locked = locked;
-        }
-
-        public Item currentItem()
-        {
-            return currentItemInSlot;
-        }
-
-        public UIItemSlot()
-        {
-            Width.Set(64, 0f);
-            Height.Set(64, 0f);
-
-        }
-
-
-        public void initComponent()
-        {
-            if (counter == null)
-            {
-                counter = new UIText("");
-                counter.Width.Set(0f, 0f);
-                counter.Height.Set(0f, 0f);
-                counter.Top.Set(64 + 5, 0f);
-                counter.Left.Set(64 + 5, 0f);
-                base.Append(counter);
-            }
-
-        }
-
-
-        public override void Update(GameTime gameTime)
-        {
-            if (update)
-            {
-                sync();
-                update = false;
-            }
-
-        }
-
-        public void receiveEntityItem(Item i)
-        {
-            currentItemInSlot = i;
-            update = true;
-        }
-
-        protected override void DrawSelf(SpriteBatch spriteBatch)
-        {
-            CalculatedStyle innerDimensions = base.GetInnerDimensions();
-            Vector2 drawPos = new Vector2(innerDimensions.X + 5f, innerDimensions.Y + 5f);
-            spriteBatch.Draw(Main.inventoryBackTexture, drawPos, null, new Color(73, 94, 171), 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 0f);
-            counter.SetText("", 1f, true);
-            if (currentItemInSlot != null)
-            {
-                Texture2D itemTexture = Main.itemTexture[currentItemInSlot.type];
-                Rectangle r = itemTexture.Bounds;
-                Rectangle r2 = innerDimensions.ToRectangle();
-
-                int width = r.Width;
-                int height = r.Height;
-
-                float drawScale = 1f;
-                float availableWidth = (float)Main.inventoryBackTexture.Width * scale;
-
-                if (width > availableWidth || height > availableWidth)
-                {
-                    if (width > height)
-                    {
-                        drawScale = availableWidth / width;
-                    }
-                    else
-                    {
-                        drawScale = availableWidth / height;
-                    }
-                }
-
-                drawPos = new Vector2(innerDimensions.X + 10f, innerDimensions.Y + 10f);
-                Vector2 vector = Main.inventoryBackTexture.Size() * scale;
-                Vector2 pos2 = innerDimensions.Position() + vector / 2 - r2.Size() * drawScale / 2f;
-
-                drawScale *= scale;
-
-                spriteBatch.Draw(Main.itemTexture[currentItemInSlot.type], drawPos, null, Color.White, 0f, r2.Size() * (1f / 2f - 0.5f), drawScale, SpriteEffects.None, 0f);
-                counter.SetText(currentItemInSlot.stack.ToString(), 0.29f, true);
-            }
-
-        }
-
-        public void UIClosing()
-        {
-            sendItemToTileEntity();
         }
     }
 }

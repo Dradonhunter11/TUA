@@ -14,19 +14,14 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
     [AutoloadBossHead]
     class Eye_of_Apocalypse_clone : ModNPC
     {
+        private Eye_of_Apocalypse master;
         private int masterID;
         private String pos;
         private string target = "player";
         private int currentFrame = 1;
         private int animationTimer = 50;
         private int phase = 1;
-        private int arenaCenterX;
-        private int arenaCenterY;
 
-        public void setMasterID(int masterID)
-        {
-            this.masterID = masterID;
-        }
 
         public String getPos()
         {
@@ -36,36 +31,54 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
         public void setPos(String pos)
         {
             this.pos = pos;
+            npc.target = Main.LocalPlayer.whoAmI;
         }
 
-        public void setPhase(int phase)
+        public float getMagnitude()
         {
-            this.phase = phase;
+            return master.getMagnitude();
         }
 
-        public void setTarget(string target)
+        public Vector2 getCenterPoint()
         {
-            this.target = target;
+            return master.getCenterPosition();
         }
 
         public Player GetPlayer(NPC npc)
         {
-            Player player = Main.player[Main.myPlayer];
+            Player player = Main.player[npc.target];
             return player;
         }
 
-        public void receiverArenaCoordinate(int x, int y)
+        public override void SendExtraAI(BinaryWriter writer)
         {
-            arenaCenterX = x;
-            arenaCenterY = y;
+            writer.Write(pos);
+            writer.Write(masterID);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            pos = reader.ReadString();
+            masterID = reader.ReadInt32();
         }
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Eye of apocalypse clone");
             DisplayName.AddTranslation(GameCulture.French, "Oeil de l'apocalypse - Clone");
-            Main.npcFrameCount[npc.type] = 6;
+            Main.npcFrameCount[npc.type] = 5;
 
+        }
+
+        public override bool PreAI()
+        {
+            if (master == null)
+            {
+                masterID = (int) npc.ai[0];
+                master = Main.npc[masterID].modNPC as Eye_of_Apocalypse;
+                
+            }
+            return true;
         }
 
         public override void AI()
@@ -81,50 +94,48 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
                 npc.ai[2] = 0;
             }
 
+            spin();
 
         }
 
-        public void setPositonFromPlayer(Player p)
+        public void spin()
         {
-            if (target == "player")
+            Vector2 center;
+            if (Main.netMode != 1)
             {
-                if (pos == "left")
-                {
-                    npc.position = new Vector2((int)(p.position.X + 360), (int)p.position.Y);
-                }
-                else if (pos == "right")
-                {
-                    npc.position = new Vector2((int)(p.position.X - 360), (int)p.position.Y);
-                }
-                else if (pos == "bottom")
-                {
-                    npc.position = new Vector2((int)(p.position.X), (int)p.position.Y + 360);
-                }
-                else if (pos == "top")
-                {
-                    npc.position = new Vector2((int)(p.position.X), (int)p.position.Y - 360);
-                }
+                center = master.getCenterPosition();
             }
-            else if (target == "arena")
+            else
             {
-                if (pos == "left")
-                {
-                    npc.position = new Vector2(arenaCenterX + 300, arenaCenterY - 50);
-                }
-                else if (pos == "right")
-                {
-                    npc.position = new Vector2(arenaCenterX - 420, arenaCenterY - 50);
-                }
-                else if (pos == "bottom")
-                {
-                    npc.position = new Vector2(arenaCenterX, arenaCenterY + 300);
-                }
-                else if (pos == "top")
-                {
-                    npc.position = new Vector2(arenaCenterX, arenaCenterY - 420);
-                }
-            }
+                Eye_of_Apocalypse eoa = Main.npc[masterID].modNPC as Eye_of_Apocalypse;
+                center = eoa.getCenterPosition();
+            } 
 
+
+            float magnitude = master.getMagnitude();
+            center.X += (float)Math.Cos(master.getTetha() + setPositonFromPlayer(GetPlayer(npc)) * (Math.PI / 2)) * magnitude;
+            center.Y += (float)Math.Sin(master.getTetha() + setPositonFromPlayer(GetPlayer(npc)) * (Math.PI / 2)) * magnitude;
+
+            npc.velocity = npc.DirectionTo(center) * Vector2.Distance(center, npc.Center) / 10;
+        }
+
+        
+        public int setPositonFromPlayer(Player p)
+        {
+            switch (getPos())
+            {
+                case "left" :
+                    return 1;
+                case "right":
+                    return 2;
+                case "top":
+                    return 3;
+                case "bottom":
+                    return -1;
+                default:
+                    break;
+            }
+            return 2;
         }
 
         public override void SetDefaults()
@@ -154,9 +165,9 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
             {
                 npc.frame.Y = frameHeight * currentFrame;
                 currentFrame++;
-                if (currentFrame == 3)
+                if (currentFrame == 2)
                 {
-                    currentFrame = 1;
+                    currentFrame = 0;
                 }
                 animationTimer = 25;
             }

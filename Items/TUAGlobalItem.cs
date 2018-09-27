@@ -105,20 +105,22 @@ namespace TerrariaUltraApocalypse.Items
             {
                 TooltipLine line = new TooltipLine(mod, "Ultra", "Maybe this isn't a good idea");
                 tooltips.Add(line);
-            }
-            if (item.type == ItemID.WormFood)
+            } else if (item.type == ItemID.WormFood)
             {
                 TooltipLine line = new TooltipLine(mod, "Ultra", "It grew... stronger... and worst...");
                 line.overrideColor = Color.DarkRed;
                 tooltips.Add(line);
 
             }
-            if (item.type == ItemID.Mushroom)
-            {
 
+            if (item.prefix == mod.PrefixType("Multishot"))
+            {
+                TooltipLine line = new TooltipLine(mod, "multishot", "Your weapon have an extra chance to shoot bullet for free!");
+                tooltips.Add(line);
             }
-            base.ModifyTooltips(item, tooltips);
         }
+
+
 
         public override void Update(Item item, ref float gravity, ref float maxFallSpeed)
         {
@@ -126,7 +128,25 @@ namespace TerrariaUltraApocalypse.Items
             {
                 item = mod.GetItem("SuspiciousBurnedEye").item;
             }
+
+            if (item.type == ItemID.GuideVoodooDoll && !Main.ActiveWorldFileData.HasCorruption)
+            {
+                item.lavaWet = false;
+            }
         }
+
+        public override bool Shoot(Item item, Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type,
+            ref int damage, ref float knockBack)
+        {
+            if (item.prefix == mod.PrefixType("Multishot") && !multishot)
+            {
+                multishot = true;
+                Shoot(item, player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+            }
+            return base.Shoot(item, player, ref position, ref speedX, ref speedY, ref type, ref damage, ref knockBack);
+        }
+
+        
 
         public override void UpdateInventory(Item item, Player player)
         {
@@ -136,10 +156,13 @@ namespace TerrariaUltraApocalypse.Items
                 {
                     if (player.inventory[i].type == ItemID.SuspiciousLookingEye)
                     {
-                        player.inventory[i].type = mod.ItemType("SuspiciousBurnedEye");
+                        player.inventory[i].SetDefaults(mod.ItemType("SuspiciousBurnedEye"));
                     }
                 }
             }
+
+            multishot = false;
         }
+        
     }
 }

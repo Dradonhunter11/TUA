@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TerrariaUltraApocalypse</RootNamespace>
     <AssemblyName>TerrariaUltraApocalypse</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -23,7 +24,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,24 +35,78 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <Optimize>false</Optimize>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugFNA|AnyCPU'">
+    <OutputPath>bin\DebugFNA\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugFNA|x86'">
+    <OutputPath>bin\x86\DebugFNA\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Achievement\DradonFailed.cs" />
-    <Compile Include="Achievement\EnterHardmode.cs" />
-    <Compile Include="Achievement\EoAKill.cs" />
-    <Compile Include="Achievement\ItBegin.cs" />
-    <Compile Include="Achievement\UltraEoC.cs" />
-    <Compile Include="Achievement\YouMadeADoor.cs" />
-    <Compile Include="API\Achievements\AchievementManager.cs" />
-    <Compile Include="API\Achievements\AchievementPlayer.cs" />
-    <Compile Include="API\Achievements\AchievementTemplate\ModAchievement.cs" />
-    <Compile Include="API\Achievements\AchievementUIComponent\AchievementSlot.cs" />
-    <Compile Include="API\Achievements\AchievementUIComponent\AchievementSlotElement\AchievementDescriptionText.cs" />
-    <Compile Include="API\Achievements\AchievementUIComponent\AchievementSlotElement\AchievementPic.cs" />
-    <Compile Include="API\Achievements\AchievementUIComponent\AchievementSlotElement\AchievementNameText.cs" />
-    <Compile Include="API\Achievements\AchievementUIComponent\AchievementSlotElement\AchievementReward.cs" />
-    <Compile Include="API\Achievements\AchievementUIComponent\AchievementUI.cs" />
-    <Compile Include="API\Achievements\AchievementUIComponent\AchivementUIList.cs" />
+    <Compile Include="API\CustomInventory\BasicInventory.cs" />
+    <Compile Include="API\CustomInventory\ExtraSlot.cs" />
+    <Compile Include="API\CustomInventory\UI\FuelSlot.cs" />
+    <Compile Include="API\CustomInventory\UI\InputOutputSlot.cs" />
+    <Compile Include="API\CustomInventory\UI\OutputOnlySlot.cs" />
+    <Compile Include="API\Dev\ReflectionExtension.cs" />
+    <Compile Include="API\Dev\SteamID64Checker.cs" />
+    <Compile Include="API\FurnaceRework\BudgetCore.cs" />
+    <Compile Include="API\FurnaceRework\FurnaceGlobalTile.cs" />
+    <Compile Include="API\FurnaceRework\TileEntity\AdamantiteTitaniumForgeEntity.cs" />
+    <Compile Include="API\FurnaceRework\TileEntity\BaseFurnaceEntity.cs" />
+    <Compile Include="API\FurnaceRework\TileEntity\HellForgeEntity.cs" />
+    <Compile Include="API\FurnaceRework\TileEntity\RegularFurnaceEntity.cs" />
+    <Compile Include="API\GenActionModifiers\IntegretyFilter.cs" />
+    <Compile Include="API\Injection\DrawMapInjection.cs" />
+    <Compile Include="API\Injection\UpdateBiomesInjection.cs" />
+    <Compile Include="API\Injection\UpdateLiquidInjection.cs" />
+    <Compile Include="API\LiquidAPI\Data\Bit.cs" />
+    <Compile Include="API\LiquidAPI\LiquidExtension.cs" />
+    <Compile Include="API\LiquidAPI\LiquidMod\LiquidCore.cs" />
+    <Compile Include="API\LiquidAPI\LiquidMod\LiquidGlobalItem.cs" />
+    <Compile Include="API\LiquidAPI\LiquidMod\LiquidGlobalNPC.cs" />
+    <Compile Include="API\LiquidAPI\LiquidMod\LiquidPlayer.cs" />
+    <Compile Include="API\LiquidAPI\LiquidMod\LiquidRef.cs" />
+    <Compile Include="API\LiquidAPI\LiquidRegistery.cs" />
+    <Compile Include="API\LiquidAPI\LiquidWorld.cs" />
+    <Compile Include="API\LiquidAPI\ModLiquid.cs" />
+    <Compile Include="API\LiquidAPI\Swap\CollisionSwap.cs" />
+    <Compile Include="API\LiquidAPI\Swap\InternalLiquidDrawInjection.cs" />
+    <Compile Include="API\LiquidAPI\Swap\LiquidSwapping.cs" />
+    <Compile Include="API\LiquidAPI\Swap\PlayerSwap.cs" />
+    <Compile Include="API\LiquidAPI\Swap\WaterDrawInjection.cs" />
+    <Compile Include="API\LiquidAPI\Test\PlutonicWaste.cs" />
+    <Compile Include="API\LiquidAPI\Test\WeirdLiquid.cs" />
+    <Compile Include="API\LiquidAPI\TileExtension.cs" />
     <Compile Include="API\ModExtension.cs" />
     <Compile Include="API\TerraEnergy\Block\Capacitor.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\BasicTECapacitor.cs" />
@@ -58,7 +114,8 @@
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\TerraForge.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\TerraFurnace.cs" />
     <Compile Include="API\TerraEnergy\Block\TerraWaste.cs" />
-    <Compile Include="API\TerraEnergy\Block\TUABlock.cs" />
+    <Compile Include="API\TerraEnergy\UI\UIEnergyBar.cs" />
+    <Compile Include="API\TUABlock.cs" />
     <Compile Include="API\TerraEnergy\Core.cs" />
     <Compile Include="API\TerraEnergy\Items\Block\BasicCapacitor.cs" />
     <Compile Include="API\TerraEnergy\Items\Block\EnergyCollector.cs" />
@@ -74,25 +131,35 @@
     <Compile Include="API\TerraEnergy\MachineRecipe\Furnace\FurnaceRecipeManager.cs" />
     <Compile Include="API\TerraEnergy\TileEntities\CapacitorEntity.cs" />
     <Compile Include="API\TerraEnergy\TileEntities\EnergyCollectorEntity.cs" />
+    <Compile Include="API\TerraEnergy\TileEntities\ForgeEntity.cs" />
     <Compile Include="API\TerraEnergy\TileEntities\StorageEntity.cs" />
     <Compile Include="API\TerraEnergy\UI\ForgeUI.cs" />
     <Compile Include="API\TerraEnergy\UI\FurnaceUI.cs" />
+    <Compile Include="API\TerraEnergy\UI\UIItemSlot.cs" />
     <Compile Include="API\TUADimItem.cs" />
     <Compile Include="API\TUAModItem.cs" />
+    <Compile Include="API\TUAModLegacyItem.cs" />
     <Compile Include="API\TUAModNPC.cs" />
+    <Compile Include="API\UI\UIPanelTrigger.cs" />
     <Compile Include="API\VoidClass\VoidDamageGlobalNPC.cs" />
     <Compile Include="API\VoidClass\VoidDamageItem.cs" />
     <Compile Include="API\VoidClass\VoidDamageNPC.cs" />
     <Compile Include="API\VoidClass\VoidDamagePlayer.cs" />
     <Compile Include="API\VoidClass\VoidDamageProjectile.cs" />
+    <Compile Include="Backgrounds\Meteoridon\MeteoridonBG.cs" />
+    <Compile Include="Backgrounds\Solar\SolarUnderBG.cs" />
     <Compile Include="Buff\Debuff\EoA\NoMountDebuff.cs" />
     <Compile Include="Buff\Debuff\EoC\EoCNerf.cs" />
     <Compile Include="Buff\Debuff\EotW\ArrowDebuff.cs" />
     <Compile Include="Buff\Debuff\EotW\BulletDebuff.cs" />
     <Compile Include="Buff\Debuff\EotW\MagicDebuff.cs" />
     <Compile Include="Buff\Debuff\EotW\MeleeDebuff.cs" />
+    <Compile Include="Commands\ToggleTime.cs" />
+    <Compile Include="Dimension\Block\MobSpawner.cs" />
     <Compile Include="Dimension\DimGlobalNPC.cs" />
+    <Compile Include="Dimension\MicroBiome\StardustFrozenForest.cs" />
     <Compile Include="Dimension\Sky\SolarScreenShaderData.cs" />
+    <Compile Include="Dimension\Sky\StardustCustomSky.cs" />
     <Compile Include="Dusts\EotW\ArrowDust.cs" />
     <Compile Include="Dusts\EotW\BulletDust.cs" />
     <Compile Include="Dusts\EotW\MagicDust.cs" />
@@ -104,35 +171,54 @@
     <Compile Include="Items\Block\Machine\DivinePortal.cs" />
     <Compile Include="Items\Block\Meteoridon\MeteoridonStone.cs" />
     <Compile Include="Items\Block\Meteoridon\MeteoridonWoodPlank.cs" />
+    <Compile Include="Items\Block\Other\MobSpawner.cs" />
+    <Compile Include="Items\Block\Wasteland\WastestoneBrick.cs" />
     <Compile Include="Items\Dimension\SolarCrystal.cs" />
+    <Compile Include="Items\Dimension\StardustCrystal.cs" />
     <Compile Include="Items\EoA\SuspiciousBurnedEye.cs" />
     <Compile Include="Items\Food\Poutine.cs" />
-    <Compile Include="Items\Meteoridon\MeteorideScale.cs" />
+    <Compile Include="Items\Materials\Meteoridon\MeteorideScale.cs" />
+    <Compile Include="Items\Materials\Wasteland\WastestoneIngot.cs" />
+    <Compile Include="Items\Misc\Debug\DebugStick.cs" />
+    <Compile Include="Items\Misc\Spawner\SoulCrystal.cs" />
     <Compile Include="Items\TUAGlobalItem.cs" />
+    <Compile Include="Items\Walls\Hell\AshWall.cs" />
+    <Compile Include="Items\Walls\Wasteland\WastestoneBrickWall.cs" />
+    <Compile Include="Items\Weapons\HellAlt\VenomousGreatBlade.cs" />
     <Compile Include="Items\Weapons\MechanicalBow.cs" />
     <Compile Include="Items\Weapons\MechanicalSniper.cs" />
-    <Compile Include="Items\Weapons\SpectrumBlade.cs" />
+    <Compile Include="Items\Weapons\Misc\FishronEater.cs" />
     <Compile Include="MoonEvent\ApocalypseMoon.cs" />
     <Compile Include="MoonEvent\ApocalypseWMoon.cs" />
+    <Compile Include="NPCs\AI\Worm.cs" />
     <Compile Include="NPCs\EoA\EoAHeal.cs" />
     <Compile Include="NPCs\EoA\Eye_of_Apocalypse_clone.cs" />
     <Compile Include="Dimension\Sky\TUACustomSky.cs" />
+    <Compile Include="NPCs\HellAlt\MutatedMass\HeartOfTheWasteland.cs" />
+    <Compile Include="NPCs\HellAlt\MutatedSludge.cs" />
     <Compile Include="NPCs\Memefest\EvenMoreHarderEoCForNoReason.cs" />
     <Compile Include="NPCs\Memefest\InsanlyHardEoCForNothing.cs" />
     <Compile Include="NPCs\Meteoridon\ChaosMeteoridon.cs" />
+    <Compile Include="NPCs\Meteoridon\EvolvedMeteorideWorm\EvolvedMeteorideWorm.cs" />
+    <Compile Include="NPCs\Meteoridon\EvolvedMeteorideWorm\EvolvedMeteorideWormHead.cs" />
     <Compile Include="NPCs\Meteoridon\Meteoride.cs" />
     <Compile Include="NPCs\Meteoridon\MeteoridonEye.cs" />
     <Compile Include="NPCs\TUAGlobalNPC.cs" />
     <Compile Include="API\VoidClass\VoidItemPrefix.cs" />
     <Compile Include="Prefixes\Multishot.cs" />
     <Compile Include="Prefixes\VoidItem\Collapsing.cs" />
-    <Compile Include="Projectiles\EoA\EoALaserWall.cs" />
+    <Compile Include="Projectiles\EoA\SmallerBeam.cs" />
     <Compile Include="Projectiles\GhosterBullet.cs" />
     <Compile Include="Projectiles\GodExplosiveArrow.cs" />
+    <Compile Include="Projectiles\Misc\FishronEater\FishronBolt.cs" />
+    <Compile Include="Projectiles\Misc\FishronEater\FishronTornado.cs" />
+    <Compile Include="Projectiles\Misc\FishronEater\TheDuke.cs" />
+    <Compile Include="Projectiles\TUAGlobalProjectile.cs" />
     <Compile Include="SolarWorldGen.cs" />
+    <Compile Include="StardustWorldGen.cs" />
+    <Compile Include="Structure\hellalt\TheHeartArena.cs" />
     <Compile Include="Tiles\ApocalypseDirt.cs" />
     <Compile Include="Tiles\EoA\Arena.cs" />
-    <Compile Include="Projectiles\EoA\FireBall.cs" />
     <Compile Include="Tiles\Machine\DivinePortal.cs" />
     <Compile Include="Tiles\Meteoridon\BrownIce.cs" />
     <Compile Include="Tiles\Meteoridon\MeteoridonGrass.cs" />
@@ -141,6 +227,11 @@
     <Compile Include="Tiles\Meteoridon\MeteoridonWood.cs" />
     <Compile Include="Tiles\PillarBiome\SolarDirt.cs" />
     <Compile Include="Tiles\PillarBiome\SolarRock.cs" />
+    <Compile Include="Tiles\PillarBiome\StardustIce.cs" />
+    <Compile Include="Tiles\PillarBiome\StardustRock.cs" />
+    <Compile Include="Tiles\Wasteland\WastelandOre.cs" />
+    <Compile Include="Tiles\Wasteland\WastelandRock.cs" />
+    <Compile Include="Tiles\Wasteland\WastestoneBrick.cs" />
     <Compile Include="TUAInterface.cs" />
     <Compile Include="TUAPlayer.cs" />
     <Compile Include="TUAWorld.cs" />
@@ -150,6 +241,26 @@
     <Compile Include="Items\EoA\Spawner.cs" />
     <Compile Include="NPCs\EoA\Eye_of_Apocalypse.cs" />
     <Compile Include="TerrariaUltraApocalypse.cs" />
+    <Compile Include="UIHijack\MainMenu\MainMenuButton\ModBrowserButton.cs" />
+    <Compile Include="UIHijack\MainMenu\MainMenuButton\ModsButton.cs" />
+    <Compile Include="UIHijack\MainMenu\MainMenuButton\ModSourceButton.cs" />
+    <Compile Include="UIHijack\MainMenu\MainMenuButton\MultiplayerPlayButton.cs" />
+    <Compile Include="UIHijack\MainMenu\MainMenuButton\OptionMenuButton.cs" />
+    <Compile Include="UIHijack\MainMenu\MainMenuButton\OverhaulSettingsButton.cs" />
+    <Compile Include="UIHijack\MainMenu\MainMenuButton\PlayButton.cs" />
+    <Compile Include="UIHijack\MainMenu\MainMenuButton\QuitButton.cs" />
+    <Compile Include="UIHijack\MainMenu\MainMenuButton\TUAOptionMenuButton.cs" />
+    <Compile Include="UIHijack\MainMenu\MainMenuUI.cs" />
+    <Compile Include="UIHijack\MainMenu\MenuButton.cs" />
+    <Compile Include="UIHijack\MainMenu\ModSettingsUI.cs" />
+    <Compile Include="UIHijack\WorldSelection\ModElement\CalamityElement.cs" />
+    <Compile Include="UIHijack\WorldSelection\ModElement\EnigmaElement.cs" />
+    <Compile Include="UIHijack\WorldSelection\ModElement\FargoElement.cs" />
+    <Compile Include="UIHijack\WorldSelection\ModElement\VanillaElement.cs" />
+    <Compile Include="UIHijack\WorldSelection\NewUIWorldSelect.cs" />
+    <Compile Include="UIHijack\WorldSelection\NewUIWorldListItem.cs" />
+    <Compile Include="Walls\Hell\AshWall.cs" />
+    <Compile Include="Walls\Wasteland\WastestoneBrickWall.cs" />
     <Compile Include="World\OreSpread.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -165,36 +276,42 @@
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Microsoft.Xna.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Game\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Game.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Microsoft.Xna.Framework.Game.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Graphics\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Graphics.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Microsoft.Xna.Framework.Graphics.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework.Xact, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Xact\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Xact.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Microsoft.Xna.Framework.Xact.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="Tmod, Version=1.3.5.1, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\Tmod.exe</HintPath>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="Terraria">
+      <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Terraria.exe</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="API\UI\" />
-    <Folder Include="Biomes\" />
+    <Folder Include="Achievement\" />
+    <Folder Include="API\FurnaceRework\Upgrade\" />
+    <Folder Include="API\TerraEnergy\Texture\" />
     <Folder Include="Items\Armor\" />
     <Folder Include="Items\Block\PillarBiomeBlock\" />
+    <Folder Include="Items\Weapons\EoA\" />
     <Folder Include="NPCs\Dimension\Solar\" />
     <Folder Include="Tiles\Furniture\Demon\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"D:\steam game\steamapps\steamapps\common\Terraria\Terraria.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>"D:\steam game\steamapps\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>

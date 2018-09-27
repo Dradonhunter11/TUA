@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using Terraria;
 using Terraria.ModLoader;
+using TerrariaUltraApocalypse.NPCs.HellAlt.MutatedMass;
 
 
 namespace TerrariaUltraApocalypse.API
@@ -34,6 +35,18 @@ namespace TerrariaUltraApocalypse.API
 
         //This method is used to do NPC scaling in Ultra mode
         public virtual void ultraScaleDifficylty(NPC npc) { }
+
+        public static void SpawnHotW()
+        {
+            foreach(NPC npc in Main.npc) {
+                if (npc.modNPC is HeartOfTheWasteland)
+                {
+                    HeartOfTheWasteland boss = npc.modNPC as HeartOfTheWasteland;
+                    boss.setSleepState(false);
+
+                }
+            }
+        }
 
         
 

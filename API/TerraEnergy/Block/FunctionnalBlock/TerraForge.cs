@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ObjectData;
+using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge;
 using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
 
 namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
@@ -66,7 +67,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
         }
 
-        public override void RightClick(int i, int j)
+        public override void NewRightClick(int i, int j)
         {
             Player player = Main.player[Main.myPlayer];
             Item currentSelectedItem = player.inventory[player.selectedItem];
@@ -89,7 +90,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
             TerraForgeEntity tfe = (TerraForgeEntity)TileEntity.ByID[index];
 
-            tfe.setAnimateState(!tfe.getAnimateState());
+            
 
         }
 
@@ -189,43 +190,39 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
     class TerraForgeEntity : StorageEntity
     {
-        private int currentFrame = 1;
-        private bool animate = true;
-        private int animationTimer = 25;
+        private Item slot1 = new Item();
+        private Item slot2 = new Item();
+        private Item resultSlot = new Item();
 
-        public bool getAnimateState()
+        private ForgeRecipe currentRecipe;
+
+        public Item[] getItemSlot()
         {
-            return animate;
+            Item[] itemSlot = new Item[2];
+            itemSlot[0] = slot1;
+            itemSlot[1] = slot2;
+            return itemSlot;
         }
 
-        public void setAnimateState(bool state)
+        public void setItemSlot(Item[] itemSlot)
         {
-            animate = state;
+            slot1 = itemSlot[0];
+            slot2 = itemSlot[1];
         }
 
-        public int getCurrentFrame()
+        public Item getResultSlot()
         {
-            return currentFrame;
+            return resultSlot;
         }
 
-        public void setCurrentFrame(int frame)
+        public void setResultSlot(Item result)
         {
-            currentFrame = frame;
+            resultSlot = result;
         }
 
-        public int getTimer()
+        public override void Update()
         {
-            return animationTimer;
-        }
-
-        public void substractTimer()
-        {
-            animationTimer--;
-        }
-
-        public void resetTimer()
-        {
-            animationTimer = 50;
+            base.Update();
         }
 
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
@@ -10,6 +11,7 @@ using Terraria.Localization;
 using TerrariaUltraApocalypse;
 using Microsoft.Xna.Framework;
 using BiomeLibrary;
+using TerrariaUltraApocalypse.Items.Misc.Spawner;
 using TerrariaUltraApocalypse.NPCs.Meteoridon;
 
 namespace TerrariaUltraApocalypse.NPCs
@@ -74,6 +76,53 @@ namespace TerrariaUltraApocalypse.NPCs
             }
         }
 
+
+        public override bool PreNPCLoot(NPC npc)
+        {
+
+
+            int item = Item.NewItem(npc.Center, 18, 28, mod.ItemType("SoulCrystal"));
+            SoulCrystal sc = Main.item[item].modItem as SoulCrystal;
+            if (sc != null)
+            {
+                sc.setID(npc.type);
+                sc.setMaxCap(basedMaxSoulBasedOnMobHealth(npc));
+            }
+
+            return base.PreNPCLoot(npc);
+        }
+
+        private int basedMaxSoulBasedOnMobHealth(NPC npc)
+        {
+
+            if (!npc.boss || npc.modNPC != null)
+            {
+                if (npc.lifeMax <= 100)
+                {
+                    return 10;
+                }
+                else if (npc.lifeMax <= 500)
+                {
+                    return 25;
+                }
+                else if (npc.lifeMax <= 1000)
+                {
+                    return 50;
+                }
+                else if (npc.lifeMax <= 2500)
+                {
+                    return 75;
+                }
+                else if (npc.lifeMax <= 10000)
+                {
+                    return 100;
+                }
+                return 150;
+            }
+
+            return 250;
+        }
+
         public override bool PreAI(NPC npc)
         {
             if (npc.type == NPCID.EyeofCthulhu && npc.boss && NPC.downedMoonlord)
@@ -112,6 +161,11 @@ namespace TerrariaUltraApocalypse.NPCs
 
         public override void AI(NPC npc)
         {
+
+            if (npc.target == short.MaxValue)
+            {
+                npc.TargetClosestUpgraded();
+            }
             Player p = Main.player[npc.target];
             if (npc.type == NPCID.EyeofCthulhu && npc.boss && NPC.downedMoonlord)
             {
@@ -407,15 +461,6 @@ namespace TerrariaUltraApocalypse.NPCs
             return base.CheckDead(npc);
         }
 
-        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
-        {
-            if (npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail && NPC.downedMoonlord)
-            {
-
-            }
-            base.OnHitPlayer(npc, target, damage, crit);
-        }
-
         public override void OnHitByProjectile(NPC npc, Projectile projectile, int damage, float knockback, bool crit)
         {
             if (/*TerrariaUltraApocalypse.UltraMode &&*/ npc.type == NPCID.EyeofCthulhu && NPC.downedMoonlord)
@@ -454,8 +499,8 @@ namespace TerrariaUltraApocalypse.NPCs
             if (/*TerrariaUltraApocalypse.UltraMode &&*/ npc.type == NPCID.EyeofCthulhu && NPC.downedMoonlord)
             {
                 currentDamage += (int)damage;
-                damageCap = (int)(750 * TUAWorld.EoCDeath * 1.5);
-                
+                damageCap = (int)(750 * (TUAWorld.EoCDeath + 1) * 1.5);
+
                 if (immunityCooldown != 0 && currentDamage >= damageCap)
                 {
                     damage = 0;
@@ -466,6 +511,11 @@ namespace TerrariaUltraApocalypse.NPCs
             return base.StrikeNPC(npc, ref damage, defense, ref knockback, hitDirection, ref crit);
         }
 
+        public override void ResetEffects(NPC npc)
+        {
+            currentDamage = 0;
+        }
+
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
             if (BiomeLibs.InBiome("Meteoridon"))
@@ -473,7 +523,7 @@ namespace TerrariaUltraApocalypse.NPCs
                 pool.Clear();
                 pool.Add(mod.NPCType<MeteoridonEye>(), 5f);
             }
-           
+
         }
 
 

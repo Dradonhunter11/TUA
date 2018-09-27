@@ -65,7 +65,7 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
 
         public override bool CheckDead()
         {
-            owner.setTakeDamage();
+            
             return base.CheckDead();
         }
 

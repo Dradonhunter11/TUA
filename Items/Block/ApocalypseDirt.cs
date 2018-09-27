@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
+using TerrariaUltraApocalypse.API;
 
 
 namespace TerrariaUltraApocalypse.Items.Block
 {
-    class ApocalypseDirt : ModItem
+    class ApocalypseDirt : TUAModLegacyItem
     {
         public override void SetStaticDefaults()
         {

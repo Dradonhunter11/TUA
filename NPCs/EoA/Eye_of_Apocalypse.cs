@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using TerrariaUltraApocalypse;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TerrariaUltraApocalypse.NPCs.EoA;
+using TerrariaUltraApocalypse.Projectiles.EoA;
 
 namespace TerrariaUltraApocalypse.NPCs.EoA
 {
@@ -22,27 +24,32 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
         public override bool CloneNewInstances { get { return true; } }
 
 
-        private String pos = null;
-        private static int teleportTimer = 5000;
         private static bool cloneActive = false;
         private static int phase = 1;
-        private static bool spawnWall = false;
-        private static List<Tile> arena;
-        public static int phaseTimer = 50000;
 
-        public static int arenaCenterX;
-        public static int arenaCenterY;
 
         private int timer = 500;
 
         private int attackDelay = 100;
-        private int phase1Attack = 30;
-        private bool phase1pause = false;
 
         private int currentFrame = 1;
         private int animationTimer = 50;
 
         private string target = "player";
+
+        private Vector2 npcTarget = Vector2.Zero;
+
+        private Vector2 CenterPosition;
+        private int magnitude = 600;
+        private bool magnitudeSwitch = false;
+
+
+        private float maxVelocity = 0;
+        private float currentVelocity = 0;
+        private float targetVelocity = 0;
+        private float targetMagnetude = 0;
+
+        float theta = (float)Math.PI;
 
 
         private EoAHeal currentDamageSource;
@@ -66,39 +73,39 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye of the EoADowned - God of destruction");
+            DisplayName.SetDefault("Eye of the Apocalypse - God of destruction");
             DisplayName.AddTranslation(GameCulture.French, "Oeil de l'apocalypse - Dieu de la destruction");
-            Main.npcFrameCount[npc.type] = 6;
+            Main.npcFrameCount[npc.type] = 5;
 
         }
 
         private static Eye_of_Apocalypse_clone[] clone;
 
-        private static void initClone(Mod mod, NPC npc)
+        private void initClone()
         {
             Player p = GetPlayer(npc);
-            int clone1 = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("Eye_of_Apocalypse_clone"), 0);
+            int clone1 = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("Eye_of_Apocalypse_clone"), 0, npc.whoAmI);
             clone[0] = Main.npc[clone1].modNPC as Eye_of_Apocalypse_clone;
             clone[0].setPos("left");
-            int clone2 = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("Eye_of_Apocalypse_clone"), 0);
+            int clone2 = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("Eye_of_Apocalypse_clone"), 0, npc.whoAmI);
             clone[1] = Main.npc[clone2].modNPC as Eye_of_Apocalypse_clone;
             clone[1].setPos("right");
-            int clone3 = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("Eye_of_Apocalypse_clone"), 0);
+            int clone3 = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, mod.NPCType("Eye_of_Apocalypse_clone"), 0, npc.whoAmI);
             clone[2] = Main.npc[clone3].modNPC as Eye_of_Apocalypse_clone;
             clone[2].setPos("bottom");
+            cloneActive = true;
         }
 
 
 
         public override void SetDefaults()
         {
-
             npc.aiStyle = -1;
             npc.lifeMax = 400000;
             npc.damage = 50;
             npc.defense = 55;
             npc.knockBackResist = 0f;
-            npc.width = 110;
+            npc.width = 132;
             npc.height = 166;
             npc.value = Item.buyPrice(20, 0, 0, 0);
             npc.npcSlots = 15f;
@@ -108,13 +115,9 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
             npc.noTileCollide = true;
             npc.buffImmune[24] = true;
             music = MusicID.Boss2;
-            pos = null;
             clone = new Eye_of_Apocalypse_clone[3];
             cloneActive = false;
         }
-
-        public static bool spawnTwins = false;
-        public static bool spawnArmy = false;
 
         public static Player GetPlayer(NPC npc)
         {
@@ -122,19 +125,24 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
             return player;
         }
 
-        public String getPos()
+        public int getMagnitude()
         {
-            return pos;
+            return magnitude;
+        }
+
+        public Vector2 getCenterPosition()
+        {
+            return CenterPosition;
+        }
+
+        public float getTetha()
+        {
+            return theta;
         }
 
         public Eye_of_Apocalypse_clone[] getClone()
         {
             return clone;
-        }
-
-        public void setPos(String pos)
-        {
-            this.pos = pos;
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -145,6 +153,40 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
             return;
         }
 
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.Write(magnitude);
+            writer.Write(magnitudeSwitch);
+            writer.Write(theta);
+            writer.Write(cloneActive);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            magnitude = reader.Read();
+            magnitudeSwitch = reader.ReadBoolean();
+            theta = reader.ReadSingle();
+            cloneActive = reader.ReadBoolean();
+        }
+
+        public override bool PreAI()
+        {
+            
+
+            if (Main.netMode == 0)
+            {
+                Main.LocalPlayer.GetModPlayer<TUAPlayer>().noImmunityDebuff = true;
+            }
+            else
+            {
+                for (int i = 0; i < Main.player.Length - 1; i++)
+                {
+                    Main.player[i].GetModPlayer<TUAPlayer>().noImmunityDebuff = true;
+                }
+            }
+            
+            return base.PreAI();
+        }
 
         //NEW AI
         public override void AI()
@@ -154,153 +196,90 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
             Vector2 distance = p.Center - npc.Center;
             npc.rotation = (float)Math.Atan2(distance.Y, distance.X) - subit;
 
-            if (getPos() == null)
+            if (!cloneActive && Main.netMode != 1)
             {
-                initClone(mod, npc);
-                setPos("top");
+                initClone();
             }
-            if (p.active && !p.dead)
+
+            if (phase == 1)
             {
-                if (phase == 1)
+                if (CenterPosition == Vector2.Zero)
                 {
-                    if (timer == 0)
-                    {
-                        swapClone(npc, Main.rand.Next(3));
-                        timer = 5000;
-                    }
-                    timer--;
-
-                    if (phase == 1 && !phase1pause)
-                    {
-                        phase1(p);
-                    }
-                    if (changePhase(300000, 30) || changePhase(200000, 60))
-                    {
-                        phase = 1;
-                        phase1pause = false;
-                    }
+                    setCirclePoint();
                 }
-            }
+                spin();
+                //teleportPlayer();
+                if (attackDelay == 0)
+                {
+                    attack(true, false, false, false);
+                    attackDelay = 500;
+                }
 
-            if (p.dead)
-            {
-                clearArena(p);
+                attackDelay--;
             }
-            setPositonFromPlayer(p);
         }
 
-        private void swapClone(NPC npc, int cloneID)
+        private void attack(bool main, bool clone1, bool clone2, bool clone3)
         {
-            int dust = Dust.NewDust(npc.Center, 50, 50, DustID.Fire, 6f, 6f, 100, Color.OrangeRed, 2);
-            Main.dust[dust].noGravity = true;
-            String oldpos = pos;
-
-            setPos(getClone()[cloneID].getPos());
-            getClone()[cloneID].setPos(oldpos);
+            int projectile =
+                Projectile.NewProjectile(npc.Center, Vector2.One, mod.ProjectileType("SmallerBeam"), 1, 0f);
+            SmallerBeam beam = Main.projectile[projectile].modProjectile as SmallerBeam;
+            beam.setMaster(npc.modNPC);
         }
-
 
         private void phase1(Player p)
         {
-            spawnArena(p);
-
-            p.AddBuff(mod.BuffType("NoMountDebuff"), 1, false);
-            if (attackDelay == 0)
-            {
-                //Main.NewText("Arena center (" + arenaCenterX + "; " + arenaCenterY + ")");
-                p.AddBuff(mod.BuffType("NoMountDebuff"), 1, false);
-                int height = Main.rand.Next(5, 25);
-                int h = Main.rand.Next(5, 13);
-
-
-                if (phase1Attack <= 10)
-                {
-                    for (int i = 0; i < height; i++)
-                    {
-                        spawnBottomLaser(1, i, 3f, 0);
-                    }
-                    attackDelay = 100;
-                }
-                else if (phase1Attack > 10 && phase1Attack <= 20)
-                {
-                    for (int i = 0; i < height; i++)
-                    {
-                        spawnBottomLaser(0, i, -3f, 0);
-                    }
-                    attackDelay = 100;
-                }
-                else if (phase1Attack > 20 && phase1Attack <= 30)
-                {
-                    height = Main.rand.Next(5, 15);
-                    for (int i = 0; i < height; i++)
-                    {
-                        spawnBottomLaser(0, i, -3f, 0);
-                        spawnBottomLaser(1, i, 3f, 0);
-                    }
-                    attackDelay = 125;
-                }
-
-                if (phase1Attack >= 31 && phase1Attack < 40)
-                {
-                    for (int i = 0; i < h; i++)
-                    {
-                        spawnBottomLaser(0, i, -3f, 0);
-                        spawnTopLaser(1, i, 3f, 0);
-                    }
-                    attackDelay = 150;
-                }
-                else if (phase1Attack >= 40 && phase1Attack < 50)
-                {
-                    for (int i = 0; i > h; i++)
-                    {
-
-                    }
-                }
-                phase1Attack++;
-            }
-
-            if (phase1Attack >= 31 && phase1Attack < 40 && attackDelay % 10 == 0)
-            {
-                spawnFloorFireBall(1, 4, -2f, 1.5f, 3f);
-                spawnFloorFireBall(1, 28, 2f, 1.5f, 3f);
-
-                spawnFloorFireBall(1, 28, -2f, 1.5f, 3f);
-                spawnFloorFireBall(1, 4, 2f, 1.5f, 3f);
-            }
-
-            if (phase1Attack == 30 || phase1Attack == 60)
-            {
-                spawnOrb();
-                attackDelay = 50;
-            }
-            Main.NewText(phase1Attack);
-            attackDelay--;
-            //spawnSideFireBall(0, Main.rand.Next(0, 25), 1f, 7f);
-
+            
         }
 
-        private void spawnArena(Player p)
+        public void spin()
         {
-            if (!spawnWall)
-            {
-                placeArena(p);
-                spawnWall = true;
-                npc.dontTakeDamage = true;
-                if (phase1Attack == 0)
-                {
-                    Main.NewText("<Eye of EoADowned> : Terrarian, get ready to suffer. As the god of destruction, you should be erased from this world. You scealed our master and you'll pay for it! Now that the moon lord is dead, we are all awake and are ready to unslead the god of element.", Color.Purple);
-                }
-                else if (phase1Attack == 31)
-                {
-                    Main.NewText("<Eye of EoADowned> : How fun is it to be trap like a vulgar fly? I hope you are having fun here because you'll be trapped for the eternity!", Color.Purple);
-                }
+            Vector2 center = CenterPosition;
+            theta += (float)Math.PI / 360;
+            center.X += (float)Math.Cos(theta) * magnitude;
+            center.Y += (float)Math.Sin(theta) * magnitude;
+            npc.velocity = npc.DirectionTo(center) * Vector2.Distance(center, npc.Center) / 10;
 
-                Main.NewText("Your soul feels heavy in all the sudden...", Color.DarkCyan);
-                target = "arena";
-                setCloneTarget("arena");
-                sendArenaCoordinate();
+            if (magnitude > 800)
+            {
+                magnitudeSwitch = true;
+            }
+            else if (magnitude < 400)
+            {
+                magnitudeSwitch = false;
+            }
+
+            if (magnitudeSwitch)
+            {
+                magnitude--;
+            }
+            else
+            {
+                magnitude++;
             }
         }
+
+        private void setCirclePoint()
+        {
+            npc.TargetClosest();
+            if (npc.target != 255)
+            {
+                CenterPosition = GetPlayer(npc).Center;
+            }
+        }
+
+        private void teleportPlayer()
+        {
+            foreach (Player p in Main.player)
+            {
+                if (Vector2.Distance(p.Center, CenterPosition) > magnitude)
+                {
+                    p.Center = CenterPosition;
+                }
+            }
+        }
+
+        
 
         private void phase2(Player p)
         {
@@ -312,57 +291,12 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
 
         }
 
-        private bool changePhase(int lifePhase, int requiredPhase)
-        {
-            Main.NewText(phase1Attack);
-            if (npc.life < lifePhase && phase1Attack == requiredPhase)
-            {
-                phase1Attack++;
-                Main.NewText("test");
-                return true;
-            }
-            return false;
-        }
 
-        //EoA will never use this method by itself, but it's used by the heal orb to bring him in the vulnerable phase
-        public void setTakeDamage()
-        {
-            if (phase == 1)
-            {
-                Main.NewText("<Eye of EoADowned> : Don't think this will be this easy, this is FAR from my final form.", Color.Purple);
-            }
-            npc.dontTakeDamage = false;
-            target = "player";
-            setCloneTarget("player");
-            spawnWall = false;
-
-            clearArena(GetPlayer(npc));
-        }
-
-        public void setCloneTarget(string target)
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                clone[i].setTarget(target);
-            }
-        }
-
-        public void sendArenaCoordinate()
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                clone[i].receiverArenaCoordinate(arenaCenterX, arenaCenterY);
-            }
-        }
-
-        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
-        {
-            damage *= 4;
-            base.OnHitByProjectile(projectile, damage, knockback, crit);
-        }
+    
 
         public override void FindFrame(int frameHeight)
         {
+            
             if (animationTimer == 0)
             {
                 if (phase != 3)
@@ -379,18 +313,6 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
             animationTimer--;
         }
 
-        public override bool CheckDead()
-        {
-            if (phase1pause)
-            {
-                npc.HealEffect(400000, true);
-                npc.life = 400000;
-                phase = 2;
-                npc.dontTakeDamage = true;
-                return false;
-            }
-            return true;
-        }
 
         private String getTranslatedQuote()
         {
@@ -401,130 +323,11 @@ namespace TerrariaUltraApocalypse.NPCs.EoA
             return engQuote[Main.rand.Next(engQuote.Length)];
         }
 
-        public void setPositonFromPlayer(Player p)
-        {
-            if (target == "player")
-            {
-                if (pos == "left")
-                {
-                    npc.position = new Vector2((int)(p.position.X + 360), (int)p.position.Y);
-                }
-                else if (pos == "right")
-                {
-                    npc.position = new Vector2((int)(p.position.X - 360), (int)p.position.Y);
-                }
-                else if (pos == "bottom")
-                {
-                    npc.position = new Vector2((int)(p.position.X), (int)p.position.Y + 360);
-                }
-                else if (pos == "top")
-                {
-                    npc.position = new Vector2((int)(p.position.X), (int)p.position.Y - 360);
-                }
-            }
-            else if (target == "arena")
-            {
-                if (pos == "left")
-                {
-                    npc.position = new Vector2(arenaCenterX + 300, arenaCenterY - 50);
-                }
-                else if (pos == "right")
-                {
-                    npc.position = new Vector2(arenaCenterX - 420, arenaCenterY - 50);
-                }
-                else if (pos == "bottom")
-                {
-                    npc.position = new Vector2(arenaCenterX, arenaCenterY + 300);
-                }
-                else if (pos == "top")
-                {
-                    npc.position = new Vector2(arenaCenterX, arenaCenterY - 420);
-                }
-            }
-        }
+        
 
-        public void placeArena(Player p)
-        {
-            int initX = (int)(p.position.X) / 16;
-            int initY = (int)(p.position.Y) / 16;
-
-            Main.NewText("Current X - " + initX + "| Current Y - " + initY);
-
-            int centerX = (int)(p.position.X + (float)(p.width / 2)) / 16;
-            int centerY = (int)(p.position.Y + (float)(p.height / 2)) / 16;
-
-            arenaCenterX = centerX * 16;
-            arenaCenterY = centerY * 16;
-
-            int halfLength = p.width * 16 / 2 / 16 + 1;
-            for (int x = centerX - 16; x <= centerX + 16; x++)
-            {
-                for (int y = centerY - 16; y <= centerY + 16; y++)
-                {
-                    Main.tile[x, y].active(false);
-                    if ((x == centerX - 16 || x == centerX + 16 || y == centerY - 16 || y == centerY + 16))
-                    {
-                        Main.tile[x, y].type = (ushort)mod.TileType("Arena");
-                        Main.tile[x, y].active(true);
-                    }
-
-
-                }
-            }
-        }
-
-        private void clearArena(Player p)
-        {
-            int centerX = (int)(p.position.X + (float)(p.width / 2)) / 16;
-            int centerY = (int)(p.position.Y + (float)(p.height / 2)) / 16;
-
-            arenaCenterX = 0;
-            arenaCenterY = 0;
-            spawnWall = false;
-
-            for (int x = centerX - 16; x <= centerX + 16; x++)
-            {
-                for (int y = centerY - 16; y <= centerY + 16; y++)
-                {
-                    Main.tile[x, y].active(false);
-                }
-            }
-        }
-
-        public void spawnBottomLaser(int side, int y, float speedX, int speedY)
-        {
-            Projectile.NewProjectile(arenaCenterX + ((side == 0) ? 256 : -256), (arenaCenterY + 256) - y * 16, speedX, speedY, mod.ProjectileType("EoALaserWall"), 50, 0);
-        }
-
-        public void spawnTopLaser(int side, int y, float speedX, int speedY)
-        {
-            Projectile.NewProjectile(arenaCenterX + ((side == 0) ? 256 : -256), (arenaCenterY - 256) + y * 16, speedX, speedY, mod.ProjectileType("EoALaserWall"), 50, 0);
-        }
-
-        public void spawnOrb()
-        {
-            int pellet = NPC.NewNPC(arenaCenterX - 256 + Main.rand.Next(10, 500), arenaCenterY + 256 - Main.rand.Next(10, 500), mod.NPCType("EoAHeal"));
-            currentDamageSource = Main.npc[pellet].modNPC as EoAHeal;
-            currentDamageSource.setOwner(npc.modNPC);
-            phase1pause = true;
-        }
-
-        public void spawnSideFireBall(int side, int y, float speedX, float speedY)
-        {
-            int projectile = Projectile.NewProjectile(arenaCenterX + ((side == 0) ? 256 : -256), (arenaCenterY + 256) - (y * 16), (int)speedX, (int)speedY, mod.ProjectileType("FireBall"), 50, 0f);
-            Main.projectile[projectile].ai[0] = 1;
-        }
-
-        public void spawnFloorFireBall(int side, int x, float speedX, float speedY, float lifeTime = 0)
-        {
-            int projectile = Projectile.NewProjectile((arenaCenterX + 256) - (x * 16), arenaCenterY + ((side == 0) ? 256 : -256), (int)speedX, (int)speedY, mod.ProjectileType("FireBall"), 50, 0f);
-            Main.projectile[projectile].ai[0] = 0;
-            if (lifeTime != 0)
-            {
-                Main.projectile[projectile].timeLeft *= (int)lifeTime;
-            }
-        }
-
+        /**************************************/
+        /**            TAPI AI               **/
+        /**************************************/
         /*public override void AI()
         {
             timer--;

@@ -37,7 +37,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge
             ingredient2 = new Item();
             ingredient2.type = itemID;
             ingredient2.stack = quantity;
-            catalyserName = ingredient.Name;
+            catalyserName = ingredient2.Name;
         }
 
         public void setResult(int itemID, int quantity = 1)

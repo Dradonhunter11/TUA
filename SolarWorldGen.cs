@@ -26,8 +26,58 @@ namespace TerrariaUltraApocalypse
 		public override void ModifyGenerationPass(int seed, GenerationProgress customProgressObject)
         {
             
+
             AddGenerationPass("Reset", delegate (GenerationProgress progress)
             {
+                int maxtilesX = 40000;
+                int maxtilesY = 500;
+
+                FieldInfo info = typeof(WorldFileData).GetField("WorldSizeX", BindingFlags.Instance | BindingFlags.Public);
+                int get = (int)info.GetValue(Main.ActiveWorldFileData);
+                info.SetValue(Main.ActiveWorldFileData, maxtilesX);
+
+                info = typeof(WorldFileData).GetField("WorldSizeY", BindingFlags.Instance | BindingFlags.Public);
+                get = (int)info.GetValue(Main.ActiveWorldFileData);
+                info.SetValue(Main.ActiveWorldFileData, maxtilesY);
+
+                info = typeof(WorldGen).GetField("lastMaxTilesX",
+                    BindingFlags.Static | BindingFlags.NonPublic);
+                get = (int)info.GetValue(null);
+                info.SetValue(null, maxtilesX);
+
+                info = typeof(WorldGen).GetField("lastMaxTilesY",
+                    BindingFlags.Static | BindingFlags.NonPublic);
+                get = (int)info.GetValue(null);
+                info.SetValue(null, maxtilesY);
+
+                Main.maxTilesX = maxtilesX;
+                Main.maxTilesY = maxtilesY;
+
+                Main.rightWorld = maxtilesX * 16;
+                Main.bottomWorld = maxtilesY * 16;
+                Main.maxSectionsX = Main.maxTilesX / 200;
+                Main.maxSectionsY = Main.maxTilesY / 150;
+
+
+                Main.tile = new Tile[Main.maxTilesX, Main.maxTilesY];
+
+                Main.Map = new Terraria.Map.WorldMap(maxtilesX, maxtilesY);
+
+                int mapSizeX = maxtilesX / Main.textureMaxWidth + 1;
+                int mapSizeY = maxtilesY / Main.textureMaxHeight + 1;
+
+                Main.mapTargetX = mapSizeX;
+                Main.mapTargetY = mapSizeY;
+
+                Main.instance.mapTarget = new Microsoft.Xna.Framework.Graphics.RenderTarget2D[mapSizeX, mapSizeY];
+                Main.initMap = new bool[mapSizeX, mapSizeY];
+                Main.mapWasContentLost = new bool[mapSizeX, mapSizeY];
+
+                MethodInfo methodInfo = typeof(Main).GetMethod("InitMap", BindingFlags.NonPublic | BindingFlags.Instance);
+                methodInfo.Invoke(Main.instance, null);
+
+                WorldGen.clearWorld();
+
                 Liquid.ReInit();
                 WorldGen.noTileActions = true;
                 progress.Message = "";
@@ -1526,9 +1576,10 @@ namespace TerrariaUltraApocalypse
 
             AddGenerationPass("Volcano!!!", delegate (GenerationProgress progress)
             {
-                TUAWorld.solarWorldGen(ModLoader.GetMod("TerrariaUltraApocalypse"));
+                //TUAWorld.solarWorldGen(ModLoader.GetMod("TerrariaUltraApocalypse"));
             });
 
+            
             AddGenerationPass("Final Cleanup", delegate (GenerationProgress progress)
             {
                 for (int k = 0; k < Main.maxTilesX; k++)

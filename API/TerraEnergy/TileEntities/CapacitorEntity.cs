@@ -32,9 +32,16 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
             return tile.active() && (tile.type == mod.TileType<Capacitor>()) && tile.frameX == 0 && tile.frameY == 0;
         }
 
+        public override void Update()
+        {
+            if (energy == null)
+            {
+                energy = new Core(maxEnergy);
+            }
+        }
+
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
         {
-            Main.NewText("X " + i + " Y " + j);
             return Place(i - 1, j - 1);
         }
     }

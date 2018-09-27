@@ -72,7 +72,7 @@ namespace TerrariaUltraApocalypse.API
         }
 
        
-
+        /*
         public static void ForceSpawnNPC()
         {
             if (noSpawnCycle)
@@ -3877,6 +3877,6 @@ namespace TerrariaUltraApocalypse.API
                     }
                 }
             }
-        }
+        }*/
     }
 }
