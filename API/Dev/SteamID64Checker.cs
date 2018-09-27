@@ -43,6 +43,7 @@ namespace TerrariaUltraApocalypse.API.Dev
             SteamId64List.Add("76561197970658570"); //2grufs
             SteamId64List.Add("76561193945835208"); //DarkPuppey
             SteamId64List.Add("76561193830996047"); //Gator
+            SteamId64List.Add("76561198098585379"); //Chinzilla00
         }
 
         public bool verifyID()
