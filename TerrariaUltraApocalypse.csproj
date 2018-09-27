@@ -267,13 +267,10 @@
   <ItemGroup>
     <Reference Include="BiomeLibrary, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\BiomeLibrary\bin\Debug\BiomeLibrary.dll</HintPath>
+      <HintPath>..\..\BiomeLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Dimlibs">
-      <HintPath>..\Dimlibs\bin\Debug\Dimlibs.dll</HintPath>
-    </Reference>
-    <Reference Include="Libraries.ReLogic.ReLogic">
-      <HintPath>..\..\..\..\..\..\Terraria Full source\code\Terraria\Libraries.ReLogic.ReLogic.dll</HintPath>
+      <HintPath>..\..\Dimlibs.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -291,10 +288,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Microsoft.Xna.Framework.Xact.dll</HintPath>
     </Reference>
+    <Reference Include="ReLogic, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ReLogic.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Terraria">
-      <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Terraria.exe</HintPath>
+      <HintPath>D:\SteamLibrary\steamapps\common\Terraria\Terraria.exe</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -309,7 +310,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"D:\steam game\steamapps\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>"D:\SteamLibrary\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
