@@ -21,6 +21,7 @@ namespace TerrariaUltraApocalypse
         {
             AddGenerationPass("Reset", delegate (GenerationProgress progress)
             {
+                progress.Message = "Stardust world Gen : Adjusting the world";
                 int maxtilesX = 7200;
                 int maxtilesY = 2400;
 
@@ -153,7 +154,7 @@ namespace TerrariaUltraApocalypse
 
         internal void initialShaping(GenerationProgress progress)
         {
-            progress.Message = Lang.gen[0].Value;
+            progress.Message = "Stardust world Gen : Shaping the land";
             int curveInfluence = 0;
             bool yLevelControl = false;
 
@@ -271,6 +272,7 @@ namespace TerrariaUltraApocalypse
 
         internal void Shaping(GenerationProgress progress)
         {
+            progress.Message = "Stardust world Gen : Carving the ocean";
             int yLevel = (int)(Main.maxTilesY * 0.14);
             int yLimit = (int)(Main.maxTilesY * 0.19);
             
@@ -362,6 +364,7 @@ namespace TerrariaUltraApocalypse
 
         internal void shapeSpawn(GenerationProgress progress)
         {
+            progress.Message = "Stardust world Gen : Shaping the spawn point";
             //start at 3888 and end at 3312
             int controlX = 0;
             bool halfWay = false;
@@ -454,7 +457,7 @@ namespace TerrariaUltraApocalypse
 
         internal void shapingTheFloor(GenerationProgress progress)
         {
-
+            progress.Message = "Stardust world Gen : Shaping the ocean floor";
             double currentLevel = Main.maxTilesY * 0.4;
             double seaLevel = Main.maxTilesY * 0.4;
 
@@ -501,6 +504,7 @@ namespace TerrariaUltraApocalypse
 
         internal void generateSea(GenerationProgress progress)
         {
+            progress.Message = "Stardust world Gen : Flooding the world!";
             for (int currentX = 0; currentX < Main.maxTilesX; currentX++)
             {
                 for (int currentY = (int) (Main.maxTilesY * 0.4) + 45; currentY > Main.maxTilesY * 0.17; currentY--)
@@ -556,6 +560,10 @@ namespace TerrariaUltraApocalypse
             }
             Liquid.quickSettle = false;
             Main.tileSolid[190] = true;
+        }
+
+        public StardustWorldGen() : base("Stardust")
+        {
         }
     }
 }
