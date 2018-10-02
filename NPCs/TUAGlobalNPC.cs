@@ -43,7 +43,8 @@ namespace TerrariaUltraApocalypse.NPCs
         private static bool headDied = false;
         private static int mode = 0;
         private static int cooldown = 0;
-
+        private bool firsttime = true;
+        private int Repeatself = 0;
 
         public override void SetDefaults(NPC npc)
         {
@@ -191,7 +192,7 @@ namespace TerrariaUltraApocalypse.NPCs
                             0, 0, 0, 0, Main.myPlayer);
                         Main.npc[cloneID1].boss = false;
                         Main.npc[cloneID1].AddBuff(24, 9999);
-                        Main.npc[cloneID1].damage = 0;
+                        Main.npc[cloneID1].damage = 100;
                         Main.npc[cloneID1].lifeMax = 30;
                         Main.npc[cloneID1].life = 1;
                         Main.npc[cloneID1].dontTakeDamage = true;
@@ -206,7 +207,7 @@ namespace TerrariaUltraApocalypse.NPCs
                             0, 0, 0, 0, Main.myPlayer);
                         Main.npc[cloneID2].boss = false;
                         Main.npc[cloneID2].AddBuff(24, 9999);
-                        Main.npc[cloneID2].damage = 0;
+                        Main.npc[cloneID2].damage = 100;
                         Main.npc[cloneID2].lifeMax = 30;
                         Main.npc[cloneID2].life = 1;
                         Main.npc[cloneID2].dontTakeDamage = true;
@@ -221,7 +222,7 @@ namespace TerrariaUltraApocalypse.NPCs
                             0, 0, 0, 0, Main.myPlayer);
                         Main.npc[cloneID3].boss = false;
                         Main.npc[cloneID3].AddBuff(24, 9999);
-                        Main.npc[cloneID3].damage = 0;
+                        Main.npc[cloneID3].damage = 100;
                         Main.npc[cloneID3].lifeMax = 30;
                         Main.npc[cloneID3].life = 1;
                         Main.npc[cloneID3].dontTakeDamage = true;
@@ -238,6 +239,30 @@ namespace TerrariaUltraApocalypse.NPCs
                     {
                         immunityCooldown = 75;
                         currentDamage = 0;
+                    }
+
+                    if (Repeatself > 0)
+                    {
+                        Repeatself--;
+                    }
+
+                    if (p.GetWeaponDamage(p.HeldItem) > 200)
+                    {
+                        if (firsttime && Repeatself == 0)
+                        {
+                            Main.NewText(
+                                    "<Ultra Eye of Cthulhu> - You plan to hit me with that? Come on! Give me a break...");
+                            p.lifeRegen -= 100;
+                            firsttime = false;
+                            Repeatself = 180;
+                        }
+                        if (!firsttime && Repeatself == 0)
+                        {
+                            Main.NewText(
+                                    "<Ultra Eye of Cthulhu> - Still using bullshit weapons I see... How about you try a weapon under 200 damage for a change?");
+                            p.lifeRegen -= 100;
+                            Repeatself = 180;
+                        }
                     }
 
                     if (npc.life <= npc.lifeMax - npc.lifeMax / 3 && npc.boss)
@@ -308,29 +333,13 @@ namespace TerrariaUltraApocalypse.NPCs
 
                         if (EoCcooldown == 0 && !p.dead)
                         {
-
-
-
-
-                            float speed = 8f;
-                            Vector2 move = new Vector2(p.Center.X + 100f - npc.Center.X,
-                                p.Center.Y + 100f - npc.Center.Y);
-                            float magnitude = (float)Math.Sqrt(move.X * move.X + move.Y * move.Y);
-                            if (magnitude > speed)
-                            {
-                                move *= speed / magnitude;
-                            }
-
-                            npc.ai[0] = 0;
-                            npc.position.Y = p.Center.Y - 100f;
-                            npc.position.X = p.Center.X - 100f;
-                            int dust = Dust.NewDust(new Vector2(npc.position.X / 2, npc.position.Y / 2), 100, 100,
-                                DustID.Shadowflame);
-                            Main.dust[dust].velocity *= 0.1f;
-                            npc.damage = 75;
-                            npc.rotation = 0f;
-                            npc.velocity = move;
-
+                            Vector2 vector18 = new Vector2(npc.position.X + (float)npc.width * 0.5f, npc.position.Y + (float)npc.height * 0.5f);
+                            float num174 = Main.player[npc.target].position.X + (float)(Main.player[npc.target].width / 2) - vector18.X;
+                            float num175 = Main.player[npc.target].position.Y + (float)(Main.player[npc.target].height / 2) - vector18.Y;
+                            float num176 = (float)Math.Sqrt((double)(num174 * num174 + num175 * num175));
+                            num176 = 12f / num176;
+                            npc.velocity.X = num174 * num176;
+                            npc.velocity.Y = num175 * num176;
                             EoCcooldown = 500;
                         }
                         npc.ai[0] = 3;
