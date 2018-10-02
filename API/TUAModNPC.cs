@@ -48,7 +48,12 @@ namespace TerrariaUltraApocalypse.API
             }
         }
 
-        
-
+        protected void ApplyDamageCap(ref int damage, int damageCap)
+        {
+            if (damage >= damageCap)
+            {
+                damage = damageCap;
+            }
+        }
     }
 }

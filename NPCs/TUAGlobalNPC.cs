@@ -54,6 +54,7 @@ namespace TerrariaUltraApocalypse.NPCs
             }
             if (npc.type == NPCID.EyeofCthulhu && npc.boss && NPC.downedMoonlord)
             {
+                
                 npc.damage = 50;
                 npc.defense = 50;
                 npc.lifeMax *= (TUAWorld.EoCDeath + 1) * 2;
@@ -523,9 +524,6 @@ namespace TerrariaUltraApocalypse.NPCs
                 pool.Clear();
                 pool.Add(mod.NPCType<MeteoridonEye>(), 5f);
             }
-
         }
-
-
     }
 }

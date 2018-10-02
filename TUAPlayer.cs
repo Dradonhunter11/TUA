@@ -84,9 +84,9 @@ namespace TerrariaUltraApocalypse
         public override void UpdateBiomeVisuals()
         {
             if (Dimlibs.Dimlibs.getPlayerDim() != null) {
-                bool inSolar = Dimlibs.Dimlibs.getPlayerDim() == "solar";
+                bool inSolar = Dimlibs.Dimlibs.getPlayerDim() == "Solar";
                 player.ManageSpecialBiomeVisuals("TerrariaUltraApocalypse:TUAPlayer", inSolar, player.Center);
-                bool inStardust = Dimlibs.Dimlibs.getPlayerDim() == "stardust";
+                bool inStardust = Dimlibs.Dimlibs.getPlayerDim() == "Stardust";
                 player.ManageSpecialBiomeVisuals("TerrariaUltraApocalypse:StardustPillar", inStardust, player.Center);
             }
             

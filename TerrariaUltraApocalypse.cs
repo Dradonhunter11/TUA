@@ -301,7 +301,6 @@ namespace TerrariaUltraApocalypse
                 {
                     musicPriority = MusicPriority.Environment;
                     music = MusicID.LunarBoss;
-                    Main.NewText("test");
                 }
 
                 //musicPriority = MusicPriority.Environment;

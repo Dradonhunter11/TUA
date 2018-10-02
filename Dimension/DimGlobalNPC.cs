@@ -25,7 +25,7 @@ namespace TerrariaUltraApocalypse.Dimension
 
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
-            if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
+            if (Dimlibs.Dimlibs.getPlayerDim() == "Solar")
             {
                 pool.Clear();
                 pool.Add(npcList[1][0], 10f);
