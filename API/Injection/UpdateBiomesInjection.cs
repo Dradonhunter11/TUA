@@ -91,7 +91,7 @@ namespace TerrariaUltraApocalypse.API.Injection
             self.ZonePeaceCandle = (Main.peaceCandles > 0);
             self.ZoneDesert = (Main.sandTiles > 1000);
             self.ZoneGlowshroom = (Main.shroomTiles > 100);
-            if (self.GetModPlayer<DimPlayer>().getCurrentDimension() != "overworld")
+            if (Dimlibs.Dimlibs.getPlayerDim() != "overworld")
             {
                 self.ZoneUnderworldHeight = false;
                 self.ZoneSkyHeight = false;

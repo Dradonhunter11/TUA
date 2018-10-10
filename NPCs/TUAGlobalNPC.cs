@@ -12,12 +12,16 @@ using TerrariaUltraApocalypse;
 using Microsoft.Xna.Framework;
 using BiomeLibrary;
 using TerrariaUltraApocalypse.Items.Misc.Spawner;
-using TerrariaUltraApocalypse.NPCs.Meteoridon;
+using TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon;
 
 namespace TerrariaUltraApocalypse.NPCs
 {
     class TUAGlobalNPC : GlobalNPC
     {
+        public override bool InstancePerEntity {
+            get { return true; }
+        }
+
         //Eye Of Cthulhu after moon lord
         private static int EoCcooldown = 250;
 

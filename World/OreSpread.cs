@@ -14,7 +14,7 @@ namespace TerrariaUltraApocalypse.World
 
         public override void PostUpdate()
         {
-            /*
+            
             if (Main.netMode != 1)
             {
                 for (int k = 0; k < Main.maxTilesX * Main.maxTilesY * 3E-05 * Main.worldRate; k++)
@@ -23,7 +23,7 @@ namespace TerrariaUltraApocalypse.World
                     int y = WorldGen.genRand.Next(10, (int)Main.worldSurface - 1);
                     if (Main.tile[x, y] != null && Main.tile[x, y].liquid <= 32 && Main.tile[x, y].nactive())
                     {
-                        //UpdateTile(x, y);
+                        UpdateTile(x, y);
                     }
                 }
                 for (int k = 0; k < Main.maxTilesX * Main.maxTilesY * 1.5E-05 * Main.worldRate; k++)
@@ -32,11 +32,11 @@ namespace TerrariaUltraApocalypse.World
                     int y = WorldGen.genRand.Next((int)Main.worldSurface - 1, Main.maxTilesY - 20);
                     if (Main.tile[x, y] != null && Main.tile[x, y].liquid <= 32 && Main.tile[x, y].nactive())
                     {
-                        //UpdateTile(x, y);
+                        UpdateTile(x, y);
                     }
                 }
 
-            }*/
+            }
         }
 
 

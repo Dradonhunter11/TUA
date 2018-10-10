@@ -13,14 +13,14 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.LiquidMod
     {
         public override void PostAI(NPC npc)
         {
-            bool[] liquidCollision = CollisionSwap.ModdedWetCollision(npc.Center, npc.width, npc.height);
+            /*bool[] liquidCollision = CollisionSwap.ModdedWetCollision(npc.Center, npc.width, npc.height);
             for (byte i = 0; i < LiquidRegistery.liquidList.Capacity; i++)
             {
                 if (liquidCollision[i])
                 {
                     LiquidRegistery.NPCInteraction(i, npc);
                 }
-            }
+            }*/
         }
     }
 }

@@ -36,5 +36,13 @@ namespace TerrariaUltraApocalypse.Dimension
             }
         }
 
+        public void removeNPC(IDictionary<int, float> pool,  int npcID)
+        {
+            if (pool.ContainsKey(npcID))
+            {
+                pool.Remove(npcID);
+            }
+        }
+
     }
 }

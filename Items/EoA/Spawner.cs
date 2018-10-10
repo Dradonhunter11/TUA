@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using TerrariaUltraApocalypse.API;
-using TerrariaUltraApocalypse.NPCs.EoA;
+using TerrariaUltraApocalypse.NPCs.Gods.EoA;
 
 namespace TerrariaUltraApocalypse.Items.EoA
 {

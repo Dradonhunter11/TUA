@@ -31,16 +31,19 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI
 
         public void addNewModLiquid(ModLiquid liquid)
         {
-            liquid.liquidIndex = initialLiquidIndex;
+            /*liquid.liquidIndex = initialLiquidIndex;
             initialLiquidIndex++;
             liquidList.Add(liquid);
-            Main.liquidTexture[liquidTextureIndex] = liquid.texture;
-            liquidTextureIndex++;
+			if(Main.netMode == 0) {
+				Main.liquidTexture[liquidTextureIndex] = liquid.texture;
+				liquidTextureIndex++;
+			} */
+            
         }
 
         private LiquidRegistery()
         {
-            List<Texture2D> liquidTexture = new List<Texture2D>(256);
+            /*List<Texture2D> liquidTexture = new List<Texture2D>(256);
             liquidTexture.AddRange(Main.liquidTexture);
             Main.liquidTexture = new Texture2D[256];
             List<Texture2D> liquidTexture2 = new List<Texture2D>(256);
@@ -61,59 +64,60 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI
                 LiquidRenderer.Instance._liquidTextures[i] = t;
                 i++;
             }
-            liquidList = new List<ModLiquid>();
+            liquidList = new List<ModLiquid>();*/
 
             
         }
 
         public static void MassMethodSwap()
         {
-            LiquidSwapping.MethodSwap();
+            /*LiquidSwapping.MethodSwap();
             WaterDrawInjection.MethodSwap();
-            InternalLiquidDrawInjection.SwapMethod();
+            InternalLiquidDrawInjection.SwapMethod();*/
         }
 
         public static void PreDrawValue(ref bool bg, ref int style, ref float Alpha)
         {
-            foreach (ModLiquid liquid in liquidList)
+            /*foreach (ModLiquid liquid in liquidList)
             {
                 liquid.PreDraw(Main.tileBatch);
-            }
+            }*/
         }
 
         public static void Update()
         {
-            foreach (ModLiquid liquid in liquidList)
+            /*foreach (ModLiquid liquid in liquidList)
             {
                 liquid.Update();
-            }
+            }*/
         }
 
         public static float setOpacity(LiquidRef liquid)
         {
-            for (byte by = 0; by < LiquidRegistery.liquidList.Count; by = (byte)(by + 1))
+            /*for (byte by = 0; by < LiquidRegistery.liquidList.Count; by = (byte)(by + 1))
             {
                 if (liquid.liquids((byte) (2 + by)))
                 {
                     return liquidList[by].SetLiquidOpacity();
                 }
             }
-            return 1f;
+            return 1f;*/
+            return 0f;
         }
 
         public static void PlayerInteraction(byte index, Player target)
         {
-            liquidList[index].PlayerInteraction(target);
+            //liquidList[index].PlayerInteraction(target);
         }
 
         public static void NPCInteraction(byte index, NPC target)
         {
-            liquidList[index].NpcInteraction(target);
+            //liquidList[index].NpcInteraction(target);
         }
 
         public static void ItemInteraction(byte index, Item item)
         {
-            liquidList[index].ItemInteraction(item);
+            //liquidList[index].ItemInteraction(item);
         }
     }
 }

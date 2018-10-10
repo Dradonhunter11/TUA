@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using Terraria;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.NPCs.HellAlt.MutatedMass;
+using TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass;
 
 
 namespace TerrariaUltraApocalypse.API
@@ -14,6 +14,8 @@ namespace TerrariaUltraApocalypse.API
     class TUAModNPC : ModNPC
     {
         public override bool CloneNewInstances { get { return true; } }
+        
+
 
         public override bool Autoload(ref string name)
         {

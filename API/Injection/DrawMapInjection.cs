@@ -427,7 +427,7 @@ namespace TerrariaUltraApocalypse.API.Injection
 
                 DimPlayer p = Main.player[Main.myPlayer].GetModPlayer<DimPlayer>();
 
-                Main.spriteBatch.DrawString(Main.fontMouseText, "Current dimension : " + p.getCurrentDimension(), new Vector2(Main.screenWidth / 2 - 75, 10), Color.White);
+                Main.spriteBatch.DrawString(Main.fontMouseText, "Current dimension : " + Dimlibs.Dimlibs.getPlayerDim(), new Vector2(Main.screenWidth / 2 - 75, 10), Color.White);
             }
             else if (Main.mapStyle == 1)
             {

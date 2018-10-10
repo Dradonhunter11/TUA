@@ -13,7 +13,7 @@ using Terraria.GameContent.Generation;
 using Terraria.World.Generation;
 using TerrariaUltraApocalypse.API;
 using TerrariaUltraApocalypse.Dimension.MicroBiome;
-using TerrariaUltraApocalypse.NPCs.HellAlt.MutatedMass;
+using TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass;
 using TerrariaUltraApocalypse.Structure.hellalt;
 
 namespace TerrariaUltraApocalypse
@@ -62,7 +62,7 @@ namespace TerrariaUltraApocalypse
 
         private void RegisterSolar()
         {
-            Func<bool> c = () => Main.LocalPlayer.GetModPlayer<DimPlayer>().getCurrentDimension() == "solar";
+            Func<bool> c = () => Dimlibs.Dimlibs.getPlayerDim() == "solar";
             BiomeLibs.RegisterNewBiome("Solar", 200, mod);
             BiomeLibs.AddBlockInBiome("Solar", new String[] { "SolarDirt", "SolarRock" });
             BiomeLibs.SetCondition("solar", c);
@@ -80,7 +80,7 @@ namespace TerrariaUltraApocalypse
 
         private void RegisterStardust()
         {
-            Func<bool> c = () => Main.LocalPlayer.GetModPlayer<DimPlayer>().getCurrentDimension() == "stardust";
+            Func<bool> c = () => Dimlibs.Dimlibs.getPlayerDim() == "stardust";
             BiomeLibs.RegisterNewBiome("Stardust", 200, mod);
             BiomeLibs.AddBlockInBiome("stardust", new String[] { "StardustRock" });
             BiomeLibs.SetCondition("stardust", c);

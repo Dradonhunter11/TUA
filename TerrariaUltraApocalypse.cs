@@ -27,7 +27,7 @@ using TerrariaUltraApocalypse.API.LiquidAPI;
 using TerrariaUltraApocalypse.API.LiquidAPI.Test;
 using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge;
 using TerrariaUltraApocalypse.Items.EoA;
-using TerrariaUltraApocalypse.Items.Materials.Meteoridon;
+using TerrariaUltraApocalypse.Items.Meteoridon.Materials;
 using TerrariaUltraApocalypse.UIHijack.MainMenu;
 using TerrariaUltraApocalypse.UIHijack.WorldSelection;
 
@@ -270,7 +270,6 @@ namespace TerrariaUltraApocalypse
                 Dictionary<string, LocalizedText> dictionary = info.GetValue(LanguageManager.Instance) as Dictionary<string, LocalizedText>;
 
                 FieldInfo textInfo = typeof(LocalizedText).GetField("value", BindingFlags.Instance | BindingFlags.NonPublic);
-                setDimensionOption(p, dictionary, info);
                 resetMenu(dictionary, textInfo);
             }
             if (Main.myPlayer != -1 && !Main.gameMenu && Main.LocalPlayer.active)
@@ -348,23 +347,6 @@ namespace TerrariaUltraApocalypse
 
         }
 
-        private static void setDimensionOption(DimPlayer p, Dictionary<string, LocalizedText> dictionary, FieldInfo textInfo)
-        {
-
-            if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
-            {
-                if (Main.menuMode == 16)
-                {
-                    Main.menuMode = 6;
-                }
-
-                if (Main.menuMode == 6)
-                {
-                    //textInfo.SetValue(dictionary["UI.New"], "Option blocked");
-                    //textInfo.SetValue(dictionary["UI.SelectWorld"], "Dimension : Solar");
-                }
-            }
-        }
 
         private static void resetMenu(Dictionary<string, LocalizedText> dictionary, FieldInfo textInfo)
         {
