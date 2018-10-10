@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using TerrariaUltraApocalypse.API.TerraEnergy.Block;
+using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
 
 namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
 {

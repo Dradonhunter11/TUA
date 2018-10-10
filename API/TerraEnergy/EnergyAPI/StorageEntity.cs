@@ -12,7 +12,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using TerrariaUltraApocalypse.API.CustomInventory;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
+namespace TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI
 {
     abstract class StorageEntity : ModTileEntity
     {

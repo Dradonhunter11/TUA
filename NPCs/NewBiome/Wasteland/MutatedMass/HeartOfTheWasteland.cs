@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using TerrariaUltraApocalypse.API;
 
@@ -51,12 +52,18 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass
             npc.aiStyle = -1;
             NPCID.Sets.MustAlwaysDraw[npc.type] = true;
             isSleeping = true;
+
+            for (int i = 0; i < npc.buffImmune.Length; i++)
+            {
+                npc.buffImmune[i] = true;
+            }
+
+            
         }
 
 
         public override void AI()
         {
-
             if (isSleeping)
             {
                 npc.dontTakeDamage = true;
