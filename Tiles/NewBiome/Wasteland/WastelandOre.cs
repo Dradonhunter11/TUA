@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Tiles.Wasteland
+namespace TerrariaUltraApocalypse.Tiles.NewBiome.Wasteland
 {
     class WastelandOre : ModTile
     {

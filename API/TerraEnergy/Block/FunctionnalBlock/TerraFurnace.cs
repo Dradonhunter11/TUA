@@ -9,6 +9,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 using TerrariaUltraApocalypse.API.CustomInventory;
+using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
 using TerrariaUltraApocalypse.API.TerraEnergy.Items;
 using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
 using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;

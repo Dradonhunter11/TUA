@@ -114,6 +114,7 @@
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\TerraForge.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\TerraFurnace.cs" />
     <Compile Include="API\TerraEnergy\Block\TerraWaste.cs" />
+    <Compile Include="API\TerraEnergy\EnergyAPI\EnergyItem.cs" />
     <Compile Include="API\TerraEnergy\UI\UIEnergyBar.cs" />
     <Compile Include="API\TUABlock.cs" />
     <Compile Include="API\TerraEnergy\Core.cs" />
@@ -132,7 +133,7 @@
     <Compile Include="API\TerraEnergy\TileEntities\CapacitorEntity.cs" />
     <Compile Include="API\TerraEnergy\TileEntities\EnergyCollectorEntity.cs" />
     <Compile Include="API\TerraEnergy\TileEntities\ForgeEntity.cs" />
-    <Compile Include="API\TerraEnergy\TileEntities\StorageEntity.cs" />
+    <Compile Include="API\TerraEnergy\EnergyAPI\StorageEntity.cs" />
     <Compile Include="API\TerraEnergy\UI\ForgeUI.cs" />
     <Compile Include="API\TerraEnergy\UI\FurnaceUI.cs" />
     <Compile Include="API\TerraEnergy\UI\UIItemSlot.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="API\VoidClass\VoidDamageNPC.cs" />
     <Compile Include="API\VoidClass\VoidDamagePlayer.cs" />
     <Compile Include="API\VoidClass\VoidDamageProjectile.cs" />
+    <Compile Include="API\VoidClass\VoidUtils.cs" />
     <Compile Include="Backgrounds\Meteoridon\MeteoridonBG.cs" />
     <Compile Include="Backgrounds\Solar\SolarUnderBG.cs" />
     <Compile Include="Buff\Debuff\EoA\NoMountDebuff.cs" />

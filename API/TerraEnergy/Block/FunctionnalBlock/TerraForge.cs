@@ -7,7 +7,6 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ObjectData;
 using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge;
-using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
 
 namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 {

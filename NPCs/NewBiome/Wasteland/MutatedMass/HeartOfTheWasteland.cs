@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using TerrariaUltraApocalypse.API;
 
@@ -16,14 +17,14 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass
     {
         private bool isSleeping;
 
-        private static readonly string HEAD_PATH = "TerrariaUltraApocalypse/NPCs/HellAlt/MutatedMass/HeartOfTheWasteland_head";
+        private static readonly string HEAD_PATH = "TerrariaUltraApocalypse/NPCs/NewBiome/Wasteland/MutatedMass/HeartOfTheWasteland_head";
 
         public override string Texture {
             get { return "Terraria/NPC_" + 548; }
         }
 
         public override string BossHeadTexture {
-            get { return "TerrariaUltraApocalypse/NPCs/HellAlt/MutatedMass/HeartOfTheWasteland_head0"; }
+            get { return "TerrariaUltraApocalypse/NPCs/NewBiome/Wasteland/MutatedMass/HeartOfTheWasteland_head0"; }
         }
 
         public override void SetStaticDefaults()
@@ -51,12 +52,18 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass
             npc.aiStyle = -1;
             NPCID.Sets.MustAlwaysDraw[npc.type] = true;
             isSleeping = true;
+
+            for (int i = 0; i < npc.buffImmune.Length; i++)
+            {
+                npc.buffImmune[i] = true;
+            }
+
+            
         }
 
 
         public override void AI()
         {
-
             if (isSleeping)
             {
                 npc.dontTakeDamage = true;

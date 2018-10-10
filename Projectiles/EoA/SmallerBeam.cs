@@ -10,7 +10,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using TerrariaUltraApocalypse.API.VoidClass;
-using TerrariaUltraApocalypse.NPCs.EoA;
+using TerrariaUltraApocalypse.NPCs.Gods.EoA;
 
 namespace TerrariaUltraApocalypse.Projectiles.EoA
 {
