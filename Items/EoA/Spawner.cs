@@ -4,6 +4,9 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using TerrariaUltraApocalypse.API;
 using TerrariaUltraApocalypse.NPCs.Gods.EoA;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.DataStructures;
 
 namespace TerrariaUltraApocalypse.Items.EoA
 {
@@ -46,11 +49,17 @@ namespace TerrariaUltraApocalypse.Items.EoA
                 Main.expertMode = true;
             }
 
-            Main.NewText("The apocalypse is coming, be aware...", Microsoft.Xna.Framework.Color.DarkGoldenrod);
+            if (Main.netMode != 1)
+            {
+                Main.NewText("The apocalypse is coming, be aware...", Color.DarkGoldenrod);
+            }
+            else
+            {
+                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("The apocalypse is coming, be aware..."), Color.DarkGoldenrod);
+            }
             Main.PlaySound(SoundID.MoonLord, player.position, 0);
-            NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Eye_of_Apocalypse"));
-            int npcID = NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - 350, mod.NPCType<Eye_of_Apocalypse>());
-            Main.npc[npcID].ai[0] = npcID;
+            NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - (76*16), mod.NPCType<Eye_of_ApocalypseNew>());
+            Main.spriteBatch.Draw(ModLoader.GetTexture("Projectile_490"), new Vector2(player.Center.X, player.Center.Y), Color.DarkRed);
             return true;
         }
 

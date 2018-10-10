@@ -16,14 +16,14 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass
     {
         private bool isSleeping;
 
-        private static readonly string HEAD_PATH = "TerrariaUltraApocalypse/NPCs/HellAlt/MutatedMass/HeartOfTheWasteland_head";
+        private static readonly string HEAD_PATH = "TerrariaUltraApocalypse/NPCs/NewBiome/Wasteland/MutatedMass/HeartOfTheWasteland_head";
 
         public override string Texture {
             get { return "Terraria/NPC_" + 548; }
         }
 
         public override string BossHeadTexture {
-            get { return "TerrariaUltraApocalypse/NPCs/HellAlt/MutatedMass/HeartOfTheWasteland_head0"; }
+            get { return "TerrariaUltraApocalypse/NPCs/NewBiome/Wasteland/MutatedMass/HeartOfTheWasteland_head0"; }
         }
 
         public override void SetStaticDefaults()

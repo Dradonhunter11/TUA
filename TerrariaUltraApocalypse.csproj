@@ -197,6 +197,7 @@
     <Compile Include="MoonEvent\ApocalypseWMoon.cs" />
     <Compile Include="NPCs\AI\Worm.cs" />
     <Compile Include="NPCs\Gods\EoA\EoAHeal.cs" />
+    <Compile Include="NPCs\Gods\EoA\Eye_of_ApocalypseNew.cs" />
     <Compile Include="NPCs\Gods\EoA\Eye_of_Apocalypse_clone.cs" />
     <Compile Include="Dimension\Sky\TUACustomSky.cs" />
     <Compile Include="NPCs\NewBiome\Wasteland\MutatedMass\HeartOfTheWasteland.cs" />
@@ -276,7 +277,7 @@
     </Reference>
     <Reference Include="Dimlibs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dimlibs\bin\Debug\Dimlibs.dll</HintPath>
+      <HintPath>..\..\Dimlibs.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -318,7 +319,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"D:\steam game\steamapps\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>"D:\SteamLibrary\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

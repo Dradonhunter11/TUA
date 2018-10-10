@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.Tiles.Meteoridon;
+using TerrariaUltraApocalypse.Tiles.NewBiome.Meteoridon;
 
 namespace TerrariaUltraApocalypse.Tiles.PillarBiome
 {
