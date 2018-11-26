@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TerrariaUltraApocalypse.Tiles.NewBiome.Meteoridon;
 
 namespace TerrariaUltraApocalypse.Tiles.PillarBiome
 {
@@ -19,6 +20,7 @@ namespace TerrariaUltraApocalypse.Tiles.PillarBiome
             Main.tileBlockLight[Type] = true;
             Main.tileMerge[mod.TileType<SolarDirt>()][mod.TileType<SolarRock>()] = true;
             Main.tileMerge[mod.TileType<SolarRock>()][mod.TileType<SolarDirt>()] = true;
+            SetModTree(new MeteoridonTree());
             drop = ItemID.DirtBlock;
             AddMapEntry(new Microsoft.Xna.Framework.Color(255, 120, 55));
 

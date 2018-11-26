@@ -76,7 +76,6 @@ namespace TerrariaUltraApocalypse.NPCs.Gods.EoA
             DisplayName.SetDefault("Eye of the Apocalypse - God of destruction");
             DisplayName.AddTranslation(GameCulture.French, "Oeil de l'apocalypse - Dieu de la destruction");
             Main.npcFrameCount[npc.type] = 5;
-
         }
 
         private static Eye_of_Apocalypse_clone[] clone;

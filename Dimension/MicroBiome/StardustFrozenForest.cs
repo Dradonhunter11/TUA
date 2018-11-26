@@ -13,7 +13,7 @@ using Terraria.ModLoader.IO;
 using Terraria.World.Generation;
 using TerrariaUltraApocalypse.API.GenActionModifiers;
 using TerrariaUltraApocalypse.Dimension.Block;
-
+using TerrariaUltraApocalypse.Tiles.NewBiome.Meteoridon;
 
 namespace TerrariaUltraApocalypse.Dimension.MicroBiome
 {
