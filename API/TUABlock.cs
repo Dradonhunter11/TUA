@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 using TerrariaUltraApocalypse.API.Dev;
+using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
 using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
 using TerrariaUltraApocalypse.Items.Misc.Debug;
 
@@ -44,8 +45,6 @@ namespace TerrariaUltraApocalypse.API
 
         public sealed override void RightClick(int i, int j)
         {
-
-            //Main.NewText(SteamID64Checker.getInstance().verifyID());
             if (Main.LocalPlayer.HeldItem.type == mod.ItemType<DebugStick>())
             {
                 readData(i, j);

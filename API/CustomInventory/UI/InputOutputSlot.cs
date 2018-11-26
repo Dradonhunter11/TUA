@@ -64,6 +64,7 @@ namespace TerrariaUltraApocalypse.API.CustomInventory.UI
                 if (boundSlot.isEmpty())
                 {
                     boundSlot.setItem(ref Main.mouseItem);
+                    Main.mouseItem.TurnToAir();
                 }
                 else if (boundSlot.setItem(ref Main.mouseItem))
                 {
@@ -73,6 +74,7 @@ namespace TerrariaUltraApocalypse.API.CustomInventory.UI
                 {
                     Main.mouseItem = item;
                 }
+                Main.mouseItem.TurnToAir();
             } else if (!boundSlot.isEmpty() && item.IsAir)
             {
                 boundSlot.swap(ref Main.mouseItem);
@@ -91,10 +93,12 @@ namespace TerrariaUltraApocalypse.API.CustomInventory.UI
                 {
                     boundSlot.setItem(ref Main.mouseItem);
                     Main.mouseItem.stack--;
+                    Main.mouseItem.TurnToAir();
                 }
                 else if (boundSlot.manipulateCurrentItem(item))
                 {
                     Main.mouseItem.stack--;
+                    Main.mouseItem.TurnToAir();
                 }
 
                 if (Main.mouseItem.stack == 0)

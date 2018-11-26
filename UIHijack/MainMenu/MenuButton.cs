@@ -55,8 +55,6 @@ namespace TerrariaUltraApocalypse.UIHijack.MainMenu
 
         public override void OnInitialize()
         {
-            
-
             Vector2 textSize = Main.fontMouseText.MeasureString(buttonName) * 1.5f;
             if (list)
             {

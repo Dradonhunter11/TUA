@@ -18,11 +18,14 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon.EvolvedMeteorideWorm
         {
             minLength = 6;
             maxLength = 12;
-            //tailType = mod.NPCType<ExampleWormTail>();
-            //bodyType = mod.NPCType<ExampleWormBody>();
             headType = mod.NPCType<EvolvedMeteorideWormHead>();
             speed = 5.5f;
             turnSpeed = 0.045f;
+        }
+
+        public override void CustomBehavior()
+        {
+            
         }
     }
 }

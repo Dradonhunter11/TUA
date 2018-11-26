@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TerrariaUltraApocalypse.UIHijack.WorldSelection.ModElement
+namespace TerrariaUltraApocalypse.API.Experimental
 {
-    class FargoElement
+    class Chunk
     {
     }
 }

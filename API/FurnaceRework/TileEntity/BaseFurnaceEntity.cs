@@ -21,8 +21,6 @@ namespace TerrariaUltraApocalypse.API.FurnaceRework.TileEntity
         private BudgetCore fuel;
         private FurnaceUI furnaceUi;
 
-        private CapacitorEntity boundCapacitor;
-
         public ExtraSlot InputSlot;
         public ExtraSlot OutputSlot;
         public ExtraSlot FuelSlot;
@@ -66,8 +64,8 @@ namespace TerrariaUltraApocalypse.API.FurnaceRework.TileEntity
             }
 
             Main.playerInventory = true;
-            TerrariaUltraApocalypse.furnaceInterface.SetState(furnaceUi);
-            TerrariaUltraApocalypse.furnaceInterface.IsVisible = true;
+            TerrariaUltraApocalypse.machineInterface.SetState(furnaceUi);
+            TerrariaUltraApocalypse.machineInterface.IsVisible = true;
         }
 
         public sealed override void Load(TagCompound tag)
@@ -97,11 +95,6 @@ namespace TerrariaUltraApocalypse.API.FurnaceRework.TileEntity
             {
                 item.TurnToAir();
             }
-        }
-
-        public void linkToCapacitor(CapacitorEntity capacitor)
-        {
-            boundCapacitor = capacitor;
         }
 
         public BaseFurnaceEntity()

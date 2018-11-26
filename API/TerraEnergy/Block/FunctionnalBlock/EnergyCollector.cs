@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
+using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
 using TerrariaUltraApocalypse.API.TerraEnergy.Items;
 using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
 

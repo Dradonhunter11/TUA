@@ -83,7 +83,8 @@ namespace TerrariaUltraApocalypse.UIHijack.MainMenu
 
         public void ExecuteTUAButton(UIMouseEvent evt, UIElement element)
         {
-
+            Main.MenuUI.SetState(TerrariaUltraApocalypse.setting);
+            Main.PlaySound(SoundID.MenuOpen, -1, -1, 1);
         }
 
         public void BackButton(UIMouseEvent evt, UIElement element)

@@ -27,64 +27,6 @@ namespace TerrariaUltraApocalypse.API.FurnaceRework
         public override void RightClick(int i, int j, int type)
         {
             Tile tile = Main.tile[i, j];
-            /*if (type == TileID.Furnaces)
-            {
-                Tile tile = Main.tile[i, j];
-
-                int left = i - (tile.frameX / 18);
-                int top = j - (tile.frameY / 18);
-
-                int index = mod.GetTileEntity<RegularFurnaceEntity>().Find(left, top);
-
-                Main.NewText("X " + i + " Y " + j);
-
-                if (index == -1)
-                {
-                    Main.NewText("false");
-                    return;
-                }
-
-                RegularFurnaceEntity tfe = (RegularFurnaceEntity)Terraria.DataStructures.TileEntity.ByID[index];
-                tfe.Activate();
-            } else if (type == TileID.Hellforge)
-            {
-                Tile tile = Main.tile[i, j];
-
-                int left = i - (tile.frameX / 18);
-                int top = j - (tile.frameY / 18);
-
-                int index = mod.GetTileEntity<HellForgeEntity>().Find(left, top);
-
-                Main.NewText("X " + i + " Y " + j);
-
-                if (index == -1)
-                {
-                    Main.NewText("false");
-                    return;
-                }
-
-                HellForgeEntity tfe = (HellForgeEntity)Terraria.DataStructures.TileEntity.ByID[index];
-                tfe.Activate();
-            } else if(type == TileID.AdamantiteForge)
-            {
-                Tile tile = Main.tile[i, j];
-
-                int left = i - (tile.frameX / 18);
-                int top = j - (tile.frameY / 18);
-
-                int index = mod.GetTileEntity<AdamantiteTitaniumForgeEntity>().Find(left, top);
-
-                Main.NewText("X " + i + " Y " + j);
-
-                if (index == -1)
-                {
-                    Main.NewText("false");
-                    return;
-                }
-
-                AdamantiteTitaniumForgeEntity tfe = (AdamantiteTitaniumForgeEntity)Terraria.DataStructures.TileEntity.ByID[index];
-                tfe.Activate();
-            }*/
             BaseFurnaceEntity furnace = GetFurnaceEntity(type);
             if (furnace != null)
             {
@@ -105,11 +47,6 @@ namespace TerrariaUltraApocalypse.API.FurnaceRework
                 BaseFurnaceEntity tfe = (BaseFurnaceEntity)Terraria.DataStructures.TileEntity.ByID[index];
                 tfe.Activate();
             }
-        }
-
-        private bool IsFurnace(int type)
-        {
-            return type == TileID.AdamantiteForge || type == TileID.Furnaces || type == TileID.Hellforge;
         }
 
         private BaseFurnaceEntity GetFurnaceEntity(int type)

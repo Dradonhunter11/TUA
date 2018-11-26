@@ -10,7 +10,7 @@ namespace TerrariaUltraApocalypse.UIHijack.MainMenu.MainMenuButton
 {
     class TUAOptionMenuButton : MenuButton
     {
-        private ModSettingsUI settingUI;
+        internal static ModSettingsUI settingUI;
         public TUAOptionMenuButton(int xPosition, int yPosition) : base("Mod Settings (W.I.P)", xPosition, yPosition)
         {
             settingUI = new ModSettingsUI();

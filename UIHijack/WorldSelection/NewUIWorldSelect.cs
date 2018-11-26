@@ -32,7 +32,7 @@ namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
         private List<Tuple<string, bool>> favoritesCache = new List<Tuple<string, bool>>();
         private bool skipDraw;
 
-        
+        internal static Dictionary<string, object> currentDictionary;
 
         public override void OnInitialize()
         {
@@ -238,6 +238,16 @@ namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
             
             //base.Draw(spriteBatch);
             this.SetupGamepadPoints(spriteBatch);
+            
+            if (currentDictionary != null)
+            {
+                Vector2 position = new Vector2(5, 200);
+                foreach (KeyValuePair<string, object> keyValuePair in currentDictionary)
+                {
+                    Main.spriteBatch.DrawString(Main.fontMouseText, keyValuePair.Key + " : " + keyValuePair.Value, position, Color.White);
+                    position.Y += 15;
+                }
+            }
         }
 
         public void trueDraw(SpriteBatch sb)

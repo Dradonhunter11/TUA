@@ -10,7 +10,7 @@ using Terraria.ModLoader.IO;
 namespace TerrariaUltraApocalypse.API
 {
     
-    class TUAModItem : ModItem
+    public class TUAModItem : ModItem
     {
         public virtual bool ultra { get; set; }
         public virtual bool furnace { get; set; }

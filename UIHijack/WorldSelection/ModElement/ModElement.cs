@@ -7,13 +7,18 @@ using Terraria.UI;
 
 namespace TerrariaUltraApocalypse.UIHijack.WorldSelection.ModElement
 {
-    class VanillaElement : UIElement
+    class ModElement : UIElement
     {
+        private IDictionary<String, String> valueDictionnary = new Dictionary<string, string>();
+
         public override void OnInitialize()
         {
-            
+            base.OnInitialize();
         }
 
+        public void addElement()
+        {
 
+        }
     }
 }

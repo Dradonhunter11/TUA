@@ -74,11 +74,15 @@
   <ItemGroup>
     <Compile Include="API\CustomInventory\BasicInventory.cs" />
     <Compile Include="API\CustomInventory\ExtraSlot.cs" />
+    <Compile Include="API\CustomInventory\UI\ChargingSlot.cs" />
     <Compile Include="API\CustomInventory\UI\FuelSlot.cs" />
     <Compile Include="API\CustomInventory\UI\InputOutputSlot.cs" />
     <Compile Include="API\CustomInventory\UI\OutputOnlySlot.cs" />
     <Compile Include="API\Dev\ReflectionExtension.cs" />
     <Compile Include="API\Dev\SteamID64Checker.cs" />
+    <Compile Include="API\Experimental\ArrayChunk.cs" />
+    <Compile Include="API\Experimental\Chunk.cs" />
+    <Compile Include="API\Experimental\Vector2Int.cs" />
     <Compile Include="API\FurnaceRework\BudgetCore.cs" />
     <Compile Include="API\FurnaceRework\FurnaceGlobalTile.cs" />
     <Compile Include="API\FurnaceRework\TileEntity\AdamantiteTitaniumForgeEntity.cs" />
@@ -115,6 +119,7 @@
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\TerraFurnace.cs" />
     <Compile Include="API\TerraEnergy\Block\TerraWaste.cs" />
     <Compile Include="API\TerraEnergy\EnergyAPI\EnergyItem.cs" />
+    <Compile Include="API\TerraEnergy\UI\CapacitorUI.cs" />
     <Compile Include="API\TerraEnergy\UI\UIEnergyBar.cs" />
     <Compile Include="API\TUABlock.cs" />
     <Compile Include="API\TerraEnergy\Core.cs" />
@@ -212,6 +217,7 @@
     <Compile Include="NPCs\NewBiome\Meteoridon\MeteoridonEye.cs" />
     <Compile Include="NPCs\TUAGlobalNPC.cs" />
     <Compile Include="API\VoidClass\VoidItemPrefix.cs" />
+    <Compile Include="NPCs\UltraBoss\UltraDestroyer\UltraDestroyerWorm.cs" />
     <Compile Include="Prefixes\Multishot.cs" />
     <Compile Include="Prefixes\VoidItem\Collapsing.cs" />
     <Compile Include="Projectiles\EoA\SmallerBeam.cs" />
@@ -248,6 +254,7 @@
     <Compile Include="Items\EoA\Spawner.cs" />
     <Compile Include="NPCs\Gods\EoA\Eye_of_Apocalypse.cs" />
     <Compile Include="TerrariaUltraApocalypse.cs" />
+    <Compile Include="UIHijack\MainMenu\TUAOptionMenu\CreditPanel.cs" />
     <Compile Include="UIHijack\MainMenu\MainMenuButton\ModBrowserButton.cs" />
     <Compile Include="UIHijack\MainMenu\MainMenuButton\ModsButton.cs" />
     <Compile Include="UIHijack\MainMenu\MainMenuButton\ModSourceButton.cs" />
@@ -260,13 +267,12 @@
     <Compile Include="UIHijack\MainMenu\MainMenuUI.cs" />
     <Compile Include="UIHijack\MainMenu\MenuButton.cs" />
     <Compile Include="UIHijack\MainMenu\ModSettingsUI.cs" />
+    <Compile Include="UIHijack\MainMenu\TUAOptionMenu\TUASettingMenu.cs" />
     <Compile Include="UIHijack\MainMenu\UITUACredit.cs" />
-    <Compile Include="UIHijack\WorldSelection\ModElement\CalamityElement.cs" />
-    <Compile Include="UIHijack\WorldSelection\ModElement\EnigmaElement.cs" />
-    <Compile Include="UIHijack\WorldSelection\ModElement\FargoElement.cs" />
-    <Compile Include="UIHijack\WorldSelection\ModElement\VanillaElement.cs" />
+    <Compile Include="UIHijack\WorldSelection\ModElement\ModElement.cs" />
     <Compile Include="UIHijack\WorldSelection\NewUIWorldSelect.cs" />
     <Compile Include="UIHijack\WorldSelection\NewUIWorldListItem.cs" />
+    <Compile Include="UIHijack\WorldSelection\WorldPreLoader.cs" />
     <Compile Include="Walls\Hell\AshWall.cs" />
     <Compile Include="Walls\Wasteland\WastestoneBrickWall.cs" />
     <Compile Include="World\OreSpread.cs" />
@@ -296,8 +302,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Microsoft.Xna.Framework.Xact.dll</HintPath>
     </Reference>
-    <Reference Include="ReLogic">
-      <HintPath>..\..\..\..\..\..\Terraria Full source\ReLogic.dll</HintPath>
+    <Reference Include="ReLogic, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\TerrariaFullsource\ReLogic.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
@@ -315,7 +322,6 @@
     <Folder Include="Items\Meteoridon\Walls\" />
     <Folder Include="Items\Weapons\EoA\" />
     <Folder Include="NPCs\Dimension\Solar\" />
-    <Folder Include="NPCs\UltraBoss\UltraDestroyer\" />
     <Folder Include="Tiles\Furniture\Demon\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

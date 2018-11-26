@@ -45,6 +45,8 @@ namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
         private TagCompound _CalamityWorldData;
         private TagCompound _FargosModWorldData;
 
+        private Dictionary<string, object> worldData = new Dictionary<string, object>(); // World data name and it's value
+
         public bool IsFavorite
         {
             get
@@ -106,14 +108,14 @@ namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
             num += 24f;
             if (SocialAPI.Cloud != null)
             {
-                UIImageButton uIImageButton3 = new UIImageButton(this._data.IsCloudSave ? this._buttonCloudActiveTexture : this._buttonCloudInactiveTexture);
-                uIImageButton3.VAlign = 1f;
-                uIImageButton3.Left.Set(num, 0f);
-                uIImageButton3.OnClick += new UIElement.MouseEvent(this.CloudButtonClick);
-                uIImageButton3.OnMouseOver += new UIElement.MouseEvent(this.CloudMouseOver);
-                uIImageButton3.OnMouseOut += new UIElement.MouseEvent(this.ButtonMouseOut);
-                uIImageButton3.SetSnapPoint("Cloud", snapPointIndex, null, null);
-                base.Append(uIImageButton3);
+                UIImageButton cloudUiImageButton = new UIImageButton(this._data.IsCloudSave ? this._buttonCloudActiveTexture : this._buttonCloudInactiveTexture);
+                cloudUiImageButton.VAlign = 1f;
+                cloudUiImageButton.Left.Set(num, 0f);
+                cloudUiImageButton.OnClick += new UIElement.MouseEvent(this.CloudButtonClick);
+                cloudUiImageButton.OnMouseOver += new UIElement.MouseEvent(this.CloudMouseOver);
+                cloudUiImageButton.OnMouseOut += new UIElement.MouseEvent(this.ButtonMouseOut);
+                cloudUiImageButton.SetSnapPoint("Cloud", snapPointIndex, null, null);
+                base.Append(cloudUiImageButton);
                 num += 24f;
             }
             if (Main.UseSeedUI && this._data.WorldGeneratorVersion != 0uL)
@@ -154,6 +156,7 @@ namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
             uIImageButton.SetSnapPoint("Play", snapPointIndex, null, null);
             uIImageButton2.SetSnapPoint("Favorite", snapPointIndex, null, null);
             uIImageButton5.SetSnapPoint("Delete", snapPointIndex, null, null);
+            WorldPreLoader.loadWorld(_data.Path,_data.IsCloudSave, worldData, data);
         }
 
         private void LoadTextures()
@@ -463,15 +466,11 @@ namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
                 DrawPanel(spriteBatch, vector2, 25 * 5);
                 ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, masochist, vector2 + new Vector2(5f, 3f),
                     Color.White, 0f, Vector2.Zero, Vector2.One);
-
             }
 
-
-            if (IsMouseHovering && _TUAWorldData != null)
+            if (IsMouseHovering)
             {
-                Main.hoverItemName = "Is ultra mode activated? : " + ((_TUAWorldData.GetBool("UltraMode")) ? "[c/00FF00:True]" : "[c/FF0000:False]");
-                string t = "Is ultra mode activated? : " + ((_TUAWorldData.GetBool("UltraMode")) ? "[c/00FF00:True]" : "[c/FF0000:False]");
-                spriteBatch.DrawString(Main.fontMouseText, t, new Vector2(Main.mouseX + 20, Main.mouseY + 20), Color.White);
+                NewUIWorldSelect.currentDictionary = worldData;
             }
         }
     }

@@ -9,6 +9,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
+using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
 using TerrariaUltraApocalypse.API.TerraEnergy.Items;
 using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
 
@@ -49,6 +50,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
                 StorageEntity se = (StorageEntity)TileEntity.ByID[index];
                 Main.NewText(se.getEnergy().getCurrentEnergyLevel() + " / " + se.getEnergy().getMaxEnergyLevel() + " TE in this Capacitor");
+                return;
             }
 
             if (currentSelectedItem.type == mod.ItemType("RodOfLinking"))
@@ -76,8 +78,11 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
                     tfe.linkToCapacitor(ce);
                 }
                 Main.NewText("Succesfully linked to a capacitor, now transferring energy to it", Color.ForestGreen);
-
+                return;
             }
+
+            BasicTECapacitorEntity capacitorEntity = (BasicTECapacitorEntity) TileEntity.ByID[index];
+            capacitorEntity.Activate();
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)

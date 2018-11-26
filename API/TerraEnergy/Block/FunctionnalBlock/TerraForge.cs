@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ObjectData;
+using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
 using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge;
 
 namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock

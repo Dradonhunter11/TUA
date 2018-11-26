@@ -17,11 +17,14 @@ using Terraria.Localization;
 using Dimlibs;
 using System.Runtime.CompilerServices;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Terraria.GameContent.UI.States;
+using TerrariaUltraApocalypse.API;
 using TerrariaUltraApocalypse.API.Dev;
+using TerrariaUltraApocalypse.API.Experimental;
 using TerrariaUltraApocalypse.API.Injection;
 using TerrariaUltraApocalypse.API.LiquidAPI;
 using TerrariaUltraApocalypse.API.LiquidAPI.Test;
@@ -29,6 +32,7 @@ using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge;
 using TerrariaUltraApocalypse.Items.EoA;
 using TerrariaUltraApocalypse.Items.Meteoridon.Materials;
 using TerrariaUltraApocalypse.UIHijack.MainMenu;
+using TerrariaUltraApocalypse.UIHijack.MainMenu.TUAOptionMenu;
 using TerrariaUltraApocalypse.UIHijack.WorldSelection;
 
 namespace TerrariaUltraApocalypse
@@ -52,7 +56,8 @@ namespace TerrariaUltraApocalypse
         
 
 
-        public static UserInterface furnaceInterface;
+        public static UserInterface machineInterface;
+        public static UserInterface CapacitorInterface;
 
         public string animate = "TmodLoader v.0.10.1.4 - TUA v." + version +
                                  " - ";
@@ -60,13 +65,20 @@ namespace TerrariaUltraApocalypse
         private int animationTimer = 25;
         private List<string> quote = new List<string>();
 
-        public static ModHotKey openAchievementMenu;
-        public UserInterface achievementInterface;
-
         private UIWorldSelect originalWorldSelect;
         private MainMenuUI newMainMenu = new MainMenuUI();
+        internal static TUASettingMenu setting = new TUASettingMenu();
 
         public static readonly string SAVE_PATH = Main.SavePath;
+
+        [DllImport("User32.dll")]
+        static extern Boolean SystemParametersInfo(
+            UInt32 uiAction,
+            UInt32 uiParam,
+            IntPtr pvParam,
+            UInt32 fWinIni);
+
+        public const UInt32 SPI_GETMOUSESPEED = 0x0070;
 
         public TerrariaUltraApocalypse()
         {
@@ -156,8 +168,22 @@ namespace TerrariaUltraApocalypse
             fr1.addRecipe();
         }
 
+        public void convertTileToChunk(ArrayChunk<Tile> tiles)
+        {
+            for (int i = 0; i < Main.maxTilesX; i++)
+            {
+                for (int j = 0; j < Main.maxTilesY; j++)
+                {
+                    tiles[i, j] = Main.tile[i, j];                 
+                }
+            }
+        }
+
         public override void Load()
         {
+            ArrayChunk<Tile> tile = new ArrayChunk<Tile>();
+            convertTileToChunk(tile);
+            
 
             instance = this;
             UpdateBiomesInjection.inject();
@@ -167,7 +193,6 @@ namespace TerrariaUltraApocalypse
             lazyWaytoShowTitle();
             animate = "TmodLoader v.0.10.1.4 - TUA v." + version +
                       " - " + quote[r.Next(quote.Count - 1)];
-            openAchievementMenu = RegisterHotKey("Open ModAchievement Menu", "O");
 
             
             Main.SavePath = Main.SavePath + "/Tapocalypse";
@@ -181,7 +206,8 @@ namespace TerrariaUltraApocalypse
 
             }
 
-            furnaceInterface = new UserInterface();
+            machineInterface = new UserInterface();
+            CapacitorInterface = new UserInterface();
 
             Filters.Scene["TerrariaUltraApocalypse:TUAPlayer"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
             SkyManager.Instance["TerrariaUltraApocalypse:TUAPlayer"] = new TUACustomSky();
@@ -201,8 +227,21 @@ namespace TerrariaUltraApocalypse
                 logoOriginal = Main.logo2Texture;
                 originalMoon = Main.moonTexture;
             }
-            
 
+            if (IntPtr.Size == 8)
+            {
+                AllowGignaticWorld();
+            }
+
+        }
+
+        public void AllowGignaticWorld()
+        {
+            Main.chest = new Chest[10000];
+            Main.tile = new Tile[25200, 7200];
+            Main.maxTilesX = 25200;
+            Main.maxTilesY = 7200;
+            
         }
 
 
@@ -245,10 +284,11 @@ namespace TerrariaUltraApocalypse
 
         public override void UpdateUI(GameTime gameTime)
         {
-            if (furnaceInterface != null && furnaceInterface.IsVisible)
+            if (machineInterface != null && machineInterface.IsVisible)
             {
-                furnaceInterface.Update(gameTime);
+                machineInterface.Update(gameTime);
             }
+            
         }
 
         public override void UpdateMusic(ref int music, ref MusicPriority musicPriority)
@@ -293,18 +333,9 @@ namespace TerrariaUltraApocalypse
                 {
                     music = MusicID.TheTowers;
                     Main.musicBox = 36;
-
-                }
-                
-                if (BiomeLibs.InBiome("hell"))
-                {
                     musicPriority = MusicPriority.Environment;
-                    music = MusicID.LunarBoss;
-                }
 
-                //musicPriority = MusicPriority.Environment;
-                //music = MusicID.LunarBoss;
-                //Main.NewText(MusicPriority.BossHigh);
+                }
              }
 
             if (Main.menuMode == 0)
@@ -316,18 +347,19 @@ namespace TerrariaUltraApocalypse
             FieldInfo _blockFancyUIWhileLoadingInfo = typeof(Main).GetField("_blockFancyUIWhileLoading",
                 BindingFlags.Static | BindingFlags.NonPublic);
             bool _blockFancyUIWhileLoading = (bool)_blockFancyUIWhileLoadingInfo.GetValue(null);
-            //trything();
+            trything();
         }
 
 
         private unsafe void trything()
         {
-            int i = 1;
-            int j = 2;
-            int* ptr = &i;
-            int* ptr2 = &j;
-            ptr = ptr2;
-            Main.NewText(*ptr);
+            int speed;
+            SystemParametersInfo(
+                SPI_GETMOUSESPEED,
+                0,
+                new IntPtr(&speed),
+                0);
+            Console.WriteLine(speed);
         }
 
         private void AnimateVersion()
@@ -363,14 +395,14 @@ namespace TerrariaUltraApocalypse
             int setting = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Settings Button"));
 
             if (MouseTextIndex != -1)
-            {
+            { 
                 layers.Insert(MouseTextIndex, new LegacyGameInterfaceLayer(
                     "TUA : Furnace GUI",
                     delegate
                     {
-                        if (furnaceInterface.IsVisible && Main.playerInventory)
+                        if (machineInterface.IsVisible && Main.playerInventory)
                         {
-                            furnaceInterface.CurrentState.Draw(Main.spriteBatch);;
+                            machineInterface.CurrentState.Draw(Main.spriteBatch);;
                         }
                         return true;
                     },
@@ -398,7 +430,7 @@ namespace TerrariaUltraApocalypse
                     "Once there was the eye of cthulhu... the ultra one", "Kill the ultra EoC succesfully.",
                     "Achievement/UltraEoC", new int[] { ItemType<Spawner>() }, new int[] { 1 },
                     (Func<bool>)(() => TUAWorld.EoCDeath >= 1));
-            };
+            }
 
             Mod st = ModLoader.GetMod("SacredTool");
             if (st != null)
