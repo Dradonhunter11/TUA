@@ -11,22 +11,26 @@ using Terraria.Localization;
 using Terraria.ModLoader.IO;
 using System.IO;
 using TerrariaUltraApocalypse.API;
+using TerrariaUltraApocalypse.API.VoidClass;
 
 namespace TerrariaUltraApocalypse.Items.Weapons
 {
-    class MechanicalBow : TUAModItem
+    class MechanicalBow : VoidDamageItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.AddTranslation(GameCulture.French, "L'arc des dieux apocalyptic");
-            DisplayName.SetDefault("Divine apocalyptic god Bow");
-            Tooltip.SetDefault("Forged from the rest of an ancient corrupted god...\nWon't consumme arrow\n");
+            DisplayName.SetDefault("The god feather");
+            Tooltip.AddLine("Forged from the rest of an ancient corrupted god...");
+            Tooltip.AddLine("Won't consume arrows");
             Tooltip.AddTranslation(GameCulture.French, "Forger a partir des restes d'un ancien dieu corrompu...\nNe consumme pas de flèche");
             Tooltip.SetDefault(AddUltraTooltip(Tooltip.GetDefault()));
             Tooltip.AddTranslation(GameCulture.French, AddUltraTooltip(Tooltip.GetTranslation(GameCulture.French)));
         }
 
-        public override void SetDefaults()
+        
+
+        public override void safeSetDefaults()
         {
             item.width = 32;
             item.height = 50;
@@ -42,7 +46,10 @@ namespace TerrariaUltraApocalypse.Items.Weapons
             item.useAnimation = 10;
             item.useTime = 20;
             item.useAmmo = AmmoID.Arrow;
-            ultra = true;
+            item.crit = 50;
+            setVoidDamage(50);
+            VoidDamage = 50;
+            haveNormalDamage = true;
         }
 
         public override void AddRecipes()
@@ -63,26 +70,6 @@ namespace TerrariaUltraApocalypse.Items.Weapons
         public override bool ConsumeAmmo(Player player)
         {
             return false;
-        }
-
-        public void extendsAI()
-        {
-
-        }
-
-        public override void PostReforge()
-        {
-            manipulateUltraProperty(false);
-        }
-
-
-
-        public override void Update(ref float gravity, ref float maxFallSpeed)
-        {
-            if (item.owner == 0)
-            {
-                manipulateUltraProperty(true);
-            }
         }
     }
 }

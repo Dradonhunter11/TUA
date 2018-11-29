@@ -10,8 +10,8 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace
 {
     class FurnaceRecipe : BaseRecipe
     {
-        private Mod mod;
-        private int cookTime = 10;
+        private int energyRequired = 10;
+        
         private Item ingredient;
         private string ingrediantName;
         private Item result;
@@ -22,14 +22,14 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace
 
         }
 
-        public void setCookTime(int time)
+        public void setCostAndCookTime(int energyRequired)
         {
-            cookTime = time;
+            this.energyRequired = energyRequired;
         }
 
         public int getCookTime()
         {
-            return cookTime;
+            return energyRequired;
         }
 
         public void addIngredient(int itemID, int quantity = 1)

@@ -8,11 +8,12 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
+using TerrariaUltraApocalypse.API.VoidClass;
 
 
 namespace TerrariaUltraApocalypse.Projectiles
 {
-    class GodExplosiveArrow : ModProjectile
+    class GodExplosiveArrow : VoidDamageProjectile
     {
 
         private int timer = 0;
@@ -34,7 +35,9 @@ namespace TerrariaUltraApocalypse.Projectiles
             projectile.penetrate = 1;
             projectile.tileCollide = true;
             projectile.timeLeft = 76;
-            
+            Void = true;
+            VoidDamage = 50;
+            aiType = ProjectileID.HolyArrow;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

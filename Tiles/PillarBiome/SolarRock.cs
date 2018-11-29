@@ -16,8 +16,9 @@ namespace TerrariaUltraApocalypse.Tiles.PillarBiome
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
+            
             drop = ItemID.DirtBlock;
-            AddMapEntry(new Microsoft.Xna.Framework.Color(226, 121, 0));
+            AddMapEntry(new Microsoft.Xna.Framework.Color(178, 98, 0));
         }
     }
 }

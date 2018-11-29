@@ -26,8 +26,67 @@ namespace TerrariaUltraApocalypse
 		public override void ModifyGenerationPass(int seed, GenerationProgress customProgressObject)
         {
             
+
             AddGenerationPass("Reset", delegate (GenerationProgress progress)
             {
+                int maxtilesX = 8400;
+                int maxtilesY = 1800;
+
+                FieldInfo info = typeof(WorldFileData).GetField("WorldSizeX", BindingFlags.Instance | BindingFlags.Public);
+                int get = (int)info.GetValue(Main.ActiveWorldFileData);
+                info.SetValue(Main.ActiveWorldFileData, maxtilesX);
+
+                info = typeof(WorldFileData).GetField("WorldSizeY", BindingFlags.Instance | BindingFlags.Public);
+                get = (int)info.GetValue(Main.ActiveWorldFileData);
+                info.SetValue(Main.ActiveWorldFileData, maxtilesY);
+
+                info = typeof(WorldGen).GetField("lastMaxTilesX",
+                    BindingFlags.Static | BindingFlags.NonPublic);
+                get = (int)info.GetValue(null);
+                info.SetValue(null, maxtilesX);
+
+                info = typeof(WorldGen).GetField("lastMaxTilesY",
+                    BindingFlags.Static | BindingFlags.NonPublic);
+                get = (int)info.GetValue(null);
+                info.SetValue(null, maxtilesY);
+
+                Main.maxTilesX = maxtilesX;
+                Main.maxTilesY = maxtilesY;
+
+                Main.rightWorld = maxtilesX * 16;
+                Main.bottomWorld = maxtilesY * 16;
+                Main.maxSectionsX = Main.maxTilesX / 200;
+                Main.maxSectionsY = Main.maxTilesY / 150;
+
+
+                //Main.tile = new Tile[Main.maxTilesX, Main.maxTilesY];
+
+                for (int x = 0; x < Main.maxTilesX; x++)
+                {
+                    for (int y = 0; y < Main.maxTilesY; y++)
+                    {
+                        Main.tile[x, y] = new Tile();
+                        
+                    }
+                }
+
+                Main.Map = new Terraria.Map.WorldMap(maxtilesX, maxtilesY);
+
+                int mapSizeX = maxtilesX / Main.textureMaxWidth + 1;
+                int mapSizeY = maxtilesY / Main.textureMaxHeight + 1;
+
+                Main.mapTargetX = mapSizeX;
+                Main.mapTargetY = mapSizeY;
+
+                Main.instance.mapTarget = new Microsoft.Xna.Framework.Graphics.RenderTarget2D[mapSizeX, mapSizeY];
+                Main.initMap = new bool[mapSizeX, mapSizeY];
+                Main.mapWasContentLost = new bool[mapSizeX, mapSizeY];
+
+                MethodInfo methodInfo = typeof(Main).GetMethod("InitMap", BindingFlags.NonPublic | BindingFlags.Instance);
+                methodInfo.Invoke(Main.instance, null);
+
+                WorldGen.clearWorld();
+
                 Liquid.ReInit();
                 WorldGen.noTileActions = true;
                 progress.Message = "";
@@ -114,7 +173,7 @@ namespace TerrariaUltraApocalypse
             });
             AddGenerationPass("Terrain", delegate (GenerationProgress progress)
             {
-                progress.Message = Lang.gen[0].Value;
+                progress.Message = "Solar world Gen : Terrain";
                 int num = 0;
                 int num2 = 0;
                 worldSurface = (double)Main.maxTilesY * 0.3;
@@ -353,7 +412,7 @@ namespace TerrariaUltraApocalypse
 
             AddGenerationPass("Rocks In Dirt", delegate (GenerationProgress progress)
             {
-                progress.Message = Lang.gen[4].Value;
+                progress.Message = "Solar world Gen : Placing dirt in rock";
                 for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.00015); k++)
                 {
                     SolarWorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(0, (int)WorldGen.worldSurfaceLow + 1), (double)WorldGen.genRand.Next(4, 15), WorldGen.genRand.Next(5, 40), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarRock"), false, 0f, 0f, false, true);
@@ -375,7 +434,7 @@ namespace TerrariaUltraApocalypse
             });
             AddGenerationPass("Dirt In Rocks", delegate (GenerationProgress progress)
             {
-                progress.Message = Lang.gen[5].Value;
+                progress.Message = "Solar world Gen : Placing dity in rock";
                 for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.005); k++)
                 {
                     SolarWorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)rockLayerLow, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 6), WorldGen.genRand.Next(2, 40), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarDirt"), false, 0f, 0f, false, true);
@@ -386,7 +445,7 @@ namespace TerrariaUltraApocalypse
             AddGenerationPass("Small Holes", delegate (GenerationProgress progress)
             {
                 i2 = 0;
-                progress.Message = Lang.gen[7].Value;
+                progress.Message = "Solar world Gen : Digging world";
                 for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.0015); k++)
                 {
                     float value = (float)((double)k / ((double)(Main.maxTilesX * Main.maxTilesY) * 0.0015));
@@ -402,7 +461,7 @@ namespace TerrariaUltraApocalypse
             });
             AddGenerationPass("Dirt Layer Caves", delegate (GenerationProgress progress)
             {
-                progress.Message = Lang.gen[8].Value;
+                progress.Message = "Solar world Gen : Make a cave layer";
                 for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 3E-05); k++)
                 {
                     float value = (float)((double)k / ((double)(Main.maxTilesX * Main.maxTilesY) * 3E-05));
@@ -420,7 +479,7 @@ namespace TerrariaUltraApocalypse
             });
             AddGenerationPass("Rock Layer Caves", delegate (GenerationProgress progress)
             {
-                progress.Message = Lang.gen[9].Value;
+                progress.Message = "Solar world Gen : Fill the cave with rock";
                 for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.00013); k++)
                 {
                     float value = (float)((double)k / ((double)(Main.maxTilesX * Main.maxTilesY) * 0.00013));
@@ -438,7 +497,7 @@ namespace TerrariaUltraApocalypse
             });
             AddGenerationPass("Surface Caves", delegate (GenerationProgress progress)
             {
-                progress.Message = Lang.gen[10].Value;
+                progress.Message = "Solar world Gen : Scorching the surface";
                 for (int k = 0; k < (int)((double)Main.maxTilesX * 0.002); k++)
                 {
                     i2 = WorldGen.genRand.Next(0, Main.maxTilesX);
@@ -560,7 +619,7 @@ namespace TerrariaUltraApocalypse
 
             AddGenerationPass("Smooth World", delegate (GenerationProgress progress)
             {
-                progress.Message = Lang.gen[60].Value;
+                progress.Message = "Solar world Gen : " + Lang.gen[60].Value;
                 for (int k = 20; k < Main.maxTilesX - 20; k++)
                 {
                     float value = (float)k / (float)Main.maxTilesX;
@@ -728,7 +787,7 @@ namespace TerrariaUltraApocalypse
                 Main.tileSolid[190] = false;
                 Main.tileSolid[192] = false;
             });
-            AddGenerationPass("Settle Liquids", delegate (GenerationProgress progress)
+            /*AddGenerationPass("Settle Liquids", delegate (GenerationProgress progress)
             {
                 progress.Message = Lang.gen[27].Value;
                 //Liquid.QuickWater(3, -1, -1);
@@ -770,7 +829,7 @@ namespace TerrariaUltraApocalypse
                 }
                 Liquid.quickSettle = false;
                 Main.tileSolid[190] = true;
-            });
+            });*/
 
             
 
@@ -1140,9 +1199,9 @@ namespace TerrariaUltraApocalypse
 				}
 			});*/
 
-            AddGenerationPass("Settle Liquids Again", delegate (GenerationProgress progress)
+            /*AddGenerationPass("Settle Liquids Again", delegate (GenerationProgress progress)
             {
-                progress.Message = Lang.gen[27].Value;
+                progress.Message = "Solar world Gen : " + Lang.gen[27].Value;
                 //Liquid.QuickWater(3, -1, -1);
                 //WorldGen.WaterCheck();
                 int k = 0;
@@ -1181,7 +1240,7 @@ namespace TerrariaUltraApocalypse
                     progress.Set((float)k * 0.1f / 3f + 0.66f);
                 }
                 Liquid.quickSettle = false;
-            });
+            });*/
             AddGenerationPass("Tile Cleanup", delegate (GenerationProgress progress)
             {
                 for (int k = 40; k < Main.maxTilesX - 40; k++)
@@ -1526,10 +1585,11 @@ namespace TerrariaUltraApocalypse
 
             AddGenerationPass("Volcano!!!", delegate (GenerationProgress progress)
             {
-                TUAWorld.solarWorldGen(ModLoader.GetMod("TerrariaUltraApocalypse"));
+                //TUAWorld.solarWorldGen(ModLoader.GetMod("TerrariaUltraApocalypse"));
             });
 
-            AddGenerationPass("Final Cleanup", delegate (GenerationProgress progress)
+            
+            /*AddGenerationPass("Final Cleanup", delegate (GenerationProgress progress)
             {
                 for (int k = 0; k < Main.maxTilesX; k++)
                 {
@@ -1576,7 +1636,7 @@ namespace TerrariaUltraApocalypse
                 WorldGen.noTileActions = false;
                 WorldGen.gen = false;
                 Main.AnglerQuestSwap();
-            });
+            });*/
         }
 
 		public static void Caverer(int X, int Y)
@@ -2078,5 +2138,10 @@ namespace TerrariaUltraApocalypse
 				}
 			}
 		}
+
+	    public SolarWorldGen() : base("Solar")
+	    {
+
+	    }
 	}
 }

@@ -2,10 +2,15 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using TerrariaUltraApocalypse.API;
+using TerrariaUltraApocalypse.NPCs.Gods.EoA;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria.DataStructures;
 
 namespace TerrariaUltraApocalypse.Items.EoA
 {
-    public class Spawner : ModItem
+    class Spawner : TUAModLegacyItem
     {
         public override void SetStaticDefaults()
         {
@@ -26,6 +31,8 @@ namespace TerrariaUltraApocalypse.Items.EoA
             item.stack = 20;
             item.UseSound = SoundID.Item1;
             item.consumable = false;
+
+            
         }
 
         public override bool CanUseItem(Player player)
@@ -35,24 +42,25 @@ namespace TerrariaUltraApocalypse.Items.EoA
 
         public override bool UseItem(Player player)
         {
-            //if (NPC.downedMoonlord && TerrariaUltraApocalypse.EoCDeath >= 10)
+            //if (downedMoonlord && TerrariaUltraApocalypse.EoCDeath >= 10)
             //{
             if (!Main.expertMode)
             {
                 Main.expertMode = true;
             }
 
-            Main.NewText("The apocalypse is coming, be aware...", Microsoft.Xna.Framework.Color.DarkGoldenrod);
+            if (Main.netMode != 1)
+            {
+                Main.NewText("The apocalypse is coming, be aware...", Color.DarkGoldenrod);
+            }
+            else
+            {
+                NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("The apocalypse is coming, be aware..."), Color.DarkGoldenrod);
+            }
             Main.PlaySound(SoundID.MoonLord, player.position, 0);
-            NPC.SpawnOnPlayer(player.whoAmI, mod.NPCType("Eye_of_Apocalypse"));
-            //NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - 360, mod.NPCType("Eye_of_Apocalypse"));
+            NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - (76*16), mod.NPCType<Eye_of_ApocalypseNew>());
+            Main.spriteBatch.Draw(ModLoader.GetTexture("Projectile_490"), new Vector2(player.Center.X, player.Center.Y), Color.DarkRed);
             return true;
-            //}
-            //else
-            //{
-            //    Main.NewText("You did not prove that you are worth for the god", Microsoft.Xna.Framework.Color.DarkGoldenrod);
-            //}
-            //return false;
         }
 
         public override void AddRecipes()
@@ -65,11 +73,6 @@ namespace TerrariaUltraApocalypse.Items.EoA
             recipe.AddTile(TileID.MythrilAnvil);
             recipe.SetResult(this);
             recipe.AddRecipe();
-
-            ModRecipe recipe2 = new ModRecipe(mod);
-            recipe2.AddIngredient(ItemID.DirtBlock, 10);
-            recipe2.SetResult(this);
-            recipe2.AddRecipe();
         }
     }
 }

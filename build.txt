@@ -1,9 +1,10 @@
 author = apocaypse mod team
 version = 0.0.1
-displayName = Terraria_Ultra_Apocalypse
+displayName = [c/8B0000:Terraria Ultra Apocalypse]
 hideCode = true
 hideResources = true
 includeSource = true
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*
 includePDB = true
 modReferences = BiomeLibrary, Dimlibs
+languageVersion = 6

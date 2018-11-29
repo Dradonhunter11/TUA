@@ -4,38 +4,91 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ModLoader.IO;
+using TerrariaUltraApocalypse.API.CustomInventory;
 using TerrariaUltraApocalypse.API.TerraEnergy.Block;
+using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
+using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
+using TerrariaUltraApocalypse.API.TerraEnergy.Items.Block;
+using TerrariaUltraApocalypse.API.TerraEnergy.UI;
 
 namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
 {
     class CapacitorEntity : StorageEntity
     {
-        public List<EnergyCollectorEntity> storedCollector = new List<EnergyCollectorEntity>();
-
-        public List<StorageEntity> storedFurnace = new List<StorageEntity>();
         public int maxTransferRate;
+        public CapacitorUI CapacitorUi;
+        private ExtraSlot[] slot;
+        
 
-        public void addCollector(EnergyCollectorEntity collector)
+        public void Activate()
         {
-            storedCollector.Add(collector);
+            InitializeItemSlot();
+            CapacitorUi = new CapacitorUI(slot, this);
+            Main.playerInventory = true;
+            TerrariaUltraApocalypse.machineInterface.SetState(CapacitorUi);
+            TerrariaUltraApocalypse.machineInterface.IsVisible = true;
         }
 
-        public void addStorageEntity(StorageEntity furnace)
+        public override void SaveEntity(TagCompound tag)
         {
-            storedFurnace.Add(furnace);
+            int itemSlotId = 0;
+            foreach (var extraSlot in slot)
+            {
+                tag.Add("slot" + 0, extraSlot.getItem(true));
+                itemSlotId++;
+            }
+        }
+
+        public override void LoadEntity(TagCompound tag)
+        {
+            InitializeItemSlot();
+            int itemSlotId = 0;
+            foreach (var extraSlot in slot)
+            {
+                Item item = tag.Get<Item>("slot" + itemSlotId);
+                SetAir(ref item);
+                extraSlot.setItem(ref item);
+                itemSlotId++;
+            }
+        }
+
+        public void SetAir(ref Item item)
+        {
+            if (item.Name == "Unloaded Item")
+            {
+                item.TurnToAir();
+            }
         }
 
         public override bool ValidTile(int i, int j)
         {
             Tile tile = Main.tile[i, j];
-            //Main.NewText((tile.active() && (tile.type == mod.TileType<BasicTECapacitor>() || tile.type == mod.TileType<BasicTECapacitor>()) && tile.frameX == 0 && tile.frameY == 0));
-            return tile.active() && (tile.type == mod.TileType<Capacitor>()) && tile.frameX == 0 && tile.frameY == 0;
+            return tile.active() && (tile.type == mod.TileType<BasicTECapacitor>());
+        }
+
+        public override void Update()
+        {
+            if (energy == null)
+            {
+                energy = new Core(maxEnergy);
+            }
         }
 
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
         {
-            Main.NewText("X " + i + " Y " + j);
+            InitializeItemSlot();
+            energy = new Core(maxEnergy);
             return Place(i - 1, j - 1);
+        }
+
+        private void InitializeItemSlot()
+        {
+            slot = new ExtraSlot[4];
+            for(int i = 0; i < slot.Length; i++)
+            {
+                slot[i] = new ExtraSlot();
+            }
         }
     }
 }
