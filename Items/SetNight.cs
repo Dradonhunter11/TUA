@@ -8,6 +8,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World;
 using Microsoft.Xna.Framework;
+using Terraria.World.Generation;
+using TerrariaUltraApocalypse.API.Injection;
+using TerrariaUltraApocalypse.API.LiquidAPI.LiquidMod;
+using TerrariaUltraApocalypse.API.LiquidAPI.Swap;
+using TerrariaUltraApocalypse.Dimension.MicroBiome;
 
 namespace TerrariaUltraApocalypse.Items
 {
@@ -43,11 +48,13 @@ namespace TerrariaUltraApocalypse.Items
 
         public override bool UseItem(Player player)
         {
-            Main.time = 0;
-            Main.dayTime = false;
-            TUAWorld.apocalypseMoon = true;
-
-
+            //Main.time = 0;
+            //Main.dayTime = false;
+            //TUAWorld.apocalypseMoon = true;
+            //Biomes<StardustFrozenForest>.Place((int)player.Center.X / 16, (int)player.Center.Y / 16, new StructureMap());
+            LiquidRef liquid = LiquidCore.grid[Player.tileTargetX, Player.tileTargetY];
+            Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 240;
+            liquid.setLiquidsState(3, true);
             return true;
         }
 

@@ -27,7 +27,7 @@ namespace TerrariaUltraApocalypse.NPCs.Memefest
             npc.height = 110;
             npc.damage = 1;
             npc.defense = 0;
-            npc.lifeMax = 280000;
+            npc.lifeMax = 28000;
             npc.HitSound = SoundID.NPCHit1;
             npc.DeathSound = SoundID.NPCDeath1;
             npc.knockBackResist = 0f;

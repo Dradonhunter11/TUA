@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
+using TerrariaUltraApocalypse.API;
 using TerrariaUltraApocalypse.API.TerraEnergy.Block;
 
 namespace TerrariaUltraApocalypse.Tiles.Machine

@@ -8,6 +8,8 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
+using TerrariaUltraApocalypse.API.CustomInventory;
+using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
 using TerrariaUltraApocalypse.API.TerraEnergy.Items;
 using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
 using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
@@ -39,7 +41,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
         }
 
-        public override void RightClick(int i, int j)
+        public override void NewRightClick(int i, int j)
         {
             Player player = Main.player[Main.myPlayer];
             Item currentSelectedItem = player.inventory[player.selectedItem];
@@ -59,9 +61,11 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
                 Main.NewText("false");
                 return;
             }
+
+            StorageEntity se = (StorageEntity)TileEntity.ByID[index];
             if (currentSelectedItem.type == mod.ItemType("TerraMeter"))
             {
-                StorageEntity se = (StorageEntity)TileEntity.ByID[index];
+                se = (StorageEntity)TileEntity.ByID[index];
                 Main.NewText(se.getEnergy().getCurrentEnergyLevel() + " / " + se.getEnergy().getMaxEnergyLevel() + " TE");
                 return;
             }
@@ -69,15 +73,15 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
             if (currentSelectedItem.type == mod.ItemType("RodOfLinking"))
             {
                 RodOfLinking it = currentSelectedItem.modItem as RodOfLinking;
-                StorageEntity se = (StorageEntity)TileEntity.ByID[index];
+                se = (StorageEntity)TileEntity.ByID[index];
                 it.saveCollectorLocation(se);
                 Main.NewText("Terra Furnace succesfully linked, now right click on a capacitor to unlink");
                 return;
             }
 
             TerraFurnaceEntity tfe = (TerraFurnaceEntity)TileEntity.ByID[index];
-            tfe.sendEntityToUI();
-            FurnaceUI.visible = true;
+            tfe.Activate();
+
 
         }
 
@@ -85,11 +89,12 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
     class TerraFurnaceEntity : StorageEntity
     {
+        private FurnaceUI furnaceUi;
+
         private CapacitorEntity boundCapacitor;
 
-        public Item[] inventory = new Item[2];
-
-        public bool UIActive = false;
+        public ExtraSlot InputSlot;
+        public ExtraSlot OutputSlot;
 
         private int checkTimer = 20; //Maybe will reduce lag
 
@@ -97,15 +102,55 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
         private FurnaceRecipe currentRecipe;
 
-        public override void Load(TagCompound tag)
+        public void Activate()
         {
+            if (InputSlot == null)
+            {
+                InputSlot = new ExtraSlot();
+            }
+            if (OutputSlot == null)
+            {
+                OutputSlot = new ExtraSlot();
+            }
+
+            if (energy == null)
+            {
+                energy = new Core(50000);
+            }
+            if (furnaceUi == null)
+            {
+                furnaceUi = new FurnaceUI(InputSlot, OutputSlot, energy, "Terra Furnace");
+            }
+
+            Main.playerInventory = true;
+            TerrariaUltraApocalypse.machineInterface.SetState(furnaceUi);
+            TerrariaUltraApocalypse.machineInterface.IsVisible = true;
+        }
+
+        public override void LoadEntity(TagCompound tag)
+        {
+            InputSlot = new ExtraSlot();
+            OutputSlot = new ExtraSlot();
 
             maxEnergy = 50000;
             energy = new Core(maxEnergy);
 
-            inventory[0] = tag.Get<Item>("inputSlot");
-            inventory[1] = tag.Get<Item>("outputSlot");
-            base.Load(tag);
+            Item temp = tag.Get<Item>("inputSlot");
+            Item temp2 = tag.Get<Item>("outputSlot");
+
+            SetAir(ref temp);
+            SetAir(ref temp2);
+
+            InputSlot.setItem(ref temp);
+            OutputSlot.setItem(ref temp2);
+        }
+
+        public void SetAir(ref Item item)
+        {
+            if (item.Name == "Unloaded Item")
+            {
+                item.TurnToAir();
+            }
         }
 
         public void linkToCapacitor(CapacitorEntity capacitor)
@@ -116,35 +161,41 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
         public TerraFurnaceEntity()
         {
             maxEnergy = 50000;
-            inventory[0] = null;
-            inventory[1] = null;
+            InputSlot = new ExtraSlot();
+            OutputSlot = new ExtraSlot();
         }
 
         public void setItem(Item i)
         {
-            inventory[0] = i;
+            InputSlot.setItem(ref i);
         }
 
-        public void sendEntityToUI()
+
+
+        public override void SaveEntity(TagCompound tag)
         {
-            TerrariaUltraApocalypse.furnaceUI.receiveFurnaceEntity(this);
+            tag.Add("inputSlot", InputSlot.getItem(true));
+            tag.Add("outputSlot", OutputSlot.getItem(true));
         }
-
-        public override TagCompound Save()
-        {
-            tag = new TagCompound();
-            tag.Add("inputSlot", inventory[0]);
-            tag.Add("outputSlot", inventory[1]);
-            return base.Save();
-        }
-
-
 
         public override void Update()
         {
-            if (currentRecipe == null && checkTimer <= 0 && inventory[1] == null)
+            if (energy == null)
             {
-                currentRecipe = getRecipe();
+                energy = new Core(maxEnergy);
+            }
+
+
+
+            if (currentRecipe == null && checkTimer <= 0)
+            {
+                FurnaceRecipe recipe = getRecipe();
+                if (recipe != null &&
+                    (OutputSlot.isEmpty() || OutputSlot.getItem(false).type == recipe.getResult().type))
+                {
+                    currentRecipe = recipe;
+                }
+
                 checkTimer = 20;
             }
 
@@ -157,7 +208,6 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
             if (boundCapacitor != null)
             {
-                Main.NewText("true");
                 energy.addEnergy(boundCapacitor.energy.consumeEnergy(boundCapacitor.maxTransferRate));
             }
             checkTimer--;
@@ -166,14 +216,14 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
         {
-            Main.NewText("X " + i + " Y " + j);
+            furnaceUi = new FurnaceUI(InputSlot, OutputSlot, energy, "Terra Furnace");
             return Place(i - 3, j - 2);
         }
 
         public override bool ValidTile(int i, int j)
         {
             Tile tile = Main.tile[i, j];
-            Main.NewText("here");
+
             Main.NewText((tile.active() && tile.type == mod.TileType<TerraFurnace>() && tile.frameX == 0 && tile.frameY == 0));
             return tile.active() && (tile.type == mod.TileType<TerraFurnace>()) && tile.frameX == 0 && tile.frameY == 0;
         }
@@ -186,9 +236,9 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
         private FurnaceRecipe getRecipe()
         {
-            if (inventory[0] != null && inventory[0].Name != "")
+            if (!InputSlot.isEmpty())
             {
-                if (FurnaceRecipeManager.getInstance().validRecipe(inventory[0]))
+                if (FurnaceRecipeManager.getInstance().validRecipe(InputSlot.getItem(true)))
                 {
                     return FurnaceRecipeManager.getInstance().GetRecipe();
                 }
@@ -200,9 +250,19 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
         {
             if (progression >= currentRecipe.getCookTime() && energy.consumeEnergy(50) == 50)
             {
-                inventory[0].stack -= currentRecipe.getIngredientStack();
-                
-                inventory[1] = currentRecipe.getResult();
+                InputSlot.manipulateCurrentStack(-currentRecipe.getIngredientStack());
+
+                Item result = currentRecipe.getResult().Clone();
+
+                if (OutputSlot.isEmpty())
+                {
+                    OutputSlot.setItem(ref result);
+                }
+                else
+                {
+                    OutputSlot.manipulateCurrentStack(1);
+                }
+
                 currentRecipe = null;
                 progression = 0;
             }

@@ -16,16 +16,16 @@ using System.Reflection.Emit;
 using Terraria.ID;
 using Dimlibs;
 using Terraria.GameInput;
-using TerrariaUltraApocalypse.API.Achievements.AchievementUIComponent;
 
 namespace TerrariaUltraApocalypse
 {
     class TUAPlayer : ModPlayer
     {
-        public static bool meteoridonZone = false;
-        public static bool blueSoul = false;
-        public static Vector2 arenaCenter;
+        public static bool AugmendVortex = false;
+
         public static bool arenaActive = false;
+
+        public bool noImmunityDebuff;
 
         public override void Load(TagCompound tag)
         {
@@ -84,10 +84,23 @@ namespace TerrariaUltraApocalypse
         public override void UpdateBiomeVisuals()
         {
             if (Dimlibs.Dimlibs.getPlayerDim() != null) {
-                bool inSolar = Dimlibs.Dimlibs.getPlayerDim() == "solar";
+                bool inSolar = Dimlibs.Dimlibs.getPlayerDim() == "Solar";
                 player.ManageSpecialBiomeVisuals("TerrariaUltraApocalypse:TUAPlayer", inSolar, player.Center);
+                bool inStardust = Dimlibs.Dimlibs.getPlayerDim() == "Stardust";
+                player.ManageSpecialBiomeVisuals("TerrariaUltraApocalypse:StardustPillar", inStardust, player.Center);
             }
             
+        }
+
+        
+
+        public override void PreUpdate()
+        {
+            if (noImmunityDebuff)
+            {
+                player.immune = false;
+                player.immuneTime = -1;
+            }
         }
 
         public override void UpdateDead()
@@ -95,13 +108,5 @@ namespace TerrariaUltraApocalypse
             //player.respawnTimer = 1;
         }
 
-        public override void ProcessTriggers(TriggersSet triggersSet)
-        {
-            if (TerrariaUltraApocalypse.openAchievementMenu.JustReleased)
-            {
-                Main.NewText("test");
-                AchievementUI.visible = !AchievementUI.visible;
-            }
-        }
     }
 }

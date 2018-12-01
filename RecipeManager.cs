@@ -11,6 +11,8 @@ namespace TerrariaUltraApocalypse
 {
     class RecipeManager
     {
+        private static List<Recipe> removedRecipes = new List<Recipe>();
+
         public static void removeRecipe(int itemID)
         {
             RecipeFinder rf = new RecipeFinder();
@@ -29,7 +31,7 @@ namespace TerrariaUltraApocalypse
             return new ModRecipe(mod);
         }
 
-        public static void addRecipe(Mod mod, String result, int resultAmount, RecipeForma recipe)
+        public static void AddRecipe(Mod mod, String result, int resultAmount, RecipeForma recipe)
         {
             ModRecipe r = new ModRecipe(mod);
             for (int i = 0; i < recipe.ingredient.Length; i++)
@@ -39,5 +41,52 @@ namespace TerrariaUltraApocalypse
             r.SetResult(mod, result, resultAmount);
             r.AddRecipe();
         }
+
+        public static void GetAllRecipeByIngredientAndReplace(int ingredientToReplace, int replacingIngredient)
+        {
+            RecipeFinder rf = new RecipeFinder();
+            rf.AddIngredient(ingredientToReplace);
+
+            foreach (Recipe r in rf.SearchRecipes())
+            {
+                Recipe recipe = r;
+                RecipeEditor re = new RecipeEditor(recipe);
+                
+                if (re.DeleteIngredient(ingredientToReplace))
+                {
+                    re.AddIngredient(replacingIngredient);
+                    Main.recipe[Recipe.numRecipes] = r;
+                    Recipe.numRecipes++;
+                }
+            }
+        }
+
+
+        public static void setAllFurnaceRecipeSystem()
+        {
+            RecipeFinder rf = new RecipeFinder();
+            rf.AddTile(TileID.Furnaces);
+
+            foreach (Recipe r in rf.SearchRecipes())
+            {
+                Recipe recipe = r;
+                if (recipe.requiredItem.Length == 1)
+                {
+                    TerrariaUltraApocalypse.instance.addFurnaceRecipe(recipe.requiredItem[0].type, recipe.createItem.type, 20);
+                    removedRecipes.Add(r);
+                    RecipeEditor re = new RecipeEditor(r);
+                    re.DeleteRecipe();
+                }
+            }
+        }
+
+        public static void setBackAllRecipe()
+        {
+            foreach (var recipe in removedRecipes)
+            {
+                
+            }
+        }
+
     }
 }

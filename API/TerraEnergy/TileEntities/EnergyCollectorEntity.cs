@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader.IO;
 using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
+using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
 
 namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
 {
@@ -17,11 +18,11 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
         private int maxEnergy = 100000;
         private CapacitorEntity boundCapacitor;
 
-        public override void Load(TagCompound tag)
+        public override void LoadEntity(TagCompound tag)
         {
             maxEnergy = 100000;
             energy = new Core(maxEnergy);
-            base.Load(tag);
+  
         }
 
         public void linkToCapacitor(CapacitorEntity capacitor)
@@ -74,9 +75,6 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
 
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
         {
-            energy = new Core(maxEnergy);
-            Main.NewText("X " + i + " Y " + j);
-
             return Place(i - 1, j - 2);
         }
     }

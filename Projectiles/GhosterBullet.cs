@@ -41,7 +41,7 @@ namespace TerrariaUltraApocalypse.Projectiles
 
                 if (!target.friendly)
                 {
-                    float shootToX = target.position.X + (float) target.width * 0.5f - projectile.Center.X; //Basically X speed. There math here are NPC.X - It's width / 0.5 pixel - the projectile center
+                    float shootToX = target.position.X + (float) target.width * 0.5f - projectile.Center.X; //Basically X speed. There math here are X - It's width / 0.5 pixel - the projectile center
                     float shootToY = target.position.Y - projectile.Center.Y;
                     float distance = (float)Math.Sqrt(shootToX * shootToX + shootToY * shootToY);
                     if (distance <= 480f && !target.friendly && target.active)

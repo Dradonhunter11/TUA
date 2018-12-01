@@ -8,8 +8,8 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy
 {
     public class Core
     {
-        private int maxEnergy;
-        private int currentEnergy = 0;
+        protected int maxEnergy;
+        protected int currentEnergy = 0;
 
         public Core(int maxEnergy)
         {
@@ -25,7 +25,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy
             }
         }
 
-        public int consumeEnergy(int energyToRemove)
+        public virtual int consumeEnergy(int energyToRemove)
         {
             if (currentEnergy - energyToRemove < 0)
             {
