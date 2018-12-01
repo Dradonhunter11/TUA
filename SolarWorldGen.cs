@@ -17,7 +17,11 @@ namespace TerrariaUltraApocalypse
 {
 	public class SolarWorldGen : Dimlibs.API.DimGenerator
 	{
-		public static bool GetMudwall()
+        public SolarWorldGen() : base("Solar")
+        {
+        }
+
+        public static bool GetMudwall()
 		{
 			FieldInfo info = typeof(WorldGen).GetField("mudWall", BindingFlags.Static | BindingFlags.NonPublic);
 			return (bool)info.GetValue(null);

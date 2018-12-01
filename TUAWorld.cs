@@ -12,15 +12,15 @@ namespace TerrariaUltraApocalypse
     {
         public static bool apocalypseMoon = false;
         public static int apocalypseMoonPoint = 0;
-        public static bool Apocalypse;
         public static bool UltraMode;
-        public static int EoCDeath;
+        public static int EoCDeath = 0;
+        public static bool EoCPostML;
 
         public override void Initialize()
         {
             RegisterPlagues();
             RegisterMeteoridon();
-            RegisterSolar();
+            /*RegisterSolar();*/
             RegisterStardust();
             RegisterNebula();
             RegisterVortex();
@@ -41,13 +41,13 @@ namespace TerrariaUltraApocalypse
             BiomeLibs.SetCondition("Meteoridon", c);
         }
 
-        private void RegisterSolar()
+        /*private void RegisterSolar()
         {
-            Func<bool> c = () => Main.LocalPlayer.GetModPlayer<DimPlayer>().getCurrentDimension() == "solar";
+            Func<bool> c = () => Main.LocalPlayer.GetModPlayer<DimPlayer>().getServerDimension() == "solar";
             BiomeLibs.RegisterNewBiome("Solar", 200, mod);
             BiomeLibs.AddBlockInBiome("Solar", new String[] { "SolarDirt", "SolarRock" });
             BiomeLibs.SetCondition("solar", c);
-        }
+        }*/
 
         private void RegisterVortex()
         {
@@ -68,8 +68,8 @@ namespace TerrariaUltraApocalypse
         {
             TagCompound tc = new TagCompound();
             tc.Add("UltraMode", UltraMode);
-            tc.Add("EoADowned", Apocalypse);
             tc.Add("UltraEoCDowned", EoCDeath);
+            tc.Add("EoCPostML", EoCPostML);
             //tc.Add("apocalypseMoon", apocalypseMoon);
             return tc;
         }
@@ -77,10 +77,8 @@ namespace TerrariaUltraApocalypse
         public override void Load(TagCompound tag)
         {
             UltraMode = tag.GetBool("UltraMode");
-            Apocalypse = tag.GetBool("EoADowned");
             EoCDeath = tag.GetInt("UltraEoCDowned");
-
-
+            EoCPostML = tag.GetBool("EoCPostML");
         }
 
         public override void PostUpdate()
