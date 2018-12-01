@@ -219,6 +219,7 @@
     <Compile Include="NPCs\TUAGlobalNPC.cs" />
     <Compile Include="API\VoidClass\VoidItemPrefix.cs" />
     <Compile Include="NPCs\UltraBoss\UltraDestroyer\UltraDestroyerWorm.cs" />
+    <Compile Include="NPCs\UltraBoss\UltraEoC\UltraEoC.cs" />
     <Compile Include="Prefixes\Multishot.cs" />
     <Compile Include="Prefixes\VoidItem\Collapsing.cs" />
     <Compile Include="Projectiles\EoA\SmallerBeam.cs" />
