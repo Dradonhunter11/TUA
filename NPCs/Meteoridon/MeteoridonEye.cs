@@ -16,7 +16,7 @@ namespace TerrariaUltraApocalypse.NPCs.Meteoridon
         private int animationTimer = 25;
         private int currentFrame = 1;
         private bool aggro = false;
-        private int wanderingTimer;
+        private int wanderingTimer = Main.rand.Next(100, 400);
         private int chargeTimer = 50;
         private int chargePower = 0;
         private bool chargeReady = false;
