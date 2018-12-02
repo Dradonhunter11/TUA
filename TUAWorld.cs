@@ -8,10 +8,13 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ID;
 using Dimlibs;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria.DataStructures;
 using Terraria.GameContent.Generation;
 using Terraria.World.Generation;
 using TerrariaUltraApocalypse.API;
+using TerrariaUltraApocalypse.CustomScreenShader;
 using TerrariaUltraApocalypse.Dimension.MicroBiome;
 using TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass;
 using TerrariaUltraApocalypse.Structure.hellalt;
@@ -776,5 +779,14 @@ namespace TerrariaUltraApocalypse
         }
         */
 
+        
+
+        public override void PostDrawTiles()
+        {
+            if (BiomeLibs.InBiome("Meteoridon") && Main.netMode == 0)
+            {
+                ScreenFog.Draw(TerrariaUltraApocalypse.SolarFog, 0.3f, 0.1f);
+            }
+        }
     }
 }

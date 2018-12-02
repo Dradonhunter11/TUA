@@ -29,6 +29,8 @@ using TerrariaUltraApocalypse.API.Injection;
 using TerrariaUltraApocalypse.API.LiquidAPI;
 using TerrariaUltraApocalypse.API.LiquidAPI.Test;
 using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge;
+using TerrariaUltraApocalypse.CustomScreenShader;
+using TerrariaUltraApocalypse.CustomSkies;
 using TerrariaUltraApocalypse.Items.EoA;
 using TerrariaUltraApocalypse.Items.Meteoridon.Materials;
 using TerrariaUltraApocalypse.UIHijack.MainMenu;
@@ -53,7 +55,7 @@ namespace TerrariaUltraApocalypse
         private String savePath, worldPath, playerPath;
         private Texture2D logoOriginal;
         public static Texture2D[] originalMoon;
-        
+        public static Texture2D SolarFog;
 
 
         public static UserInterface machineInterface;
@@ -213,6 +215,9 @@ namespace TerrariaUltraApocalypse
             SkyManager.Instance["TerrariaUltraApocalypse:TUAPlayer"] = new TUACustomSky();
             Filters.Scene["TerrariaUltraApocalypse:StardustPillar"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
             SkyManager.Instance["TerrariaUltraApocalypse:StardustPillar"] = new StardustCustomSky();
+            Filters.Scene["TerrariaUltraApocalypse:SolarMist"] = new Filter(new MeteoridonScreenShader().UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
+            SkyManager.Instance["TerrariaUltraApocalypse:SolarMist"] = new HeavyMistSky();
+
 
             if (Main.netMode == 0)
             {
@@ -226,6 +231,7 @@ namespace TerrariaUltraApocalypse
 
                 logoOriginal = Main.logo2Texture;
                 originalMoon = Main.moonTexture;
+                SolarFog = GetTexture("CustomScreenShader/HeavyMist");
             }
 
             if (IntPtr.Size == 8)

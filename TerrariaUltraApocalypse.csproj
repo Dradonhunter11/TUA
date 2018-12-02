@@ -162,6 +162,11 @@
     <Compile Include="Buff\Debuff\EotW\MagicDebuff.cs" />
     <Compile Include="Buff\Debuff\EotW\MeleeDebuff.cs" />
     <Compile Include="Commands\ToggleTime.cs" />
+    <Compile Include="CustomScreenShader\FogWorld.cs" />
+    <Compile Include="CustomScreenShader\MeteoridonScreenShader.cs" />
+    <Compile Include="CustomScreenShader\ScreenFog.cs" />
+    <Compile Include="CustomSkies\HeavyMistSky.cs" />
+    <Compile Include="CustomSkies\MeteoridonSky.cs" />
     <Compile Include="Dimension\Block\MobSpawner.cs" />
     <Compile Include="Dimension\DimGlobalNPC.cs" />
     <Compile Include="Dimension\MicroBiome\StardustFrozenForest.cs" />
@@ -179,6 +184,8 @@
     <Compile Include="Items\Block\Meteoridon\MeteoridonStone.cs" />
     <Compile Include="Items\Block\Meteoridon\MeteoridonWoodPlank.cs" />
     <Compile Include="Items\Block\Other\MobSpawner.cs" />
+    <Compile Include="Items\Block\Wasteland\WastelandOre.cs" />
+    <Compile Include="Items\Block\Wasteland\WastelandRock.cs" />
     <Compile Include="Items\Block\Wasteland\WastestoneBrick.cs" />
     <Compile Include="Items\Dimension\SolarCrystal.cs" />
     <Compile Include="Items\Dimension\StardustCrystal.cs" />
@@ -232,6 +239,8 @@
     <Compile Include="SolarWorldGen.cs" />
     <Compile Include="StardustWorldGen.cs" />
     <Compile Include="Structure\hellalt\TheHeartArena.cs" />
+    <Compile Include="Tiles\Furniture\Ingots\TUAIngot.cs" />
+    <Compile Include="Tiles\Furniture\Ingots\WastestoneIngot.cs" />
     <Compile Include="Tiles\NewBiome\Plagues\ApocalypseDirt.cs" />
     <Compile Include="Tiles\EoA\Arena.cs" />
     <Compile Include="Tiles\Machine\DivinePortal.cs" />
@@ -286,7 +295,7 @@
     </Reference>
     <Reference Include="Dimlibs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dimlibs.dll</HintPath>
+      <HintPath>..\Dimlibs\bin\Release\Dimlibs.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -328,7 +337,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"D:\SteamLibrary\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>"D:\steam game\steamapps\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

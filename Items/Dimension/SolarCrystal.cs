@@ -31,7 +31,6 @@ namespace TerrariaUltraApocalypse.Items.Dimension
             item.useStyle = 4;
             item.useTime = 5;
             item.useAnimation = 20;
-            setDimensionGenerator(new SolarWorldGen());
             dimensionName = "solar";
             dimensionMessage = "Welcome to solar, hope you can chill off here.";
             base.SetDefaults();

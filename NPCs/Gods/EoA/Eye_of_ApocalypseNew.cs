@@ -16,7 +16,7 @@ using TerrariaUltraApocalypse.Projectiles.EoA;
 
 namespace TerrariaUltraApocalypse.NPCs.Gods.EoA
 {
-    class Eye_of_ApocalypseNew : ModNPC
+    abstract class Eye_of_ApocalypseNew : ModNPC
     {
         public override bool CloneNewInstances { get { return true; } }
 

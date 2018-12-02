@@ -17,9 +17,9 @@ namespace TerrariaUltraApocalypse
 {
 	public class SolarWorldGen : Dimlibs.API.DimGenerator
 	{
-        public SolarWorldGen() : base("Solar")
-        {
-        }
+	    public SolarWorldGen(string dimensionName) : base("Solar")
+	    {
+	    }
 
         public static bool GetMudwall()
 		{
@@ -2143,9 +2143,6 @@ namespace TerrariaUltraApocalypse
 			}
 		}
 
-	    public SolarWorldGen() : base("Solar")
-	    {
-
-	    }
+	    
 	}
 }

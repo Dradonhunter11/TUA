@@ -17,6 +17,10 @@ namespace TerrariaUltraApocalypse
     {
         public static double iceLayer;
 
+        public StardustWorldGen() : base("Stardust")
+        {
+        }
+
         public override void ModifyGenerationPass(int seed, GenerationProgress customProgressObject)
         {
             AddGenerationPass("Reset", delegate (GenerationProgress progress)
@@ -562,8 +566,6 @@ namespace TerrariaUltraApocalypse
             Main.tileSolid[190] = true;
         }
 
-        public StardustWorldGen() : base("Stardust")
-        {
-        }
+
     }
 }
