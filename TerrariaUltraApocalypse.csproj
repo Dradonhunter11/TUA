@@ -162,7 +162,7 @@
     <Compile Include="Buff\Debuff\EotW\MagicDebuff.cs" />
     <Compile Include="Buff\Debuff\EotW\MeleeDebuff.cs" />
     <Compile Include="Commands\ToggleTime.cs" />
-    <Compile Include="CustomScreenShader\FogWorld.cs" />
+    <Compile Include="CustomScreenShader\SolarWorld.cs" />
     <Compile Include="CustomScreenShader\MeteoridonScreenShader.cs" />
     <Compile Include="CustomScreenShader\ScreenFog.cs" />
     <Compile Include="CustomSkies\HeavyMistSky.cs" />
@@ -230,6 +230,8 @@
     <Compile Include="Prefixes\Multishot.cs" />
     <Compile Include="Prefixes\VoidItem\Collapsing.cs" />
     <Compile Include="Projectiles\EoA\SmallerBeam.cs" />
+    <Compile Include="Projectiles\FallingProjectile\DiamondCoinProjectile.cs" />
+    <Compile Include="Projectiles\FallingProjectile\TUACoinsProjTile.cs" />
     <Compile Include="Projectiles\GhosterBullet.cs" />
     <Compile Include="Projectiles\GodExplosiveArrow.cs" />
     <Compile Include="Projectiles\Misc\FishronEater\FishronBolt.cs" />
@@ -239,6 +241,8 @@
     <Compile Include="SolarWorldGen.cs" />
     <Compile Include="StardustWorldGen.cs" />
     <Compile Include="Structure\hellalt\TheHeartArena.cs" />
+    <Compile Include="Tiles\Furniture\Coins\DiamondCoins.cs" />
+    <Compile Include="Tiles\Furniture\Coins\TUACoins.cs" />
     <Compile Include="Tiles\Furniture\Ingots\TUAIngot.cs" />
     <Compile Include="Tiles\Furniture\Ingots\WastestoneIngot.cs" />
     <Compile Include="Tiles\NewBiome\Plagues\ApocalypseDirt.cs" />
