@@ -29,14 +29,12 @@ namespace TerrariaUltraApocalypse.Projectiles.FallingProjectile
             projectile.ranged = true;
             projectile.penetrate = 5;
             projectile.tileCollide = true;
+            projectile.aiStyle = 10;
             aiType = ProjectileID.GoldCoinsFalling;
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            projectile.Kill();
-            WorldGen.PlaceTile((int)(projectile.position.X / 16), (int)(projectile.position.Y / 16),
-                coinTile);
             return true;
         }
 
