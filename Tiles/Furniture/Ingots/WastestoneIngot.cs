@@ -10,7 +10,7 @@ namespace TerrariaUltraApocalypse.Tiles.Furniture.Ingots
     class WastestoneIngot : TUAIngot
     {
         public override Color MapEntryColor => new Color(68, 74, 100);
-        public override string MapNameLegend => "Wastestone ingot";
-        public override string ingotDropName => "WastestoneIngot";
+        public override String MapNameLegend => "Wastestone ingot";
+        public override int ingotDropName => mod.ItemType("WastestoneIngot");
     }
 }

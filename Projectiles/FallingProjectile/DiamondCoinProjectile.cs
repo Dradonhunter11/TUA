@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TerrariaUltraApocalypse.Projectiles.FallingProjectile
 {
-    class DiamondCoinProjectile : TUACoinsProjTile
+    class DiamondCoinProjectile : TUAFallingProjectile
     {
         public override string name => "Diamond Coin";
-        public override int coinTile => mod.TileType("DiamondCoins");
+        public override int Tile => mod.TileType("DiamondCoins");
     }
 }

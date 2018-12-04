@@ -37,7 +37,7 @@ namespace TerrariaUltraApocalypse.Tiles.Furniture.Ingots
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 48, 48, mod.ItemType(ingotDropName));
+            Item.NewItem(i * 16, j * 16, 48, 48, ingotDropName);
         }
     }
 }

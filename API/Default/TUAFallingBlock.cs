@@ -1,35 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
 
-namespace TerrariaUltraApocalypse.Tiles.Furniture.Coins
+namespace TerrariaUltraApocalypse.API.Default
 {
-    abstract class TUACoins : ModTile
+    internal abstract class TUAFallingBlock : ModTile
     {
-        public abstract int coinDropID { get; }
-        public abstract int coinProjectileID { get; }
+        public abstract int ItemDropID { get; }
+        public abstract int ItemProjectileID { get; }
+        public abstract bool sandTile { get; }
+        public virtual int dustTypeID { get; }
 
         public override void SetDefaults()
         {
-            Main.tilePile[Type] = true;
+            if (sandTile)
+            {
+                Main.tileSolid[Type] = true;
+                
+            }
+            else
+            {
+                Main.tilePile[Type] = true;
+                dustType = dustTypeID;
+            }
             //TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidWithTop, TileObjectData.newTile.Width, 0);
             //TileObjectData.addTile(Type);
+            drop = ItemDropID;
             soundStyle = 18;
-            dustType = DustID.PlatinumCoin;
-        }
-
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
-            Item.NewItem(i * 16, j * 16, 14, 14, coinDropID);
+           
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
@@ -51,7 +51,7 @@ namespace TerrariaUltraApocalypse.Tiles.Furniture.Coins
                             int projectileType = 0;
                             if (tileType == Type)
                             {
-                                projectileType = coinProjectileID;
+                                projectileType = ItemProjectileID;
                                 damage = 0;
                             }
                             tile.ClearTile();
@@ -70,7 +70,7 @@ namespace TerrariaUltraApocalypse.Tiles.Furniture.Coins
                         int projectileType = 0;
                         if (tileType == Type)
                         {
-                            projectileType = coinProjectileID;
+                            projectileType = ItemProjectileID;
                             damage2 = 0;
                         }
 

@@ -78,6 +78,7 @@
     <Compile Include="API\CustomInventory\UI\FuelSlot.cs" />
     <Compile Include="API\CustomInventory\UI\InputOutputSlot.cs" />
     <Compile Include="API\CustomInventory\UI\OutputOnlySlot.cs" />
+    <Compile Include="API\Default\TUADefaultBlockItem.cs" />
     <Compile Include="API\Dev\ReflectionExtension.cs" />
     <Compile Include="API\Dev\SteamID64Checker.cs" />
     <Compile Include="API\Experimental\ArrayChunk.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="Items\Meteoridon\Materials\MeteorideScale.cs" />
     <Compile Include="Items\Materials\Wasteland\WastestoneIngot.cs" />
     <Compile Include="Items\Meteoridon\Materials\MeteoridonBar.cs" />
+    <Compile Include="Items\Meteoridon\Tiles\MeteoridonSand.cs" />
     <Compile Include="Items\Meteoridon\Tools\MeteoridonPickAxe.cs" />
     <Compile Include="Items\Meteoridon\Weapons\MeteoridonSword.cs" />
     <Compile Include="Items\Misc\Debug\DebugStick.cs" />
@@ -231,7 +233,8 @@
     <Compile Include="Prefixes\VoidItem\Collapsing.cs" />
     <Compile Include="Projectiles\EoA\SmallerBeam.cs" />
     <Compile Include="Projectiles\FallingProjectile\DiamondCoinProjectile.cs" />
-    <Compile Include="Projectiles\FallingProjectile\TUACoinsProjTile.cs" />
+    <Compile Include="Projectiles\FallingProjectile\MeteoridonSandProjectile.cs" />
+    <Compile Include="Projectiles\FallingProjectile\TUAFallingProjectile.cs" />
     <Compile Include="Projectiles\GhosterBullet.cs" />
     <Compile Include="Projectiles\GodExplosiveArrow.cs" />
     <Compile Include="Projectiles\Misc\FishronEater\FishronBolt.cs" />
@@ -242,9 +245,11 @@
     <Compile Include="StardustWorldGen.cs" />
     <Compile Include="Structure\hellalt\TheHeartArena.cs" />
     <Compile Include="Tiles\Furniture\Coins\DiamondCoins.cs" />
-    <Compile Include="Tiles\Furniture\Coins\TUACoins.cs" />
+    <Compile Include="API\Default\TUAFallingBlock.cs" />
+    <Compile Include="Tiles\Furniture\Ingots\MeteoridonIngot.cs" />
     <Compile Include="Tiles\Furniture\Ingots\TUAIngot.cs" />
     <Compile Include="Tiles\Furniture\Ingots\WastestoneIngot.cs" />
+    <Compile Include="Tiles\NewBiome\Meteoridon\MeteoridonSand.cs" />
     <Compile Include="Tiles\NewBiome\Plagues\ApocalypseDirt.cs" />
     <Compile Include="Tiles\EoA\Arena.cs" />
     <Compile Include="Tiles\Machine\DivinePortal.cs" />
@@ -333,7 +338,6 @@
     <Folder Include="API\TerraEnergy\Texture\" />
     <Folder Include="Items\Armor\" />
     <Folder Include="Items\Block\PillarBiomeBlock\" />
-    <Folder Include="Items\Meteoridon\Tiles\" />
     <Folder Include="Items\Meteoridon\Walls\" />
     <Folder Include="Items\Weapons\EoA\" />
     <Folder Include="NPCs\Dimension\Solar\" />

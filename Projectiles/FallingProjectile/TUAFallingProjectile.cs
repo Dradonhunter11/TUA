@@ -10,10 +10,10 @@ using Terraria.ModLoader;
 
 namespace TerrariaUltraApocalypse.Projectiles.FallingProjectile
 {
-    abstract class TUACoinsProjTile : ModProjectile
+    abstract class TUAFallingProjectile : ModProjectile
     {
         public abstract String name { get; }
-        public abstract int coinTile { get; }
+        public abstract int Tile { get; }
 
         public override void SetStaticDefaults()
         {
@@ -41,7 +41,7 @@ namespace TerrariaUltraApocalypse.Projectiles.FallingProjectile
         public override void Kill(int timeLeft)
         {
             WorldGen.PlaceTile((int)(projectile.position.X / 16), (int)(projectile.position.Y / 16),
-                coinTile);
+                Tile);
         }
     }
 }

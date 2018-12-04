@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
+using TerrariaUltraApocalypse.API.Default;
 
 namespace TerrariaUltraApocalypse.Tiles.Furniture.Coins
 {
-    class DiamondCoins : TUACoins
+    class DiamondCoins : TUAFallingBlock
     {
-        public override int coinDropID => mod.ItemType("ApocalypseDirt");
-        public override int coinProjectileID => mod.ProjectileType("DiamondCoinProjectile");
+        public override int ItemDropID => mod.ItemType("ApocalypseDirt");
+        public override int ItemProjectileID => mod.ProjectileType("DiamondCoinProjectile");
+        public override bool sandTile => false;
     }
 }
