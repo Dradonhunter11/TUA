@@ -39,9 +39,6 @@ using TerrariaUltraApocalypse.UIHijack.WorldSelection;
 
 namespace TerrariaUltraApocalypse
 {
-
-
-
     class TerrariaUltraApocalypse : Mod
     {
         internal static string version = "0.1 dev";
@@ -349,23 +346,6 @@ namespace TerrariaUltraApocalypse
                 Main.menuMode = 888;
                 Main.MenuUI.SetState(newMainMenu);
             }
-
-            FieldInfo _blockFancyUIWhileLoadingInfo = typeof(Main).GetField("_blockFancyUIWhileLoading",
-                BindingFlags.Static | BindingFlags.NonPublic);
-            bool _blockFancyUIWhileLoading = (bool)_blockFancyUIWhileLoadingInfo.GetValue(null);
-            trything();
-        }
-
-
-        private unsafe void trything()
-        {
-            int speed;
-            SystemParametersInfo(
-                SPI_GETMOUSESPEED,
-                0,
-                new IntPtr(&speed),
-                0);
-            Console.WriteLine(speed);
         }
 
         private void AnimateVersion()
@@ -398,7 +378,9 @@ namespace TerrariaUltraApocalypse
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             int MouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
-            int setting = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Settings Button"));
+            int setting = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
+
+            
 
             if (MouseTextIndex != -1)
             { 

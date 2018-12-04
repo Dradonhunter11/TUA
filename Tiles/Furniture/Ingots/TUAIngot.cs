@@ -14,7 +14,7 @@ namespace TerrariaUltraApocalypse.Tiles.Furniture.Ingots
     {
         public abstract Color MapEntryColor { get; }
         public abstract String MapNameLegend { get; }
-        public abstract String ingotDropName { get; }
+        public abstract int ingotDropName { get; }
 
         public sealed override void SetDefaults()
         {
