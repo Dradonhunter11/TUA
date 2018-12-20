@@ -235,6 +235,7 @@ namespace TerrariaUltraApocalypse
 
 
             DRPSystem.Init();
+            Main.OnTick += DRPSystem.Update;
         }
 
         public void AllowGignaticWorld()

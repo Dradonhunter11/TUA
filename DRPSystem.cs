@@ -20,9 +20,9 @@ namespace TerrariaUltraApocalypse
             Update();
         }
 
-        private static void Update()
+        public static void Update()
         {
-            if (Main.gameMenu)
+            if (Main.gameMenu & Main.rand.NextBool(100))
             {
                 Reset(false);
                 return;
@@ -33,6 +33,30 @@ namespace TerrariaUltraApocalypse
                 : $"Playing Multiplayer ({Main.ActivePlayersCount} / {Main.maxNetPlayers})";
             presence.state = $"HP: {p.statLife} MP: {p.statMana} DEF: {p.statDefense}";
             // https://discordapp.com/developers/docs/rich-presence/how-to#updating-presence-update-presence-payload-fields
+            if (!NPC.downedSlimeKing | !NPC.downedBoss1)
+            {
+
+            }
+            if (NPC.downedBoss1 & NPC.downedSlimeKing)
+            {
+
+            }
+            if (NPC.downedBoss2)
+            {
+
+            }
+            if (NPC.downedBoss3)
+            {
+
+            }
+            if (Main.hardMode)
+            {
+
+            }
+            if (NPC.downedPlantBoss)
+            {
+
+            }
         }
 
         public static void Kill()

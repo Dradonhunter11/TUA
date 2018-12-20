@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -167,6 +167,7 @@
     <Compile Include="Dimension\MicroBiome\StardustFrozenForest.cs" />
     <Compile Include="Dimension\Sky\SolarScreenShaderData.cs" />
     <Compile Include="Dimension\Sky\StardustCustomSky.cs" />
+    <Compile Include="DRPSystem.cs" />
     <Compile Include="Dusts\EotW\ArrowDust.cs" />
     <Compile Include="Dusts\EotW\BulletDust.cs" />
     <Compile Include="Dusts\EotW\MagicDust.cs" />
