@@ -37,7 +37,7 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI
 			if(Main.netMode == 0) {
 				Main.liquidTexture[liquidTextureIndex] = liquid.texture;
 				liquidTextureIndex++;
-			} */
+			}*/ 
             
         }
 

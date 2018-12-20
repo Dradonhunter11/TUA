@@ -92,6 +92,7 @@
     <Compile Include="API\FurnaceRework\TileEntity\RegularFurnaceEntity.cs" />
     <Compile Include="API\GenActionModifiers\IntegretyFilter.cs" />
     <Compile Include="API\Injection\DrawMapInjection.cs" />
+    <Compile Include="API\Injection\ModBrowserInjection.cs" />
     <Compile Include="API\Injection\UpdateBiomesInjection.cs" />
     <Compile Include="API\Injection\UpdateLiquidInjection.cs" />
     <Compile Include="API\LiquidAPI\Data\Bit.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="API\LiquidAPI\Swap\PlayerSwap.cs" />
     <Compile Include="API\LiquidAPI\Swap\WaterDrawInjection.cs" />
     <Compile Include="API\LiquidAPI\Test\PlutonicWaste.cs" />
+    <Compile Include="API\LiquidAPI\Test\VanillaLiquid.cs" />
     <Compile Include="API\LiquidAPI\Test\WeirdLiquid.cs" />
     <Compile Include="API\LiquidAPI\TileExtension.cs" />
     <Compile Include="API\ModExtension.cs" />

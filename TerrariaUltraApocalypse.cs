@@ -17,6 +17,7 @@ using Terraria.Localization;
 using Dimlibs;
 using System.Runtime.CompilerServices;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Audio;
@@ -42,6 +43,7 @@ namespace TerrariaUltraApocalypse
     class TerrariaUltraApocalypse : Mod
     {
         internal static string version = "0.1 dev";
+        internal static String tModLoaderVersion2 = "";
         internal static bool devMode = true;
 
         internal static TerrariaUltraApocalypse instance;
@@ -58,7 +60,7 @@ namespace TerrariaUltraApocalypse
         public static UserInterface machineInterface;
         public static UserInterface CapacitorInterface;
 
-        public string animate = "TmodLoader v.0.10.1.4 - TUA v." + version +
+        public string animate = "TmodLoader v.0.10.1.5 - TUA v." + version +
                                  " - ";
 
         private int animationTimer = 25;
@@ -180,6 +182,11 @@ namespace TerrariaUltraApocalypse
 
         public override void Load()
         {
+            tModLoaderVersion2 = "tModLoader v" + tModLoaderVersion;
+            LoadModContent(mod =>
+            {
+                Autoload(mod);
+            });
             ArrayChunk<Tile> tile = new ArrayChunk<Tile>();
             convertTileToChunk(tile);
             
@@ -187,10 +194,14 @@ namespace TerrariaUltraApocalypse
             instance = this;
             UpdateBiomesInjection.inject();
             LiquidRegistery.MassMethodSwap();
+            Console.Write("AM I NULL? " + typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
+            MethodInfo attempt = typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
+                .GetMethod("PopulateModBrowser", BindingFlags.Instance | BindingFlags.Static |BindingFlags.Public | BindingFlags.NonPublic);
+            ReflectionExtension.MethodSwap(typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
 
             Random r = new Random();
             lazyWaytoShowTitle();
-            animate = "TmodLoader v.0.10.1.4 - TUA v." + version +
+            animate = "TmodLoader v."+ tModLoaderVersion + "- TUA v." + version +
                       " - " + quote[r.Next(quote.Count - 1)];
 
             
@@ -238,6 +249,22 @@ namespace TerrariaUltraApocalypse
 
         }
 
+        private static void LoadModContent(Action<Mod> loadAction)
+        {
+            //Object o = new OverworldHandler();
+            int num = 0;
+            foreach (var mod in ModLoader.LoadedMods)
+            {
+                try
+                {
+                    loadAction(mod);
+                }
+                catch (Exception e)
+                {
+                }
+            }
+        }
+
         public void AllowGignaticWorld()
         {
             Main.chest = new Chest[10000];
@@ -283,6 +310,9 @@ namespace TerrariaUltraApocalypse
 
             instance = null;
             quote.Clear();
+            FieldInfo info2 = typeof(ModLoader).GetField("versionedName",
+                BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
+            info2.SetValue(null, tModLoaderVersion);
         }
 
         public override void UpdateUI(GameTime gameTime)
@@ -346,6 +376,7 @@ namespace TerrariaUltraApocalypse
                 Main.menuMode = 888;
                 Main.MenuUI.SetState(newMainMenu);
             }
+            AnimateVersion();
         }
 
         private void AnimateVersion()
@@ -373,6 +404,32 @@ namespace TerrariaUltraApocalypse
                 textInfo.SetValue(dictionary["UI.New"], "New");
                 textInfo.SetValue(dictionary["UI.SelectWorld"], "Select World");
             }
+        }
+
+        internal void Autoload(Mod mod)
+        {
+
+            if (mod.Code == null)
+                return;
+
+            foreach (Type type in mod.Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture))
+            {
+                /*if (type.IsAbstract || type.GetConstructor(new Type[0]) == null)//don't autoload things with no default constructor
+                {
+                    continue;
+                }*/
+                if (type.IsSubclassOf(typeof(ModLiquid)))
+                {
+                    AutoloadLiquid(type);
+                }
+
+            }
+        }
+
+        private void AutoloadLiquid(Type type)
+        {
+            ModLiquid liquid = (ModLiquid)Activator.CreateInstance(type);
+            LiquidRegistery.getInstance().addNewModLiquid(liquid);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
