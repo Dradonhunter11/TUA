@@ -233,6 +233,8 @@ namespace TerrariaUltraApocalypse
                 AllowGignaticWorld();
             }
 
+
+            DRPSystem.Init();
         }
 
         public void AllowGignaticWorld()
@@ -280,6 +282,8 @@ namespace TerrariaUltraApocalypse
 
             instance = null;
             quote.Clear();
+
+            DRPSystem.Kill();
         }
 
         public override void UpdateUI(GameTime gameTime)
