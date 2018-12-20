@@ -6,7 +6,7 @@ namespace TerrariaUltraApocalypse
     // Almost all of this is from Overhaul.
     public static class DRPSystem
     {
-        private const string AppID = "503418070337978383";
+        private const string AppID = "525122574695399425";
 
         private static DiscordRP.RichPresence presence;
 
