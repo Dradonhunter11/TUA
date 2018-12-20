@@ -35,27 +35,29 @@ namespace TerrariaUltraApocalypse
             // https://discordapp.com/developers/docs/rich-presence/how-to#updating-presence-update-presence-payload-fields
             if (!NPC.downedSlimeKing | !NPC.downedBoss1)
             {
-
+                presence.smallImageText = "Tier 0: Pre Eye of Cthulhu/King Slime";
             }
             if (NPC.downedBoss1 & NPC.downedSlimeKing)
             {
-
+                presence.smallImageText = "Tier 1: Eye of Cthulhu/King Slime";
             }
             if (NPC.downedBoss2)
             {
-
+                presence.smallImageText = Main.ActiveWorldFileData.HasCrimson ? 
+                    "Tier 2: Brain of Cthulhu"
+                    : "Tier 2: Eater of Worlds";
             }
             if (NPC.downedBoss3)
             {
-
+                presence.smallImageText = "Tier 3: Skeletron";
             }
             if (Main.hardMode)
             {
-
+                presence.smallImageText = "Tier 4: Hardmode";
             }
             if (NPC.downedPlantBoss)
             {
-
+                presence.smallImageText = "Tier 5: Plantera";
             }
         }
 
