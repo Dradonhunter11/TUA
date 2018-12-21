@@ -30,7 +30,5 @@ namespace TerrariaUltraApocalypse.API.CustomInventory.UI
                 core.addEnergy(1);
             }
         }
-
-
     }
 }

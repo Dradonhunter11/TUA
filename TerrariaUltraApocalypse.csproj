@@ -78,6 +78,7 @@
     <Compile Include="API\CustomInventory\UI\FuelSlot.cs" />
     <Compile Include="API\CustomInventory\UI\InputOutputSlot.cs" />
     <Compile Include="API\CustomInventory\UI\OutputOnlySlot.cs" />
+    <Compile Include="API\Default\TUADefaultBlockItem.cs" />
     <Compile Include="API\Dev\ReflectionExtension.cs" />
     <Compile Include="API\Dev\SteamID64Checker.cs" />
     <Compile Include="API\Experimental\ArrayChunk.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="API\FurnaceRework\TileEntity\RegularFurnaceEntity.cs" />
     <Compile Include="API\GenActionModifiers\IntegretyFilter.cs" />
     <Compile Include="API\Injection\DrawMapInjection.cs" />
+    <Compile Include="API\Injection\ModBrowserInjection.cs" />
     <Compile Include="API\Injection\UpdateBiomesInjection.cs" />
     <Compile Include="API\Injection\UpdateLiquidInjection.cs" />
     <Compile Include="API\LiquidAPI\Data\Bit.cs" />
@@ -109,6 +111,7 @@
     <Compile Include="API\LiquidAPI\Swap\PlayerSwap.cs" />
     <Compile Include="API\LiquidAPI\Swap\WaterDrawInjection.cs" />
     <Compile Include="API\LiquidAPI\Test\PlutonicWaste.cs" />
+    <Compile Include="API\LiquidAPI\Test\VanillaLiquid.cs" />
     <Compile Include="API\LiquidAPI\Test\WeirdLiquid.cs" />
     <Compile Include="API\LiquidAPI\TileExtension.cs" />
     <Compile Include="API\ModExtension.cs" />
@@ -162,6 +165,11 @@
     <Compile Include="Buff\Debuff\EotW\MagicDebuff.cs" />
     <Compile Include="Buff\Debuff\EotW\MeleeDebuff.cs" />
     <Compile Include="Commands\ToggleTime.cs" />
+    <Compile Include="CustomScreenShader\SolarWorld.cs" />
+    <Compile Include="CustomScreenShader\MeteoridonScreenShader.cs" />
+    <Compile Include="CustomScreenShader\ScreenFog.cs" />
+    <Compile Include="CustomSkies\HeavyMistSky.cs" />
+    <Compile Include="CustomSkies\MeteoridonSky.cs" />
     <Compile Include="Dimension\Block\MobSpawner.cs" />
     <Compile Include="Dimension\DimGlobalNPC.cs" />
     <Compile Include="Dimension\MicroBiome\StardustFrozenForest.cs" />
@@ -179,6 +187,8 @@
     <Compile Include="Items\Block\Meteoridon\MeteoridonStone.cs" />
     <Compile Include="Items\Block\Meteoridon\MeteoridonWoodPlank.cs" />
     <Compile Include="Items\Block\Other\MobSpawner.cs" />
+    <Compile Include="Items\Block\Wasteland\WastelandOre.cs" />
+    <Compile Include="Items\Block\Wasteland\WastelandRock.cs" />
     <Compile Include="Items\Block\Wasteland\WastestoneBrick.cs" />
     <Compile Include="Items\Dimension\SolarCrystal.cs" />
     <Compile Include="Items\Dimension\StardustCrystal.cs" />
@@ -187,6 +197,7 @@
     <Compile Include="Items\Meteoridon\Materials\MeteorideScale.cs" />
     <Compile Include="Items\Materials\Wasteland\WastestoneIngot.cs" />
     <Compile Include="Items\Meteoridon\Materials\MeteoridonBar.cs" />
+    <Compile Include="Items\Meteoridon\Tiles\MeteoridonSand.cs" />
     <Compile Include="Items\Meteoridon\Tools\MeteoridonPickAxe.cs" />
     <Compile Include="Items\Meteoridon\Weapons\MeteoridonSword.cs" />
     <Compile Include="Items\Misc\Debug\DebugStick.cs" />
@@ -223,6 +234,9 @@
     <Compile Include="Prefixes\Multishot.cs" />
     <Compile Include="Prefixes\VoidItem\Collapsing.cs" />
     <Compile Include="Projectiles\EoA\SmallerBeam.cs" />
+    <Compile Include="Projectiles\FallingProjectile\DiamondCoinProjectile.cs" />
+    <Compile Include="Projectiles\FallingProjectile\MeteoridonSandProjectile.cs" />
+    <Compile Include="Projectiles\FallingProjectile\TUAFallingProjectile.cs" />
     <Compile Include="Projectiles\GhosterBullet.cs" />
     <Compile Include="Projectiles\GodExplosiveArrow.cs" />
     <Compile Include="Projectiles\Misc\FishronEater\FishronBolt.cs" />
@@ -232,6 +246,12 @@
     <Compile Include="SolarWorldGen.cs" />
     <Compile Include="StardustWorldGen.cs" />
     <Compile Include="Structure\hellalt\TheHeartArena.cs" />
+    <Compile Include="Tiles\Furniture\Coins\DiamondCoins.cs" />
+    <Compile Include="API\Default\TUAFallingBlock.cs" />
+    <Compile Include="Tiles\Furniture\Ingots\MeteoridonIngot.cs" />
+    <Compile Include="Tiles\Furniture\Ingots\TUAIngot.cs" />
+    <Compile Include="Tiles\Furniture\Ingots\WastestoneIngot.cs" />
+    <Compile Include="Tiles\NewBiome\Meteoridon\MeteoridonSand.cs" />
     <Compile Include="Tiles\NewBiome\Plagues\ApocalypseDirt.cs" />
     <Compile Include="Tiles\EoA\Arena.cs" />
     <Compile Include="Tiles\Machine\DivinePortal.cs" />
@@ -286,7 +306,7 @@
     </Reference>
     <Reference Include="Dimlibs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dimlibs.dll</HintPath>
+      <HintPath>..\Dimlibs\bin\Release\Dimlibs.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -320,7 +340,6 @@
     <Folder Include="API\TerraEnergy\Texture\" />
     <Folder Include="Items\Armor\" />
     <Folder Include="Items\Block\PillarBiomeBlock\" />
-    <Folder Include="Items\Meteoridon\Tiles\" />
     <Folder Include="Items\Meteoridon\Walls\" />
     <Folder Include="Items\Weapons\EoA\" />
     <Folder Include="NPCs\Dimension\Solar\" />
@@ -328,7 +347,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"D:\SteamLibrary\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>"D:\steam game\steamapps\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

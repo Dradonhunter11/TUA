@@ -17,6 +17,7 @@ using Terraria.Localization;
 using Dimlibs;
 using System.Runtime.CompilerServices;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Audio;
@@ -29,6 +30,8 @@ using TerrariaUltraApocalypse.API.Injection;
 using TerrariaUltraApocalypse.API.LiquidAPI;
 using TerrariaUltraApocalypse.API.LiquidAPI.Test;
 using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge;
+using TerrariaUltraApocalypse.CustomScreenShader;
+using TerrariaUltraApocalypse.CustomSkies;
 using TerrariaUltraApocalypse.Items.EoA;
 using TerrariaUltraApocalypse.Items.Meteoridon.Materials;
 using TerrariaUltraApocalypse.UIHijack.MainMenu;
@@ -40,6 +43,7 @@ namespace TerrariaUltraApocalypse
     class TerrariaUltraApocalypse : Mod
     {
         internal static string version = "0.1 dev";
+        internal static String tModLoaderVersion2 = "";
         internal static bool devMode = true;
 
         internal static TerrariaUltraApocalypse instance;
@@ -51,6 +55,8 @@ namespace TerrariaUltraApocalypse
         private Texture2D logoOriginal;
         public static Texture2D[] originalMoon;
 
+        public static Texture2D SolarFog;
+        
         public static UserInterface machineInterface;
         public static UserInterface CapacitorInterface;
 
@@ -175,6 +181,11 @@ namespace TerrariaUltraApocalypse
 
         public override void Load()
         {
+            tModLoaderVersion2 = "tModLoader v" + tModLoaderVersion;
+            LoadModContent(mod =>
+            {
+                Autoload(mod);
+            });
             ArrayChunk<Tile> tile = new ArrayChunk<Tile>();
             convertTileToChunk(tile);
 
@@ -182,12 +193,16 @@ namespace TerrariaUltraApocalypse
             instance = this;
             UpdateBiomesInjection.inject();
             LiquidRegistery.MassMethodSwap();
+            Console.Write("AM I NULL? " + typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
+            MethodInfo attempt = typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
+                .GetMethod("PopulateModBrowser", BindingFlags.Instance | BindingFlags.Static |BindingFlags.Public | BindingFlags.NonPublic);
+            ReflectionExtension.MethodSwap(typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
 
             Random r = new Random();
             lazyWaytoShowTitle();
+
             animate = $"TmodLoader v.0.10.1.4 - TUA v{version} - {quote[r.Next(quote.Count - 1)]}";
 
-            
             Main.SavePath += "/Tapocalypse";
             Main.PlayerPath = Main.SavePath + "/Player";
             Main.WorldPath = Main.SavePath + "/World";
@@ -206,6 +221,9 @@ namespace TerrariaUltraApocalypse
             SkyManager.Instance["TerrariaUltraApocalypse:TUAPlayer"] = new TUACustomSky();
             Filters.Scene["TerrariaUltraApocalypse:StardustPillar"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
             SkyManager.Instance["TerrariaUltraApocalypse:StardustPillar"] = new StardustCustomSky();
+            Filters.Scene["TerrariaUltraApocalypse:SolarMist"] = new Filter(new MeteoridonScreenShader().UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
+            SkyManager.Instance["TerrariaUltraApocalypse:SolarMist"] = new HeavyMistSky();
+
 
             if (Main.netMode == 0)
             {
@@ -219,6 +237,7 @@ namespace TerrariaUltraApocalypse
 
                 logoOriginal = Main.logo2Texture;
                 originalMoon = Main.moonTexture;
+                SolarFog = GetTexture("CustomScreenShader/HeavyMist");
             }
 
             if (IntPtr.Size == 8)
@@ -226,6 +245,22 @@ namespace TerrariaUltraApocalypse
                 AllowGignaticWorld();
             }
 
+        }
+
+        private static void LoadModContent(Action<Mod> loadAction)
+        {
+            //Object o = new OverworldHandler();
+            int num = 0;
+            foreach (var mod in ModLoader.LoadedMods)
+            {
+                try
+                {
+                    loadAction(mod);
+                }
+                catch (Exception e)
+                {
+                }
+            }
         }
 
         public void AllowGignaticWorld()
@@ -273,6 +308,9 @@ namespace TerrariaUltraApocalypse
 
             instance = null;
             quote.Clear();
+            FieldInfo info2 = typeof(ModLoader).GetField("versionedName",
+                BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
+            info2.SetValue(null, tModLoaderVersion);
         }
 
         public override void UpdateUI(GameTime gameTime)
@@ -336,23 +374,7 @@ namespace TerrariaUltraApocalypse
                 Main.menuMode = 888;
                 Main.MenuUI.SetState(newMainMenu);
             }
-
-            FieldInfo _blockFancyUIWhileLoadingInfo = typeof(Main).GetField("_blockFancyUIWhileLoading",
-                BindingFlags.Static | BindingFlags.NonPublic);
-            bool _blockFancyUIWhileLoading = (bool)_blockFancyUIWhileLoadingInfo.GetValue(null);
-            trything();
-        }
-
-
-        private unsafe void trything()
-        {
-            int speed;
-            SystemParametersInfo(
-                SPI_GETMOUSESPEED,
-                0,
-                new IntPtr(&speed),
-                0);
-            Console.WriteLine(speed);
+            AnimateVersion();
         }
 
         private void AnimateVersion()
@@ -382,10 +404,38 @@ namespace TerrariaUltraApocalypse
             }
         }
 
+        internal void Autoload(Mod mod)
+        {
+
+            if (mod.Code == null)
+                return;
+
+            foreach (Type type in mod.Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture))
+            {
+                /*if (type.IsAbstract || type.GetConstructor(new Type[0]) == null)//don't autoload things with no default constructor
+                {
+                    continue;
+                }*/
+                if (type.IsSubclassOf(typeof(ModLiquid)))
+                {
+                    AutoloadLiquid(type);
+                }
+
+            }
+        }
+
+        private void AutoloadLiquid(Type type)
+        {
+            ModLiquid liquid = (ModLiquid)Activator.CreateInstance(type);
+            LiquidRegistery.getInstance().addNewModLiquid(liquid);
+        }
+
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             int MouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
-            int setting = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Settings Button"));
+            int setting = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
+
+            
 
             if (MouseTextIndex != -1)
             { 

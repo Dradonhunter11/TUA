@@ -60,10 +60,10 @@ namespace TerrariaUltraApocalypse.API.Dev
 
         public void CopyIDToClipboard()
         {
-            Thread thread = new Thread(() => Clipboard.SetText(CurrentSteamID64));
+            /*Thread thread = new Thread(() => Clipboard.SetText(CurrentSteamID64));
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
-            thread.Join();
+            thread.Join();*/
             
         }
     }

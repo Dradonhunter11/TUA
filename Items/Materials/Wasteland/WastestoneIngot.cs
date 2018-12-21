@@ -19,13 +19,17 @@ namespace TerrariaUltraApocalypse.Items.Materials.Wasteland
             item.useStyle = 1;
             item.value = Item.sellPrice(0, 0, 99, 0);
             item.maxStack = 999;
+            item.createTile = mod.TileType("WastestoneIngot");
+            item.consumable = true;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
             FurnaceRecipe furnace = new FurnaceRecipe(mod);
-            
+            furnace.addIngredient(mod.ItemType("WastelandOre"), 10);
+            furnace.setCostAndCookTime(500);
+            furnace.setResult(mod.ItemType<WastestoneIngot>());
+            furnace.addRecipe();
         }
     }
 }

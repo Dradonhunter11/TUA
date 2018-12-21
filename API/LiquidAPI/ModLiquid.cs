@@ -14,6 +14,8 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI
         private readonly Liquid l = new Liquid();
         public bool gravity = true;
         public int customDelay = 1; //Default value, aka 
+        public Dictionary<Func<bool>, Texture2D> altTexture;
+        
 
         public Liquid liquid
         {

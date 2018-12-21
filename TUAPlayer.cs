@@ -15,6 +15,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using Terraria.ID;
 using Dimlibs;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameInput;
 
 namespace TerrariaUltraApocalypse
@@ -47,27 +48,6 @@ namespace TerrariaUltraApocalypse
             }
         }
 
-        public override void SetupStartInventory(IList<Item> items)
-        {
-            if (this.Name == "Dradon")
-            {
-                Item item = new Item();
-                item.SetDefaults(3543);
-                item.stack = 1;
-                items.Add(item);
-            }
-
-            
-
-            for (int i = 0; i < Main.itemTexture.Length; i++) {
-                Item item = new Item();
-                item.SetDefaults(i);
-                item.stack = 1000;
-                items.Add(item);
-            }
-
-            base.SetupStartInventory(items);
-        }
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
@@ -85,11 +65,10 @@ namespace TerrariaUltraApocalypse
         {
             if (Dimlibs.Dimlibs.getPlayerDim() != null) {
                 bool inSolar = Dimlibs.Dimlibs.getPlayerDim() == "Solar";
-                player.ManageSpecialBiomeVisuals("TerrariaUltraApocalypse:TUAPlayer", inSolar, player.Center);
+                player.ManageSpecialBiomeVisuals("TerrariaUltraApocalypse:TUAPlayer", false, player.Center);
                 bool inStardust = Dimlibs.Dimlibs.getPlayerDim() == "Stardust";
                 player.ManageSpecialBiomeVisuals("TerrariaUltraApocalypse:StardustPillar", inStardust, player.Center);
             }
-            
         }
 
         
@@ -108,5 +87,6 @@ namespace TerrariaUltraApocalypse
             //player.respawnTimer = 1;
         }
 
+        
     }
 }
