@@ -31,7 +31,7 @@ namespace TerrariaUltraApocalypse
             return new ModRecipe(mod);
         }
 
-        public static void AddRecipe(Mod mod, String result, int resultAmount, RecipeForma recipe)
+        public static void AddRecipe(Mod mod, string result, int resultAmount, RecipeForma recipe)
         {
             ModRecipe r = new ModRecipe(mod);
             for (int i = 0; i < recipe.ingredient.Length; i++)

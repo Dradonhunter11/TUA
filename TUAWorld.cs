@@ -49,14 +49,14 @@ namespace TerrariaUltraApocalypse
         private void RegisterPlagues()
         {
             BiomeLibs.RegisterNewBiome("Plagues", 50, mod);
-            BiomeLibs.AddBlockInBiome("Plagues", new String[] { "ApocalypseDirt" });
+            BiomeLibs.AddBlockInBiome("Plagues", new string[] { "ApocalypseDirt" });
         }
 
         private void RegisterMeteoridon()
         {
             Func<bool> c = () => Main.hardMode;
             BiomeLibs.RegisterNewBiome("Meteoridon", 50, mod);
-            BiomeLibs.AddBlockInBiome("Meteoridon", new String[] { "MeteoridonStone", "MeteoridonGrass", "BrownIce" });
+            BiomeLibs.AddBlockInBiome("Meteoridon", new string[] { "MeteoridonStone", "MeteoridonGrass", "BrownIce" });
             BiomeLibs.addHallowAltBiome("Meteoridon", "The world is getting fiery...");
             BiomeLibs.SetCondition("Meteoridon", c);
         }
@@ -65,7 +65,7 @@ namespace TerrariaUltraApocalypse
         {
             Func<bool> c = () => Dimlibs.Dimlibs.getPlayerDim() == "solar";
             BiomeLibs.RegisterNewBiome("Solar", 200, mod);
-            BiomeLibs.AddBlockInBiome("Solar", new String[] { "SolarDirt", "SolarRock" });
+            BiomeLibs.AddBlockInBiome("Solar", new string[] { "SolarDirt", "SolarRock" });
             BiomeLibs.SetCondition("solar", c);
         }
 
@@ -83,7 +83,7 @@ namespace TerrariaUltraApocalypse
         {
             Func<bool> c = () => Dimlibs.Dimlibs.getPlayerDim() == "stardust";
             BiomeLibs.RegisterNewBiome("Stardust", 200, mod);
-            BiomeLibs.AddBlockInBiome("stardust", new String[] { "StardustRock" });
+            BiomeLibs.AddBlockInBiome("stardust", new string[] { "StardustRock" });
             BiomeLibs.SetCondition("stardust", c);
         }
 
@@ -701,7 +701,7 @@ namespace TerrariaUltraApocalypse
         /*
         public override void ModifyHardmodeTasks(List<GenPass> list)
         {
-            String text = "";
+            string text = "";
             Main.hardMode = true;
 
 

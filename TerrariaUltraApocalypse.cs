@@ -37,9 +37,6 @@ using TerrariaUltraApocalypse.UIHijack.WorldSelection;
 
 namespace TerrariaUltraApocalypse
 {
-
-
-
     class TerrariaUltraApocalypse : Mod
     {
         internal static string version = "0.1 dev";
@@ -50,11 +47,9 @@ namespace TerrariaUltraApocalypse
         public static bool EoCUltraActivated = false;
         private Type t2d = typeof(Texture2D);
         private Main instance2 = Main.instance;
-        private String savePath, worldPath, playerPath;
+        private string savePath, worldPath, playerPath;
         private Texture2D logoOriginal;
         public static Texture2D[] originalMoon;
-        
-
 
         public static UserInterface machineInterface;
         public static UserInterface CapacitorInterface;
@@ -96,8 +91,8 @@ namespace TerrariaUltraApocalypse
         {
             RecipeManager.removeRecipe(ItemID.RegenerationPotion);
             RecipeManager.removeRecipe(ItemID.IronskinPotion);
-            //RecipeManager.addRecipe(this, "Regeneration Potion", 1, new RecipeForma(new String[] { "Amethyst", "Bottled Water", "Day Bloom" }, new int[] { 3, 1, 1}));
-            //RecipeManager.addRecipe(this, "Ironskin Potion", 1, new RecipeForma(new String[] { "Iron Bar", "Bottled Water", "Day Bloom", "Iron Ore" }, new int[]{ 3, 1, 1, 3 }));
+            //RecipeManager.addRecipe(this, "Regeneration Potion", 1, new RecipeForma(new string[] { "Amethyst", "Bottled Water", "Day Bloom" }, new int[] { 3, 1, 1}));
+            //RecipeManager.addRecipe(this, "Ironskin Potion", 1, new RecipeForma(new string[] { "Iron Bar", "Bottled Water", "Day Bloom", "Iron Ore" }, new int[]{ 3, 1, 1, 3 }));
 
 
             ModRecipe r = new ModRecipe(this);
