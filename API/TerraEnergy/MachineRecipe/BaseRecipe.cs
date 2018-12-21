@@ -10,9 +10,9 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe
 {
     class BaseRecipe
     {
-        private String result;
+        private string result;
         private Mod mod;
-        private List<String> ingredient;
+        private List<string> ingredient;
 
 
     }

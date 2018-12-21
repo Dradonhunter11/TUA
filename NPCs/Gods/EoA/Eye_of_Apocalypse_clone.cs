@@ -16,19 +16,19 @@ namespace TerrariaUltraApocalypse.NPCs.Gods.EoA
     {
         private Eye_of_Apocalypse master;
         private int masterID;
-        private String pos;
+        private string pos;
         private string target = "player";
         private int currentFrame = 1;
         private int animationTimer = 50;
         private int phase = 1;
 
 
-        public String getPos()
+        public string getPos()
         {
             return pos;
         }
 
-        public void setPos(String pos)
+        public void setPos(string pos)
         {
             this.pos = pos;
             npc.target = Main.LocalPlayer.whoAmI;
