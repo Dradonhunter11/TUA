@@ -8,3 +8,4 @@ buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*
 includePDB = true
 modReferences = BiomeLibrary, Dimlibs
 languageVersion = 6
+dllReferences = drpc
