@@ -29,9 +29,9 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
         private readonly InputOutputSlot _output;
         private readonly FuelSlot _fuel;
         private readonly UIEnergyBar _energyBar;
-        private String _furnaceName = "";
+        private string _furnaceName = "";
 
-        public FurnaceUI(ExtraSlot input, ExtraSlot output, Core core, String furnaceName)
+        public FurnaceUI(ExtraSlot input, ExtraSlot output, Core core, string furnaceName)
         {
             this._input = new InputOutputSlot(input, Main.inventoryBack10Texture);
             this._output = new InputOutputSlot(output, Main.inventoryBack10Texture);
@@ -41,7 +41,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
             
         }
 
-        public FurnaceUI(ExtraSlot input, ExtraSlot output, ExtraSlot fuel, BudgetCore core, String furnaceName)
+        public FurnaceUI(ExtraSlot input, ExtraSlot output, ExtraSlot fuel, BudgetCore core, string furnaceName)
         {
             this._input = new InputOutputSlot(input, Main.inventoryBack10Texture);
             this._output = new InputOutputSlot(output, Main.inventoryBack10Texture);

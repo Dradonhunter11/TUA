@@ -31,7 +31,7 @@ namespace TerrariaUltraApocalypse.API
 
         public static void AddLine(this ModTranslation self, string text, int culture = 0)
         {
-            String currentText;
+            string currentText;
             if (culture == 0)
             {
                 currentText = self.GetDefault();
@@ -48,7 +48,7 @@ namespace TerrariaUltraApocalypse.API
 
         public static void Reset(this ModTranslation self, int culture = 0)
         {
-            String currentText;
+            string currentText;
             if (culture == 0)
             {
                 self.SetDefault("");

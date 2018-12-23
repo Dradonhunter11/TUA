@@ -53,7 +53,7 @@ namespace TerrariaUltraApocalypse.API.Dev
             return SteamId64List.Contains(CurrentSteamID64);
         }
 
-        public bool checkSpecificID(String ID)
+        public bool checkSpecificID(string ID)
         {
             return CurrentSteamID64 == ID;
         }

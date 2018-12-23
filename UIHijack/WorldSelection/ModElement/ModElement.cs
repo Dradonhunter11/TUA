@@ -9,7 +9,7 @@ namespace TerrariaUltraApocalypse.UIHijack.WorldSelection.ModElement
 {
     class ModElement : UIElement
     {
-        private IDictionary<String, String> valueDictionnary = new Dictionary<string, string>();
+        private IDictionary<string, string> valueDictionnary = new Dictionary<string, string>();
 
         public override void OnInitialize()
         {

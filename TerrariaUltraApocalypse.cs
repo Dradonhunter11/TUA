@@ -51,17 +51,16 @@ namespace TerrariaUltraApocalypse
         public static bool EoCUltraActivated = false;
         private Type t2d = typeof(Texture2D);
         private Main instance2 = Main.instance;
-        private String savePath, worldPath, playerPath;
+        private string savePath, worldPath, playerPath;
         private Texture2D logoOriginal;
         public static Texture2D[] originalMoon;
+
         public static Texture2D SolarFog;
-
-
+        
         public static UserInterface machineInterface;
         public static UserInterface CapacitorInterface;
 
-        public string animate = "TmodLoader v.0.10.1.5 - TUA v." + version +
-                                 " - ";
+        public string animate = $"TmodLoader v.0.10.1.4 - TUA v{version} - ";
 
         private int animationTimer = 25;
         private List<string> quote = new List<string>();
@@ -73,13 +72,13 @@ namespace TerrariaUltraApocalypse
         public static readonly string SAVE_PATH = Main.SavePath;
 
         [DllImport("User32.dll")]
-        static extern Boolean SystemParametersInfo(
-            UInt32 uiAction,
-            UInt32 uiParam,
+        static extern bool SystemParametersInfo(
+            uint uiAction,
+            uint uiParam,
             IntPtr pvParam,
-            UInt32 fWinIni);
+            uint fWinIni);
 
-        public const UInt32 SPI_GETMOUSESPEED = 0x0070;
+        public const uint SPI_GETMOUSESPEED = 0x0070;
 
         public TerrariaUltraApocalypse()
         {
@@ -97,8 +96,8 @@ namespace TerrariaUltraApocalypse
         {
             RecipeManager.removeRecipe(ItemID.RegenerationPotion);
             RecipeManager.removeRecipe(ItemID.IronskinPotion);
-            //RecipeManager.addRecipe(this, "Regeneration Potion", 1, new RecipeForma(new String[] { "Amethyst", "Bottled Water", "Day Bloom" }, new int[] { 3, 1, 1}));
-            //RecipeManager.addRecipe(this, "Ironskin Potion", 1, new RecipeForma(new String[] { "Iron Bar", "Bottled Water", "Day Bloom", "Iron Ore" }, new int[]{ 3, 1, 1, 3 }));
+            //RecipeManager.addRecipe(this, "Regeneration Potion", 1, new RecipeForma(new string[] { "Amethyst", "Bottled Water", "Day Bloom" }, new int[] { 3, 1, 1}));
+            //RecipeManager.addRecipe(this, "Ironskin Potion", 1, new RecipeForma(new string[] { "Iron Bar", "Bottled Water", "Day Bloom", "Iron Ore" }, new int[]{ 3, 1, 1, 3 }));
 
 
             ModRecipe r = new ModRecipe(this);
@@ -189,7 +188,7 @@ namespace TerrariaUltraApocalypse
             });
             ArrayChunk<Tile> tile = new ArrayChunk<Tile>();
             convertTileToChunk(tile);
-            
+
 
             instance = this;
             UpdateBiomesInjection.inject();
@@ -201,11 +200,10 @@ namespace TerrariaUltraApocalypse
 
             Random r = new Random();
             lazyWaytoShowTitle();
-            animate = "TmodLoader v."+ tModLoaderVersion + "- TUA v." + version +
-                      " - " + quote[r.Next(quote.Count - 1)];
 
-            
-            Main.SavePath = Main.SavePath + "/Tapocalypse";
+            animate = $"TmodLoader v.0.10.1.4 - TUA v{version} - {quote[r.Next(quote.Count - 1)]}";
+
+            Main.SavePath += "/Tapocalypse";
             Main.PlayerPath = Main.SavePath + "/Player";
             Main.WorldPath = Main.SavePath + "/World";
             Main.musicVolume = 0.5f;
@@ -278,14 +276,14 @@ namespace TerrariaUltraApocalypse
         public void lazyWaytoShowTitle()
         {
             quote.Add("now with 100% less life insurance! ");
-            quote.Add("make sure to give EoA my best... or my worst depending on how you look at it ");
+            quote.Add("make sure to give EoA my best . . . or my worst depending on how you look at it ");
             quote.Add("I failed to help Heather with a door edition ");
             quote.Add("you have beings have only 3 dimensions? pffft ");
-            quote.Add("you want me to die? not if i kill me first! ");
-            quote.Add("the nurse may need a few more doctorate degrees... and a better hairdo ");
+            quote.Add("you want me to die? Not if I kill myself first! ");
+            quote.Add("the nurse may need a few more doctorate degrees . . . and a better hairdo ");
             quote.Add("our mod will create an exodus from the others! ");
-            quote.Add("build a wall? pffft, we have more important things to do ");
-            quote.Add("old age should burn and rave at close of day... yes, that means you jof ");
+            quote.Add("build a wall? Pffft, we have more important things to do ");
+            quote.Add("old age should burn and rave at close of day . . . yes, that means you, Jof ");
             quote.Add("now with a bunch of stupid title version like this one! ");
             quote.Add("I dont feel so good... ");
             quote.Add("should have gone for the cpu ");

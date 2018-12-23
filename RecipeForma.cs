@@ -8,10 +8,10 @@ namespace TerrariaUltraApocalypse
 {
     class RecipeForma
     {
-        public String[] ingredient;
+        public string[] ingredient;
         public int[] number;
 
-        public RecipeForma(String[] ing, int[] num)
+        public RecipeForma(string[] ing, int[] num)
         {
             this.ingredient = ing;
             this.number = num;
