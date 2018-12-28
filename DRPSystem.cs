@@ -6,7 +6,7 @@ namespace TerrariaUltraApocalypse
     // Almost all of this is from Overhaul.
     public static class DRPSystem
     {
-        private const string AppID = "525122574695399425";
+        private const string AppID = "528086919670792233";
 
         private static DiscordRP.RichPresence presence;
 
@@ -27,12 +27,8 @@ namespace TerrariaUltraApocalypse
                 Reset(false);
                 return;
             }
-            var p = Main.LocalPlayer;
-            presence.largeImageText = (Main.netMode == 0)
-                ? $"Playing Singleplayer as {p.name}"
-                : $"Playing Multiplayer ({Main.ActivePlayersCount} / {Main.maxNetPlayers})";
-            presence.state = $"HP: {p.statLife} MP: {p.statMana} DEF: {p.statDefense}";
             // https://discordapp.com/developers/docs/rich-presence/how-to#updating-presence-update-presence-payload-fields
+            /*
             if (!NPC.downedSlimeKing | !NPC.downedBoss1)
             {
                 presence.smallImageText = "Tier 0: Pre Eye of Cthulhu/King Slime";
@@ -59,6 +55,7 @@ namespace TerrariaUltraApocalypse
             {
                 presence.smallImageText = "Tier 5: Plantera";
             }
+            */
         }
 
         public static void Kill()
