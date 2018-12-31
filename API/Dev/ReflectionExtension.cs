@@ -11,7 +11,7 @@ namespace TerrariaUltraApocalypse.API.Dev
 {
     class ReflectionExtension
     {
-        public static void MethodSwap(Type OriginalMethodType, String OriginalMethodName, Type NewMethodType, String NewMethodName)
+        public static void MethodSwap(Type OriginalMethodType, string OriginalMethodName, Type NewMethodType, string NewMethodName)
         {
             if (IntPtr.Size == 4)
             {
@@ -22,7 +22,7 @@ namespace TerrariaUltraApocalypse.API.Dev
         }
 
 
-        public static void MethodSwap32Bit(Type OriginalMethodType, String OriginalMethodName, Type NewMethodType, String NewMethodName)
+        public static void MethodSwap32Bit(Type OriginalMethodType, string OriginalMethodName, Type NewMethodType, string NewMethodName)
         {
             MethodInfo OriginalMethod =
                 OriginalMethodType.GetMethod(OriginalMethodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic);
@@ -42,7 +42,7 @@ namespace TerrariaUltraApocalypse.API.Dev
             
         }
 
-        public static unsafe void MethodSwap64bit(Type OriginalMethodType, String OriginalMethodName, Type NewMethodType, String NewMethodName)
+        public static unsafe void MethodSwap64bit(Type OriginalMethodType, string OriginalMethodName, Type NewMethodType, string NewMethodName)
         {
             MethodInfo OriginalMethod =
                 OriginalMethodType.GetMethod(OriginalMethodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic);

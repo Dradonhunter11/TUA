@@ -26,7 +26,7 @@ namespace TerrariaUltraApocalypse.UIHijack.MainMenu
         private bool list = false;
         private int listIndex = 0;
 
-        public MenuButton(String text, int xPosition, int yPosition)
+        public MenuButton(string text, int xPosition, int yPosition)
         {
             buttonName = text;
 

@@ -29,8 +29,6 @@ namespace TerrariaUltraApocalypse
 
         public static bool RealisticTimeMode = false;
 
-
-
         public override TagCompound Save()
         {
             TagCompound tc = new TagCompound();
@@ -646,7 +644,7 @@ namespace TerrariaUltraApocalypse
         /*
         public override void ModifyHardmodeTasks(List<GenPass> list)
         {
-            String text = "";
+            string text = "";
             Main.hardMode = true;
 
 

@@ -13,9 +13,9 @@ namespace TerrariaUltraApocalypse.UIHijack.MainMenu
         private UIList list;
         private UIScrollbar scrollbar;
 
-        private static readonly List<String> devList = new List<string>();
-        private static readonly List<String> donator = new List<string>();
-        private static readonly List<String> patreon = new List<string>();
+        private static readonly List<string> devList = new List<string>();
+        private static readonly List<string> donator = new List<string>();
+        private static readonly List<string> patreon = new List<string>();
 
         public override void OnInitialize()
         {

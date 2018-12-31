@@ -54,7 +54,7 @@ namespace TerrariaUltraApocalypse.NPCs.Gods.EoA
 
         private EoAHeal currentDamageSource;
 
-        private String[] engQuote =
+        private string[] engQuote =
             {"You really think you can defeat a god?",
              "I'm the apocalypse, you are nothing...",
              "Why you summoned me when you know you are dead",
@@ -62,7 +62,7 @@ namespace TerrariaUltraApocalypse.NPCs.Gods.EoA
              "All this word is corrupted, so you are. We are the master of this world",
              "This world soon gonna be destroyed... by the god"};
 
-        private String[] freQuote =
+        private string[] freQuote =
         {"Tu penses vraiment pouvoir tuer un dieu?",
          "Je suis l'apocalypse, tu es rien...",
          "Pourquoi m'invoquer quand t'a déja perdu.",
@@ -313,7 +313,7 @@ namespace TerrariaUltraApocalypse.NPCs.Gods.EoA
         }
 
 
-        private String getTranslatedQuote()
+        private string getTranslatedQuote()
         {
             if (Language.ActiveCulture == GameCulture.French)
             {
