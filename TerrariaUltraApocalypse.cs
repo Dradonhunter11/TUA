@@ -1,39 +1,32 @@
+using BiomeLibrary.API;
+using Dimlibs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using TerrariaUltraApocalypse.NPCs;
-using BiomeLibrary;
-using TerrariaUltraApocalypse.API.TerraEnergy.UI;
-using Terraria.UI;
 using System.Collections.Generic;
-using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
-using System.Reflection;
-using Terraria.Graphics.Effects;
-using TerrariaUltraApocalypse.Dimension.Sky;
-using Terraria.Localization;
-using Dimlibs;
-using System.Runtime.CompilerServices;
-using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
+using Terraria;
 using Terraria.GameContent.UI.States;
-using TerrariaUltraApocalypse.API;
+using Terraria.Graphics.Effects;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria.UI;
 using TerrariaUltraApocalypse.API.Dev;
 using TerrariaUltraApocalypse.API.Experimental;
 using TerrariaUltraApocalypse.API.Injection;
 using TerrariaUltraApocalypse.API.LiquidAPI;
 using TerrariaUltraApocalypse.API.LiquidAPI.Test;
 using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge;
+using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
 using TerrariaUltraApocalypse.CustomScreenShader;
 using TerrariaUltraApocalypse.CustomSkies;
+using TerrariaUltraApocalypse.Dimension.Sky;
 using TerrariaUltraApocalypse.Items.EoA;
 using TerrariaUltraApocalypse.Items.Meteoridon.Materials;
+using TerrariaUltraApocalypse.NPCs;
 using TerrariaUltraApocalypse.UIHijack.MainMenu;
 using TerrariaUltraApocalypse.UIHijack.MainMenu.TUAOptionMenu;
 using TerrariaUltraApocalypse.UIHijack.WorldSelection;
@@ -200,7 +193,7 @@ namespace TerrariaUltraApocalypse
             ReflectionExtension.MethodSwap(typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
 
             Random r = new Random();
-            lazyWaytoShowTitle();
+            AddQuote();
             animate = "TmodLoader v."+ tModLoaderVersion + "- TUA v." + version +
                       " - " + quote[r.Next(quote.Count - 1)];
 
@@ -275,7 +268,7 @@ namespace TerrariaUltraApocalypse
         }
 
 
-        public void lazyWaytoShowTitle()
+        public void AddQuote()
         {
             quote.Add("now with 100% less life insurance! ");
             quote.Add("make sure to give EoA my best... or my worst depending on how you look at it ");
@@ -290,7 +283,7 @@ namespace TerrariaUltraApocalypse
             quote.Add("I dont feel so good... ");
             quote.Add("should have gone for the cpu ");
             quote.Add("I'll go grab some pizza ");
-            quote.Add("Don't forget to change this with sonething, ok? ");
+            quote.Add("Don't forget to change this with something, ok? ");
         }
 
 
@@ -350,11 +343,11 @@ namespace TerrariaUltraApocalypse
 
 
                 DimPlayer p = Main.LocalPlayer.GetModPlayer<DimPlayer>(this);
-                if (BiomeLibs.InBiome("Meteoridon"))
+                if (this.GetBiome("Meteoridon").InBiome())
                 {
                     music = MusicID.TheHallow;
                 }
-                else if (BiomeLibs.InBiome("Plagues"))
+                else if (this.GetBiome("Plagues").InBiome())
                 {
                     music = MusicID.LunarBoss;
                 }

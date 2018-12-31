@@ -6,5 +6,5 @@ hideResources = true
 includeSource = true
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*
 includePDB = true
-modReferences = BiomeLibrary, Dimlibs
+modReferences = BiomeLibrary@0.4, Dimlibs
 languageVersion = 6

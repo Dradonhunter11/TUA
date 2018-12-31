@@ -1,24 +1,14 @@
-﻿using System;
+﻿using BiomeLibrary.API;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using BiomeLibrary;
 using Terraria;
+using Terraria.GameContent.Generation;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.ID;
-using Dimlibs;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.DataStructures;
-using Terraria.GameContent.Generation;
 using Terraria.World.Generation;
-using TerrariaUltraApocalypse.API;
 using TerrariaUltraApocalypse.CustomScreenShader;
-using TerrariaUltraApocalypse.Dimension.MicroBiome;
 using TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass;
 using TerrariaUltraApocalypse.Structure.hellalt;
-using TerrariaUltraApocalypse.Tiles.Furniture.Coins;
 
 namespace TerrariaUltraApocalypse
 {
@@ -40,56 +30,6 @@ namespace TerrariaUltraApocalypse
         public static bool RealisticTimeMode = false;
 
 
-        public override void Initialize()
-        {
-            RegisterPlagues();
-            RegisterMeteoridon();
-            RegisterSolar();
-            RegisterStardust();
-            RegisterNebula();
-            RegisterVortex();
-        }
-
-        private void RegisterPlagues()
-        {
-            BiomeLibs.RegisterNewBiome("Plagues", 50, mod);
-            BiomeLibs.AddBlockInBiome("Plagues", new String[] { "ApocalypseDirt" });
-        }
-
-        private void RegisterMeteoridon()
-        {
-            Func<bool> c = () => Main.hardMode;
-            BiomeLibs.RegisterNewBiome("Meteoridon", 50, mod);
-            BiomeLibs.AddBlockInBiome("Meteoridon", new String[] { "MeteoridonStone", "MeteoridonGrass", "BrownIce" });
-            BiomeLibs.addHallowAltBiome("Meteoridon", "The world is getting fiery...");
-            BiomeLibs.SetCondition("Meteoridon", c);
-        }
-
-        private void RegisterSolar()
-        {
-            Func<bool> c = () => Dimlibs.Dimlibs.getPlayerDim() == "solar";
-            BiomeLibs.RegisterNewBiome("Solar", 200, mod);
-            BiomeLibs.AddBlockInBiome("Solar", new String[] { "SolarDirt", "SolarRock" });
-            BiomeLibs.SetCondition("solar", c);
-        }
-
-        private void RegisterVortex()
-        {
-            BiomeLibs.RegisterNewBiome("Vortex", 200, mod);
-        }
-
-        private void RegisterNebula()
-        {
-            BiomeLibs.RegisterNewBiome("Nebula", 200, mod);
-        }
-
-        private void RegisterStardust()
-        {
-            Func<bool> c = () => Dimlibs.Dimlibs.getPlayerDim() == "stardust";
-            BiomeLibs.RegisterNewBiome("Stardust", 200, mod);
-            BiomeLibs.AddBlockInBiome("stardust", new String[] { "StardustRock" });
-            BiomeLibs.SetCondition("stardust", c);
-        }
 
         public override TagCompound Save()
         {
@@ -785,7 +725,7 @@ namespace TerrariaUltraApocalypse
 
         public override void PostDrawTiles()
         {
-            if (BiomeLibs.InBiome("Meteoridon") && Main.netMode == 0)
+            if (mod.GetBiome("Meteoridon").InBiome() && Main.netMode == 0)
             {
                 ScreenFog.Draw(TerrariaUltraApocalypse.SolarFog, 0.3f, 0.1f);
             }

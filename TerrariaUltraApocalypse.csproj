@@ -122,6 +122,7 @@
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\TerraFurnace.cs" />
     <Compile Include="API\TerraEnergy\Block\TerraWaste.cs" />
     <Compile Include="API\TerraEnergy\EnergyAPI\EnergyItem.cs" />
+    <Compile Include="API\TerraEnergy\EnergyAPI\EnergyWeapon.cs" />
     <Compile Include="API\TerraEnergy\UI\CapacitorUI.cs" />
     <Compile Include="API\TerraEnergy\UI\UIEnergyBar.cs" />
     <Compile Include="API\TUABlock.cs" />
@@ -158,6 +159,9 @@
     <Compile Include="API\VoidClass\VoidUtils.cs" />
     <Compile Include="Backgrounds\Meteoridon\MeteoridonBG.cs" />
     <Compile Include="Backgrounds\Solar\SolarUnderBG.cs" />
+    <Compile Include="Biomes\Meteoridon.cs" />
+    <Compile Include="Biomes\Plagues.cs" />
+    <Compile Include="Biomes\Wasteland.cs" />
     <Compile Include="Buff\Debuff\EoA\NoMountDebuff.cs" />
     <Compile Include="Buff\Debuff\EoC\EoCNerf.cs" />
     <Compile Include="Buff\Debuff\EotW\ArrowDebuff.cs" />
@@ -208,6 +212,7 @@
     <Compile Include="Items\Walls\Wasteland\WastestoneBrickWall.cs" />
     <Compile Include="Items\Wasteland\Tools\WastestoneWaraxe.cs" />
     <Compile Include="Items\Wasteland\Weapons\VenomousGreatBlade.cs" />
+    <Compile Include="Items\Weapons\Electrics\Optimor.cs" />
     <Compile Include="Items\Weapons\MechanicalBow.cs" />
     <Compile Include="Items\Weapons\MechanicalSniper.cs" />
     <Compile Include="Items\Weapons\Misc\FishronEater.cs" />
@@ -302,7 +307,7 @@
   <ItemGroup>
     <Reference Include="BiomeLibrary, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BiomeLibrary.dll</HintPath>
+      <HintPath>..\BiomeLibrary\bin\Debug\BiomeLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Dimlibs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

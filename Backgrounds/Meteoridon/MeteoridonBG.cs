@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BiomeLibrary.API;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -31,8 +32,9 @@ namespace TerrariaUltraApocalypse.Backgrounds.Meteoridon
         }
 
         public override bool ChooseBgStyle()
-        {
-            return !Main.gameMenu && BiomeLibrary.BiomeLibs.InBiome("Meteoridon");
+        {            
+            ErrorLogger.Log("I am logging : "+ mod.GetBiome("Meteoridon"));
+            return !Main.gameMenu && mod.GetBiome("Meteoridon").InBiome();
         }
     }
 }

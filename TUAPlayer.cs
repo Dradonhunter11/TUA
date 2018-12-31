@@ -1,22 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BiomeLibrary;
-using Terraria.ModLoader;
-using Terraria;
-using Microsoft.Xna.Framework;
+﻿using Terraria;
 using Terraria.DataStructures;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.GameContent.Achievements;
-using System.Reflection;
-using System.Reflection.Emit;
-using Terraria.ID;
-using Dimlibs;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.GameInput;
 
 namespace TerrariaUltraApocalypse
 {

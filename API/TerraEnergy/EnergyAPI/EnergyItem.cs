@@ -11,7 +11,7 @@ using Terraria.ModLoader.IO;
 
 namespace TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI
 {
-    public class EnergyItem : TUAModItem
+    public abstract class EnergyItem : TUAModItem
     {
         public override bool CloneNewInstances
         {
@@ -28,13 +28,9 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI
             protected set { maxEnergyStorage = value; }
         }
 
-        public override bool Autoload(ref string name)
+        public int CurrentEnergy
         {
-            if (name == "EnergyItem")
-            {
-                return false;
-            }
-            return base.Autoload(ref name);
+            get => core.getCurrentEnergyLevel(); 
         }
 
         public sealed override void SetDefaults()
@@ -77,6 +73,8 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI
             TooltipLine energyLine = new TooltipLine(mod, "energy", core.getCurrentEnergyLevel() + " / " + core.getMaxEnergyLevel() + " TE");
             tooltips.Add(energyLine);
         }
+
+        
 
         public void AddEnergy(int energy)
         {
