@@ -238,6 +238,9 @@ namespace TerrariaUltraApocalypse
                 logoOriginal = Main.logo2Texture;
                 originalMoon = Main.moonTexture;
                 SolarFog = GetTexture("CustomScreenShader/HeavyMist");
+
+                DRPSystem.Init();
+                Main.OnTick += DRPSystem.Update;
             }
 
             if (IntPtr.Size == 8)
@@ -311,6 +314,12 @@ namespace TerrariaUltraApocalypse
             FieldInfo info2 = typeof(ModLoader).GetField("versionedName",
                 BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
             info2.SetValue(null, tModLoaderVersion);
+
+            if (!Main.dedServ)
+            {
+                DRPSystem.Kill();
+                Main.OnTick -= DRPSystem.Update;
+            }
         }
 
         public override void UpdateUI(GameTime gameTime)
