@@ -248,6 +248,9 @@ namespace TerrariaUltraApocalypse
                 AllowGignaticWorld();
             }
 
+
+            DRPSystem.Init();
+            Main.OnTick += DRPSystem.Update;
         }
 
         private static void LoadModContent(Action<Mod> loadAction)
