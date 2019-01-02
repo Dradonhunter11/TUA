@@ -11,7 +11,10 @@ namespace TerrariaUltraApocalypse.API.Default
         public abstract int ItemDropID { get; }
         public abstract int ItemProjectileID { get; }
         public abstract bool sandTile { get; }
+        public abstract Color mapColor { get; }
         public virtual int dustTypeID { get; }
+        public virtual string mapLegend { get; }
+
 
         public override void SetDefaults()
         {
@@ -23,13 +26,14 @@ namespace TerrariaUltraApocalypse.API.Default
             else
             {
                 Main.tilePile[Type] = true;
+                
                 dustType = dustTypeID;
             }
             //TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidWithTop, TileObjectData.newTile.Width, 0);
             //TileObjectData.addTile(Type);
             drop = ItemDropID;
             soundStyle = 18;
-           
+            AddMapEntry(mapColor, CreateMapEntryName(mapLegend));
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)

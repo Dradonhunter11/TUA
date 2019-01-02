@@ -11,6 +11,7 @@ namespace TerrariaUltraApocalypse.Tiles.NewBiome.Meteoridon
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
+            TileID.Sets.Conversion.Stone[Type] = true; 
             drop = ItemID.DirtBlock;
             AddMapEntry(new Microsoft.Xna.Framework.Color(255, 120, 55));
         }

@@ -79,6 +79,7 @@
     <Compile Include="API\CustomInventory\UI\InputOutputSlot.cs" />
     <Compile Include="API\CustomInventory\UI\OutputOnlySlot.cs" />
     <Compile Include="API\Default\TUADefaultBlockItem.cs" />
+    <Compile Include="API\Default\TUASolution.cs" />
     <Compile Include="API\Dev\ReflectionExtension.cs" />
     <Compile Include="API\Dev\SteamID64Checker.cs" />
     <Compile Include="API\Experimental\ArrayChunk.cs" />
@@ -147,6 +148,8 @@
     <Compile Include="API\TerraEnergy\UI\FurnaceUI.cs" />
     <Compile Include="API\TerraEnergy\UI\UIItemSlot.cs" />
     <Compile Include="API\TUADimItem.cs" />
+    <Compile Include="API\TUAGlobalNPC.cs" />
+    <Compile Include="API\TUANPCLoader.cs" />
     <Compile Include="API\TUAModItem.cs" />
     <Compile Include="API\TUAModLegacyItem.cs" />
     <Compile Include="API\TUAModNPC.cs" />
@@ -199,10 +202,13 @@
     <Compile Include="Items\Dimension\StardustCrystal.cs" />
     <Compile Include="Items\EoA\SuspiciousBurnedEye.cs" />
     <Compile Include="Items\Food\Poutine.cs" />
+    <Compile Include="Items\Meteoridon\BrownSolution.cs" />
     <Compile Include="Items\Meteoridon\Materials\MeteorideScale.cs" />
     <Compile Include="Items\Materials\Wasteland\WastestoneIngot.cs" />
     <Compile Include="Items\Meteoridon\Materials\MeteoridonBar.cs" />
+    <Compile Include="Items\Meteoridon\Tiles\MeteoridonHardenedSand.cs" />
     <Compile Include="Items\Meteoridon\Tiles\MeteoridonSand.cs" />
+    <Compile Include="Items\Meteoridon\Tiles\MeteoridonSandstone.cs" />
     <Compile Include="Items\Meteoridon\Tools\MeteoridonPickAxe.cs" />
     <Compile Include="Items\Meteoridon\Weapons\MeteoridonSword.cs" />
     <Compile Include="Items\Misc\Debug\DebugStick.cs" />
@@ -233,7 +239,7 @@
     <Compile Include="NPCs\NewBiome\Meteoridon\EvolvedMeteorideWorm\EvolvedMeteorideWormHead.cs" />
     <Compile Include="NPCs\NewBiome\Meteoridon\Meteoride.cs" />
     <Compile Include="NPCs\NewBiome\Meteoridon\MeteoridonEye.cs" />
-    <Compile Include="NPCs\TUAGlobalNPC.cs" />
+    <Compile Include="NPCs\UltraEoC.cs" />
     <Compile Include="API\VoidClass\VoidItemPrefix.cs" />
     <Compile Include="NPCs\UltraBoss\UltraDestroyer\UltraDestroyerWorm.cs" />
     <Compile Include="NPCs\UltraBoss\UltraEoC\UltraEoC.cs" />
@@ -248,7 +254,11 @@
     <Compile Include="Projectiles\Misc\FishronEater\FishronBolt.cs" />
     <Compile Include="Projectiles\Misc\FishronEater\FishronTornado.cs" />
     <Compile Include="Projectiles\Misc\FishronEater\TheDuke.cs" />
+    <Compile Include="Projectiles\Solutions\MeteoridonSolution.cs" />
     <Compile Include="Projectiles\TUAGlobalProjectile.cs" />
+    <Compile Include="Raids\Items\GuideVoodooDoll.cs" />
+    <Compile Include="Raids\RaidsGlobalItem.cs" />
+    <Compile Include="Raids\RaidsGlobalNPC.cs" />
     <Compile Include="SolarWorldGen.cs" />
     <Compile Include="StardustWorldGen.cs" />
     <Compile Include="Structure\hellalt\TheHeartArena.cs" />
@@ -257,7 +267,9 @@
     <Compile Include="Tiles\Furniture\Ingots\MeteoridonIngot.cs" />
     <Compile Include="Tiles\Furniture\Ingots\TUAIngot.cs" />
     <Compile Include="Tiles\Furniture\Ingots\WastestoneIngot.cs" />
+    <Compile Include="Tiles\NewBiome\Meteoridon\MeteoridonHardenedSand.cs" />
     <Compile Include="Tiles\NewBiome\Meteoridon\MeteoridonSand.cs" />
+    <Compile Include="Tiles\NewBiome\Meteoridon\MeteoridonSandstone.cs" />
     <Compile Include="Tiles\NewBiome\Plagues\ApocalypseDirt.cs" />
     <Compile Include="Tiles\EoA\Arena.cs" />
     <Compile Include="Tiles\Machine\DivinePortal.cs" />
@@ -282,6 +294,7 @@
     <Compile Include="Items\EoA\Spawner.cs" />
     <Compile Include="NPCs\Gods\EoA\Eye_of_Apocalypse.cs" />
     <Compile Include="TerrariaUltraApocalypse.cs" />
+    <Compile Include="UIHijack\InGameUI\NPCDialog\NewNPCChatDraw.cs" />
     <Compile Include="UIHijack\MainMenu\TUAOptionMenu\CreditPanel.cs" />
     <Compile Include="UIHijack\MainMenu\MainMenuButton\ModBrowserButton.cs" />
     <Compile Include="UIHijack\MainMenu\MainMenuButton\ModsButton.cs" />
