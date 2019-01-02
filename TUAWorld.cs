@@ -18,12 +18,9 @@ namespace TerrariaUltraApocalypse
         public static bool EoADowned;
         public static bool ApoMoonDowned;
         public static bool UltraMode;
-        public static bool HallowAlt;
         public static bool Wasteland;
         public static bool EoCPostML;
 
-        public static int heartX = (Main.maxTilesX / 2) * 16;
-        public static int heartY = (Main.maxTilesY - 100) * 16;
         public static int apocalypseMoonPoint = 0;
         public static int EoCDeath = 0;
 

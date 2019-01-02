@@ -1,17 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using TerrariaUltraApocalypse.API;
 
 namespace TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon
 {
-    class MeteoridonEye : TUAModNPC
+    internal class MeteoridonEye : TUAModNPC
     {
+        private static Texture2D infernoRing;
         private bool isCharging = false;
         private int animationTimer = 25;
         private int currentFrame = 1;
@@ -45,14 +44,14 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Strange Eye");
-            Main.npcFrameCount[npc.type] = 6;
+            DisplayName.SetDefault("Meteoridon Burner");
+            Main.npcFrameCount[npc.type] = 8;
         }
 
         public override void SetDefaults()
         {
-            npc.height = 52;
-            npc.width = 92;
+            npc.height = 77 * 2;
+            npc.width = 62 * 2;
             npc.lifeMax = 250;
             npc.lavaImmune = true;
             npc.value = 10f;
@@ -60,7 +59,7 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon
             npc.aiStyle = -1;
             npc.noGravity = true;
             npc.knockBackResist = 100;
-            
+            infernoRing = ModLoader.GetTexture("Terraria/FlameRing");
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)
@@ -85,43 +84,41 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon
             }
 
             Player p = GetPlayer(npc);
-            float distance = GetDistance(npc, p);
+            float distance = GetDistance(npc, p) / 16;
 
             //Main.NewText(distance > 600f);
-            if (distance > 600f)
+            if (distance > 25)
             {
                 aggro = false;
-                
             }
             else
             {
                 aggro = true;
             }
-            if (!aggro)
+            if (!aggro || chargePower == 1000)
             {
                 Wander();
             }
-            else
+            else if(aggro && chargePower != 1000)
             {
                 Charge(p);
             }
 
+            if (distance < 15)
+            {
+                p.AddBuff(BuffID.OnFire, chargePower, true);
+            }
         }
 
         private void Charge(Player p)
         {
-            chargeTimer--;
-            if (chargeTimer <= 0)
-            {
-                isCharging = true;
-                chargeTimer = 0;
-            }
 
-            if (isCharging && !chargeReady)
+            isCharging = true;
+            
+
+            if (isCharging)
             {
                 float subit = (float)Math.PI / 2f;
-                Vector2 distance = p.Center - npc.Center;
-                npc.rotation = (float)Math.Atan2(distance.Y, distance.X);
                 npc.velocity = Vector2.Zero;
                 spawnAbunchOfDust();
                 chargePower++;
@@ -135,15 +132,8 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon
             }
             else if (chargeReady && chargePower > 0)
             {
-                chargePower -= 10;
                 npc.damage = (40 * chargePower / 100);
             }
-            else if(chargePower < 0)
-            {
-                chargePower = 0;
-                chargeReady = false;
-            }
-            
         }
 
 
@@ -166,9 +156,20 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon
             {
                 npc.velocity.X = 2;
             }
-            if (npc.velocity.Y != 0) {
+            if (npc.velocity.Y != 0)
+            {
                 npc.velocity.Y = 0;
             }
+
+            if (chargePower == 1000)
+
+            {
+                if (npc.spriteDirection == 1)
+                    npc.velocity.X = 4;
+                else
+                    npc.velocity.X = -4;
+            }
+
             isCharging = false;
             chargePower = 0;
             chargeReady = false;
@@ -188,32 +189,17 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon
                 {
                     npc.spriteDirection = -1;
                 }
-                if (!isCharging)
+                currentFrame++;
+                if (currentFrame >= 8)
                 {
-                    currentFrame++;
-                    if (currentFrame >= 3)
-                    {
-                        currentFrame = 0;
-                    }
-                }
-                else
-                {
-                    if (currentFrame <= 3)
-                    {
-                        currentFrame = 4;
-                    }
-                    currentFrame++;
-                    if (currentFrame >= 6)
-                    {
-                        currentFrame = 4;
-                    }
+                    currentFrame = 0;
                 }
                 animationTimer = 10;
                 npc.frame.Y = frameHeight * currentFrame;
             }
         }
 
-        
+
 
         public override void NPCLoot()
         {
@@ -228,11 +214,16 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon
         {
             for (int i = 0; i < 5; i++)
             {
-                 int d = Dust.NewDust(npc.Center, 5, 5, mod.DustType("FireDust"), (Main.rand.NextBool()) ? 1 : -1, (Main.rand.NextBool()) ? 1 : -1, 0, Color.White, 0.25f);
+                int d = Dust.NewDust(npc.Center, 5, 5, mod.DustType("FireDust"), (Main.rand.NextBool()) ? 1 : -1, (Main.rand.NextBool()) ? 1 : -1, 0, Color.White, 0.25f);
                 Main.dust[d].scale = 0.25f * chargePower / 50;
-                
+
             }
         }
 
+        public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            float opacity = chargePower / 100;
+            spriteBatch.Draw(infernoRing, new Vector2(npc.Center.X - Main.screenPosition.X - infernoRing.Width / 2, npc.Center.Y - Main.screenPosition.Y - infernoRing.Height / 2), Color.White * opacity);
+        }
     }
 }

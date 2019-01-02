@@ -17,7 +17,7 @@ using TerrariaUltraApocalypse.NPCs.UltraBoss.UltraEoC;
 
 namespace TerrariaUltraApocalypse.NPCs
 {
-    class TUAGlobalNPC : GlobalNPC
+    class UltraEoC : GlobalNPC
     {
         public override bool InstancePerEntity
         {
@@ -38,7 +38,7 @@ namespace TerrariaUltraApocalypse.NPCs
                 Main.NewText("You thought that was all I had?", Color.Red);
                 //Insert French Here...
                 TUAWorld.EoCPostML = true;
-                NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType<UltraEoC>());
+                NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType<UltraBoss.UltraEoC.UltraEoC>());
             }
         }
     }

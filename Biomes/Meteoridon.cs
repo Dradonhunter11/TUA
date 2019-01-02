@@ -1,5 +1,7 @@
 ﻿using BiomeLibrary.API;
 using BiomeLibrary.Enums;
+using Terraria;
+using TerrariaUltraApocalypse.Tiles.NewBiome.Meteoridon;
 
 namespace TerrariaUltraApocalypse.Biomes
 {
@@ -9,10 +11,12 @@ namespace TerrariaUltraApocalypse.Biomes
         {
             BiomeAlt = BiomeAlternative.hallowAlt;
             EvilSpecific = EvilSpecific.crimson;
-            biomeBlock.Add(mod.TileType("MeteoridonGrass"));
-            biomeBlock.Add(mod.TileType("MeteoridonSand"));
-            biomeBlock.Add(mod.TileType("MeteoridonStone"));
-            biomeBlock.Add(mod.TileType("BrownIce"));
+            biomeBlock.Add(mod.TileType<MeteoridonGrass>());
+            biomeBlock.Add(mod.TileType<MeteoridonStone>());
+            biomeBlock.Add(mod.TileType<MeteoridonSand>());
+            biomeBlock.Add(mod.TileType<BrownIce>());
+            biomeBlock.Add(mod.TileType<MeteoridonHardenedSand>());
+            biomeBlock.Add(mod.TileType("MeteoridonSandstone"));
             MinimumTileRequirement = 150;
         }
 
@@ -21,7 +25,5 @@ namespace TerrariaUltraApocalypse.Biomes
             message = "A meteor strike is happening";
             return false;
         }
-
-
     }
 }

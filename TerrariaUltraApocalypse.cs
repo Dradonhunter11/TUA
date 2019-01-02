@@ -20,6 +20,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using BiomeLibrary.API;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Terraria.GameContent.UI.States;
@@ -34,6 +35,7 @@ using TerrariaUltraApocalypse.CustomScreenShader;
 using TerrariaUltraApocalypse.CustomSkies;
 using TerrariaUltraApocalypse.Items.EoA;
 using TerrariaUltraApocalypse.Items.Meteoridon.Materials;
+using TerrariaUltraApocalypse.UIHijack.InGameUI.NPCDialog;
 using TerrariaUltraApocalypse.UIHijack.MainMenu;
 using TerrariaUltraApocalypse.UIHijack.MainMenu.TUAOptionMenu;
 using TerrariaUltraApocalypse.UIHijack.WorldSelection;
@@ -348,11 +350,11 @@ namespace TerrariaUltraApocalypse
 
 
                 DimPlayer p = Main.LocalPlayer.GetModPlayer<DimPlayer>(this);
-                if (BiomeLibs.InBiome("Meteoridon"))
+                if (this.GetBiome("Meteoridon").InBiome())
                 {
                     music = MusicID.TheHallow;
                 }
-                else if (BiomeLibs.InBiome("Plagues"))
+                else if (this.GetBiome("Plagues").InBiome())
                 {
                     music = MusicID.LunarBoss;
                 }
@@ -420,6 +422,10 @@ namespace TerrariaUltraApocalypse
                 {
                     AutoloadLiquid(type);
                 }
+                if (type.IsSubclassOf(typeof(TUAGlobalNPC)))
+                {
+                    AutoloadTUAGlobalNPC(type);
+                }
 
             }
         }
@@ -430,11 +436,17 @@ namespace TerrariaUltraApocalypse
             LiquidRegistery.getInstance().addNewModLiquid(liquid);
         }
 
+        private void AutoloadTUAGlobalNPC(Type type)
+        {
+            TUAGlobalNPC globalNPC = (TUAGlobalNPC)Activator.CreateInstance(type);
+            TUANPCLoader.addTUAGlobalNPC(globalNPC);
+        }
+
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             int MouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
             int setting = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
-
+            int npcDialog = layers.FindIndex(layer => layer.Name.Equals("Vanilla: NPC / Sign Dialog"));
             
 
             if (MouseTextIndex != -1)
@@ -451,6 +463,15 @@ namespace TerrariaUltraApocalypse
                     },
                     InterfaceScaleType.UI)
                 );
+            }
+
+            if (npcDialog != -1)
+            {
+                layers[npcDialog] = new LegacyGameInterfaceLayer("Vanilla: NPC / Sign Dialog", delegate
+                {
+                    NewNPCChatDraw.GUIChatDraw();
+                    return true;
+                }, InterfaceScaleType.UI);
             }
         }
 

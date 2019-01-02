@@ -116,6 +116,22 @@ namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
             skipReadInt32Block(reader, 17);
             dictionary.Add("WorldSpawnTileX", reader.ReadInt32());
             dictionary.Add("WorldSpawnTileY", reader.ReadInt32());
+            skipReadDoubleBlock(reader, 3);
+            reader.ReadBoolean();
+            reader.ReadInt32();
+            skipReadBoolBlock(reader, 2);
+            dictionary.Add("DungeonX", reader.ReadInt32());
+            dictionary.Add("DungeonY", reader.ReadInt32());
+            dictionary.Add("Crimson", reader.ReadBoolean());
+            skipReadBoolBlock(reader, 10);
+            if (num >= 118)
+            {
+                reader.ReadBoolean();
+            }
+            skipReadBoolBlock(reader, 9);
+            reader.ReadByte();
+            reader.ReadInt32();
+            dictionary.Add("Hardmode", reader.ReadBoolean());
         }
 
         public static int LoadWorld_Version2(WorldFileData data, BinaryReader reader, Dictionary<string, object> dictionary)
@@ -239,5 +255,22 @@ namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
                 reader.ReadInt32();
             }
         }
+
+        private static void skipReadDoubleBlock(BinaryReader reader, int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                reader.ReadDouble();
+            }
+        }
+
+        private static void skipReadBoolBlock(BinaryReader reader, int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                reader.ReadBoolean();
+            }
+        }
     }
+
 }

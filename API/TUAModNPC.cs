@@ -4,8 +4,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using BiomeLibrary.API;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
+using TerrariaUltraApocalypse.Items.Meteoridon;
 using TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass;
 
 
@@ -55,6 +58,15 @@ namespace TerrariaUltraApocalypse.API
             if (damage >= damageCap)
             {
                 damage = damageCap;
+            }
+        }
+
+        public override void SetupShop(Chest shop, ref int nextSlot)
+        {
+            if (npc.type == NPCID.Steampunker && mod.GetBiome("Meteoridon").InBiome())
+            {
+                shop.item[nextSlot] = mod.GetItem<BrownSolution>().item;
+                nextSlot++;
             }
         }
     }
