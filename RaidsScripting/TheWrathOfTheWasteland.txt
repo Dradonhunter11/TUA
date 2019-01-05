@@ -57,7 +57,7 @@ Player get teleported to the heart of the wasteland and see it's eye opening
 Fight start
 During fight:
 <Heart of the Wasteland> JOIN US, WE CAN ALL BE TOGETHER AGAIN
-<Heart of the Wasteland> WE ARE MADE FROM THE SAME FLESH, WE USED TO BE A FAMILLY BUT NOW WE HAVE BECOME THIS HORROR
+<Heart of the Wasteland> WE ARE MADE FROM THE SAME FLESH, WE USED TO BE A FAMILLY BUT NOW I HAVE BECOME THIS HORROR
 
 at 75% health
 <Heart of the Wasteland> STOP! S T O P! YOU WON'T PUT US BACK INTO SLEEP
