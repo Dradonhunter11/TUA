@@ -1,29 +1,19 @@
+using BiomeLibrary.API;
+using Dimlibs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using TerrariaUltraApocalypse.NPCs;
-using BiomeLibrary;
-using TerrariaUltraApocalypse.API.TerraEnergy.UI;
-using Terraria.UI;
 using System.Collections.Generic;
-using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
-using System.Reflection;
-using Terraria.Graphics.Effects;
-using TerrariaUltraApocalypse.Dimension.Sky;
-using Terraria.Localization;
-using Dimlibs;
-using System.Runtime.CompilerServices;
-using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using BiomeLibrary.API;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
+using Terraria;
 using Terraria.GameContent.UI.States;
+using Terraria.Graphics.Effects;
+using Terraria.ID;
+using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria.UI;
 using TerrariaUltraApocalypse.API;
 using TerrariaUltraApocalypse.API.Dev;
 using TerrariaUltraApocalypse.API.Experimental;
@@ -31,18 +21,23 @@ using TerrariaUltraApocalypse.API.Injection;
 using TerrariaUltraApocalypse.API.LiquidAPI;
 using TerrariaUltraApocalypse.API.LiquidAPI.Test;
 using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge;
+using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
 using TerrariaUltraApocalypse.CustomScreenShader;
 using TerrariaUltraApocalypse.CustomSkies;
+using TerrariaUltraApocalypse.Dimension.Sky;
 using TerrariaUltraApocalypse.Items.EoA;
 using TerrariaUltraApocalypse.Items.Meteoridon.Materials;
+using TerrariaUltraApocalypse.NPCs;
+using TerrariaUltraApocalypse.Raids.UI;
 using TerrariaUltraApocalypse.UIHijack.InGameUI.NPCDialog;
 using TerrariaUltraApocalypse.UIHijack.MainMenu;
 using TerrariaUltraApocalypse.UIHijack.MainMenu.TUAOptionMenu;
 using TerrariaUltraApocalypse.UIHijack.WorldSelection;
+using ModExtension = BiomeLibrary.API.ModExtension;
 
 namespace TerrariaUltraApocalypse
 {
-    class TerrariaUltraApocalypse : Mod
+    internal class TerrariaUltraApocalypse : Mod
     {
         internal static string version = "0.1 dev";
         internal static String tModLoaderVersion2 = "";
@@ -51,16 +46,17 @@ namespace TerrariaUltraApocalypse
         internal static TerrariaUltraApocalypse instance;
 
         public static bool EoCUltraActivated = false;
-        private Type t2d = typeof(Texture2D);
-        private Main instance2 = Main.instance;
-        private string savePath, worldPath, playerPath;
+        private readonly Type t2d = typeof(Texture2D);
+        private readonly Main instance2 = Main.instance;
+        private readonly string savePath, worldPath, playerPath;
         private Texture2D logoOriginal;
         public static Texture2D[] originalMoon;
 
         public static Texture2D SolarFog;
-        
+
         public static UserInterface machineInterface;
         public static UserInterface CapacitorInterface;
+        public static UserInterface raidsInterface;
 
         public string animate = $"TmodLoader v.0.10.1.4 - TUA v{version} - ";
 
@@ -68,17 +64,11 @@ namespace TerrariaUltraApocalypse
         private List<string> quote = new List<string>();
 
         private UIWorldSelect originalWorldSelect;
-        private MainMenuUI newMainMenu = new MainMenuUI();
+        private readonly MainMenuUI newMainMenu = new MainMenuUI();
         internal static TUASettingMenu setting = new TUASettingMenu();
+        internal static RaidsUI raidsUI = new RaidsUI();
 
         public static readonly string SAVE_PATH = Main.SavePath;
-
-        [DllImport("User32.dll")]
-        static extern bool SystemParametersInfo(
-            uint uiAction,
-            uint uiParam,
-            IntPtr pvParam,
-            uint fWinIni);
 
         public const uint SPI_GETMOUSESPEED = 0x0070;
 
@@ -176,7 +166,7 @@ namespace TerrariaUltraApocalypse
             {
                 for (int j = 0; j < Main.maxTilesY; j++)
                 {
-                    tiles[i, j] = Main.tile[i, j];                 
+                    tiles[i, j] = Main.tile[i, j];
                 }
             }
         }
@@ -197,7 +187,7 @@ namespace TerrariaUltraApocalypse
             LiquidRegistery.MassMethodSwap();
             Console.Write("AM I NULL? " + typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
             MethodInfo attempt = typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
-                .GetMethod("PopulateModBrowser", BindingFlags.Instance | BindingFlags.Static |BindingFlags.Public | BindingFlags.NonPublic);
+                .GetMethod("PopulateModBrowser", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
             ReflectionExtension.MethodSwap(typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
 
             Random r = new Random();
@@ -218,6 +208,7 @@ namespace TerrariaUltraApocalypse
 
             machineInterface = new UserInterface();
             CapacitorInterface = new UserInterface();
+            raidsInterface = new UserInterface();
 
             Filters.Scene["TerrariaUltraApocalypse:TUAPlayer"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
             SkyManager.Instance["TerrariaUltraApocalypse:TUAPlayer"] = new TUACustomSky();
@@ -277,7 +268,7 @@ namespace TerrariaUltraApocalypse
             Main.tile = new Tile[25200, 7200];
             Main.maxTilesX = 25200;
             Main.maxTilesY = 7200;
-            
+
         }
 
 
@@ -333,7 +324,11 @@ namespace TerrariaUltraApocalypse
             {
                 machineInterface.Update(gameTime);
             }
-            
+
+            if (raidsInterface != null && raidsInterface.IsVisible)
+            {
+                raidsInterface.Update(gameTime);
+            }
         }
 
         public override void UpdateMusic(ref int music, ref MusicPriority musicPriority)
@@ -381,7 +376,7 @@ namespace TerrariaUltraApocalypse
                     musicPriority = MusicPriority.Environment;
 
                 }
-             }
+            }
 
             if (Main.menuMode == 0)
             {
@@ -422,7 +417,9 @@ namespace TerrariaUltraApocalypse
         {
 
             if (mod.Code == null)
+            {
                 return;
+            }
 
             foreach (Type type in mod.Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture))
             {
@@ -459,18 +456,30 @@ namespace TerrariaUltraApocalypse
             int MouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
             int setting = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
             int npcDialog = layers.FindIndex(layer => layer.Name.Equals("Vanilla: NPC / Sign Dialog"));
-            
+
 
             if (MouseTextIndex != -1)
-            { 
+            {
                 layers.Insert(MouseTextIndex, new LegacyGameInterfaceLayer(
                     "TUA : Furnace GUI",
                     delegate
                     {
                         if (machineInterface.IsVisible && Main.playerInventory)
                         {
-                            machineInterface.CurrentState.Draw(Main.spriteBatch);;
+                            machineInterface.CurrentState.Draw(Main.spriteBatch); ;
                         }
+                        return true;
+                    },
+                    InterfaceScaleType.UI)
+                );
+                layers.Insert(MouseTextIndex, new LegacyGameInterfaceLayer(
+                    "TUA : Raids GUI", delegate
+                    {
+                        if (raidsInterface.IsVisible)
+                        {
+                            raidsInterface.CurrentState.Draw(Main.spriteBatch);
+                        }
+
                         return true;
                     },
                     InterfaceScaleType.UI)

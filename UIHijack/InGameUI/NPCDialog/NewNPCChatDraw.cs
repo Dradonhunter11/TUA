@@ -734,7 +734,7 @@ namespace TerrariaUltraApocalypse.UIHijack.InGameUI.NPCDialog
                                 Main.PlaySound(12, -1, -1, 1, 1f, 0f);
                                 return;
                             }
-                            if (Main.npc[Main.player[Main.myPlayer].talkNPC].type == 22)
+                            if (Main.npc[Main.player[Main.myPlayer].talkNPC].type == 22 && NPC.downedBoss3)
                             {
                                 Main.PlaySound(12, -1, -1, 1, 1f, 0f);
                                 HelpText.Invoke(null, new object[]{});

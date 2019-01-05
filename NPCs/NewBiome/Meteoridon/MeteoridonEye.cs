@@ -126,7 +126,6 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon
                 {
                     Vector2 nPos = npc.Center;
                     Vector2 pPos = p.Center;
-                    npc.velocity = (pPos - nPos) * chargePower / 500;
                     chargeReady = true;
                 }
             }
@@ -222,7 +221,7 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon
 
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            float opacity = chargePower / 100;
+            float opacity = chargePower / 10000f;
             spriteBatch.Draw(infernoRing, new Vector2(npc.Center.X - Main.screenPosition.X - infernoRing.Width / 2, npc.Center.Y - Main.screenPosition.Y - infernoRing.Height / 2), Color.White * opacity);
         }
     }

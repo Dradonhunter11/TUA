@@ -11,7 +11,7 @@ namespace TerrariaUltraApocalypse.API
     {
         public virtual void modifyNPCButtonChat(NPC npc, ref string button, ref string button2)
         {
-
+            
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Text;
 using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace TerrariaUltraApocalypse.API
@@ -104,6 +105,17 @@ namespace TerrariaUltraApocalypse.API
                 }
             }
             return validCase == rowCount * columnCount;
+        }
+
+        public static String ToString(this ModTranslation self)
+        {
+            GameCulture culture = Language.ActiveCulture;
+            if (culture == GameCulture.English || self.GetTranslation(culture) == null)
+            {
+                return self.GetDefault();
+            }
+
+            return self.GetTranslation(culture);
         }
     }
 }

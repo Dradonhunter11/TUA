@@ -126,6 +126,7 @@
     <Compile Include="API\TerraEnergy\EnergyAPI\EnergyWeapon.cs" />
     <Compile Include="API\TerraEnergy\UI\CapacitorUI.cs" />
     <Compile Include="API\TerraEnergy\UI\UIEnergyBar.cs" />
+    <Compile Include="API\TranslationWrapper.cs" />
     <Compile Include="API\TUABlock.cs" />
     <Compile Include="API\TerraEnergy\Core.cs" />
     <Compile Include="API\TerraEnergy\Items\Block\BasicCapacitor.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="API\TUAModLegacyItem.cs" />
     <Compile Include="API\TUAModNPC.cs" />
     <Compile Include="API\UI\UIPanelTrigger.cs" />
+    <Compile Include="API\UI\UIScrollingText.cs" />
     <Compile Include="API\VoidClass\VoidDamageGlobalNPC.cs" />
     <Compile Include="API\VoidClass\VoidDamageItem.cs" />
     <Compile Include="API\VoidClass\VoidDamageNPC.cs" />
@@ -223,6 +225,7 @@
     <Compile Include="Items\Weapons\MechanicalBow.cs" />
     <Compile Include="Items\Weapons\MechanicalSniper.cs" />
     <Compile Include="Items\Weapons\Misc\FishronEater.cs" />
+    <Compile Include="Localization\LocalizationManager.cs" />
     <Compile Include="MoonEvent\ApocalypseMoon.cs" />
     <Compile Include="MoonEvent\ApocalypseWMoon.cs" />
     <Compile Include="NPCs\AI\Worm.cs" />
@@ -256,9 +259,12 @@
     <Compile Include="Projectiles\Misc\FishronEater\TheDuke.cs" />
     <Compile Include="Projectiles\Solutions\MeteoridonSolution.cs" />
     <Compile Include="Projectiles\TUAGlobalProjectile.cs" />
+    <Compile Include="Raids\RaidsWorld.cs" />
     <Compile Include="Raids\Items\GuideVoodooDoll.cs" />
     <Compile Include="Raids\RaidsGlobalItem.cs" />
     <Compile Include="Raids\RaidsGlobalNPC.cs" />
+    <Compile Include="Raids\UI\RaidsPanel.cs" />
+    <Compile Include="Raids\UI\RaidsUI.cs" />
     <Compile Include="SolarWorldGen.cs" />
     <Compile Include="StardustWorldGen.cs" />
     <Compile Include="Structure\hellalt\TheHeartArena.cs" />
@@ -365,6 +371,7 @@
     <Folder Include="Items\Meteoridon\Walls\" />
     <Folder Include="Items\Weapons\EoA\" />
     <Folder Include="NPCs\Dimension\Solar\" />
+    <Folder Include="Raids\Script\" />
     <Folder Include="Tiles\Furniture\Demon\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
