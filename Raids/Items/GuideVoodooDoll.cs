@@ -14,7 +14,7 @@ namespace TerrariaUltraApocalypse.Raids.Items
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Guide voodoo doll");
+            DisplayName.SetDefault("Guide Voodoo Doll");
             Tooltip.AddLine("Bring it to the guide");
             Tooltip.AddLine("Used to start the great hell ride raids!");
             DisplayName.AddTranslation(GameCulture.French, "Poupé voodoo du guide");
