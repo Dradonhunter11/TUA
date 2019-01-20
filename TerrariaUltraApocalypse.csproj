@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -185,6 +185,7 @@
     <Compile Include="Dimension\MicroBiome\StardustFrozenForest.cs" />
     <Compile Include="Dimension\Sky\SolarScreenShaderData.cs" />
     <Compile Include="Dimension\Sky\StardustCustomSky.cs" />
+    <Compile Include="DRPSystem.cs" />
     <Compile Include="Dusts\EotW\ArrowDust.cs" />
     <Compile Include="Dusts\EotW\BulletDust.cs" />
     <Compile Include="Dusts\EotW\MagicDust.cs" />
@@ -333,6 +334,9 @@
     <Reference Include="Dimlibs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dimlibs\bin\Release\Dimlibs.dll</HintPath>
+    </Reference>
+	<Reference Include="drpc">
+      <HintPath>.\lib\drpc.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\..\..\..\TerrariaFullsource\Tmodloader 64bit 0.11- Beta 1\tModLoader-0.11-beta1 - original patch\src\tModLoader\bin\WindowsDebug\log4net.dll</HintPath>

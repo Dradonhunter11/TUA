@@ -1,21 +1,21 @@
 The Wrath of the Wasteland
 
 Stage 0 - The start :
-<Guide> Recently fellow villager been reporting massive earthquake in the wasteland, I fear the that heart of the wasteland is angry again.
-<Infinity Traveler> You are right, the core is mad again and want to destroy the world, make sure that it won't happen at any cost
-<Guide> You'll have to defeat it, terrarian. But you'll first need some preparation in order to proceed
+<Guide> Recently, fellow villagers have been reporting massive earthquakes in the wasteland, I fear the that Heart of the Wasteland is angry again.
+<Infinity Traveler> You are right, the core is mad again and want to destroy the world, so you, Terrarian, must make sure that it won't happen at any cost.
+<Guide> You'll have to defeat it, ut you'll first need some preparation in order to face the danger ahead.
 
 Stage 1 - The wasteland infection
 <Guide> Some sort of overgrowth was seen in the jungle, do you think you can check that?
 
 At 100 block away
-<Infinity Traveler> I can feel it, it's closer, continue to search around
-<Heart of the wasteland> COME CLOSER, WE ARE WAITING FOR YOU, YOU'LL BE CONSUMMED LIKE WE DID
+<Infinity Traveler> I can feel it, it's close, continue to search around.
+<Heart of the wasteland> COME CLOSER ADVENTURER, YOU CAN JOIN US AND BECOME ETERNAL!
 
 On engaging the overgrowth
-<Heart of the wasteland> YOU CANNOT DESTROY US, WE ARE ONE TO THE WORLD
+<Heart of the wasteland> YOU CANNOT DESTROY US, WE ARE ONE TO THE WORLD!
 <Infinity Traveler> Ugh, this thing is actually stronger than last time, kill the overgrowth and get it's vine, it might be useful
-<Heart of the wasteland> WE GOT DEFEATED ONCE BY A TRAVELLER, I WON'T LET THAT HAPPEN AGAIN.
+<Heart of the wasteland> LONG AGO, A TRAVELLER LET US TASTE DEFEATE, WE WILL NOT ALLOW IT AGAIN.
 
 When overgrowth is at 50% health
 <Infinity Traveler> It's good, I can feel being weaker...
@@ -24,49 +24,49 @@ When overgrowth is at 50% health
 
 When overgrowth is defeated 
 <Heart of the Wasteland> I'M NOT DONE WITH YOU, IT'S ONLY THE START OF THE END, YOU'LL PAY FOR WHAT YOU HAVE DONE
-<Infinity Traveler> Good job terrarian, this overgrowth is no longer a treat for now, now report it back to {GUIDE NAME}
+<Infinity Traveler> Good job Terrarian, this overgrowth is no longer a threat for now, now report it back to {GUIDE NAME}
 
 Stage 2 - The preparation
-<Guide> Good job on taking down the overgrowth, it could have been a real treats to the world.
-<Infinity Traveler> Take those hardened vine, they will come handy, I found them on the overgrowth.
+<Guide> Good job on taking down the overgrowth, it could have been a real threat to the world.
+<Infinity Traveler> Take those hardened vines, they will come handy, I found them on the overgrowth.
 <Guide> So now that the overgrowth has been defeated, get into the wasteland and casuse some trouble
 
 Once into the wasteland
 <Infinity Traveler> Start killing some tracer, it might get the core attention
 
 After 50 tracer being killed 
-<Heart of the Wasteland> TERRARIAN, I CAN FEEL MY MINION BEING KILLED, YOU WILL REGRET YOUR ACTION
-<Infinity Traveler> Good, we can get out, next go to the crimson, wasteland creature had been seen there, maybe an overgrowth is there.
+<Heart of the Wasteland> HOW DARE YOU TRESPASS INTO MY LAND AND ROB MY LOYAL SERVANTS OF THEIR LIFE! I WILL FIND AND DESTROY YOU, TERRARIAN!
+<Infinity Traveler> Good, we can get out, next go to the crimson, wasteland creatures have been seen there, maybe an overgrowth is there.
 
 In crimson
 <Infinity Traveler> Now find that overgrowth and make it stop, it's becoming a real treat to the world.
 <Heart of the Wasteland> SPREAD, DESTROY
 
 On destroying the overgrowth
-<Heart of the Wasteland> NOW WE ARE ANGRY
-<Infinity Traveler> That did it, the core is now distracted, get back to the guide to report it.
+<Heart of the Wasteland> OUR ANGER IS SWELLING
+<Infinity Traveler> That did it, the core is now distracted, get back to {GUIDE NAME} to report it.
 
 Stage 3 - The Heart of the Wasteland
 <Guide> Good job on destroying that overgrowth...
 
 Player get teleported to the heart of the wasteland and see it's eye opening
-<Heart of the Wasteland> YOU MADE US GO OUT OF SLEEP, NOW YOU'LL JOIN US LIKE THE OTHER
-<Heart of the Wasteland> TERRARIAN, AS THE KINF OF THE WASTELAND I SENTENCE YOU TO DEATH
+<Heart of the Wasteland> YOU WOKE US UP, ATTACKED US, TRESPASSED IN OUR REALM, AND NOW, WE WILL ABSORB YOU JUST LIKE WE DID WITH EVERY OTHER FOOL WHO VENTURED INTO OUR LAND.
+<Heart of the Wasteland> TERRARIAN, AS THE OVERLORD OF THE WASTELAND I SENTENCE YOU TO DEATH
 <Infinity Traveler> That cannot be good at all, calm it fast before it cause more damage, this weapon might help you.
 
 Fight start
 During fight:
-<Heart of the Wasteland> JOIN US, WE CAN ALL MAKE A WHOLE FAMILY AGAIN
-<Heart of the Wasteland> WE ARE MADE FROM THE SAME FLESH, WE USED TO BE A FAMILLY BUT NOW I AM THIS HORROR
+<Heart of the Wasteland> JOIN US, WE CAN ALL BE TOGETHER AGAIN
+<Heart of the Wasteland> WE ARE MADE FROM THE SAME FLESH, WE USED TO BE A FAMILLY BUT NOW I HAVE BECOME THIS HORROR
 
 at 75% health
 <Heart of the Wasteland> STOP! S T O P! YOU WON'T PUT US BACK INTO SLEEP
 
 at 50% health 
-<Heart of the Wasteland> FOOL, YOU CAN'T STOP US, WE ARE BILLION
+<Heart of the Wasteland> FOOL, YOU CAN'T STOP US, THE SOULS WE HAVE CONSUMED ARE BILLION!
 
 at 25% health
-<Heart of the Wasteland> THIS CAN'T BE POSSIBLE
+<Heart of the Wasteland> THIS CAN'T BE POSSIBLE, HOW CAN YOU AMASS SUCH STRENGTH??
 
 Upon defeat
 <Heart of the Wasteland> Thanks terrarians, I can finally get back to sleep...

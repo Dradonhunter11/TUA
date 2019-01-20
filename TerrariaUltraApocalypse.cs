@@ -237,6 +237,9 @@ namespace TerrariaUltraApocalypse
                 logoOriginal = Main.logo2Texture;
                 originalMoon = Main.moonTexture;
                 SolarFog = GetTexture("CustomScreenShader/HeavyMist");
+
+                DRPSystem.Init();
+                Main.OnTick += DRPSystem.Update;
             }
 
             if (IntPtr.Size == 8)
@@ -244,6 +247,9 @@ namespace TerrariaUltraApocalypse
                 AllowGignaticWorld();
             }
 
+
+            DRPSystem.Init();
+            Main.OnTick += DRPSystem.Update;
         }
 
         private static void LoadModContent(Action<Mod> loadAction)
@@ -321,6 +327,12 @@ namespace TerrariaUltraApocalypse
             FieldInfo info2 = typeof(ModLoader).GetField("versionedName",
                 BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
             info2.SetValue(null, string.Format("tModLoader v{0}", (object)Terraria.ModLoader.ModLoader.version) + (Terraria.ModLoader.ModLoader.branchName.Length == 0 ? "" : " " + Terraria.ModLoader.ModLoader.branchName) + (Terraria.ModLoader.ModLoader.beta == 0 ? "" : string.Format(" Beta {0}", (object)Terraria.ModLoader.ModLoader.beta)));
+
+            if (!Main.dedServ)
+            {
+                DRPSystem.Kill();
+                Main.OnTick -= DRPSystem.Update;
+            }
         }
 
         public override void UpdateUI(GameTime gameTime)

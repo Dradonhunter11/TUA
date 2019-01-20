@@ -27,9 +27,8 @@ namespace TerrariaUltraApocalypse.API.CustomInventory.UI
         public override void Update(GameTime gameTime)
         {
             ModItem item = boundSlot.getItem(false).modItem;
-            if (item is EnergyItem)
+            if (item is EnergyItem energyItem)
             {
-                EnergyItem energyItem = item as EnergyItem;
                 if (!energyItem.isFull())
                 {
                     energyItem.AddEnergy(storageEntity.energy.consumeEnergy(maxTransferRate));
