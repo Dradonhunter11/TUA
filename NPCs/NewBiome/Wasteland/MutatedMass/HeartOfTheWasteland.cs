@@ -15,7 +15,7 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass
     [AutoloadBossHead]
     class HeartOfTheWasteland : TUAModNPC
     {
-        private bool isSleeping;
+        public bool SleepState { get; set; }
 
         private static readonly string HEAD_PATH = "TerrariaUltraApocalypse/NPCs/NewBiome/Wasteland/MutatedMass/HeartOfTheWasteland_head";
 
@@ -51,7 +51,7 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass
             npc.noGravity = true;
             npc.aiStyle = -1;
             NPCID.Sets.MustAlwaysDraw[npc.type] = true;
-            isSleeping = true;
+            SleepState = true;
 
             for (int i = 0; i < npc.buffImmune.Length; i++)
             {
@@ -64,13 +64,16 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass
 
         public override void AI()
         {
-            if (isSleeping)
+            if (SleepState)
             {
                 npc.dontTakeDamage = true;
                 return;
             }
+            /*
+             * Can someone explain what this is for - Agrair
             npc.boss = true;
             npc.immortal = false;
+            */
 
         }
 
@@ -79,14 +82,9 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass
             return false;
         }
 
-        public void setSleepState(bool sleepState)
-        {
-            isSleeping = sleepState;
-        }
-
         public override void BossHeadSlot(ref int index)
         {
-            if (isSleeping)
+            if (SleepState)
             {
                 index = NPCHeadLoader.GetBossHeadSlot(HEAD_PATH + "0");
             }
@@ -95,7 +93,5 @@ namespace TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass
                 index = NPCHeadLoader.GetBossHeadSlot(HEAD_PATH + "1");
             }
         }
-
-
     }
 }
