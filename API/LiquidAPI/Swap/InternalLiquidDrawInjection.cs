@@ -15,6 +15,7 @@ using Terraria.GameContent.Liquid;
 using Terraria.Graphics;
 using Terraria.Utilities;
 using TerrariaUltraApocalypse.API.Dev;
+using TerrariaUltraApocalypse.API.LiquidAPI.LiquidMod;
 
 namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
 {
@@ -25,17 +26,36 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
             Type liquidRenderer = typeof(LiquidRenderer);
             Type customRenderer = typeof(LiquidRendererExtension);
 
-            ReflectionExtension.MethodSwap(typeof(Main), "DrawWater", customRenderer, "DrawWater");
-            ReflectionExtension.MethodSwap(liquidRenderer, "PrepareDraw", customRenderer, "PrepareDraw");
+            //ReflectionExtension.MethodSwap(typeof(Main), "DrawWater", customRenderer, "DrawWater");
+            //ReflectionExtension.MethodSwap(liquidRenderer, "PrepareDraw", customRenderer, "PrepareDraw");
             ReflectionExtension.MethodSwap(liquidRenderer, "HasFullWater", customRenderer, "HasFullWater");
             ReflectionExtension.MethodSwap(liquidRenderer, "Update", customRenderer, "Update");
             ReflectionExtension.MethodSwap(liquidRenderer, "SetWaveMaskData", customRenderer, "SetWaveMaskData");
+            //ReflectionExtension.MethodSwap(liquidRenderer, "InternalDraw", customRenderer, "InternalDraw");
+            LiquidRendererExtension.Instance.load();
         }
 
     }
 
-    class LiquidRendererExtension
+    public class LiquidRendererExtension
     {
+
+        public static readonly LiquidRendererExtension Instance = new LiquidRendererExtension();
+
+        public void load()
+        {
+            On.Terraria.GameContent.Liquid.LiquidRenderer.InternalDraw += LiquidRendererExtension.InternalDraw;
+            On.Terraria.GameContent.Liquid.LiquidRenderer.InternalPrepareDraw += LiquidRendererExtension.InternalPrepareDraw;
+        }
+
+        public void unload()
+        {
+            On.Terraria.GameContent.Liquid.LiquidRenderer.InternalDraw -= LiquidRendererExtension.InternalDraw;
+            On.Terraria.GameContent.Liquid.LiquidRenderer.InternalPrepareDraw -= LiquidRendererExtension.InternalPrepareDraw;
+        }
+
+        public static Texture2D[] liquidTexture2D = (Texture2D[]) LiquidRenderer.Instance._liquidTextures.Clone(); 
+
         private struct LiquidDrawCache
         {
             public Rectangle SourceRectangle;
@@ -78,6 +98,24 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
         {
             0.6f,
             0.95f,
+            0.95f,
+            0.95f,
+            0.95f,
+            0.95f,
+            0.95f,
+            0.95f,
+            0.95f,
+            0.95f,
+            0.95f,
+            0.95f,
+            0.95f,
+            0.95f,
+            0.95f,
+            0.95f,
+            0.95f,
+            0.95f,
+            0.95f,
+            0.95f,
             0.95f
         };
 
@@ -106,7 +144,7 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
         };
 
         private static LiquidDrawCache[] _drawCache = new LiquidDrawCache[1];
-        private LiquidCache[] _cache = new LiquidCache[1];
+        private static LiquidCache[] _cache = new LiquidCache[1];
 
 
         protected void DrawWater(bool bg = false, int Style = 0, float Alpha = 1f)
@@ -121,7 +159,8 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             Vector2 drawOffset = (Main.drawToScreen ? Vector2.Zero : new Vector2((float)Main.offScreenRange, (float)Main.offScreenRange)) - Main.screenPosition;
-            Draw(Main.spriteBatch, drawOffset, Style, Alpha, bg);
+            Draw(Main.spriteBatch, drawOffset, Style, Alpha, false);
+
             if (!bg)
             {
                 TimeLogger.DrawTime(4, stopwatch.Elapsed.TotalMilliseconds);
@@ -130,12 +169,12 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
 
         public void Draw(SpriteBatch spriteBatch, Vector2 drawOffset, int waterStyle, float alpha, bool isBackgroundDraw)
         {
-            InternalDraws(spriteBatch, drawOffset, waterStyle, alpha, isBackgroundDraw);
+            //InternalDraw(spriteBatch, drawOffset, waterStyle, alpha, isBackgroundDraw);
         }
 
         public void PrepareDraw(Rectangle drawArea)
         {
-            InternalPrepareDraw(drawArea);
+            //InternalPrepareDraw(drawArea);
         }
 
         public bool HasFullWater(int x, int y)
@@ -149,7 +188,7 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
             return num < 0 || num >= _drawCache.Length || (_drawCache[num].IsVisible && !_drawCache[num].IsSurfaceLiquid);
         }
 
-        private unsafe void InternalPrepareDraw(Rectangle drawArea)
+        protected static unsafe void InternalPrepareDraw(On.Terraria.GameContent.Liquid.LiquidRenderer.orig_InternalPrepareDraw orig, LiquidRenderer renderer, Rectangle drawArea)
         {
 
             FieldInfo _animationFrameInfo =
@@ -171,9 +210,9 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
             Rectangle _drawArea = (Rectangle)_drawAreaInfo.GetValue(LiquidRenderer.Instance);
             _drawArea = drawArea;
 
-            if (this._cache.Length < rectangle.Width * rectangle.Height + 1)
+            if (_cache.Length < rectangle.Width * rectangle.Height + 1)
             {
-                this._cache = new LiquidCache[rectangle.Width * rectangle.Height + 1];
+                _cache = new LiquidCache[rectangle.Width * rectangle.Height + 1];
             }
             if (_drawCache.Length < drawArea.Width * drawArea.Height + 1)
             {
@@ -183,7 +222,7 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
             {
                 _waveMask = new Color[drawArea.Width * drawArea.Height];
             }
-            fixed (LiquidCache* ptr = &this._cache[1])
+            fixed (LiquidCache* ptr = &_cache[1])
             {
                 LiquidCache* ptr2 = ptr;
                 int num = rectangle.Height * 2 + 2;
@@ -203,7 +242,7 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
                         ptr2->HasLiquid = (tile.liquid != 0);
                         ptr2->VisibleLiquidLevel = 0f;
                         ptr2->HasWall = (tile.wall != 0);
-                        ptr2->Type = tile.liquidType();
+                        ptr2->Type = /*tile.liquidType();*/LiquidCore.grid[i, j].liquidsType();
                         if (ptr2->IsHalfBrick && !ptr2->HasLiquid)
                         {
                             ptr2->Type = ptr2[-1].Type;
@@ -370,7 +409,8 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
                             {
                                 zero.Y += 16;
                             }
-                            ptr2->FrameOffset = zero;
+
+                            ptr2->FrameOffset =  zero;
                         }
                         ptr2++;
                     }
@@ -545,11 +585,12 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
                                 {
                                     ptr5->IsVisible = false;
                                     int num24 = (!ptr2->IsSolid && !ptr2->IsHalfBrick) ? 4 : 3;
-                                    byte b3 = WAVE_MASK_STRENGTH[num24];
+                                    bool flag = (!ptr2->IsSolid && !ptr2->IsHalfBrick);
+                                    byte b3 = (byte) ((flag)?0:255);
                                     byte b4 = (byte)(b3 >> 1);
                                     ptr6->R = b4;
                                     ptr6->G = b4;
-                                    ptr6->B = VISCOSITY_MASK[num24];
+                                    ptr6->B = 0;
                                     ptr6->A = b3;
                                 }
                                 ptr2++;
@@ -592,14 +633,18 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
                 }
             }
 
-            FieldInfo waveFiltersVarInfo = typeof(LiquidRenderer).GetField("WaveFilters", BindingFlags.Public | BindingFlags.Instance);
+            EventInfo waveFilterInfo =
+                typeof(LiquidRenderer).GetEvent("WaveFilters", BindingFlags.Public | BindingFlags.Instance);
+            
 
-
-            if (waveFiltersVarInfo != null)
+            if (waveFilterInfo != null)
             {
-                Action<Color[], Rectangle> waveFilter =
-                    (Action<Color[], Rectangle>) waveFiltersVarInfo.GetValue(LiquidRenderer.Instance);
-                waveFilter(_waveMask, _drawArea);
+                Object[] waveObject = {_waveMask, _drawArea};
+                MethodInfo[] methodArray = waveFilterInfo.GetOtherMethods();
+                foreach (MethodInfo m in methodArray)
+                {
+                    m.Invoke(LiquidRenderer.Instance, waveObject);
+                }
             }
 
             _waveMaskInfo.SetValue(LiquidRenderer.Instance, _waveMask);
@@ -632,6 +677,8 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
                 texture = new Texture2D(Main.instance.GraphicsDevice, _drawArea.Height, _drawArea.Width, false, SurfaceFormat.Color);
             }
             texture.SetData<Color>(0, new Rectangle?(new Rectangle(0, 0, _drawArea.Height, _drawArea.Width)), _waveMask, 0, _drawArea.Width * _drawArea.Height);
+            _drawAreaInfo.SetValue(LiquidRenderer.Instance, _drawArea);
+            _waveMaskInfo.SetValue(LiquidRenderer.Instance, _waveMask);
         }
 
         public void Update(GameTime gameTime)
@@ -669,7 +716,7 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
             _animationFrameInfo.SetValue(LiquidRenderer.Instance, _animationFrame);
         }
 
-        private unsafe void InternalDraws(SpriteBatch spriteBatch, Vector2 drawOffset, int waterStyle, float globalAlpha, bool isBackgroundDraw)
+        protected static unsafe void InternalDraw(On.Terraria.GameContent.Liquid.LiquidRenderer.orig_InternalDraw orig, LiquidRenderer randerer,SpriteBatch spriteBatch, Vector2 drawOffset, int waterStyle, float globalAlpha, bool isBackgroundDraw)
         {
             FieldInfo _drawAreaInfo =
                 typeof(LiquidRenderer).GetField("_drawArea", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -680,10 +727,6 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
             
 
             Rectangle drawArea = _drawArea;
-
-            //LiquidRenderer.Instance._liquidTextures = Main.liquidTexture;
-
-            
 
             fixed (LiquidDrawCache* ptr = &_drawCache[0])
             {
@@ -704,41 +747,34 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
                                 sourceRectangle.Y += (int)_animationFrameInfo.GetValue(LiquidRenderer.Instance) * 80;
                             }
                             Vector2 liquidOffset = ptr2->LiquidOffset;
-                            float num = ptr2->Opacity * (isBackgroundDraw ? 1f : DEFAULT_OPACITY[(int)ptr2->Type]);
-                            int num2 = (int)ptr2->Type;
-                            if (num2 == 0)
+                            float num = ptr2->Opacity * (isBackgroundDraw ? 1f : DEFAULT_OPACITY[0]);
+                            int liquidTextureIndex = /*(int)ptr2->Type*/14;
+                            if (liquidTextureIndex == 0)
                             {
-                                num2 = waterStyle;
+                                liquidTextureIndex = waterStyle;
                                 num *= (isBackgroundDraw ? 1f : globalAlpha);
                             }
-                            else if (num2 == 2)
+                            else if (liquidTextureIndex == 2)
                             {
-                                num2 = 11;
+                                liquidTextureIndex = 11;
                             }
 
                             
-                            num = Math.Min(1f, num);
                             VertexColors colors;
-                            Lighting.GetColor4Slice_New(i, j, out colors, 1f);
-                            colors.BottomLeftColor *= num;
-                            colors.BottomRightColor *= num;
-                            colors.TopLeftColor *= num;
-                            colors.TopRightColor *= num;
+                            Lighting.GetColor4Slice_New(i, j, out colors, Math.Min(1f, isBackgroundDraw ? 1f : ptr2->Opacity * (globalAlpha * DEFAULT_OPACITY[0])));
 
-
-                            Main.tileBatch.Draw(Main.liquidTexture[num2], 
-                                new Vector2((float)(i << 4), (float)(j << 4)) + drawOffset + liquidOffset, 
-                                new Rectangle?(sourceRectangle), 
-                                colors, 
-                                Vector2.Zero, 
-                                1f, 
-                                SpriteEffects.None);
+                            /*Main.spriteBatch.Draw(liquidTexture2D[liquidTextureIndex],
+                                new Vector2((float)(i << 4), (float)(j << 4)) + drawOffset + liquidOffset,
+                                new Rectangle?(sourceRectangle), colors.BottomLeftColor, 0f, Vector2.Zero, new Vector2(1, 1), SpriteEffects.None, 1f);*/
+                            //Main.tileBatch.Draw(liquidTexture2D[liquidTextureIndex], new Vector2((float)(i << 4), (float)(j << 4)) + drawOffset + liquidOffset, new Rectangle?(sourceRectangle), colors, Vector2.Zero, 1f, SpriteEffects.None);
+                            Main.tileBatch.Draw(liquidTexture2D[liquidTextureIndex], new Vector2((float)(i << 4) + drawOffset.X + ptr2->LiquidOffset.X, (float)(j << 4) + drawOffset.Y + ptr2->LiquidOffset.Y), ptr2->SourceRectangle, colors, Vector2.Zero, 1f, SpriteEffects.None);
                         }
                         ptr2++;
                     }
                 }
             }
             Main.tileBatch.End();
+            _drawAreaInfo.SetValue(LiquidRenderer.Instance, _drawArea);
         }
 
         public float GetVisibleLiquid(int x, int y)
@@ -753,11 +789,12 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
                 return 0f;
             }
             int num = (x + 2) * (_drawArea.Height + 4) + y + 2;
-            if (!this._cache[num].HasVisibleLiquid)
+            if (!_cache[num].HasVisibleLiquid)
             {
                 return 0f;
             }
-            return this._cache[num].VisibleLiquidLevel;
+            _drawAreaInfo.SetValue(LiquidRenderer.Instance, _drawArea);
+            return _cache[num].VisibleLiquidLevel;
         }
 
         static LiquidRendererExtension()

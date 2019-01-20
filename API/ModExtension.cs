@@ -106,16 +106,5 @@ namespace TerrariaUltraApocalypse.API
             }
             return validCase == rowCount * columnCount;
         }
-
-        public static String ToString(this ModTranslation self)
-        {
-            GameCulture culture = Language.ActiveCulture;
-            if (culture == GameCulture.English || self.GetTranslation(culture) == null)
-            {
-                return self.GetDefault();
-            }
-
-            return self.GetTranslation(culture);
-        }
     }
 }

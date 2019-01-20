@@ -2846,6 +2846,8 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
                                                     break;
                                             }
                                         }
+
+                                        
                                         if (!tile5r.noLiquid() && num108 != 1 && num108 != 2)
                                         {
                                             if (tile5.liquid > 240)
@@ -2985,6 +2987,7 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
                                             float num113 = (float)color6.B * Opacity;
                                             float num114 = (float)color6.A * Opacity;
                                             color6 = new Microsoft.Xna.Framework.Color((int)((byte)num111), (int)((byte)num112), (int)((byte)num113), (int)((byte)num114));
+                                            liquidTextureIndex = 12;
                                             Main.spriteBatch.Draw(Main.liquidTexture[liquidTextureIndex], value2 - Main.screenPosition + zero, new Microsoft.Xna.Framework.Rectangle?(value3), color6, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
                                         }
                                     }

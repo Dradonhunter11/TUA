@@ -21,7 +21,6 @@ namespace TerrariaUltraApocalypse.API.Dev
             MethodSwap64bit(OriginalMethodType, OriginalMethodName, NewMethodType, NewMethodName);
         }
 
-
         public static void MethodSwap32Bit(Type OriginalMethodType, string OriginalMethodName, Type NewMethodType, string NewMethodName)
         {
             MethodInfo OriginalMethod =

@@ -4,15 +4,19 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using log4net;
 using Terraria;
+using Terraria.GameContent.UI.Elements;
 using Terraria.GameContent.UI.States;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Config;
 using Terraria.UI;
 using TerrariaUltraApocalypse.API;
 using TerrariaUltraApocalypse.API.Dev;
@@ -22,6 +26,7 @@ using TerrariaUltraApocalypse.API.LiquidAPI;
 using TerrariaUltraApocalypse.API.LiquidAPI.Test;
 using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge;
 using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
+using TerrariaUltraApocalypse.Configs;
 using TerrariaUltraApocalypse.CustomScreenShader;
 using TerrariaUltraApocalypse.CustomSkies;
 using TerrariaUltraApocalypse.Dimension.Sky;
@@ -41,6 +46,7 @@ namespace TerrariaUltraApocalypse
     {
         internal static string version = "0.1 dev";
         internal static String tModLoaderVersion2 = "";
+        internal static Version tModLoaderVersion;
         internal static bool devMode = true;
 
         internal static TerrariaUltraApocalypse instance;
@@ -58,10 +64,11 @@ namespace TerrariaUltraApocalypse
         public static UserInterface CapacitorInterface;
         public static UserInterface raidsInterface;
 
-        public string animate = $"TmodLoader v.0.10.1.4 - TUA v{version} - ";
+        private static List<string> quote = new List<string>();
+        public static string animate = GetAnimatedTitle();
 
         private int animationTimer = 25;
-        private List<string> quote = new List<string>();
+        
 
         private UIWorldSelect originalWorldSelect;
         private readonly MainMenuUI newMainMenu = new MainMenuUI();
@@ -71,6 +78,10 @@ namespace TerrariaUltraApocalypse
         public static readonly string SAVE_PATH = Main.SavePath;
 
         public const uint SPI_GETMOUSESPEED = 0x0070;
+
+        public static CustomTitleMenuConfig custom;
+
+        public bool injectedConfigSetting = false;
 
         public TerrariaUltraApocalypse()
         {
@@ -173,14 +184,14 @@ namespace TerrariaUltraApocalypse
 
         public override void Load()
         {
-            tModLoaderVersion2 = "tModLoader v" + tModLoaderVersion;
             LoadModContent(mod =>
             {
                 Autoload(mod);
             });
             ArrayChunk<Tile> tile = new ArrayChunk<Tile>();
             convertTileToChunk(tile);
-
+            newMainMenu.load();
+            
 
             instance = this;
             UpdateBiomesInjection.inject();
@@ -189,11 +200,6 @@ namespace TerrariaUltraApocalypse
             MethodInfo attempt = typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
                 .GetMethod("PopulateModBrowser", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
             ReflectionExtension.MethodSwap(typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
-
-            Random r = new Random();
-            lazyWaytoShowTitle();
-
-            animate = $"TmodLoader v.0.10.1.4 - TUA v{version} - {quote[r.Next(quote.Count - 1)]}";
 
             Main.SavePath += "/Tapocalypse";
             Main.PlayerPath = Main.SavePath + "/Player";
@@ -244,7 +250,7 @@ namespace TerrariaUltraApocalypse
         {
             //Object o = new OverworldHandler();
             int num = 0;
-            foreach (var mod in ModLoader.LoadedMods)
+            foreach (var mod in ModLoader.Mods)
             {
                 try
                 {
@@ -265,9 +271,20 @@ namespace TerrariaUltraApocalypse
 
         }
 
-
-        public void lazyWaytoShowTitle()
+        public static String GetAnimatedTitle()
         {
+            Random r = new Random();
+            lazyWaytoShowTitle();
+
+            tModLoaderVersion2 = "tModLoader v" + ModLoader.version;
+            tModLoaderVersion = ModLoader.version;
+
+            return tModLoaderVersion2 + $" - TUA v{version} - {quote[r.Next(quote.Count - 1)]}";
+        }
+
+        public static void lazyWaytoShowTitle()
+        {
+            quote = new List<string>();
             quote.Add("now with 100% less life insurance! ");
             quote.Add("make sure to give EoA my best . . . or my worst depending on how you look at it ");
             quote.Add("I failed to help Heather with a door edition ");
@@ -303,7 +320,7 @@ namespace TerrariaUltraApocalypse
             quote.Clear();
             FieldInfo info2 = typeof(ModLoader).GetField("versionedName",
                 BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
-            info2.SetValue(null, tModLoaderVersion);
+            info2.SetValue(null, string.Format("tModLoader v{0}", (object)Terraria.ModLoader.ModLoader.version) + (Terraria.ModLoader.ModLoader.branchName.Length == 0 ? "" : " " + Terraria.ModLoader.ModLoader.branchName) + (Terraria.ModLoader.ModLoader.beta == 0 ? "" : string.Format(" Beta {0}", (object)Terraria.ModLoader.ModLoader.beta)));
         }
 
         public override void UpdateUI(GameTime gameTime)
@@ -344,10 +361,10 @@ namespace TerrariaUltraApocalypse
             {
 
 
-                DimPlayer p = Main.LocalPlayer.GetModPlayer<DimPlayer>(this);
+                //DimPlayer p = Main.LocalPlayer.GetModPlayer<DimPlayer>(this);
                 if (this.GetBiome("Meteoridon").InBiome())
                 {
-                    music = MusicID.TheHallow;
+                    music = this.GetSoundSlot(SoundType.Music, "Sounds/Music/Stars_Lament_Loop");
                 }
                 else if (this.GetBiome("Plagues").InBiome())
                 {
@@ -366,13 +383,18 @@ namespace TerrariaUltraApocalypse
                 }
             }
 
-            if (Main.menuMode == 0)
+            if (Main.menuMode == 0 && custom.customMenu)
             {
                 Main.menuMode = 888;
                 Main.MenuUI.SetState(newMainMenu);
             }
             AnimateVersion();
+            if(Main.gameMenu && Main.menuMode == 0 || (Main.menuMode == 888 && TerrariaUltraApocalypse.custom.customMenu))
+                TerrariaUltraApocalypse.SetTheme();
+
         }
+
+        
 
         private void AnimateVersion()
         {
@@ -514,6 +536,8 @@ namespace TerrariaUltraApocalypse
             RecipeManager.setAllFurnaceRecipeSystem();
             LiquidRegistery.getInstance().addNewModLiquid(new PlutonicWaste());
             LiquidRegistery.getInstance().addNewModLiquid(new WeirdLiquid());
+
+            
         }
 
         public override object Call(params object[] args)
@@ -524,6 +548,46 @@ namespace TerrariaUltraApocalypse
                 return TUAWorld.UltraMode;
             }
             return base.Call(args);
+        }
+
+        public static void SetTheme()
+        {
+            Dictionary<String, CustomSky> temp2 = (Dictionary<string, CustomSky>)typeof(SkyManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(SkyManager.Instance);
+            Dictionary<String, Filter> temp = (Dictionary<string, Filter>) typeof(FilterManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(Filters.Scene);
+            List<String> allKey = temp.Keys.ToList();
+            foreach (var  key in allKey)
+            {
+                if(key != TerrariaUltraApocalypse.custom.newMainMenuTheme)
+                    Filters.Scene[key].Deactivate();
+            }
+
+            
+            allKey = temp2.Keys.ToList();
+            foreach (var key in allKey)
+            {
+                if (key != TerrariaUltraApocalypse.custom.newMainMenuTheme)
+                    SkyManager.Instance.Deactivate(key);
+            }
+
+            Main.worldSurface = 565;
+            if (TerrariaUltraApocalypse.custom.newMainMenuTheme != "Vanilla" && !SkyManager.Instance[TerrariaUltraApocalypse.custom.newMainMenuTheme].IsActive())
+            {
+                switch (TerrariaUltraApocalypse.custom.newMainMenuTheme)
+                {
+                    case "Vanilla":
+                        return;
+                    default:
+                        if(Filters.Scene[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
+                            Filters.Scene.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
+                        if (SkyManager.Instance[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
+                            SkyManager.Instance.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
+                        if (Overlays.Scene[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
+                            Overlays.Scene.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme,
+                            Vector2.Zero - new Vector2(0f, 10f), new object[0]);
+                        Filters.Scene[TerrariaUltraApocalypse.custom.newMainMenuTheme].GetShader().UseTargetPosition(new Vector2(2556.793f, 4500f));
+                        break;
+                }
+            }
         }
     }
 }

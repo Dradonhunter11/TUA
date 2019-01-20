@@ -53,7 +53,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
                 panel.Append(slot);
             }
 
-            Texture2D buttonDeleteTexture = ModLoader.GetTexture("Terraria/UI/ButtonDelete");
+            Texture2D buttonDeleteTexture = ModContent.GetTexture("Terraria/UI/ButtonDelete");
             UIImageButton closeButton = new UIImageButton(buttonDeleteTexture);
             closeButton.Left.Set(400 - 45, 0f);
             closeButton.Width.Set(22, 0f);
