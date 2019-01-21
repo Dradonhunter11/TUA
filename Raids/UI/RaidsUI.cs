@@ -35,7 +35,7 @@ namespace TUA.Raids.UI
         public override void OnInitialize()
         {
 
-            xButtonTexture = TUA.instance.GetTexture("Texture/X_ui");
+            xButtonTexture = TerrariaUltraApocalypse.instance.GetTexture("Texture/X_ui");
 
             xButton = new UIElement();
             xButton.Width.Set(20f, 0f);
@@ -200,13 +200,13 @@ namespace TUA.Raids.UI
             {
                 return;
             }
-            TUA.instance.GetModWorld<RaidsWorld>().currentRaids = currentlySelectedRaids.raidsType;
+            TerrariaUltraApocalypse.instance.GetModWorld<RaidsWorld>().currentRaids = currentlySelectedRaids.raidsType;
             Main.NewText(Main.LocalPlayer.name + " has started [" + RaidsWorld.raidsName[currentlySelectedRaids.raidsType] + "] raids!");
         }
 
         public void close(UIMouseEvent evt, UIElement el)
         {
-            TUA.raidsInterface.IsVisible = false;
+            TerrariaUltraApocalypse.raidsInterface.IsVisible = false;
             Main.npcChatText = "I'll be able to help you in your future raids! After all, I'm the guide";
         }
     }

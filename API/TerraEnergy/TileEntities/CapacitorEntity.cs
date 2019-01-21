@@ -26,8 +26,8 @@ namespace TUA.API.TerraEnergy.TileEntities
             InitializeItemSlot();
             CapacitorUi = new CapacitorUI(slot, this);
             Main.playerInventory = true;
-            TUA.machineInterface.SetState(CapacitorUi);
-            TUA.machineInterface.IsVisible = true;
+            TerrariaUltraApocalypse.machineInterface.SetState(CapacitorUi);
+            TerrariaUltraApocalypse.machineInterface.IsVisible = true;
         }
 
         public override void SaveEntity(TagCompound tag)

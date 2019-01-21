@@ -178,7 +178,7 @@ namespace TUA
         {
             if (!apocalypseMoon)
             {
-                Main.moonTexture = TUA.originalMoon;
+                Main.moonTexture = TerrariaUltraApocalypse.originalMoon;
             }
 
             Main.bottomWorld = Main.maxTilesY * 16 + 400;
@@ -722,7 +722,7 @@ namespace TUA
         {
             if (mod.GetBiome("Meteoridon").InBiome() && Main.netMode == 0)
             {
-                ScreenFog.Draw(TUA.SolarFog, 0.3f, 0.1f);
+                ScreenFog.Draw(TerrariaUltraApocalypse.SolarFog, 0.3f, 0.1f);
             }
         }
     }

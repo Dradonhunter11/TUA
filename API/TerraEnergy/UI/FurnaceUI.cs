@@ -117,7 +117,7 @@ namespace TUA.API.TerraEnergy.UI
 
         private void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
-            TUA.machineInterface.IsVisible = false;
+            TerrariaUltraApocalypse.machineInterface.IsVisible = false;
             Main.playerInventory = false;
         }
 

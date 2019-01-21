@@ -26,6 +26,7 @@ using TUA.API.LiquidAPI;
 using TUA.API.LiquidAPI.Test;
 using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 using TUA.API.TerraEnergy.MachineRecipe.Forge;
+using TUA.Configs;
 using TUA.CustomScreenShader;
 using TUA.CustomSkies;
 using TUA.Dimension.Sky;
@@ -78,13 +79,12 @@ namespace TUA
 
         public const uint SPI_GETMOUSESPEED = 0x0070;
 
-        public TUA()
+        
         public static CustomTitleMenuConfig custom;
         public bool injectedConfigSetting = false;
 
-
+        public TUA()
         {
-            AppDomain.CurrentDomain.AssemblyResolve += Resolver;
             Properties = new ModProperties()
             {
                 Autoload = true,
@@ -402,8 +402,8 @@ namespace TUA
                 Main.MenuUI.SetState(newMainMenu);
             }
             AnimateVersion();
-            if(Main.gameMenu && Main.menuMode == 0 || (Main.menuMode == 888 && TerrariaUltraApocalypse.custom.customMenu))
-                TerrariaUltraApocalypse.SetTheme();
+            if(Main.gameMenu && Main.menuMode == 0 || (Main.menuMode == 888 && TUA.custom.customMenu))
+                TUA.SetTheme();
 
         }
 
@@ -570,7 +570,7 @@ namespace TUA
             List<String> allKey = temp.Keys.ToList();
             foreach (var  key in allKey)
             {
-                if(key != TerrariaUltraApocalypse.custom.newMainMenuTheme)
+                if(key != TUA.custom.newMainMenuTheme)
                     Filters.Scene[key].Deactivate();
             }
 
@@ -578,53 +578,29 @@ namespace TUA
             allKey = temp2.Keys.ToList();
             foreach (var key in allKey)
             {
-                if (key != TerrariaUltraApocalypse.custom.newMainMenuTheme)
+                if (key != TUA.custom.newMainMenuTheme)
                     SkyManager.Instance.Deactivate(key);
             }
 
             Main.worldSurface = 565;
-            if (TerrariaUltraApocalypse.custom.newMainMenuTheme != "Vanilla" && !SkyManager.Instance[TerrariaUltraApocalypse.custom.newMainMenuTheme].IsActive())
+            if (TUA.custom.newMainMenuTheme != "Vanilla" && !SkyManager.Instance[TUA.custom.newMainMenuTheme].IsActive())
             {
-                switch (TerrariaUltraApocalypse.custom.newMainMenuTheme)
+                switch (TUA.custom.newMainMenuTheme)
                 {
                     case "Vanilla":
                         return;
                     default:
-                        if(Filters.Scene[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
-                            Filters.Scene.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
-                        if (SkyManager.Instance[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
-                            SkyManager.Instance.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
-                        if (Overlays.Scene[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
-                            Overlays.Scene.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme,
+                        if(Filters.Scene[TUA.custom.newMainMenuTheme] != null)
+                            Filters.Scene.Activate(TUA.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
+                        if (SkyManager.Instance[TUA.custom.newMainMenuTheme] != null)
+                            SkyManager.Instance.Activate(TUA.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
+                        if (Overlays.Scene[TUA.custom.newMainMenuTheme] != null)
+                            Overlays.Scene.Activate(TUA.custom.newMainMenuTheme,
                             Vector2.Zero - new Vector2(0f, 10f), new object[0]);
-                        Filters.Scene[TerrariaUltraApocalypse.custom.newMainMenuTheme].GetShader().UseTargetPosition(new Vector2(2556.793f, 4500f));
+                        Filters.Scene[TUA.custom.newMainMenuTheme].GetShader().UseTargetPosition(new Vector2(2556.793f, 4500f));
                         break;
                 }
             }
-        }
-
-        Assembly Resolver(object sender, System.ResolveEventArgs args)
-        {
-            string assembly_dll = new AssemblyName(args.Name).Name + ".dll";
-            string assembly_directory = @"\lib\";
-
-            Assembly assembly = null;
-
-            ILog log = LogManager.GetLogger("I exist YEET");
-            log.Info(assembly_dll);
-
-            if (assembly_dll.Contains("discord"))
-            {
-                if (Environment.Is64BitProcess)
-                {
-                    assembly = Assembly.LoadFile(assembly_directory + @"\x64\" + assembly_dll);
-                }
-                else
-                {
-                    assembly = Assembly.LoadFile(assembly_directory + @"\x86\" + assembly_dll);
-                }
-            }
-            return assembly;
         }
     }
 

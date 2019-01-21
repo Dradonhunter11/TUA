@@ -485,7 +485,7 @@ namespace TUA
                         /*Main.tile[currentX, currentY].type =
                             (ushort)TUA.instance.TileType("StardustIce");*/
                         WorldGen.PlaceTile(currentX, currentY,
-                            TUA.instance.TileType("StardustIce"));
+                            TerrariaUltraApocalypse.instance.TileType("StardustIce"));
                     }
 
                 }

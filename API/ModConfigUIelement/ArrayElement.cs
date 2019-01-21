@@ -18,7 +18,7 @@ using Terraria.ModLoader.Config;
 using Terraria.ModLoader.Config.UI;
 using Terraria.UI;
 
-namespace TerrariaUltraApocalypse.API.ModConfigUIelement
+namespace TUA.API.ModConfigUIelement
 {
     abstract class StringOptionElementSettable : RangeElement
     {

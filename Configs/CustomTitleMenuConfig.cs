@@ -13,9 +13,9 @@ using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 using Terraria.ModLoader.Config.UI;
-using TerrariaUltraApocalypse.API.ModConfigUIelement;
+using TUA.API.ModConfigUIelement;
 
-namespace TerrariaUltraApocalypse.Configs
+namespace TUA.Configs
 {
     [Label("Main menu config")]
     class CustomTitleMenuConfig : ModConfig

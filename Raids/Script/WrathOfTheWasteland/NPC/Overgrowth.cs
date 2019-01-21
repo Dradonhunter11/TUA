@@ -1,6 +1,6 @@
-﻿using TerrariaUltraApocalypse.API;
+﻿using TUA.API;
 
-namespace TerrariaUltraApocalypse.Raids.Script.WrathOfTheWasteland.NPC
+namespace TUA.Raids.Script.WrathOfTheWasteland.NPC
 {
     internal abstract class Overgrowth : TUAModNPC
     {

@@ -13,7 +13,7 @@ namespace TUA.CustomSkies
         private readonly float fogOpacity2 = 0.4f;
         private int _fogTimer = 300;
         private int _fogTimer2 = 300;
-        private Texture2D texture = TUA.instance.GetTexture("CustomScreenShader/HeavyMist");
+        private Texture2D texture = TerrariaUltraApocalypse.instance.GetTexture("CustomScreenShader/HeavyMist");
 
         public override void Activate(Vector2 position, params object[] args)
         {

@@ -32,8 +32,8 @@ namespace TUA.API.TerraEnergy.UI
 
         public override void OnInitialize()
         {
-            energyBar = TUA.instance.GetTexture("API/TerraEnergy/Texture/TerraEnergyBar");
-            fullEnergyBar = TUA.instance.GetTexture("API/TerraEnergy/Texture/TerraEnergyBarFilled");
+            energyBar = TerrariaUltraApocalypse.instance.GetTexture("API/TerraEnergy/Texture/TerraEnergyBar");
+            fullEnergyBar = TerrariaUltraApocalypse.instance.GetTexture("API/TerraEnergy/Texture/TerraEnergyBarFilled");
 
         }
 

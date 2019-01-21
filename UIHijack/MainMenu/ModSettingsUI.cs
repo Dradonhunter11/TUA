@@ -83,7 +83,7 @@ namespace TUA.UIHijack.MainMenu
 
         public void ExecuteTUAButton(UIMouseEvent evt, UIElement element)
         {
-            Main.MenuUI.SetState(TUA.setting);
+            Main.MenuUI.SetState(TerrariaUltraApocalypse.setting);
             Main.PlaySound(SoundID.MenuOpen, -1, -1, 1);
         }
 

@@ -25,7 +25,7 @@ namespace TUA.Localization
 
         public void AddNewTranslationToManager(String key, String defaultString)
         {
-            TranslationWrapper translation = new TranslationWrapper(TUA.instance.CreateTranslation(key));TUA.instance.CreateTranslation(key);
+            TranslationWrapper translation = new TranslationWrapper(TerrariaUltraApocalypse.instance.CreateTranslation(key));TerrariaUltraApocalypse.instance.CreateTranslation(key);
             translation.SetDefault(defaultString);
             manager.Add(key, translation);
         }

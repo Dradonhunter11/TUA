@@ -28,7 +28,7 @@ namespace TUA.API.TerraEnergy.UI
             chargingSlot = new ChargingSlot[4];
             for (int i = 0; i < chargingSlot.Length; i++)
             {
-                chargingSlot[i] = new ChargingSlot(slot[i], TUA.instance.GetTexture("API/TerraEnergy/Texture/ChargingSlotUI"), capacitorEntity, capacitorEntity.maxTransferRate);
+                chargingSlot[i] = new ChargingSlot(slot[i], TerrariaUltraApocalypse.instance.GetTexture("API/TerraEnergy/Texture/ChargingSlotUI"), capacitorEntity, capacitorEntity.maxTransferRate);
             }
 
             this.capacitorEntity = capacitorEntity;
@@ -81,7 +81,7 @@ namespace TUA.API.TerraEnergy.UI
         private void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
             
-            TUA.machineInterface.IsVisible = false;
+            TerrariaUltraApocalypse.machineInterface.IsVisible = false;
             Main.playerInventory = false;
         }
     }
