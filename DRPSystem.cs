@@ -1,5 +1,5 @@
-using drpc;
 using System;
+using drpc;
 using Terraria;
 
 namespace TerrariaUltraApocalypse
@@ -15,6 +15,7 @@ namespace TerrariaUltraApocalypse
 
         public static void Init()
         {
+            
             handlers = default(DiscordRP.EventHandlers);
             DiscordRP.Initialize(AppID, ref handlers, true, (string)null);
             Reset(true);

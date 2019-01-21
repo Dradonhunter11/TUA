@@ -97,7 +97,7 @@ namespace TerrariaUltraApocalypse.UIHijack.MainMenu
             if(IntPtr.Size != 8)
                 ins = il.Body.Instructions.Single(i => i.OpCode.Code == Code.Stsfld && i.ToString().Contains("IL_1754"));
             else
-                ins = il.Body.Instructions.Single(i => i.OpCode.Code == Code.Stsfld && i.ToString().Contains("IL_1a7d"));
+                ins = il.Body.Instructions.Single(i => i.OpCode.Code == Code.Stsfld && i.ToString().Contains("IL_178f"));
 
             logger.Info("Found the first instruction");
             //Same thing as above, with a little bit of research we found out that Terraria.Graphics.Effects.SkyManager.DeactivateAll() was only called once, which mean we can easily use it's compiled counter like this Terraria.Graphics.Effects.SkyManager::DeactivateAll() 

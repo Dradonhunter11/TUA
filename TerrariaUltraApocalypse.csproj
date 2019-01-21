@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -335,8 +335,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dimlibs\bin\Release\Dimlibs.dll</HintPath>
     </Reference>
-	<Reference Include="drpc">
-      <HintPath>.\lib\drpc.dll</HintPath>
+    <Reference Include="drpc">
+      <HintPath>lib\drpc.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\..\..\..\TerrariaFullsource\Tmodloader 64bit 0.11- Beta 1\tModLoader-0.11-beta1 - original patch\src\tModLoader\bin\WindowsDebug\log4net.dll</HintPath>

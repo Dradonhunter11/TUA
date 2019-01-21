@@ -85,6 +85,7 @@ namespace TerrariaUltraApocalypse
 
         public TerrariaUltraApocalypse()
         {
+            AppDomain.CurrentDomain.AssemblyResolve += Resolver;
             Properties = new ModProperties()
             {
                 Autoload = true,
@@ -184,6 +185,7 @@ namespace TerrariaUltraApocalypse
 
         public override void Load()
         {
+            
             LoadModContent(mod =>
             {
                 Autoload(mod);
@@ -271,9 +273,9 @@ namespace TerrariaUltraApocalypse
         public void AllowGignaticWorld()
         {
             Main.chest = new Chest[10000];
-            Main.tile = new Tile[25200, 7200];
+            Main.tile = new Tile[25200, 9600];
             Main.maxTilesX = 25200;
-            Main.maxTilesY = 7200;
+            Main.maxTilesY = 9600;
 
         }
 
@@ -601,5 +603,30 @@ namespace TerrariaUltraApocalypse
                 }
             }
         }
+
+        Assembly Resolver(object sender, System.ResolveEventArgs args)
+        {
+            string assembly_dll = new AssemblyName(args.Name).Name + ".dll";
+            string assembly_directory = @"\lib\";
+
+            Assembly assembly = null;
+
+            ILog log = LogManager.GetLogger("I exist YEET");
+            log.Info(assembly_dll);
+
+            if (assembly_dll.Contains("discord"))
+            {
+                if (Environment.Is64BitProcess)
+                {
+                    assembly = Assembly.LoadFile(assembly_directory + @"\x64\" + assembly_dll);
+                }
+                else
+                {
+                    assembly = Assembly.LoadFile(assembly_directory + @"\x86\" + assembly_dll);
+                }
+            }
+            return assembly;
+        }
     }
+
 }
