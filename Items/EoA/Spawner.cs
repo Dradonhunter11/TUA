@@ -59,7 +59,7 @@ namespace TUA.Items.EoA
             }
             Main.PlaySound(SoundID.MoonLord, player.position, 0);
             NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - (76*16), mod.NPCType<Eye_of_ApocalypseNew>());
-            Main.spriteBatch.Draw(ModLoader.GetTexture("Projectile_490"), new Vector2(player.Center.X, player.Center.Y), Color.DarkRed);
+            Main.spriteBatch.Draw(ModContent.GetTexture("Projectile_490"), new Vector2(player.Center.X, player.Center.Y), Color.DarkRed);
             return true;
         }
 

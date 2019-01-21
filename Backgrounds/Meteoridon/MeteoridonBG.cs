@@ -33,7 +33,6 @@ namespace TUA.Backgrounds.Meteoridon
 
         public override bool ChooseBgStyle()
         {            
-            ErrorLogger.Log("I am logging : "+ mod.GetBiome("Meteoridon"));
             return !Main.gameMenu && mod.GetBiome("Meteoridon").InBiome();
         }
     }

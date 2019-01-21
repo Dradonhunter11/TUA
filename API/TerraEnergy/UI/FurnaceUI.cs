@@ -94,7 +94,7 @@ namespace TUA.API.TerraEnergy.UI
             furnaceUI.Append(_input);
             furnaceUI.Append(_output);
 
-            Texture2D buttonDeleteTexture = ModLoader.GetTexture("Terraria/UI/ButtonDelete");
+            Texture2D buttonDeleteTexture = ModContent.GetTexture("Terraria/UI/ButtonDelete");
             UIImageButton closeButton = new UIImageButton(buttonDeleteTexture);
             closeButton.Left.Set(400 - 35, 0f);
             closeButton.Top.Set(10, 0f);

@@ -72,8 +72,12 @@ namespace TUA.API.LiquidAPI.LiquidMod
                         return liquid == 2;
                 }
             }
-
             return LiquidCore.liquidGrid[x, y][index];
+        }
+
+        public byte liquidsType()
+        {
+            return liquid;
         }
 
         public void setLiquidsState(byte index, bool value)

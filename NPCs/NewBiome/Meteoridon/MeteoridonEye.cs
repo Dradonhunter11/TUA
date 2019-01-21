@@ -59,7 +59,7 @@ namespace TUA.NPCs.NewBiome.Meteoridon
             npc.aiStyle = -1;
             npc.noGravity = true;
             npc.knockBackResist = 100;
-            infernoRing = ModLoader.GetTexture("Terraria/FlameRing");
+            infernoRing = ModContent.GetTexture("Terraria/FlameRing");
         }
 
         public override void ScaleExpertStats(int numPlayers, float bossLifeScale)

@@ -112,9 +112,9 @@
     <Compile Include="API\LiquidAPI\Swap\PlayerSwap.cs" />
     <Compile Include="API\LiquidAPI\Swap\WaterDrawInjection.cs" />
     <Compile Include="API\LiquidAPI\Test\PlutonicWaste.cs" />
-    <Compile Include="API\LiquidAPI\Test\VanillaLiquid.cs" />
     <Compile Include="API\LiquidAPI\Test\WeirdLiquid.cs" />
     <Compile Include="API\LiquidAPI\TileExtension.cs" />
+    <Compile Include="API\ModConfigUIelement\ArrayElement.cs" />
     <Compile Include="API\ModExtension.cs" />
     <Compile Include="API\TerraEnergy\Block\Capacitor.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\BasicTECapacitor.cs" />
@@ -174,6 +174,7 @@
     <Compile Include="Buff\Debuff\EotW\MagicDebuff.cs" />
     <Compile Include="Buff\Debuff\EotW\MeleeDebuff.cs" />
     <Compile Include="Commands\ToggleTime.cs" />
+    <Compile Include="Configs\CustomTitleMenuConfig.cs" />
     <Compile Include="CustomScreenShader\SolarWorld.cs" />
     <Compile Include="CustomScreenShader\MeteoridonScreenShader.cs" />
     <Compile Include="CustomScreenShader\ScreenFog.cs" />
@@ -263,6 +264,7 @@
     <Compile Include="Raids\Items\GuideVoodooDoll.cs" />
     <Compile Include="Raids\RaidsGlobalItem.cs" />
     <Compile Include="Raids\RaidsGlobalNPC.cs" />
+    <Compile Include="Raids\Script\WrathOfTheWasteland\NPC\Overgrowth.cs" />
     <Compile Include="Raids\UI\RaidsPanel.cs" />
     <Compile Include="Raids\UI\RaidsUI.cs" />
     <Compile Include="SolarWorldGen.cs" />
@@ -333,8 +335,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dimlibs\bin\Release\Dimlibs.dll</HintPath>
     </Reference>
-    <Reference Include="drpc">
+	<Reference Include="drpc">
       <HintPath>.\lib\drpc.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\..\TerrariaFullsource\Tmodloader 64bit 0.11- Beta 1\tModLoader-0.11-beta1 - original patch\src\tModLoader\bin\WindowsDebug\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -352,14 +357,28 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Microsoft.Xna.Framework.Xact.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>..\..\..\..\..\..\TerrariaFullsource\Tmodloader 64bit 0.11- Beta 1\tModLoader-0.11-beta1 - original patch\references\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.RuntimeDetour">
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\MonoMod.RuntimeDetour.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.Utils">
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\MonoMod.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="ReLogic, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\TerrariaFullsource\ReLogic.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="Terraria">
-      <HintPath>D:\SteamLibrary\steamapps\common\Terraria\Terraria.exe</HintPath>
+    <Reference Include="Terraria, Version=1.3.5.1, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\Terraria.exe</HintPath>
+    </Reference>
+    <Reference Include="TerrariaHooks, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\TerrariaHooks.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -370,8 +389,8 @@
     <Folder Include="Items\Block\PillarBiomeBlock\" />
     <Folder Include="Items\Meteoridon\Walls\" />
     <Folder Include="Items\Weapons\EoA\" />
+    <Folder Include="Liquid\" />
     <Folder Include="NPCs\Dimension\Solar\" />
-    <Folder Include="Raids\Script\" />
     <Folder Include="Tiles\Furniture\Demon\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
