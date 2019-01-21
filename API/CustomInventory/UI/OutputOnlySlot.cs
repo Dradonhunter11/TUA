@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.UI;
 
-namespace TerrariaUltraApocalypse.API.CustomInventory.UI
+namespace TUA.API.CustomInventory.UI
 {
     class OutputOnlySlot : UIElement
     {

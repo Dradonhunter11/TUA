@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.NPCs.UltraBoss.UltraEoC
+namespace TUA.NPCs.UltraBoss.UltraEoC
 {
     class UltraEoC : TUAModNPC
     {

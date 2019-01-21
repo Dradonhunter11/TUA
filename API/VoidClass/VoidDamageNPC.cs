@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 
-namespace TerrariaUltraApocalypse.API.VoidClass
+namespace TUA.API.VoidClass
 {
     class VoidDamageNPC : TUAModNPC
     {

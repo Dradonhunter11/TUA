@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
-using TerrariaUltraApocalypse.UIHijack.MainMenu.MainMenuButton;
+using TUA.UIHijack.MainMenu.MainMenuButton;
 
-namespace TerrariaUltraApocalypse.UIHijack.MainMenu.TUAOptionMenu
+namespace TUA.UIHijack.MainMenu.TUAOptionMenu
 {
     class TUASettingMenu : UIState
     {

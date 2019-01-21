@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Items.Meteoridon.Materials
+namespace TUA.Items.Meteoridon.Materials
 {
     class MeteoridonBar : ModItem
     {

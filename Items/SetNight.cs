@@ -9,12 +9,12 @@ using Terraria.ModLoader;
 using Terraria.World;
 using Microsoft.Xna.Framework;
 using Terraria.World.Generation;
-using TerrariaUltraApocalypse.API.Injection;
-using TerrariaUltraApocalypse.API.LiquidAPI.LiquidMod;
-using TerrariaUltraApocalypse.API.LiquidAPI.Swap;
-using TerrariaUltraApocalypse.Dimension.MicroBiome;
+using TUA.API.Injection;
+using TUA.API.LiquidAPI.LiquidMod;
+using TUA.API.LiquidAPI.Swap;
+using TUA.Dimension.MicroBiome;
 
-namespace TerrariaUltraApocalypse.Items
+namespace TUA.Items
 {
     class SetNight : ModItem
     {

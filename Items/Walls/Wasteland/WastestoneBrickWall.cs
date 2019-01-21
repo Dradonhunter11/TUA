@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Items.Walls.Wasteland
+namespace TUA.Items.Walls.Wasteland
 {
     class WastestoneBrickWall : ModItem
     {

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader.IO;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
-using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
+using TUA.API.TerraEnergy.Block.FunctionnalBlock;
+using TUA.API.TerraEnergy.EnergyAPI;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
+namespace TUA.API.TerraEnergy.TileEntities
 {
 
     class EnergyCollectorEntity : StorageEntity

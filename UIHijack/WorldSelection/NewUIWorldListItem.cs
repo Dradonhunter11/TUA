@@ -20,7 +20,7 @@ using Terraria.UI;
 using Terraria.UI.Chat;
 using Terraria.Utilities;
 
-namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
+namespace TUA.UIHijack.WorldSelection
 {
     public class NewUIWorldListItem : UIPanel
     {
@@ -65,7 +65,7 @@ namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
                     var buf = FileUtilities.ReadAllBytes(path, data.IsCloudSave);
                     var tag = TagIO.FromStream(new MemoryStream(buf));
                     _TUAWorldData = tag.GetList<TagCompound>("modData").FirstOrDefault((TagCompound m) =>
-                        m.Get<string>("mod") == "TerrariaUltraApocalypse" && m.Get<string>("name") == "TUAWorld");
+                        m.Get<string>("mod") == "TUA" && m.Get<string>("name") == "TUAWorld");
                     _EnigmaModData = tag.GetList<TagCompound>("modData").FirstOrDefault((TagCompound m) =>
                         m.Get<string>("mod") == "Laugicality" && m.Get<string>("name") == "LaugicalityWorld");
                     _CalamityWorldData = tag.GetList<TagCompound>("modData").FirstOrDefault((TagCompound m) =>

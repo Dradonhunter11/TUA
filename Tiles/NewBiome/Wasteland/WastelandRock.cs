@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Tiles.NewBiome.Wasteland
+namespace TUA.Tiles.NewBiome.Wasteland
 {
     class WastelandRock : ModTile
     {

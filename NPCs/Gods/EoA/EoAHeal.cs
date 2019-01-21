@@ -8,9 +8,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.NPCs.Gods.EoA;
+using TUA.NPCs.Gods.EoA;
 
-namespace TerrariaUltraApocalypse.NPCs.Gods.EoA
+namespace TUA.NPCs.Gods.EoA
 {
     class EoAHeal : ModNPC
     {

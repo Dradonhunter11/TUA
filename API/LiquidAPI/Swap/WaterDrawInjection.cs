@@ -19,10 +19,10 @@ using Terraria.ModLoader;
 using Terraria.Graphics.Capture;
 using Terraria.ObjectData;
 using Terraria.UI;
-using TerrariaUltraApocalypse.API.Dev;
-using TerrariaUltraApocalypse.API.LiquidAPI;
-using TerrariaUltraApocalypse.API.LiquidAPI.LiquidMod;
-using TerrariaUltraApocalypse.API.TerraEnergy;
+using TUA.API.Dev;
+using TUA.API.LiquidAPI;
+using TUA.API.LiquidAPI.LiquidMod;
+using TUA.API.TerraEnergy;
 using System.Diagnostics;
 using Terraria.ObjectData;
 using Terraria.GameContent.Events;
@@ -31,9 +31,9 @@ using Terraria.ID;
 using Terraria.GameContent.Tile_Entities;
 using Terraria.DataStructures;
 using Terraria.UI;
-using TerrariaUltraApocalypse.API.Dev;
+using TUA.API.Dev;
 
-namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
+namespace TUA.API.LiquidAPI.Swap
 {
     class WaterDrawInjection
     {

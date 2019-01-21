@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace TerrariaUltraApocalypse.Dusts.EotW
+namespace TUA.Dusts.EotW
 {
     class BulletDust : ModDust
     {

@@ -1,9 +1,9 @@
 ﻿using BiomeLibrary.API;
 using BiomeLibrary.Enums;
 using Terraria;
-using TerrariaUltraApocalypse.Tiles.NewBiome.Meteoridon;
+using TUA.Tiles.NewBiome.Meteoridon;
 
-namespace TerrariaUltraApocalypse.Biomes
+namespace TUA.Biomes
 {
     class Meteoridon : ModBiome
     {

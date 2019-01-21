@@ -3,7 +3,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace TerrariaUltraApocalypse
+namespace TUA
 {
     class TUAPlayer : ModPlayer
     {
@@ -50,9 +50,9 @@ namespace TerrariaUltraApocalypse
         {
             if (Dimlibs.Dimlibs.getPlayerDim() != null) {
                 bool inSolar = Dimlibs.Dimlibs.getPlayerDim() == "Solar";
-                player.ManageSpecialBiomeVisuals("TerrariaUltraApocalypse:TUAPlayer", false, player.Center);
+                player.ManageSpecialBiomeVisuals("TUA:TUAPlayer", false, player.Center);
                 bool inStardust = Dimlibs.Dimlibs.getPlayerDim() == "Stardust";
-                player.ManageSpecialBiomeVisuals("TerrariaUltraApocalypse:StardustPillar", inStardust, player.Center);
+                player.ManageSpecialBiomeVisuals("TUA:StardustPillar", inStardust, player.Center);
             }
         }
 

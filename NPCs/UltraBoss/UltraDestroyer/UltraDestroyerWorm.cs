@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TerrariaUltraApocalypse.NPCs.AI;
+using TUA.NPCs.AI;
 
-namespace TerrariaUltraApocalypse.NPCs.UltraBoss.UltraDestroyer
+namespace TUA.NPCs.UltraBoss.UltraDestroyer
 {
     abstract class UltraDestroyerWorm : Worm
     {

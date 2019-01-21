@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Items.Wasteland.Weapons
+namespace TUA.Items.Wasteland.Weapons
 {
     class VenomousGreatBlade : ModItem
     {

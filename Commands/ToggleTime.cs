@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API.Dev;
+using TUA.API.Dev;
 
-namespace TerrariaUltraApocalypse.Commands
+namespace TUA.Commands
 {
     class ToggleTime : ModCommand
     {

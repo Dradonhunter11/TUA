@@ -13,7 +13,7 @@ using Terraria.ModLoader.IO;
 using Terraria.Social;
 using Terraria.Utilities;
 
-namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
+namespace TUA.UIHijack.WorldSelection
 {
     class WorldPreLoader
     {

@@ -8,23 +8,23 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass
+namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
 {
     [AutoloadBossHead]
     class HeartOfTheWasteland : TUAModNPC
     {
-        public bool SleepState { get; set; }
+        public bool SleepState { private get; set; }
 
-        private static readonly string HEAD_PATH = "TerrariaUltraApocalypse/NPCs/NewBiome/Wasteland/MutatedMass/HeartOfTheWasteland_head";
+        private static readonly string HEAD_PATH = "TUA/NPCs/NewBiome/Wasteland/MutatedMass/HeartOfTheWasteland_head";
 
         public override string Texture {
             get { return "Terraria/NPC_" + 548; }
         }
 
         public override string BossHeadTexture {
-            get { return "TerrariaUltraApocalypse/NPCs/NewBiome/Wasteland/MutatedMass/HeartOfTheWasteland_head0"; }
+            get { return "TUA/NPCs/NewBiome/Wasteland/MutatedMass/HeartOfTheWasteland_head0"; }
         }
 
         public override void SetStaticDefaults()

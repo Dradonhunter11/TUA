@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API;
-using TerrariaUltraApocalypse.Tiles.Furniture.Coins;
+using TUA.API;
+using TUA.Tiles.Furniture.Coins;
 
 
-namespace TerrariaUltraApocalypse.Items.Block.Plagues
+namespace TUA.Items.Block.Plagues
 {
     class ApocalypseDirt : TUAModLegacyItem
     {

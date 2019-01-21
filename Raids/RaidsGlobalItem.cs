@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Raids
+namespace TUA.Raids
 {
     class RaidsGlobalItem : GlobalItem
     {

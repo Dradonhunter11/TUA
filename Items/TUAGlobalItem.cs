@@ -9,7 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace TerrariaUltraApocalypse.Items
+namespace TUA.Items
 {
     class TUAGlobalItem : GlobalItem
     {

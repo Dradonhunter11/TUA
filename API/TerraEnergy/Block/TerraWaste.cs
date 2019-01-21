@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.Block
+namespace TUA.API.TerraEnergy.Block
 {
     class TerraWaste : ModTile
     {

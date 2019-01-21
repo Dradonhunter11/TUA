@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Walls.Wasteland
+namespace TUA.Walls.Wasteland
 {
     class WastestoneBrickWall : ModWall
     {

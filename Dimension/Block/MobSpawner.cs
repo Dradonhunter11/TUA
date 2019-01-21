@@ -10,12 +10,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
-using TerrariaUltraApocalypse.API;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
-using TerrariaUltraApocalypse.Items.Misc.Spawner;
+using TUA.API;
+using TUA.API.TerraEnergy.Block;
+using TUA.API.TerraEnergy.Block.FunctionnalBlock;
+using TUA.Items.Misc.Spawner;
 
-namespace TerrariaUltraApocalypse.Dimension.Block
+namespace TUA.Dimension.Block
 {
     class MobSpawner : TUABlock
     {

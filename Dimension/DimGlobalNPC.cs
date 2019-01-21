@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Dimension
+namespace TUA.Dimension
 {
     class DimGlobalNPC : GlobalNPC
     {

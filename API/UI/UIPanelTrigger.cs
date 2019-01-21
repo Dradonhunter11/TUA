@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.UI.Elements;
 
-namespace TerrariaUltraApocalypse.API.UI
+namespace TUA.API.UI
 {
     class UIPanelTrigger : UIPanel
     {

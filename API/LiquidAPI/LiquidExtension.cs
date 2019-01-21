@@ -9,11 +9,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ObjectData;
-using TerrariaUltraApocalypse.API.Injection;
-using TerrariaUltraApocalypse.API.LiquidAPI.LiquidMod;
-using TerrariaUltraApocalypse.API.LiquidAPI.Swap;
+using TUA.API.Injection;
+using TUA.API.LiquidAPI.LiquidMod;
+using TUA.API.LiquidAPI.Swap;
 
-namespace TerrariaUltraApocalypse.API.LiquidAPI
+namespace TUA.API.LiquidAPI
 {
     static class LiquidExtension
     {

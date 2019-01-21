@@ -9,11 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ObjectData;
-using TerrariaUltraApocalypse.API.Dev;
-using TerrariaUltraApocalypse.API.Injection;
-using TerrariaUltraApocalypse.API.LiquidAPI.LiquidMod;
+using TUA.API.Dev;
+using TUA.API.Injection;
+using TUA.API.LiquidAPI.LiquidMod;
 
-namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
+namespace TUA.API.LiquidAPI.Swap
 {
     class LiquidSwapping
     {

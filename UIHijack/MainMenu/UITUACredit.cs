@@ -4,9 +4,9 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.Localization;
 using Terraria.UI;
-using TerrariaUltraApocalypse.UIHijack.MainMenu.MainMenuButton;
+using TUA.UIHijack.MainMenu.MainMenuButton;
 
-namespace TerrariaUltraApocalypse.UIHijack.MainMenu
+namespace TUA.UIHijack.MainMenu
 {
     internal class UITUACredit : UIState
     {

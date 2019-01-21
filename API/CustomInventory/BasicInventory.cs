@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 
-namespace TerrariaUltraApocalypse.API.CustomInventory
+namespace TUA.API.CustomInventory
 {
     abstract class BasicInventory
     {

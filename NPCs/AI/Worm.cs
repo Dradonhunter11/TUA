@@ -9,7 +9,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.NPCs.AI
+namespace TUA.NPCs.AI
 {
     public abstract class Worm : ModNPC
     {

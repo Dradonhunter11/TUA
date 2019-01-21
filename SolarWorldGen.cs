@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 using Terraria.Utilities;
 using Terraria.World.Generation;
 
-namespace TerrariaUltraApocalypse
+namespace TUA
 {
 	public class SolarWorldGen : Dimlibs.API.DimGenerator
 	{
@@ -317,14 +317,14 @@ namespace TerrariaUltraApocalypse
                         if ((double)l < rockLayer)
                         {
                             Main.tile[k, l].active(true);
-                            Main.tile[k, l].type = (ushort)ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarDirt");
+                            Main.tile[k, l].type = (ushort)ModLoader.GetMod("TUA").TileType("SolarDirt");
                             Main.tile[k, l].frameX = -1;
                             Main.tile[k, l].frameY = -1;
                         }
                         else
                         {
                             Main.tile[k, l].active(true);
-                            Main.tile[k, l].type = (ushort)ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarRock");
+                            Main.tile[k, l].type = (ushort)ModLoader.GetMod("TUA").TileType("SolarRock");
                             Main.tile[k, l].frameX = -1;
                             Main.tile[k, l].frameY = -1;
                         }
@@ -363,8 +363,8 @@ namespace TerrariaUltraApocalypse
                     }
                     for (int m = 0; m < 10; m++)
                     {
-                        SolarWorldGen.TileRunner(array[m], array2[m], (double)WorldGen.genRand.Next(5, 8), WorldGen.genRand.Next(6, 9), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarDirt"), true, -2f, -0.3f, false, true);
-                        SolarWorldGen.TileRunner(array[m], array2[m], (double)WorldGen.genRand.Next(5, 8), WorldGen.genRand.Next(6, 9), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarDirt"), true, 2f, -0.3f, false, true);
+                        SolarWorldGen.TileRunner(array[m], array2[m], (double)WorldGen.genRand.Next(5, 8), WorldGen.genRand.Next(6, 9), ModLoader.GetMod("TUA").TileType("SolarDirt"), true, -2f, -0.3f, false, true);
+                        SolarWorldGen.TileRunner(array[m], array2[m], (double)WorldGen.genRand.Next(5, 8), WorldGen.genRand.Next(6, 9), ModLoader.GetMod("TUA").TileType("SolarDirt"), true, 2f, -0.3f, false, true);
                     }
                 }
             });
@@ -419,7 +419,7 @@ namespace TerrariaUltraApocalypse
                 progress.Message = "Solar world Gen : Placing dirt in rock";
                 for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.00015); k++)
                 {
-                    SolarWorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(0, (int)WorldGen.worldSurfaceLow + 1), (double)WorldGen.genRand.Next(4, 15), WorldGen.genRand.Next(5, 40), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarRock"), false, 0f, 0f, false, true);
+                    SolarWorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(0, (int)WorldGen.worldSurfaceLow + 1), (double)WorldGen.genRand.Next(4, 15), WorldGen.genRand.Next(5, 40), ModLoader.GetMod("TUA").TileType("SolarRock"), false, 0f, 0f, false, true);
                 }
                 for (int l = 0; l < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.0002); l++)
                 {
@@ -429,11 +429,11 @@ namespace TerrariaUltraApocalypse
                     {
                         num2 = WorldGen.genRand.Next((int)WorldGen.worldSurfaceLow, (int)worldSurfaceHigh + 1);
                     }
-                    SolarWorldGen.TileRunner(num, num2, (double)WorldGen.genRand.Next(4, 10), WorldGen.genRand.Next(5, 30), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarRock"), false, 0f, 0f, false, true);
+                    SolarWorldGen.TileRunner(num, num2, (double)WorldGen.genRand.Next(4, 10), WorldGen.genRand.Next(5, 30), ModLoader.GetMod("TUA").TileType("SolarRock"), false, 0f, 0f, false, true);
                 }
                 for (int m = 0; m < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.0045); m++)
                 {
-                    SolarWorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)worldSurfaceHigh, (int)rockLayerHigh + 1), (double)WorldGen.genRand.Next(2, 7), WorldGen.genRand.Next(2, 23), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarRock"), false, 0f, 0f, false, true);
+                    SolarWorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)worldSurfaceHigh, (int)rockLayerHigh + 1), (double)WorldGen.genRand.Next(2, 7), WorldGen.genRand.Next(2, 23), ModLoader.GetMod("TUA").TileType("SolarRock"), false, 0f, 0f, false, true);
                 }
             });
             AddGenerationPass("Dirt In Rocks", delegate (GenerationProgress progress)
@@ -441,7 +441,7 @@ namespace TerrariaUltraApocalypse
                 progress.Message = "Solar world Gen : Placing dity in rock";
                 for (int k = 0; k < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.005); k++)
                 {
-                    SolarWorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)rockLayerLow, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 6), WorldGen.genRand.Next(2, 40), ModLoader.GetMod("TerrariaUltraApocalypse").TileType("SolarDirt"), false, 0f, 0f, false, true);
+                    SolarWorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next((int)rockLayerLow, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 6), WorldGen.genRand.Next(2, 40), ModLoader.GetMod("TUA").TileType("SolarDirt"), false, 0f, 0f, false, true);
                 }
             });
 
@@ -1589,7 +1589,7 @@ namespace TerrariaUltraApocalypse
 
             AddGenerationPass("Volcano!!!", delegate (GenerationProgress progress)
             {
-                //TUAWorld.solarWorldGen(ModLoader.GetMod("TerrariaUltraApocalypse"));
+                //TUAWorld.solarWorldGen(ModLoader.GetMod("TUA"));
             });
 
             

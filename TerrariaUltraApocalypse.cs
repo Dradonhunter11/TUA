@@ -14,36 +14,36 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
-using TerrariaUltraApocalypse.API;
-using TerrariaUltraApocalypse.API.Dev;
-using TerrariaUltraApocalypse.API.Experimental;
-using TerrariaUltraApocalypse.API.Injection;
-using TerrariaUltraApocalypse.API.LiquidAPI;
-using TerrariaUltraApocalypse.API.LiquidAPI.Test;
-using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge;
-using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
-using TerrariaUltraApocalypse.CustomScreenShader;
-using TerrariaUltraApocalypse.CustomSkies;
-using TerrariaUltraApocalypse.Dimension.Sky;
-using TerrariaUltraApocalypse.Items.EoA;
-using TerrariaUltraApocalypse.Items.Meteoridon.Materials;
-using TerrariaUltraApocalypse.NPCs;
-using TerrariaUltraApocalypse.Raids.UI;
-using TerrariaUltraApocalypse.UIHijack.InGameUI.NPCDialog;
-using TerrariaUltraApocalypse.UIHijack.MainMenu;
-using TerrariaUltraApocalypse.UIHijack.MainMenu.TUAOptionMenu;
-using TerrariaUltraApocalypse.UIHijack.WorldSelection;
+using TUA.API;
+using TUA.API.Dev;
+using TUA.API.Experimental;
+using TUA.API.Injection;
+using TUA.API.LiquidAPI;
+using TUA.API.LiquidAPI.Test;
+using TUA.API.TerraEnergy.MachineRecipe.Forge;
+using TUA.API.TerraEnergy.MachineRecipe.Furnace;
+using TUA.CustomScreenShader;
+using TUA.CustomSkies;
+using TUA.Dimension.Sky;
+using TUA.Items.EoA;
+using TUA.Items.Meteoridon.Materials;
+using TUA.NPCs;
+using TUA.Raids.UI;
+using TUA.UIHijack.InGameUI.NPCDialog;
+using TUA.UIHijack.MainMenu;
+using TUA.UIHijack.MainMenu.TUAOptionMenu;
+using TUA.UIHijack.WorldSelection;
 using ModExtension = BiomeLibrary.API.ModExtension;
 
-namespace TerrariaUltraApocalypse
+namespace TUA
 {
-    internal class TerrariaUltraApocalypse : Mod
+    internal class TUA : Mod
     {
         internal static string version = "0.1 dev";
         internal static String tModLoaderVersion2 = "";
         internal static bool devMode = true;
 
-        internal static TerrariaUltraApocalypse instance;
+        internal static TUA instance;
 
         public static bool EoCUltraActivated = false;
         private readonly Type t2d = typeof(Texture2D);
@@ -72,7 +72,7 @@ namespace TerrariaUltraApocalypse
 
         public const uint SPI_GETMOUSESPEED = 0x0070;
 
-        public TerrariaUltraApocalypse()
+        public TUA()
         {
             Properties = new ModProperties()
             {
@@ -210,12 +210,12 @@ namespace TerrariaUltraApocalypse
             CapacitorInterface = new UserInterface();
             raidsInterface = new UserInterface();
 
-            Filters.Scene["TerrariaUltraApocalypse:TUAPlayer"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
-            SkyManager.Instance["TerrariaUltraApocalypse:TUAPlayer"] = new TUACustomSky();
-            Filters.Scene["TerrariaUltraApocalypse:StardustPillar"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
-            SkyManager.Instance["TerrariaUltraApocalypse:StardustPillar"] = new StardustCustomSky();
-            Filters.Scene["TerrariaUltraApocalypse:SolarMist"] = new Filter(new MeteoridonScreenShader().UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
-            SkyManager.Instance["TerrariaUltraApocalypse:SolarMist"] = new HeavyMistSky();
+            Filters.Scene["TUA:TUAPlayer"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
+            SkyManager.Instance["TUA:TUAPlayer"] = new TUACustomSky();
+            Filters.Scene["TUA:StardustPillar"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
+            SkyManager.Instance["TUA:StardustPillar"] = new StardustCustomSky();
+            Filters.Scene["TUA:SolarMist"] = new Filter(new MeteoridonScreenShader().UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
+            SkyManager.Instance["TUA:SolarMist"] = new HeavyMistSky();
 
 
             if (Main.netMode == 0)

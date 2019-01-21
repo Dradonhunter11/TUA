@@ -7,13 +7,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API.LiquidAPI.Test
+namespace TUA.API.LiquidAPI.Test
 {
     class WeirdLiquid : ModLiquid
     {
         public override Texture2D texture
         {
-            get { return ModLoader.GetMod("TerrariaUltraApocalypse").GetTexture("Texture/water/BestWater2"); }
+            get { return ModLoader.GetMod("TUA").GetTexture("Texture/water/BestWater2"); }
         }
 
         public override void PreDrawValueSet(ref bool bg, ref int style, ref float Alpha)

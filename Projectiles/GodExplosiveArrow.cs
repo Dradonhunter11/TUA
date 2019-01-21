@@ -8,10 +8,10 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
-using TerrariaUltraApocalypse.API.VoidClass;
+using TUA.API.VoidClass;
 
 
-namespace TerrariaUltraApocalypse.Projectiles
+namespace TUA.Projectiles
 {
     class GodExplosiveArrow : VoidDamageProjectile
     {

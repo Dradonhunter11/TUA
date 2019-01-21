@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.Liquid;
-using TerrariaUltraApocalypse.API.LiquidAPI.LiquidMod;
-using TerrariaUltraApocalypse.API.LiquidAPI.Swap;
+using TUA.API.LiquidAPI.LiquidMod;
+using TUA.API.LiquidAPI.Swap;
 
-namespace TerrariaUltraApocalypse.API.LiquidAPI
+namespace TUA.API.LiquidAPI
 {
     class LiquidRegistery
     {

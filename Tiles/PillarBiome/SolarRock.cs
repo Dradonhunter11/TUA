@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Tiles.PillarBiome
+namespace TUA.Tiles.PillarBiome
 {
     class SolarRock : ModTile
     {

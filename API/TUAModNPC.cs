@@ -8,11 +8,11 @@ using BiomeLibrary.API;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.Items.Meteoridon;
-using TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass;
+using TUA.Items.Meteoridon;
+using TUA.NPCs.NewBiome.Wasteland.MutatedMass;
 
 
-namespace TerrariaUltraApocalypse.API
+namespace TUA.API
 {
     class TUAModNPC : ModNPC
     {

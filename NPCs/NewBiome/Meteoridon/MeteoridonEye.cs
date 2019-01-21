@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon
+namespace TUA.NPCs.NewBiome.Meteoridon
 {
     internal class MeteoridonEye : TUAModNPC
     {

@@ -7,14 +7,14 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Tiles.NewBiome.Meteoridon
+namespace TUA.Tiles.NewBiome.Meteoridon
 {
     class MeteoridonTree : ModTree
     {
 
         private Mod mod
         {
-            get { return ModLoader.GetMod("TerrariaUltraApocalypse"); }
+            get { return ModLoader.GetMod("TUA"); }
         }
 
         

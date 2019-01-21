@@ -18,7 +18,7 @@ using Terraria.Localization;
 using Terraria.UI;
 using Terraria.UI.Gamepad;
 
-namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
+namespace TUA.UIHijack.WorldSelection
 {
     public delegate void OldDraw(SpriteBatch spriteBatch);
 

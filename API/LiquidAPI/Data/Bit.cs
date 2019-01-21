@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TerrariaUltraApocalypse.API.LiquidAPI.Data
+namespace TUA.API.LiquidAPI.Data
 {
     public struct Bit
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TerrariaUltraApocalypse.API.LiquidAPI
+namespace TUA.API.LiquidAPI
 {
     class TileExtension
     {

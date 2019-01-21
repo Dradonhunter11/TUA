@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ModLoader;
 
 
-namespace TerrariaUltraApocalypse.Tiles.NewBiome.Plagues
+namespace TUA.Tiles.NewBiome.Plagues
 {
     class ApocalypseDirt : ModTile
     {

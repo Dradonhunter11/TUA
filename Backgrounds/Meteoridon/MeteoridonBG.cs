@@ -7,7 +7,7 @@ using BiomeLibrary.API;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Backgrounds.Meteoridon
+namespace TUA.Backgrounds.Meteoridon
 {
     class MeteoridonBG : ModSurfaceBgStyle
     {

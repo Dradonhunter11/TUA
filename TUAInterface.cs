@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 
-namespace TerrariaUltraApocalypse
+namespace TUA
 {
     class TUAInterface : UIState
     {

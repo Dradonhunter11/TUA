@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 
-namespace TerrariaUltraApocalypse.API.CustomInventory
+namespace TUA.API.CustomInventory
 {
 
     class ExtraSlot

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API
+namespace TUA.API
 {
     class TranslationWrapper
     {

@@ -6,7 +6,7 @@ using System.Text;
 using Terraria.ModLoader;
 using Terraria;
 
-namespace TerrariaUltraApocalypse.Buff.Debuff.EoA
+namespace TUA.Buff.Debuff.EoA
 {
     class NoMountDebuff : ModBuff
     {

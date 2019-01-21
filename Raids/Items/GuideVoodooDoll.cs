@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.Raids.Items
+namespace TUA.Raids.Items
 {
     class GuideVoodooDoll : ModItem
     {

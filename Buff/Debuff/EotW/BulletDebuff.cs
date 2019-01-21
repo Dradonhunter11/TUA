@@ -6,7 +6,7 @@ using System.Text;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Buff.Debuff.EotW
+namespace TUA.Buff.Debuff.EotW
 {
     class BulletDebuff : ModBuff
     {

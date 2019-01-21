@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.NPCs.Memefest
+namespace TUA.NPCs.Memefest
 {
     class EvenMoreHarderEoCForNoReason : TUAModNPC
     {

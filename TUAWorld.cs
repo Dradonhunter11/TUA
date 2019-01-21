@@ -6,11 +6,11 @@ using Terraria.GameContent.Generation;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.World.Generation;
-using TerrariaUltraApocalypse.CustomScreenShader;
-using TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass;
-using TerrariaUltraApocalypse.Structure.hellalt;
+using TUA.CustomScreenShader;
+using TUA.NPCs.NewBiome.Wasteland.MutatedMass;
+using TUA.Structure.hellalt;
 
-namespace TerrariaUltraApocalypse
+namespace TUA
 {
     class TUAWorld : ModWorld
     {
@@ -178,7 +178,7 @@ namespace TerrariaUltraApocalypse
         {
             if (!apocalypseMoon)
             {
-                Main.moonTexture = TerrariaUltraApocalypse.originalMoon;
+                Main.moonTexture = TUA.originalMoon;
             }
 
             Main.bottomWorld = Main.maxTilesY * 16 + 400;
@@ -722,7 +722,7 @@ namespace TerrariaUltraApocalypse
         {
             if (mod.GetBiome("Meteoridon").InBiome() && Main.netMode == 0)
             {
-                ScreenFog.Draw(TerrariaUltraApocalypse.SolarFog, 0.3f, 0.1f);
+                ScreenFog.Draw(TUA.SolarFog, 0.3f, 0.1f);
             }
         }
     }

@@ -16,9 +16,9 @@ using Terraria.Graphics.Capture;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API.Dev;
+using TUA.API.Dev;
 
-namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
+namespace TUA.API.LiquidAPI.Swap
 {
     class PlayerSwap
     {

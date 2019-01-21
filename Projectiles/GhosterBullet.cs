@@ -10,7 +10,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Projectiles
+namespace TUA.Projectiles
 {
     class GhosterBullet : ModProjectile
     {

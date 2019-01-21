@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace TerrariaUltraApocalypse.MoonEvent
+namespace TUA.MoonEvent
 {
     class ApocalypseWMoon : ModWorld
     {

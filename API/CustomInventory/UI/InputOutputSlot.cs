@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
 
-namespace TerrariaUltraApocalypse.API.CustomInventory.UI
+namespace TUA.API.CustomInventory.UI
 {
     class InputOutputSlot : UIElement
     {

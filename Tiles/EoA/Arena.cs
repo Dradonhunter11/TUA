@@ -8,7 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace TerrariaUltraApocalypse.Tiles.EoA
+namespace TUA.Tiles.EoA
 {
     class Arena : ModTile
     {

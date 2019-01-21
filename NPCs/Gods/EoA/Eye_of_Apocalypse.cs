@@ -8,13 +8,13 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
-using TerrariaUltraApocalypse;
+using TUA;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using TerrariaUltraApocalypse.NPCs.Gods.EoA;
-using TerrariaUltraApocalypse.Projectiles.EoA;
+using TUA.NPCs.Gods.EoA;
+using TUA.Projectiles.EoA;
 
-namespace TerrariaUltraApocalypse.NPCs.Gods.EoA
+namespace TUA.NPCs.Gods.EoA
 {
 
 

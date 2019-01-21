@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TerrariaUltraApocalypse.Tiles.NewBiome.Meteoridon;
+using TUA.Tiles.NewBiome.Meteoridon;
 
 
-namespace TerrariaUltraApocalypse.Projectiles.FallingProjectile
+namespace TUA.Projectiles.FallingProjectile
 {
     class MeteoridonSandProjectile : TUAFallingProjectile
     {

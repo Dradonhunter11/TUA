@@ -10,12 +10,12 @@ using ReLogic.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
-using TerrariaUltraApocalypse.UIHijack.MainMenu.MainMenuButton;
+using TUA.UIHijack.MainMenu.MainMenuButton;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.UIHijack.MainMenu
+namespace TUA.UIHijack.MainMenu
 {
     class MainMenuUI : UIState
     {
@@ -45,12 +45,12 @@ namespace TerrariaUltraApocalypse.UIHijack.MainMenu
 
         private void randomizeBackground()
         {
-            if (!SkyManager.Instance["TerrariaUltraApocalypse:SolarMist"].IsActive())
+            if (!SkyManager.Instance["TUA:SolarMist"].IsActive())
             {
-                Filters.Scene.Activate("TerrariaUltraApocalypse:SolarMist", Vector2.Zero - new Vector2(0f, 10f), new object[0]);
-                SkyManager.Instance.Activate("TerrariaUltraApocalypse:SolarMist", Vector2.Zero - new Vector2(0f, 10f), new object[0]);
-                Filters.Scene["TerrariaUltraApocalypse:SolarMist"].GetShader().UseIntensity(0f).UseProgress(0f);
-                Filters.Scene["TerrariaUltraApocalypse:SolarMist"].GetShader().UseTargetPosition(Vector2.Zero - new Vector2(0f, 10f));
+                Filters.Scene.Activate("TUA:SolarMist", Vector2.Zero - new Vector2(0f, 10f), new object[0]);
+                SkyManager.Instance.Activate("TUA:SolarMist", Vector2.Zero - new Vector2(0f, 10f), new object[0]);
+                Filters.Scene["TUA:SolarMist"].GetShader().UseIntensity(0f).UseProgress(0f);
+                Filters.Scene["TUA:SolarMist"].GetShader().UseTargetPosition(Vector2.Zero - new Vector2(0f, 10f));
             }   
         }
 

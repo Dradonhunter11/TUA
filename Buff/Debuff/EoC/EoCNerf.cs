@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Buff.Debuff.EoC
+namespace TUA.Buff.Debuff.EoC
 {
     class EoCNerf : ModBuff
     {

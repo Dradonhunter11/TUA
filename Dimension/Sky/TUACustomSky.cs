@@ -7,7 +7,7 @@ using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using Dimlibs;
 
-namespace TerrariaUltraApocalypse.NPCs
+namespace TUA.NPCs
 {
     class TUACustomSky : CustomSky
     {

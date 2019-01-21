@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Graphics;
 
-namespace TerrariaUltraApocalypse.API.LiquidAPI
+namespace TUA.API.LiquidAPI
 {
     public class ModLiquid
     {

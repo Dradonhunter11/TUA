@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Items.Misc.Tools
+namespace TUA.Items.Misc.Tools
 {
     class DoodooStickaxe : ModItem
     {

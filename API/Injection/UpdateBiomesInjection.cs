@@ -13,9 +13,9 @@ using Terraria.GameContent.Events;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API.Dev;
+using TUA.API.Dev;
 
-namespace TerrariaUltraApocalypse.API.Injection
+namespace TUA.API.Injection
 {
     class UpdateBiomesInjection
     {
@@ -359,7 +359,7 @@ namespace TerrariaUltraApocalypse.API.Injection
             _insideBlizzardSoundInfo.SetValue(null, _insideBlizzardSound);
             //_blizzardSoundVolumeInfo.SetValue(null, _insideBlizzardSound);
 
-            Mod mod = ModLoader.GetMod("TerrariaUltraApocalypse");
+            Mod mod = ModLoader.GetMod("TUA");
 
             
 

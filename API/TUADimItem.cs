@@ -6,7 +6,7 @@ using System.Text;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API
+namespace TUA.API
 {
     class TUADimItem : Dimlibs.API.DimItem
     {

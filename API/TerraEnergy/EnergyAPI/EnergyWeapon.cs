@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI
+namespace TUA.API.TerraEnergy.EnergyAPI
 {
     abstract class EnergyWeapon : EnergyItem
     {

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.Localization
+namespace TUA.Localization
 {
     class LocalizationManager
     {
@@ -25,7 +25,7 @@ namespace TerrariaUltraApocalypse.Localization
 
         public void AddNewTranslationToManager(String key, String defaultString)
         {
-            TranslationWrapper translation = new TranslationWrapper(TerrariaUltraApocalypse.instance.CreateTranslation(key));TerrariaUltraApocalypse.instance.CreateTranslation(key);
+            TranslationWrapper translation = new TranslationWrapper(TUA.instance.CreateTranslation(key));TUA.instance.CreateTranslation(key);
             translation.SetDefault(defaultString);
             manager.Add(key, translation);
         }

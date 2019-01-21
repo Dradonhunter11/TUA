@@ -8,7 +8,7 @@ using Terraria.GameContent.Generation;
 using Terraria.ID;
 using Terraria.World.Generation;
 
-namespace TerrariaUltraApocalypse.Structure.hellalt
+namespace TUA.Structure.hellalt
 {
     class TheHeartArena : MicroBiome
     {
@@ -34,7 +34,7 @@ namespace TerrariaUltraApocalypse.Structure.hellalt
             WorldUtils.Gen(origin, new Shapes.Circle(75, 75), Actions.Chain(new GenAction[]
             {
                 new Actions.ClearTile(true),
-                new Actions.PlaceWall((byte) TerrariaUltraApocalypse.instance.WallType("WastestoneBrickWall"), true)
+                new Actions.PlaceWall((byte) TUA.instance.WallType("WastestoneBrickWall"), true)
             }));
 
             WorldUtils.Gen(origin, new Shapes.Rectangle(144, 10), Actions.Chain(new GenAction[]

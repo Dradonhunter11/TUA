@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
+using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 
-namespace TerrariaUltraApocalypse.Items.Materials.Wasteland
+namespace TUA.Items.Materials.Wasteland
 {
     class WastestoneIngot : ModItem
     {

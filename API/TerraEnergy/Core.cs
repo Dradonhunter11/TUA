@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy
+namespace TUA.API.TerraEnergy
 {
     public class Core
     {

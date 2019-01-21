@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 
-namespace TerrariaUltraApocalypse.API.LiquidAPI.LiquidMod
+namespace TUA.API.LiquidAPI.LiquidMod
 {
     class LiquidRef
     {

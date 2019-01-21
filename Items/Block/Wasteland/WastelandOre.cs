@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Items.Block.Wasteland
+namespace TUA.Items.Block.Wasteland
 {
     class WastelandOre : ModItem
     {

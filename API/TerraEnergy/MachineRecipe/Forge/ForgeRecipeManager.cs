@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
+using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge
+namespace TUA.API.TerraEnergy.MachineRecipe.Forge
 {
     class ForgeRecipeManager
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TerrariaUltraApocalypse.API.Default;
+using TUA.API.Default;
 
-namespace TerrariaUltraApocalypse.Items.Meteoridon.Tiles
+namespace TUA.Items.Meteoridon.Tiles
 {
     class MeteoridonSandstone : TUADefaultBlockItem
     {

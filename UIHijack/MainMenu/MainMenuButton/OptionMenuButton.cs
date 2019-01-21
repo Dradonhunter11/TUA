@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.UI;
 
-namespace TerrariaUltraApocalypse.UIHijack.MainMenu.MainMenuButton
+namespace TUA.UIHijack.MainMenu.MainMenuButton
 {
     class OptionMenuButton : MenuButton
     {

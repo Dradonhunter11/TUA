@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse
+namespace TUA
 {
     class RecipeManager
     {
@@ -72,7 +72,7 @@ namespace TerrariaUltraApocalypse
                 Recipe recipe = r;
                 if (recipe.requiredItem.Length == 1)
                 {
-                    TerrariaUltraApocalypse.instance.addFurnaceRecipe(recipe.requiredItem[0].type, recipe.createItem.type, 20);
+                    TUA.instance.addFurnaceRecipe(recipe.requiredItem[0].type, recipe.createItem.type, 20);
                     removedRecipes.Add(r);
                     RecipeEditor re = new RecipeEditor(r);
                     re.DeleteRecipe();

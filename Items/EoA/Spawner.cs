@@ -2,13 +2,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
-using TerrariaUltraApocalypse.API;
-using TerrariaUltraApocalypse.NPCs.Gods.EoA;
+using TUA.API;
+using TUA.NPCs.Gods.EoA;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.DataStructures;
 
-namespace TerrariaUltraApocalypse.Items.EoA
+namespace TUA.Items.EoA
 {
     class Spawner : TUAModLegacyItem
     {
@@ -42,7 +42,7 @@ namespace TerrariaUltraApocalypse.Items.EoA
 
         public override bool UseItem(Player player)
         {
-            //if (downedMoonlord && TerrariaUltraApocalypse.EoCDeath >= 10)
+            //if (downedMoonlord && TUA.EoCDeath >= 10)
             //{
             if (!Main.expertMode)
             {

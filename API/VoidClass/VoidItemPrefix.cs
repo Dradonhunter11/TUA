@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API.VoidClass
+namespace TUA.API.VoidClass
 {
     abstract class VoidItemPrefix : ModPrefix
     {

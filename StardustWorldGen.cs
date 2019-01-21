@@ -11,7 +11,7 @@ using Terraria.IO;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 
-namespace TerrariaUltraApocalypse
+namespace TUA
 {
     class StardustWorldGen : Dimlibs.API.DimGenerator
     {
@@ -249,14 +249,14 @@ namespace TerrariaUltraApocalypse
                     if ((double)currentY < rockLayer)
                     {
                         Main.tile[currentX, currentY].active(true);
-                        Main.tile[currentX, currentY].type = (ushort)ModLoader.GetMod("TerrariaUltraApocalypse").TileType("StardustIce");
+                        Main.tile[currentX, currentY].type = (ushort)ModLoader.GetMod("TUA").TileType("StardustIce");
                         Main.tile[currentX, currentY].frameX = -1;
                         Main.tile[currentX, currentY].frameY = -1;
                     }
                     else
                     {
                         Main.tile[currentX, currentY].active(true);
-                        Main.tile[currentX, currentY].type = (ushort)ModLoader.GetMod("TerrariaUltraApocalypse").TileType("StardustRock");
+                        Main.tile[currentX, currentY].type = (ushort)ModLoader.GetMod("TUA").TileType("StardustRock");
                         Main.tile[currentX, currentY].frameX = -1;
                         Main.tile[currentX, currentY].frameY = -1;
                     }
@@ -351,14 +351,14 @@ namespace TerrariaUltraApocalypse
                     if ((double)currentY < rockLayer)
                     {
                         Main.tile[currentX, currentY].active(true);
-                        Main.tile[currentX, currentY].type = (ushort)ModLoader.GetMod("TerrariaUltraApocalypse").TileType("StardustIce");
+                        Main.tile[currentX, currentY].type = (ushort)ModLoader.GetMod("TUA").TileType("StardustIce");
                         Main.tile[currentX, currentY].frameX = -1;
                         Main.tile[currentX, currentY].frameY = -1;
                     }
                     else
                     {
                         Main.tile[currentX, currentY].active(true);
-                        Main.tile[currentX, currentY].type = (ushort)ModLoader.GetMod("TerrariaUltraApocalypse").TileType("StardustRock");
+                        Main.tile[currentX, currentY].type = (ushort)ModLoader.GetMod("TUA").TileType("StardustRock");
                         Main.tile[currentX, currentY].frameX = -1;
                         Main.tile[currentX, currentY].frameY = -1;
                     }
@@ -483,9 +483,9 @@ namespace TerrariaUltraApocalypse
                     for (int currentY = (int) seaLevel; currentY > seaLevel + yModification; currentY--)
                     {
                         /*Main.tile[currentX, currentY].type =
-                            (ushort)TerrariaUltraApocalypse.instance.TileType("StardustIce");*/
+                            (ushort)TUA.instance.TileType("StardustIce");*/
                         WorldGen.PlaceTile(currentX, currentY,
-                            TerrariaUltraApocalypse.instance.TileType("StardustIce"));
+                            TUA.instance.TileType("StardustIce"));
                     }
 
                 }

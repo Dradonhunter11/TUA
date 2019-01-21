@@ -10,13 +10,13 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API.LiquidAPI.Test
+namespace TUA.API.LiquidAPI.Test
 {
     class PlutonicWaste : ModLiquid
     {
         public override Texture2D texture
         {
-            get { return ModLoader.GetMod("TerrariaUltraApocalypse").GetTexture("Texture/water/BestWater"); }
+            get { return ModLoader.GetMod("TUA").GetTexture("Texture/water/BestWater"); }
         }
 
         public override void PreDrawValueSet(ref bool bg, ref int style, ref float Alpha)
@@ -43,7 +43,7 @@ namespace TerrariaUltraApocalypse.API.LiquidAPI.Test
                 Vector2 position = target.Center;
                 target.active = false;
                 NPC.NewNPC((int) position.X, (int) position.Y,
-                    ModLoader.GetMod("TerrariaUltraApocalypse").NPCType("MutatedSludge"));
+                    ModLoader.GetMod("TUA").NPCType("MutatedSludge"));
             }
         }
     }

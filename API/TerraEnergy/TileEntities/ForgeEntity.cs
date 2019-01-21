@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
+namespace TUA.API.TerraEnergy.TileEntities
 {
     class ForgeEntity
     {

@@ -1,10 +1,10 @@
 ﻿using System;
 using Terraria;
 using Terraria.ID;
-using TerrariaUltraApocalypse.API.Default;
-using TerrariaUltraApocalypse.Tiles.NewBiome.Meteoridon;
+using TUA.API.Default;
+using TUA.Tiles.NewBiome.Meteoridon;
 
-namespace TerrariaUltraApocalypse.Projectiles.Solutions
+namespace TUA.Projectiles.Solutions
 {
     internal class MeteoridonSolution : TUASolution
     {

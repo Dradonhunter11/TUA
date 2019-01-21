@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TerrariaUltraApocalypse.API.VoidClass;
+using TUA.API.VoidClass;
 
-namespace TerrariaUltraApocalypse.Prefixes.VoidItem
+namespace TUA.Prefixes.VoidItem
 {
     class Collapsing : VoidItemPrefix
     {

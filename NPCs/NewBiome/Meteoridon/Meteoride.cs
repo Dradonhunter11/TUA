@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon
+namespace TUA.NPCs.NewBiome.Meteoridon
 {
     class Meteoride
     {

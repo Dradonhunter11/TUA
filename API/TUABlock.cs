@@ -2,10 +2,10 @@
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
-using TerrariaUltraApocalypse.Items.Misc.Debug;
+using TUA.API.TerraEnergy.EnergyAPI;
+using TUA.Items.Misc.Debug;
 
-namespace TerrariaUltraApocalypse.API
+namespace TUA.API
 {
     class TUABlock : ModTile
     {
