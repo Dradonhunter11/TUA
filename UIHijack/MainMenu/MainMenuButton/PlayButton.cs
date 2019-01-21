@@ -8,7 +8,7 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.Localization;
 using Terraria.UI;
 
-namespace TerrariaUltraApocalypse.UIHijack.MainMenu.MainMenuButton
+namespace TUA.UIHijack.MainMenu.MainMenuButton
 {
     class PlayButton : MenuButton
     {

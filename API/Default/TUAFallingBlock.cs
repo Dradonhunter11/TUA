@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API.Default
+namespace TUA.API.Default
 {
     internal abstract class TUAFallingBlock : ModTile
     {

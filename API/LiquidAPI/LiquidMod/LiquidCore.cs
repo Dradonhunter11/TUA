@@ -8,9 +8,9 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.Utilities;
-using TerrariaUltraApocalypse.API.LiquidAPI.Data;
+using TUA.API.LiquidAPI.Data;
 
-namespace TerrariaUltraApocalypse.API.LiquidAPI.LiquidMod
+namespace TUA.API.LiquidAPI.LiquidMod
 {
 
     //The following code is a modified version of DataCore from Project_Logic 0.5.0.1 provided by Rartrin

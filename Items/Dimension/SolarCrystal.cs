@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.IO;
-using TerrariaUltraApocalypse;
-using TerrariaUltraApocalypse.API;
+using TUA;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.Items.Dimension
+namespace TUA.Items.Dimension
 {
     class SolarCrystal : TUADimItem
     {

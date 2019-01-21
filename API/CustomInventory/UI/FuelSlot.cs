@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.UI;
-using TerrariaUltraApocalypse.API.FurnaceRework;
+using TUA.API.FurnaceRework;
 
-namespace TerrariaUltraApocalypse.API.CustomInventory.UI
+namespace TUA.API.CustomInventory.UI
 {
     class FuelSlot : InputOutputSlot
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Dusts.EotW
+namespace TUA.Dusts.EotW
 {
     class MagicDust : ModDust
     {

@@ -7,7 +7,7 @@ using System.Text;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API.VoidClass
+namespace TUA.API.VoidClass
 {
     abstract class VoidDamageItem : TUAModItem
     {

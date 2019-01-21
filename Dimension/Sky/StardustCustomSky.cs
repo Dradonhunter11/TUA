@@ -10,7 +10,7 @@ using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Dimension.Sky
+namespace TUA.Dimension.Sky
 {
     class StardustCustomSky : CustomSky
     {
@@ -26,7 +26,7 @@ namespace TerrariaUltraApocalypse.Dimension.Sky
         private float[] xPos = new float[50];
         private float[] yPos = new float[50];
 
-        private Mod mod = ModLoader.GetMod("TerrariaUltraApocalypse");
+        private Mod mod = ModLoader.GetMod("TUA");
         private Texture2D pillarS = Main.npcTexture[NPCID.LunarTowerStardust];
 
         public override void Activate(Vector2 position, params object[] args)

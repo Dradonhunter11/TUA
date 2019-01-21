@@ -6,7 +6,7 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 using Terraria.UI.Chat;
 
-namespace TerrariaUltraApocalypse.Raids.UI
+namespace TUA.Raids.UI
 {
     class RaidsPanel : UIPanel
     {

@@ -9,9 +9,9 @@ using ReLogic.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
-using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
+using TUA.API.TerraEnergy.EnergyAPI;
 
-namespace TerrariaUltraApocalypse.API.CustomInventory.UI
+namespace TUA.API.CustomInventory.UI
 {
     class ChargingSlot : InputOutputSlot
     {

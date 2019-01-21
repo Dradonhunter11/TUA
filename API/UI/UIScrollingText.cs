@@ -11,7 +11,7 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 using Terraria.UI.Chat;
 
-namespace TerrariaUltraApocalypse.API.UI
+namespace TUA.API.UI
 {
     class UIScrollingText : UIElement
     {

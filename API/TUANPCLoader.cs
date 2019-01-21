@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API
+namespace TUA.API
 {
     public static class TUANPCLoader
     {

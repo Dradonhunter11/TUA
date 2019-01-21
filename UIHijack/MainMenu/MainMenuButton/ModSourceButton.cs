@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.Localization;
 using Terraria.UI;
 
-namespace TerrariaUltraApocalypse.UIHijack.MainMenu.MainMenuButton
+namespace TUA.UIHijack.MainMenu.MainMenuButton
 {
     class ModSourceButton : MenuButton
     {

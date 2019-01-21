@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Terraria;
 
-namespace TerrariaUltraApocalypse.Dusts
+namespace TUA.Dusts
 {
     class FireDust : TUAGlobalDust
     {

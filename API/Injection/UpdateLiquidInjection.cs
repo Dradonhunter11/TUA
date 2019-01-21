@@ -13,10 +13,10 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Net;
-using TerrariaUltraApocalypse.API.LiquidAPI;
-using TerrariaUltraApocalypse.API.LiquidAPI.Swap;
+using TUA.API.LiquidAPI;
+using TUA.API.LiquidAPI.Swap;
 
-namespace TerrariaUltraApocalypse.API.Injection
+namespace TUA.API.Injection
 {
     class UpdateLiquidInjection : ModWorld
     {

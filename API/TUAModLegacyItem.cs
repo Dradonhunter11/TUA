@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API
+namespace TUA.API
 {
     class TUAModLegacyItem : TUAModItem
     {

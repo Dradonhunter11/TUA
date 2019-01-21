@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using Terraria;
 using Terraria.ID;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.Items.Food
+namespace TUA.Items.Food
 {
     class Poutine : TUAModItem
     {

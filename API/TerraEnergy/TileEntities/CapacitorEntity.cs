@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader.IO;
-using TerrariaUltraApocalypse.API.CustomInventory;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
-using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
-using TerrariaUltraApocalypse.API.TerraEnergy.Items.Block;
-using TerrariaUltraApocalypse.API.TerraEnergy.UI;
+using TUA.API.CustomInventory;
+using TUA.API.TerraEnergy.Block;
+using TUA.API.TerraEnergy.Block.FunctionnalBlock;
+using TUA.API.TerraEnergy.EnergyAPI;
+using TUA.API.TerraEnergy.Items.Block;
+using TUA.API.TerraEnergy.UI;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
+namespace TUA.API.TerraEnergy.TileEntities
 {
     class CapacitorEntity : StorageEntity
     {
@@ -26,8 +26,8 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
             InitializeItemSlot();
             CapacitorUi = new CapacitorUI(slot, this);
             Main.playerInventory = true;
-            TerrariaUltraApocalypse.machineInterface.SetState(CapacitorUi);
-            TerrariaUltraApocalypse.machineInterface.IsVisible = true;
+            TUA.machineInterface.SetState(CapacitorUi);
+            TUA.machineInterface.IsVisible = true;
         }
 
         public override void SaveEntity(TagCompound tag)

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TerrariaUltraApocalypse.NPCs.AI;
+using TUA.NPCs.AI;
 
-namespace TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon.EvolvedMeteorideWorm
+namespace TUA.NPCs.NewBiome.Meteoridon.EvolvedMeteorideWorm
 {
     abstract class EvolvedMeteorideWorm : Worm
     {

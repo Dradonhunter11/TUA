@@ -15,7 +15,7 @@ using Terraria.Localization;
 using Terraria.UI;
 using Terraria.UI.Chat;
 
-namespace TerrariaUltraApocalypse.UIHijack.MainMenu
+namespace TUA.UIHijack.MainMenu
 {
     class MenuButton : UIElement
     {

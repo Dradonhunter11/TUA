@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.World;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.World
+namespace TUA.World
 {
     class OreSpread : ModWorld
     {

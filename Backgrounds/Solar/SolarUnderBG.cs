@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Backgrounds.Solar
+namespace TUA.Backgrounds.Solar
 {
     class SolarUnderBG : ModUgBgStyle
     {

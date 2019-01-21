@@ -17,7 +17,7 @@ using Terraria.Localization;
 using Terraria.Map;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API.Injection
+namespace TUA.API.Injection
 {
     class DrawMapInjection
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.Items.Misc.Debug
+namespace TUA.Items.Misc.Debug
 {
     class DebugStick : TUAModItem
     {

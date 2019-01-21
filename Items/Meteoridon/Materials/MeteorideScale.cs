@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Items.Meteoridon.Materials
+namespace TUA.Items.Meteoridon.Materials
 {
     class MeteorideScale : ModItem
     {

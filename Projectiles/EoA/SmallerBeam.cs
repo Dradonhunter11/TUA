@@ -9,10 +9,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API.VoidClass;
-using TerrariaUltraApocalypse.NPCs.Gods.EoA;
+using TUA.API.VoidClass;
+using TUA.NPCs.Gods.EoA;
 
-namespace TerrariaUltraApocalypse.Projectiles.EoA
+namespace TUA.Projectiles.EoA
 {
     class SmallerBeam : ModProjectile
     {

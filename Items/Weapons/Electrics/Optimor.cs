@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using TerrariaUltraApocalypse.API;
-using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
+using TUA.API;
+using TUA.API.TerraEnergy.EnergyAPI;
 
-namespace TerrariaUltraApocalypse.Items.Weapons.Electrics
+namespace TUA.Items.Weapons.Electrics
 {
     class Optimor : EnergyWeapon
     {

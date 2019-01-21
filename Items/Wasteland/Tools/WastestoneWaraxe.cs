@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Items.Wasteland.Tools
+namespace TUA.Items.Wasteland.Tools
 {
     class WastestoneWaraxe : ModItem
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.Items.Block
+namespace TUA.API.TerraEnergy.Items.Block
 {
     class TerraForge : TUAModItem
     {

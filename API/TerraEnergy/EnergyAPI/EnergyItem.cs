@@ -9,7 +9,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI
+namespace TUA.API.TerraEnergy.EnergyAPI
 {
     public abstract class EnergyItem : TUAModItem
     {

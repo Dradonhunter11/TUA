@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Graphics.Effects;
 
-namespace TerrariaUltraApocalypse.CustomSkies
+namespace TUA.CustomSkies
 {
     class MeteoridonSky : CustomSky
     {

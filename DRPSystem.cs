@@ -2,7 +2,7 @@ using System;
 using drpc;
 using Terraria;
 
-namespace TerrariaUltraApocalypse
+namespace TUA
 {
     // Almost all of this is from Overhaul.
     public static class DRPSystem

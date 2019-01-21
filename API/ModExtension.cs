@@ -10,7 +10,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API
+namespace TUA.API
 {
     public static class ModExtension
     {

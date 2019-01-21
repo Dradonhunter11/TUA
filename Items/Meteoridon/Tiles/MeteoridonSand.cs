@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
-using TerrariaUltraApocalypse.API.Default;
+using TUA.API.Default;
 
-namespace TerrariaUltraApocalypse.Items.Meteoridon.Tiles
+namespace TUA.Items.Meteoridon.Tiles
 {
     class MeteoridonSand : TUADefaultBlockItem
     {

@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Terraria.UI;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
+using TUA.API.TerraEnergy.Block.FunctionnalBlock;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
+namespace TUA.API.TerraEnergy.UI
 {
     class ForgeUI : UIState
     {

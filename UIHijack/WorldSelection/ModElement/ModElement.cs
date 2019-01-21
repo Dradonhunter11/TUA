@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.UI;
 
-namespace TerrariaUltraApocalypse.UIHijack.WorldSelection.ModElement
+namespace TUA.UIHijack.WorldSelection.ModElement
 {
     class ModElement : UIElement
     {

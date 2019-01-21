@@ -2,9 +2,9 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.Raids
+namespace TUA.Raids
 {
     internal class RaidsTUAGlobalNPC : TUAGlobalNPC
     {
@@ -13,9 +13,9 @@ namespace TerrariaUltraApocalypse.Raids
             if (npc.type == NPCID.Guide)
             {
                 button = "Raids";
-                if (TerrariaUltraApocalypse.instance.GetModWorld<RaidsWorld>().currentRaids != RaidsType.noActiveRaids)
+                if (TUA.instance.GetModWorld<RaidsWorld>().currentRaids != RaidsType.noActiveRaids)
                 {
-                    RaidsType raids = TerrariaUltraApocalypse.instance.GetModWorld<RaidsWorld>().currentRaids;
+                    RaidsType raids = TUA.instance.GetModWorld<RaidsWorld>().currentRaids;
                     if (raids == RaidsType.theGreatHellRide)
                     {
                         button = "The Great Hell Ride";
@@ -44,8 +44,8 @@ namespace TerrariaUltraApocalypse.Raids
         {
             if (firstButton && npc.type == NPCID.Guide)
             {
-                TerrariaUltraApocalypse.raidsInterface.SetState(new UI.RaidsUI());
-                TerrariaUltraApocalypse.raidsInterface.IsVisible = !TerrariaUltraApocalypse.raidsInterface.IsVisible;
+                TUA.raidsInterface.SetState(new UI.RaidsUI());
+                TUA.raidsInterface.IsVisible = !TUA.raidsInterface.IsVisible;
                 /*if (Main.ActiveWorldFileData.HasCorruption)
                 {
                     if (!Main.LocalPlayer.inventory.Any(i => i.type == mod.ItemType("GuideVoodooDoll")))

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ObjectData;
-using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
-using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge;
+using TUA.API.TerraEnergy.EnergyAPI;
+using TUA.API.TerraEnergy.MachineRecipe.Forge;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
+namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 {
     class TerraForge : TUABlock
     {

@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.MoonEvent
+namespace TUA.MoonEvent
 {
     class ApocalypseMoon : GlobalNPC 
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using Terraria.Graphics.Shaders;
 
-namespace TerrariaUltraApocalypse.Dimension.Sky
+namespace TUA.Dimension.Sky
 {
     class SolarScreenShaderData : ScreenShaderData
     {

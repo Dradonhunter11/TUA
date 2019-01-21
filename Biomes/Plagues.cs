@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using BiomeLibrary.API;
 using BiomeLibrary.Enums;
 
-namespace TerrariaUltraApocalypse.Biomes
+namespace TUA.Biomes
 {
     class Plagues : ModBiome
     {

@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace TerrariaUltraApocalypse.Raids
+namespace TUA.Raids
 {
     class RaidsWorld : ModWorld
     {

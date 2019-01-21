@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 
-namespace TerrariaUltraApocalypse.CustomScreenShader
+namespace TUA.CustomScreenShader
 {
     class ScreenFog
     {

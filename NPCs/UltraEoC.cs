@@ -8,14 +8,14 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
-using TerrariaUltraApocalypse;
+using TUA;
 using Microsoft.Xna.Framework;
 using BiomeLibrary;
-using TerrariaUltraApocalypse.Items.Misc.Spawner;
-using TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon;
-using TerrariaUltraApocalypse.NPCs.UltraBoss.UltraEoC;
+using TUA.Items.Misc.Spawner;
+using TUA.NPCs.NewBiome.Meteoridon;
+using TUA.NPCs.UltraBoss.UltraEoC;
 
-namespace TerrariaUltraApocalypse.NPCs
+namespace TUA.NPCs
 {
     class UltraEoC : GlobalNPC
     {

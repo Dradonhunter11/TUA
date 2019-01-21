@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.GameContent.UI.Elements;
 
-namespace TerrariaUltraApocalypse.UIHijack.MainMenu.TUAOptionMenu
+namespace TUA.UIHijack.MainMenu.TUAOptionMenu
 {
     class CreditPanel : UIPanel
     {

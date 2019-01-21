@@ -10,7 +10,7 @@ using Terraria.ModLoader.IO;
 using Terraria.UI;
 
 
-namespace TerrariaUltraApocalypse.Items.Block
+namespace TUA.Items.Block
 {
     class Hopper : ModTileEntity
     {

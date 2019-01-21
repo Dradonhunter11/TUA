@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API.Dev
+namespace TUA.API.Dev
 {
     class SteamID64Checker
     {

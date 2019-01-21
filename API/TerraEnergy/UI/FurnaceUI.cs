@@ -11,13 +11,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
-using TerrariaUltraApocalypse.API.CustomInventory;
-using TerrariaUltraApocalypse.API.CustomInventory.UI;
-using TerrariaUltraApocalypse.API.FurnaceRework;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
-using TerrariaUltraApocalypse.API.UI;
+using TUA.API.CustomInventory;
+using TUA.API.CustomInventory.UI;
+using TUA.API.FurnaceRework;
+using TUA.API.TerraEnergy.Block.FunctionnalBlock;
+using TUA.API.UI;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
+namespace TUA.API.TerraEnergy.UI
 {
     class FurnaceUI : UIState
     {
@@ -117,7 +117,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
 
         private void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
-            TerrariaUltraApocalypse.machineInterface.IsVisible = false;
+            TUA.machineInterface.IsVisible = false;
             Main.playerInventory = false;
         }
 

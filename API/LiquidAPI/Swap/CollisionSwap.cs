@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Terraria;
-using TerrariaUltraApocalypse.API.Dev;
-using TerrariaUltraApocalypse.API.LiquidAPI.LiquidMod;
+using TUA.API.Dev;
+using TUA.API.LiquidAPI.LiquidMod;
 
-namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
+namespace TUA.API.LiquidAPI.Swap
 {
     class CollisionSwap
     {

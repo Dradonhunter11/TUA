@@ -9,7 +9,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.NPCs.Gods.EoA
+namespace TUA.NPCs.Gods.EoA
 {
     [AutoloadBossHead]
     class Eye_of_Apocalypse_clone : ModNPC

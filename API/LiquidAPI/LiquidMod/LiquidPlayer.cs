@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API.LiquidAPI.Swap;
+using TUA.API.LiquidAPI.Swap;
 
-namespace TerrariaUltraApocalypse.API.LiquidAPI.LiquidMod
+namespace TUA.API.LiquidAPI.LiquidMod
 {
     class LiquidPlayer : ModPlayer
     {

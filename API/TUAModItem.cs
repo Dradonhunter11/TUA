@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace TerrariaUltraApocalypse.API
+namespace TUA.API
 {
     
     public class TUAModItem : ModItem

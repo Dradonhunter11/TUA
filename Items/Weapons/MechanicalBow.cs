@@ -10,10 +10,10 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.ModLoader.IO;
 using System.IO;
-using TerrariaUltraApocalypse.API;
-using TerrariaUltraApocalypse.API.VoidClass;
+using TUA.API;
+using TUA.API.VoidClass;
 
-namespace TerrariaUltraApocalypse.Items.Weapons
+namespace TUA.Items.Weapons
 {
     class MechanicalBow : VoidDamageItem
     {

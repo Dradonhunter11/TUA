@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Walls.Hell
+namespace TUA.Walls.Hell
 {
     class AshWall : ModWall
     {

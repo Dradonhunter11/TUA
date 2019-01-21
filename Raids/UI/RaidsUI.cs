@@ -7,11 +7,11 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
-using TerrariaUltraApocalypse.API;
-using TerrariaUltraApocalypse.API.UI;
-using TerrariaUltraApocalypse.Localization;
+using TUA.API;
+using TUA.API.UI;
+using TUA.Localization;
 
-namespace TerrariaUltraApocalypse.Raids.UI
+namespace TUA.Raids.UI
 {
     internal class RaidsUI : UIState
     {
@@ -35,7 +35,7 @@ namespace TerrariaUltraApocalypse.Raids.UI
         public override void OnInitialize()
         {
 
-            xButtonTexture = TerrariaUltraApocalypse.instance.GetTexture("Texture/X_ui");
+            xButtonTexture = TUA.instance.GetTexture("Texture/X_ui");
 
             xButton = new UIElement();
             xButton.Width.Set(20f, 0f);
@@ -200,13 +200,13 @@ namespace TerrariaUltraApocalypse.Raids.UI
             {
                 return;
             }
-            TerrariaUltraApocalypse.instance.GetModWorld<RaidsWorld>().currentRaids = currentlySelectedRaids.raidsType;
+            TUA.instance.GetModWorld<RaidsWorld>().currentRaids = currentlySelectedRaids.raidsType;
             Main.NewText(Main.LocalPlayer.name + " has started [" + RaidsWorld.raidsName[currentlySelectedRaids.raidsType] + "] raids!");
         }
 
         public void close(UIMouseEvent evt, UIElement el)
         {
-            TerrariaUltraApocalypse.raidsInterface.IsVisible = false;
+            TUA.raidsInterface.IsVisible = false;
             Main.npcChatText = "I'll be able to help you in your future raids! After all, I'm the guide";
         }
     }

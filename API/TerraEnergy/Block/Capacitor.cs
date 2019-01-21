@@ -9,11 +9,11 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
-using TerrariaUltraApocalypse.API.TerraEnergy.Items;
-using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
+using TUA.API.TerraEnergy.Block.FunctionnalBlock;
+using TUA.API.TerraEnergy.Items;
+using TUA.API.TerraEnergy.TileEntities;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.Block
+namespace TUA.API.TerraEnergy.Block
 {
     class Capacitor : TUABlock
     {

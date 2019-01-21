@@ -5,7 +5,7 @@ using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.NPCs
+namespace TUA.NPCs
 {
     internal class TUACustomSky : CustomSky
     {

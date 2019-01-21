@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland
+namespace TUA.NPCs.NewBiome.Wasteland
 {
     class MutatedSludge : TUAModNPC
     {

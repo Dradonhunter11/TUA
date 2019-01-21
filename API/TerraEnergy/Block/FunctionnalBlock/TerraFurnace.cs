@@ -8,14 +8,14 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
-using TerrariaUltraApocalypse.API.CustomInventory;
-using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
-using TerrariaUltraApocalypse.API.TerraEnergy.Items;
-using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
-using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
-using TerrariaUltraApocalypse.API.TerraEnergy.UI;
+using TUA.API.CustomInventory;
+using TUA.API.TerraEnergy.EnergyAPI;
+using TUA.API.TerraEnergy.Items;
+using TUA.API.TerraEnergy.MachineRecipe.Furnace;
+using TUA.API.TerraEnergy.TileEntities;
+using TUA.API.TerraEnergy.UI;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
+namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 {
     class TerraFurnace : TUABlock
     {
@@ -123,8 +123,8 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
             }
 
             Main.playerInventory = true;
-            TerrariaUltraApocalypse.machineInterface.SetState(furnaceUi);
-            TerrariaUltraApocalypse.machineInterface.IsVisible = true;
+            TUA.machineInterface.SetState(furnaceUi);
+            TUA.machineInterface.IsVisible = true;
         }
 
         public override void LoadEntity(TagCompound tag)

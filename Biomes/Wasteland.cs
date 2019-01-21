@@ -7,7 +7,7 @@ using BiomeLibrary.API;
 using Microsoft.Xna.Framework;
 using Terraria;
 
-namespace TerrariaUltraApocalypse.Biomes
+namespace TUA.Biomes
 {
     class Wasteland : ModBiome
     {

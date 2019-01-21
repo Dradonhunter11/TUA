@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace
+namespace TUA.API.TerraEnergy.MachineRecipe.Furnace
 {
     class FurnaceRecipeManager
     {

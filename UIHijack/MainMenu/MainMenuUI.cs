@@ -15,12 +15,12 @@ using ReLogic.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
-using TerrariaUltraApocalypse.UIHijack.MainMenu.MainMenuButton;
+using TUA.UIHijack.MainMenu.MainMenuButton;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.UIHijack.MainMenu
+namespace TUA.UIHijack.MainMenu
 {
     class MainMenuUI : UIState
     {
@@ -46,6 +46,17 @@ namespace TerrariaUltraApocalypse.UIHijack.MainMenu
 
             currentWindowsSize = new Vector2(Main.screenWidth, Main.screenHeight);
             
+        }
+
+        private void randomizeBackground()
+        {
+            if (!SkyManager.Instance["TUA:SolarMist"].IsActive())
+            {
+                Filters.Scene.Activate("TUA:SolarMist", Vector2.Zero - new Vector2(0f, 10f), new object[0]);
+                SkyManager.Instance.Activate("TUA:SolarMist", Vector2.Zero - new Vector2(0f, 10f), new object[0]);
+                Filters.Scene["TUA:SolarMist"].GetShader().UseIntensity(0f).UseProgress(0f);
+                Filters.Scene["TUA:SolarMist"].GetShader().UseTargetPosition(Vector2.Zero - new Vector2(0f, 10f));
+            }   
         }
 
         public override void Draw(SpriteBatch spriteBatch)

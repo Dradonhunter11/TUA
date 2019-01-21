@@ -10,9 +10,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
-using TerrariaUltraApocalypse.UIHijack.MainMenu.MainMenuButton;
+using TUA.UIHijack.MainMenu.MainMenuButton;
 
-namespace TerrariaUltraApocalypse.UIHijack.MainMenu
+namespace TUA.UIHijack.MainMenu
 {
     class ModSettingsUI : UIState
     {
@@ -83,7 +83,7 @@ namespace TerrariaUltraApocalypse.UIHijack.MainMenu
 
         public void ExecuteTUAButton(UIMouseEvent evt, UIElement element)
         {
-            Main.MenuUI.SetState(TerrariaUltraApocalypse.setting);
+            Main.MenuUI.SetState(TUA.setting);
             Main.PlaySound(SoundID.MenuOpen, -1, -1, 1);
         }
 

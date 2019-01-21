@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 
-namespace TerrariaUltraApocalypse.API
+namespace TUA.API
 {
     public class TUAGlobalNPC
     {

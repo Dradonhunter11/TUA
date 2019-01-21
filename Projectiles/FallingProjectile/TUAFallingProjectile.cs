@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Projectiles.FallingProjectile
+namespace TUA.Projectiles.FallingProjectile
 {
     abstract class TUAFallingProjectile : ModProjectile
     {

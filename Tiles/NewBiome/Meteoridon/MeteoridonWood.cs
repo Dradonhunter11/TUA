@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Tiles.NewBiome.Meteoridon
+namespace TUA.Tiles.NewBiome.Meteoridon
 {
     class MeteoridonWood : ModTile
     {

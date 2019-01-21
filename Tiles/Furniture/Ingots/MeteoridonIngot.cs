@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 
-namespace TerrariaUltraApocalypse.Tiles.Furniture.Ingots
+namespace TUA.Tiles.Furniture.Ingots
 {
     class MeteoridonIngot : TUAIngot
     {

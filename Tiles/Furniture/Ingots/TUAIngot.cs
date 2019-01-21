@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace TerrariaUltraApocalypse.Tiles.Furniture.Ingots
+namespace TUA.Tiles.Furniture.Ingots
 {
     abstract class TUAIngot : ModTile
     {

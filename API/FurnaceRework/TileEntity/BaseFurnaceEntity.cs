@@ -7,14 +7,14 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using TerrariaUltraApocalypse.API.CustomInventory;
-using TerrariaUltraApocalypse.API.TerraEnergy;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
-using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
-using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
-using TerrariaUltraApocalypse.API.TerraEnergy.UI;
+using TUA.API.CustomInventory;
+using TUA.API.TerraEnergy;
+using TUA.API.TerraEnergy.Block.FunctionnalBlock;
+using TUA.API.TerraEnergy.MachineRecipe.Furnace;
+using TUA.API.TerraEnergy.TileEntities;
+using TUA.API.TerraEnergy.UI;
 
-namespace TerrariaUltraApocalypse.API.FurnaceRework.TileEntity
+namespace TUA.API.FurnaceRework.TileEntity
 {
     abstract class BaseFurnaceEntity : ModTileEntity
     {
@@ -64,8 +64,8 @@ namespace TerrariaUltraApocalypse.API.FurnaceRework.TileEntity
             }
 
             Main.playerInventory = true;
-            TerrariaUltraApocalypse.machineInterface.SetState(furnaceUi);
-            TerrariaUltraApocalypse.machineInterface.IsVisible = true;
+            TUA.machineInterface.SetState(furnaceUi);
+            TUA.machineInterface.IsVisible = true;
         }
 
         public sealed override void Load(TagCompound tag)

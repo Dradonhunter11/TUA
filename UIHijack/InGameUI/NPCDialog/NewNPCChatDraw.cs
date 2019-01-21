@@ -16,9 +16,9 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Gamepad;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.UIHijack.InGameUI.NPCDialog
+namespace TUA.UIHijack.InGameUI.NPCDialog
 {
     internal static class NewNPCChatDraw
     {

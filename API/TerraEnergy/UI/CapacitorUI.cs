@@ -10,11 +10,11 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
-using TerrariaUltraApocalypse.API.CustomInventory;
-using TerrariaUltraApocalypse.API.CustomInventory.UI;
-using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
+using TUA.API.CustomInventory;
+using TUA.API.CustomInventory.UI;
+using TUA.API.TerraEnergy.TileEntities;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
+namespace TUA.API.TerraEnergy.UI
 {
     class CapacitorUI : UIState
     {
@@ -28,7 +28,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
             chargingSlot = new ChargingSlot[4];
             for (int i = 0; i < chargingSlot.Length; i++)
             {
-                chargingSlot[i] = new ChargingSlot(slot[i], TerrariaUltraApocalypse.instance.GetTexture("API/TerraEnergy/Texture/ChargingSlotUI"), capacitorEntity, capacitorEntity.maxTransferRate);
+                chargingSlot[i] = new ChargingSlot(slot[i], TUA.instance.GetTexture("API/TerraEnergy/Texture/ChargingSlotUI"), capacitorEntity, capacitorEntity.maxTransferRate);
             }
 
             this.capacitorEntity = capacitorEntity;
@@ -81,7 +81,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
         private void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
             
-            TerrariaUltraApocalypse.machineInterface.IsVisible = false;
+            TUA.machineInterface.IsVisible = false;
             Main.playerInventory = false;
         }
     }

@@ -8,12 +8,12 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
-using TerrariaUltraApocalypse.API.FurnaceRework.TileEntity;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
-using TerrariaUltraApocalypse.API.TerraEnergy.Items;
-using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
+using TUA.API.FurnaceRework.TileEntity;
+using TUA.API.TerraEnergy.Block.FunctionnalBlock;
+using TUA.API.TerraEnergy.Items;
+using TUA.API.TerraEnergy.TileEntities;
 
-namespace TerrariaUltraApocalypse.API.FurnaceRework
+namespace TUA.API.FurnaceRework
 {
     class FurnaceGlobalTile : GlobalTile
     {

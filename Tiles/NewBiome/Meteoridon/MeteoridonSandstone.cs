@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Tiles.NewBiome.Meteoridon
+namespace TUA.Tiles.NewBiome.Meteoridon
 {
     class MeteoridonSandstone : ModTile
     {

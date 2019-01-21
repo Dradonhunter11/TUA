@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.Tiles.NewBiome.Meteoridon;
+using TUA.Tiles.NewBiome.Meteoridon;
 
-namespace TerrariaUltraApocalypse.Tiles.PillarBiome
+namespace TUA.Tiles.PillarBiome
 {
     class SolarDirt : ModTile
     {

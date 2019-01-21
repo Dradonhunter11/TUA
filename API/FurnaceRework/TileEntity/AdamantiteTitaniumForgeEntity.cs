@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 
-namespace TerrariaUltraApocalypse.API.FurnaceRework.TileEntity
+namespace TUA.API.FurnaceRework.TileEntity
 {
     class AdamantiteTitaniumForgeEntity : BaseFurnaceEntity
     {

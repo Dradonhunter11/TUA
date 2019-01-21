@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge
+namespace TUA.API.TerraEnergy.MachineRecipe.Forge
 {
     class ForgeRecipe
     {

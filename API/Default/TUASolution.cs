@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API.Default
+namespace TUA.API.Default
 {
     abstract class TUASolution : ModProjectile
     {

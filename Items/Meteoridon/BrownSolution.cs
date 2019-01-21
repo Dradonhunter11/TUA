@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.Projectiles.Solutions;
+using TUA.Projectiles.Solutions;
 
-namespace TerrariaUltraApocalypse.Items.Meteoridon
+namespace TUA.Items.Meteoridon
 {
     class BrownSolution : ModItem
     {

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.World.Generation;
 
-namespace TerrariaUltraApocalypse.API.GenActionModifiers
+namespace TUA.API.GenActionModifiers
 {
     class IntegretyFilter : GenCondition
     {

@@ -9,12 +9,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
-using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
-using TerrariaUltraApocalypse.API.TerraEnergy.Items;
-using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
+using TUA.API.TerraEnergy.EnergyAPI;
+using TUA.API.TerraEnergy.Items;
+using TUA.API.TerraEnergy.TileEntities;
 
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
+namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 {
     class EnergyCollector : TUABlock
     {

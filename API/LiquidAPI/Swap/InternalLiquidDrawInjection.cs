@@ -14,10 +14,9 @@ using Terraria;
 using Terraria.GameContent.Liquid;
 using Terraria.Graphics;
 using Terraria.Utilities;
-using TerrariaUltraApocalypse.API.Dev;
-using TerrariaUltraApocalypse.API.LiquidAPI.LiquidMod;
+using TUA.API.Dev;
 
-namespace TerrariaUltraApocalypse.API.LiquidAPI.Swap
+namespace TUA.API.LiquidAPI.Swap
 {
     class InternalLiquidDrawInjection
     {

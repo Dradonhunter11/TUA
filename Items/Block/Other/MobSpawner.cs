@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Items.Block.Other
+namespace TUA.Items.Block.Other
 {
     class MobSpawner : ModItem
     {

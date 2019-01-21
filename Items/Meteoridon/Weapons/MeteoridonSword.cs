@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Items.Meteoridon.Weapons
+namespace TUA.Items.Meteoridon.Weapons
 {
     class MeteoridonSword : ModItem
     {
