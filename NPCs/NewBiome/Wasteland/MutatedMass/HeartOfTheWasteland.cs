@@ -57,8 +57,6 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
             {
                 npc.buffImmune[i] = true;
             }
-
-            
         }
 
 
@@ -74,7 +72,10 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
             npc.boss = true;
             npc.immortal = false;
             */
+            if (Main.LocalPlayer.DistanceSQ(npc.position) < 22500) // 150 tiles
+            {
 
+            }
         }
 
         public override bool CheckActive()

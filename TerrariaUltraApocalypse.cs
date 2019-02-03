@@ -4,19 +4,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using log4net;
 using Terraria;
-using Terraria.GameContent.UI.Elements;
 using Terraria.GameContent.UI.States;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.Config;
 using Terraria.UI;
 using TUA.API;
 using TUA.API.Dev;
@@ -38,7 +33,6 @@ using TUA.UIHijack.InGameUI.NPCDialog;
 using TUA.UIHijack.MainMenu;
 using TUA.UIHijack.MainMenu.TUAOptionMenu;
 using TUA.UIHijack.WorldSelection;
-using ModExtension = BiomeLibrary.API.ModExtension;
 
 namespace TUA
 {
@@ -146,9 +140,9 @@ namespace TUA
             addFurnaceRecipe(ItemID.SandBlock, ItemID.Glass, 20);
 
             //Smetler recipe recipe
-            addInductionSmelterRecipe(ItemID.Hellstone, ItemID.Obsidian, ItemID.HellstoneBar, 1, 2, 1, 90);
-            addInductionSmelterRecipe(ItemID.ChlorophyteBar, ItemID.Ectoplasm, ItemID.SpectreBar, 4, 1, 3);
-            addInductionSmelterRecipe(ItemID.ChlorophyteBar, ItemID.GlowingMushroom, ItemID.ShroomiteBar, 1, 5, 1, 180);
+            AddInductionSmelterRecipe(ItemID.Hellstone, ItemID.Obsidian, ItemID.HellstoneBar, 1, 2, 1, 90);
+            AddInductionSmelterRecipe(ItemID.ChlorophyteBar, ItemID.Ectoplasm, ItemID.SpectreBar, 4, 1, 3);
+            AddInductionSmelterRecipe(ItemID.ChlorophyteBar, ItemID.GlowingMushroom, ItemID.ShroomiteBar, 1, 5, 1, 180);
 
             RecipeManager.GetAllRecipeByIngredientAndReplace(ItemID.PixieDust, ItemType<MeteorideScale>());
         }
@@ -162,7 +156,7 @@ namespace TUA
             r1.addRecipe();
         }
 
-        public void addInductionSmelterRecipe(int itemID1, int itemID2, int itemResult, int quantityItem1 = 1, int quantityItem2 = 1, int resultQuantity = 1, int timer = 120)
+        public void AddInductionSmelterRecipe(int itemID1, int itemID2, int itemResult, int quantityItem1 = 1, int quantityItem2 = 1, int resultQuantity = 1, int timer = 120)
         {
             ForgeRecipe fr1 = ForgeRecipeManager.CreateRecipe(this);
             fr1.addCatalyserIngredient(itemID1, quantityItem1);
@@ -291,21 +285,25 @@ namespace TUA
 
         public static void lazyWaytoShowTitle()
         {
-            quote = new List<string>();
-            quote.Add("now with 100% less life insurance! ");
-            quote.Add("make sure to give EoA my best . . . or my worst depending on how you look at it ");
-            quote.Add("I failed to help Heather with a door edition ");
-            quote.Add("you have beings have only 3 dimensions? pffft ");
-            quote.Add("you want me to die? Not if I kill myself first! ");
-            quote.Add("the nurse may need a few more doctorate degrees . . . and a better hairdo ");
-            quote.Add("our mod will create an exodus from the others! ");
-            quote.Add("build a wall? Pffft, we have more important things to do ");
-            quote.Add("old age should burn and rave at close of day . . . yes, that means you, Jof ");
-            quote.Add("now with a bunch of stupid title version like this one! ");
-            quote.Add("I dont feel so good... ");
-            quote.Add("should have gone for the cpu ");
-            quote.Add("I'll go grab some pizza ");
-            quote.Add("Don't forget to change this with sonething, ok? ");
+            quote = new List<string>
+            {
+                "now with 100% less life insurance! ",
+                "make sure to give EoA my best . . . or my worst depending on how you look at it ",
+                "I failed to help Heather with a door edition ",
+                "you have beings have only 3 dimensions? pffft ",
+                "you want me to die? Not if I kill myself first! ",
+                "the nurse may need a few more doctorate degrees . . . and a better hairdo ",
+                "our mod will create an exodus from the others! ",
+                "build a wall? Pffft, we have more important things to do ",
+                "old age should burn and rave at the close of day . . . yes, that means you, Jof ",
+                "now with a bunch of stupid title version like this one! ",
+                "I dont feel so good... ",
+                "should have gone for the cpu ",
+                "I'll go grab some pizza ",
+                "Don't forget to change this with something, ok? ",
+                "REEEEEEEEEEEEEEEEEEEE! ",
+                "just remember boys and girls, no anime :smile: "
+            };
         }
 
 
