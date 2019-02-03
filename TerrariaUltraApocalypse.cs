@@ -178,7 +178,6 @@ namespace TUA
 
         public override void Load()
         {
-            
             LoadModContent(mod =>
             {
                 Autoload(mod);
@@ -208,18 +207,6 @@ namespace TUA
             }
             */
 
-            machineInterface = new UserInterface();
-            CapacitorInterface = new UserInterface();
-            raidsInterface = new UserInterface();
-
-            Filters.Scene["TUA:TUAPlayer"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
-            SkyManager.Instance["TUA:TUAPlayer"] = new TUACustomSky();
-            Filters.Scene["TUA:StardustPillar"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
-            SkyManager.Instance["TUA:StardustPillar"] = new StardustCustomSky();
-            Filters.Scene["TUA:SolarMist"] = new Filter(new MeteoridonScreenShader().UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
-            SkyManager.Instance["TUA:SolarMist"] = new HeavyMistSky();
-
-
             // if (Main.netMode == 0)
             if (!Main.dedServ)
             {
@@ -236,6 +223,17 @@ namespace TUA
 
                 DRPSystem.Init();
                 Main.OnTick += DRPSystem.Update;
+
+                machineInterface = new UserInterface();
+                CapacitorInterface = new UserInterface();
+                raidsInterface = new UserInterface();
+
+                Filters.Scene["TUA:TUAPlayer"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
+                SkyManager.Instance["TUA:TUAPlayer"] = new TUACustomSky();
+                Filters.Scene["TUA:StardustPillar"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
+                SkyManager.Instance["TUA:StardustPillar"] = new StardustCustomSky();
+                Filters.Scene["TUA:SolarMist"] = new Filter(new MeteoridonScreenShader().UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
+                SkyManager.Instance["TUA:SolarMist"] = new HeavyMistSky();
             }
 
             if (IntPtr.Size == 8)
