@@ -234,6 +234,25 @@ namespace TUA
                 SkyManager.Instance["TUA:StardustPillar"] = new StardustCustomSky();
                 Filters.Scene["TUA:SolarMist"] = new Filter(new MeteoridonScreenShader().UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
                 SkyManager.Instance["TUA:SolarMist"] = new HeavyMistSky();
+
+                var text = CreateTranslation("HotWFarAway0");
+                text.SetDefault("<{0}> Where do you think you're going??");
+                AddTranslation(text);
+
+                text = CreateTranslation("HotWFarAway1");
+                text.SetDefault("<{0}> No, no, no, we can't have that, come back here.");
+                AddTranslation(text);
+
+                text = CreateTranslation("HotWFarAway2");
+                text.SetDefault("<{0}> Come back here! You awakened me, so I will make you pay!");
+                AddTranslation(text);
+
+                text = CreateTranslation("HotWFarAway3");
+                text.SetDefault("<{0}> Face me, cowardly Terrarian!");
+                AddTranslation(text);
+
+                text = CreateTranslation("HotWFarAwayStuck");
+                text.SetDefault("<{0}> Welp, your fault for trying to run away.");
             }
 
             if (IntPtr.Size == 8)
@@ -245,16 +264,14 @@ namespace TUA
         private static void LoadModContent(Action<Mod> loadAction)
         {
             //Object o = new OverworldHandler();
-            int num = 0;
-            foreach (var mod in ModLoader.Mods)
+            for (int i = 0; i < ModLoader.Mods.Length; i++)
             {
+                Mod mod = ModLoader.LoadedMods[i];
                 try
                 {
                     loadAction(mod);
                 }
-                catch (Exception e)
-                {
-                }
+                catch { }
             }
         }
 
@@ -264,10 +281,9 @@ namespace TUA
             Main.tile = new Tile[25200, 9600];
             Main.maxTilesX = 25200;
             Main.maxTilesY = 9600;
-
         }
 
-        public static String GetAnimatedTitle()
+        public static string GetAnimatedTitle()
         {
             Random r = new Random();
             lazyWaytoShowTitle();
