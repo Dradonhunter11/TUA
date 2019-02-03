@@ -201,11 +201,12 @@ namespace TUA
             Main.WorldPath = Main.SavePath + "/World";
             Main.musicVolume = 0.5f;
 
+            /*
             if (Main.menuMode == 0)
             {
                 //Main.spriteBatch.Draw(test, new Vector2((float)400, (float)500), Microsoft.Xna.Framework.Color.White);
-
             }
+            */
 
             machineInterface = new UserInterface();
             CapacitorInterface = new UserInterface();
@@ -219,13 +220,13 @@ namespace TUA
             SkyManager.Instance["TUA:SolarMist"] = new HeavyMistSky();
 
 
-            if (Main.netMode == 0)
+            // if (Main.netMode == 0)
+            if (!Main.dedServ)
             {
                 FieldInfo UIWorldSelectInfo =
                     typeof(Main).GetField("_worldSelectMenu", BindingFlags.Static | BindingFlags.NonPublic);
                 originalWorldSelect = (UIWorldSelect)UIWorldSelectInfo.GetValue(null);
                 UIWorldSelectInfo.SetValue(null, new NewUIWorldSelect());
-
 
                 SteamID64Checker.getInstance().CopyIDToClipboard();
 
@@ -241,10 +242,6 @@ namespace TUA
             {
                 AllowGignaticWorld();
             }
-
-
-            DRPSystem.Init();
-            Main.OnTick += DRPSystem.Update;
         }
 
         private static void LoadModContent(Action<Mod> loadAction)
