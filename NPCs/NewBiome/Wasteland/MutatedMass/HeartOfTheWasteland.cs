@@ -77,16 +77,16 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
                 Player player = Main.player[i];
                 if (player.DistanceSQ(npc.position) < 22500) // 150 tiles
                 {
-                    Main.NewText(Language.GetTextValue($"Mods.{mod.Name}.HotWFarAway{Main.rand.Next(4)}", npc.GivenName),
+                    if (!Main.dedServ) Main.NewText(Language.GetTextValue($"Mods.{mod.Name}.HotWFarAway{Main.rand.Next(4)}", npc.GivenName),
                         new Color(66, 244, 116));
                     player.position = npc.position +=
                         new Vector2(Main.rand.Next(-15, 15), Main.rand.Next(-15, 15));
                     var point = player.position.ToTileCoordinates();
-                    if (Main.tile[point.X, point.Y].nactive())
+                    if (!Main.dedServ && Main.tile[point.X, point.Y].nactive())
                         Main.NewText(Language.GetTextValue($"Mods.{mod.Name}.HotWFarAwayStuck", npc.GivenName),
                             new Color(66, 244, 116));
                     // Item6 is magic mirror
-                    Main.PlaySound(SoundID.Item6, npc.position);
+                    if (!Main.dedServ) Main.PlaySound(SoundID.Item6, npc.position);
                 }
             }
         }
