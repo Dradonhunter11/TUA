@@ -20,7 +20,8 @@ namespace TUA.API.EventManager
         private int waveCount = 0;
 
         public Dictionary<int, List<Tuple<int, float, int>>> enemyWave = new Dictionary<int, List<Tuple<int, float, int>>>();
-        public abstract List<int> scoreTresholdLimitPerWave { get; }
+        public int nextWave = 0;
+        public abstract List<int> scoreThresholdLimitPerWave { get; }
         public abstract string EventName { get; }
         public abstract int MaxWave { get; }
 
@@ -46,24 +47,26 @@ namespace TUA.API.EventManager
             waveCount = 0;
             score = 0;
             IsActive = false;
+            nextWave = 0;
         }
 
-        public void AddEnemy(int wave, int enemyType, float chance, int point)
+        public void AddEnemy(int enemyType, float chance, int point)
         {
-            if (enemyWave.ContainsKey(wave))
+            if (enemyWave.ContainsKey(nextWave))
             {
-                enemyWave[wave].Add(Tuple.Create(enemyType, chance, point));
+                enemyWave[nextWave].Add(Tuple.Create(enemyType, chance, point));
                 return;
             }
-            enemyWave.Add(wave, new List<Tuple<int, float, int>>() { Tuple.Create(enemyType, chance, point) });
+            enemyWave.Add(nextWave, new List<Tuple<int, float, int>>() { Tuple.Create(enemyType, chance, point) });
         }
 
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
             if (IsActive)
             {
-                foreach (var enemy in enemyWave[waveCount])
+                for (int i = 0; i < enemyWave[waveCount].Count; i++)
                 {
+                    Tuple<int, float, int> enemy = enemyWave[waveCount][i];
                     pool.Clear();
                     pool.Add(enemy.Item1, enemy.Item2);
                 }
@@ -85,7 +88,7 @@ namespace TUA.API.EventManager
 
         public override void PostAI(NPC npc)
         {
-            if (IsActive && score >= scoreTresholdLimitPerWave[waveCount])
+            if (IsActive && score >= scoreThresholdLimitPerWave[waveCount])
             {
                 Message(waveCount);
 

@@ -12,7 +12,7 @@ namespace TUA.MoonEvent
 {
     class ApocalypseMoon : API.EventManager.MoonEvent
     {
-        public override List<int> scoreTresholdLimitPerWave => new List<int>()
+        public override List<int> scoreThresholdLimitPerWave => new List<int>()
         {
             50, 40, 150, 150, 200, 200, 200, 200, 20
         };
@@ -21,46 +21,62 @@ namespace TUA.MoonEvent
         public override int MaxWave => 8;
         public override void Initialize()
         {
-            AddEnemy(0, NPCID.TheDestroyer, 0.3f, 5);
-            AddEnemy(0, NPCID.SkeletronPrime, 0.2f, 10);
-            AddEnemy(0, NPCID.Retinazer, 0.4f, 5);
-            AddEnemy(0, NPCID.Spazmatism, 0.1f, 15);
+            AddEnemy(NPCID.TheDestroyer, 0.3f, 5);
+            AddEnemy(NPCID.SkeletronPrime, 0.2f, 10);
+            AddEnemy(NPCID.Retinazer, 0.4f, 5);
+            AddEnemy(NPCID.Spazmatism, 0.1f, 15);
+            nextWave++;
 
-            AddEnemy(1, NPCID.Plantera, 0.3f, 10);
-            AddEnemy(1, NPCID.DukeFishron, 0.1f, 30);
-            AddEnemy(1, NPCID.Golem, 0.6f, 5);
+            AddEnemy(NPCID.Plantera, 0.3f, 10);
+            AddEnemy(NPCID.DukeFishron, 0.1f, 30);
+            AddEnemy(NPCID.Golem, 0.6f, 5);
+            nextWave++;
 
-            AddEnemy(2, NPCID.Pumpking, 0.5f, 10);
-            AddEnemy(2, NPCID.MourningWood, 0.2f, 5);
-            AddEnemy(2, NPCID.HeadlessHorseman, 0.3f, 5);
+            AddEnemy(NPCID.Pumpking, 0.5f, 10);
+            AddEnemy(NPCID.MourningWood, 0.2f, 5);
+            AddEnemy(NPCID.HeadlessHorseman, 0.3f, 5);
+            nextWave++;
 
-            AddEnemy(3, NPCID.IceQueen, 0.5f, 10);
-            AddEnemy(3, NPCID.SantaNK1, 0.2f, 5);
-            AddEnemy(3, NPCID.Everscream, 0.3f, 5);
+            AddEnemy(NPCID.IceQueen, 0.5f, 10);
+            AddEnemy(NPCID.SantaNK1, 0.2f, 5);
+            AddEnemy(NPCID.Everscream, 0.3f, 5);
+            nextWave++;
             
-            AddEnemy(4, NPCID.LunarTowerSolar, 0.05f, 20); //5%
-            AddEnemy(4, NPCID.SolarDrakomireRider, 0.03f, 5); //35%
-            AddEnemy(4, NPCID.SolarCorite, 0.1f, 5); //45%
-            AddEnemy(4, NPCID.SolarCrawltipedeHead, 0.05f, 10); //50%
-            AddEnemy(4, NPCID.SolarDrakomire, 0.1f, 5); //60%
-            AddEnemy(4, NPCID.SolarSolenian, 0.2f, 5);
-            AddEnemy(4, NPCID.SolarSpearman, 0.15f, 5);
-            AddEnemy(4, NPCID.SolarSroller, 0.05f, 10);
+            AddEnemy(NPCID.LunarTowerSolar, 0.05f, 20); //5%
+            AddEnemy(NPCID.SolarDrakomireRider, 0.03f, 5); //35%
+            AddEnemy(NPCID.SolarCorite, 0.1f, 5); //45%
+            AddEnemy(NPCID.SolarCrawltipedeHead, 0.05f, 10); //50%
+            AddEnemy(NPCID.SolarDrakomire, 0.1f, 5); //60%
+            AddEnemy(NPCID.SolarSolenian, 0.2f, 5);
+            AddEnemy(NPCID.SolarSpearman, 0.15f, 5);
+            AddEnemy(NPCID.SolarSroller, 0.05f, 10);
+            nextWave++;
 
-            AddEnemy(5, NPCID.LunarTowerStardust, 0.05f, 20); //5%
-            AddEnemy(5, NPCID.StardustCellBig, 0.25f, 5); //30%
-            AddEnemy(5, NPCID.StardustCellSmall, 0, 1); //30%
-            AddEnemy(5, NPCID.StardustJellyfishBig, 0.05f, 5); //35%
-            AddEnemy(5, NPCID.StardustJellyfishSmall, 0.05f, 5); //40%
-            AddEnemy(5, NPCID.StardustSoldier, 0.2f, 5); //60%
-            AddEnemy(5, NPCID.StardustSpiderBig, 0.1f, 5); // 70%
-            AddEnemy(5, NPCID.StardustSpiderSmall, 0.1f, 5); // 80%
-            AddEnemy(5, NPCID.StardustWormHead, 0.2f, 5); //100%
+            AddEnemy(NPCID.LunarTowerStardust, 0.05f, 20); //5%
+            AddEnemy(NPCID.StardustCellBig, 0.25f, 5); //30%
+            AddEnemy(NPCID.StardustCellSmall, 0, 1); //30%
+            AddEnemy(NPCID.StardustJellyfishBig, 0.05f, 5); //35%
+            AddEnemy(NPCID.StardustJellyfishSmall, 0.05f, 5); //40%
+            AddEnemy(NPCID.StardustSoldier, 0.2f, 5); //60%
+            AddEnemy(NPCID.StardustSpiderBig, 0.1f, 5); // 70%
+            AddEnemy(NPCID.StardustSpiderSmall, 0.1f, 5); // 80%
+            AddEnemy(NPCID.StardustWormHead, 0.2f, 5); //100%
+            nextWave++;
 
-            AddEnemy(6, NPCID.LunarTowerNebula, 0.05f, 20);
+            AddEnemy(NPCID.LunarTowerNebula, 0.05f, 20);
+            AddEnemy(NPCID.NebulaSoldier, 0, 5);
+            AddEnemy(NPCID.NebulaHeadcrab, 0, 5);
+            AddEnemy(NPCID.NebulaBrain, 0, 5);
+            AddEnemy(NPCID.NebulaBeast, 0, 5);
+            nextWave++;
+            
             //Add the rest of the nebula enemy
 
-            AddEnemy(7, NPCID.LunarTowerVortex, 0.05f, 20);
+            AddEnemy(NPCID.LunarTowerVortex, 0.05f, 20);
+            AddEnemy(NPCID.VortexHornet, 0, 5);
+            AddEnemy(NPCID.VortexLarva, 0, 5);
+            AddEnemy(NPCID.VortexRifleman, 0, 5);
+            AddEnemy(NPCID.VortexSoldier, 0, 5);
             //Add the rest of the vortex enemy
         }
 
@@ -69,7 +85,7 @@ namespace TUA.MoonEvent
             switch (wave)
             {
                 case 0:
-                    BaseUtility.Chat("The mechanical madness arise from the ground", Color.DarkSlateGray);
+                    BaseUtility.Chat("The mechanical madness arises from the ground", Color.DarkSlateGray);
                     break;
                 case 1:
                     BaseUtility.Chat("The mythical beast from the jungle and the legendary fish of the ocean are enraged", Color.Green);
