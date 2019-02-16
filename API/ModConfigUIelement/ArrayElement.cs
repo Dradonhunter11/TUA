@@ -13,6 +13,7 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.GameContent.UI.States;
 using Terraria.GameInput;
 using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 using Terraria.ModLoader.Config.UI;
@@ -267,9 +268,10 @@ namespace TUA.API.ModConfigUIelement
 
         public override void Update(GameTime gameTime)
         {
+            Overlays.Scene[""].Layer.
             base.Update(gameTime);
             Dictionary<String, CustomSky> temp2 = (Dictionary<string, CustomSky>)typeof(SkyManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(SkyManager.Instance);
-            Dictionary<String, Overlay> temp = (Dictionary<string, Overlay>)typeof(OverlayManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(SkyManager.Instance);
+            Dictionary<String, Overlay> temp = (Dictionary<string, Overlay>)typeof(OverlayManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(Overlays.Scene);
             List<String> allKey = temp2.Keys.ToList();
             List<String> allKey2 = temp.Keys.ToList();
             //Removing monolith and calamity background as most of them doesn't work anyway on the main menu 

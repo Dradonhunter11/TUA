@@ -104,7 +104,7 @@ namespace TUA.API.EventManager
 
         public override void PostAI(NPC npc)
         {
-            if (IsActive && MoonEventManagerWorld.moonEventList[EventName].score >= MoonEventManagerWorld.moonEventList[EventName].scoreTresholdLimitPerWave[waveCount])
+            if (IsActive && MoonEventManagerWorld.moonEventList[EventName].score >= MoonEventManagerWorld.moonEventList[EventName].scoreThresholdLimitPerWave[waveCount])
             {
                 TruePostAI(npc);
             }           
