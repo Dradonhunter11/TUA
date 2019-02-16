@@ -3,132 +3,106 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace TUA.MoonEvent
 {
-    class ApocalypseMoon : GlobalNPC 
+    class ApocalypseMoon : API.EventManager.MoonEvent
     {
-        public static int wave = 0;
+        public override List<int> scoreTresholdLimitPerWave => new List<int>()
+        {
+            50, 40, 150, 150, 200, 200, 200, 200, 20
+        };
 
-        private static List<int[]> npcList = new List<int[]>();
-        private static bool initialMessage = false;
+        public override string EventName => "Apocalypse Moon";
+        public override int MaxWave => 8;
+        public override void Initialize()
+        {
+            AddEnemy(0, NPCID.TheDestroyer, 0.3f, 5);
+            AddEnemy(0, NPCID.SkeletronPrime, 0.2f, 10);
+            AddEnemy(0, NPCID.Retinazer, 0.4f, 5);
+            AddEnemy(0, NPCID.Spazmatism, 0.1f, 15);
 
-        public ApocalypseMoon() {
-            npcList.Add(new int[] {NPCID.TheDestroyer, NPCID.Retinazer, NPCID.Spazmatism, NPCID.SkeletronPrime });
-            npcList.Add(new int[] { NPCID.DukeFishron, NPCID.Plantera, NPCID.Golem });
-            npcList.Add(new int[] { NPCID.Pumpking, NPCID.MourningWood });
-            npcList.Add(new int[] { NPCID.IceQueen, NPCID.SantaNK1, NPCID.Everscream });
-            npcList.Add(new int[] { NPCID.VortexHornet, NPCID.VortexHornetQueen, NPCID.VortexLarva, NPCID.VortexRifleman, NPCID.VortexSoldier});
-            npcList.Add(new int[] { NPCID.SolarCorite, NPCID.SolarCrawltipedeHead, NPCID.SolarDrakomire, NPCID.SolarDrakomireRider});
-            npcList.Add(new int[] { NPCID.StardustCellBig, NPCID.StardustJellyfishBig, NPCID.StardustSoldier, NPCID.StardustSpiderBig, NPCID.StardustWormHead });
-            npcList.Add(new int[] { NPCID.NebulaBeast, NPCID.NebulaBrain, NPCID.NebulaHeadcrab, NPCID.NebulaSoldier });
-            npcList.Add(new int[] { NPCID.MoonLordCore });
+            AddEnemy(1, NPCID.Plantera, 0.3f, 10);
+            AddEnemy(1, NPCID.DukeFishron, 0.1f, 30);
+            AddEnemy(1, NPCID.Golem, 0.6f, 5);
+
+            AddEnemy(2, NPCID.Pumpking, 0.5f, 10);
+            AddEnemy(2, NPCID.MourningWood, 0.2f, 5);
+            AddEnemy(2, NPCID.HeadlessHorseman, 0.3f, 5);
+
+            AddEnemy(3, NPCID.IceQueen, 0.5f, 10);
+            AddEnemy(3, NPCID.SantaNK1, 0.2f, 5);
+            AddEnemy(3, NPCID.Everscream, 0.3f, 5);
             
+            AddEnemy(4, NPCID.LunarTowerSolar, 0.05f, 20); //5%
+            AddEnemy(4, NPCID.SolarDrakomireRider, 0.03f, 5); //35%
+            AddEnemy(4, NPCID.SolarCorite, 0.1f, 5); //45%
+            AddEnemy(4, NPCID.SolarCrawltipedeHead, 0.05f, 10); //50%
+            AddEnemy(4, NPCID.SolarDrakomire, 0.1f, 5); //60%
+            AddEnemy(4, NPCID.SolarSolenian, 0.2f, 5);
+            AddEnemy(4, NPCID.SolarSpearman, 0.15f, 5);
+            AddEnemy(4, NPCID.SolarSroller, 0.05f, 10);
+
+            AddEnemy(5, NPCID.LunarTowerStardust, 0.05f, 20); //5%
+            AddEnemy(5, NPCID.StardustCellBig, 0.25f, 5); //30%
+            AddEnemy(5, NPCID.StardustCellSmall, 0, 1); //30%
+            AddEnemy(5, NPCID.StardustJellyfishBig, 0.05f, 5); //35%
+            AddEnemy(5, NPCID.StardustJellyfishSmall, 0.05f, 5); //40%
+            AddEnemy(5, NPCID.StardustSoldier, 0.2f, 5); //60%
+            AddEnemy(5, NPCID.StardustSpiderBig, 0.1f, 5); // 70%
+            AddEnemy(5, NPCID.StardustSpiderSmall, 0.1f, 5); // 80%
+            AddEnemy(5, NPCID.StardustWormHead, 0.2f, 5); //100%
+
+            AddEnemy(6, NPCID.LunarTowerNebula, 0.05f, 20);
+            //Add the rest of the nebula enemy
+
+            AddEnemy(7, NPCID.LunarTowerVortex, 0.05f, 20);
+            //Add the rest of the vortex enemy
         }
 
-        public override bool CheckDead(NPC npc)
+        public override void Message(int wave)
         {
-            if (TUAWorld.apocalypseMoon)
+            switch (wave)
             {
-                if (npc.type == NPCID.TheDestroyer || npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism || npc.type == NPCID.Skeleton || npc.type == NPCID.DukeFishron || npc.type == NPCID.Plantera || npc.type == NPCID.Golem || npc.type == NPCID.SantaNK1 || npc.type == NPCID.IceQueen || npc.type == NPCID.Everscream || npc.type == NPCID.MourningWood || npc.type == NPCID.Pumpking || npc.type == NPCID.VortexHornet || npc.type == NPCID.VortexHornetQueen || npc.type == NPCID.VortexLarva || npc.type == NPCID.VortexRifleman || npc.type == NPCID.VortexSoldier || npc.type == NPCID.SolarCorite || npc.type == NPCID.SolarCrawltipedeHead || npc.type == NPCID.SolarDrakomire || npc.type == NPCID.SolarDrakomireRider || npc.type == NPCID.StardustCellSmall || npc.type == NPCID.StardustJellyfishBig || npc.type == NPCID.StardustSoldier || npc.type == NPCID.StardustSpiderBig || npc.type == NPCID.StardustWormHead || npc.type == NPCID.NebulaBeast || npc.type == NPCID.NebulaBrain || npc.type == NPCID.NebulaHeadcrab || npc.type == NPCID.NebulaSoldier || npc.type == NPCID.MoonLordCore)
-                {
-                    TUAWorld.apocalypseMoonPoint += 5;
-                    return true;
-                }
+                case 0:
+                    BaseUtility.Chat("The mechanical madness arise from the ground", Color.DarkSlateGray);
+                    break;
+                case 1:
+                    BaseUtility.Chat("The mythical beast from the jungle and the legendary fish of the ocean are enraged", Color.Green);
+                    break;
+                case 2:
+                    BaseUtility.Chat("The scary king and his minion decided to get out...", Color.Orange);
+                    break;
+                case 3:
+                    BaseUtility.Chat("The chilling queen and her minion are freezing the atmosphere...", Color.LightBlue);
+                    break;
+                case 4:
+                    BaseUtility.Chat("A breach has been observed in the sky, seem like it's solar invading the world", Color.Red);
+                    break;
+                case 5:
+                    BaseUtility.Chat("A portal has quickly opened and close, seem like stardust summon are coming...", Color.Blue);
+                    break;
+                case 6: 
+                    BaseUtility.Chat("Your mind feel overtaken by creature from another world, maybe they are from Nebula", Color.Violet);
+                    break;
+                case 7:
+                    BaseUtility.Chat("The vortexian queen decided to send her minion from nebula into her, seem like they are invading", Color.Cyan);
+                    break;
+                case 8:
+                    NPC.SpawnOnPlayer(Main.LocalPlayer.whoAmI, NPCID.MoonLordCore);
+                    NPC.SpawnOnPlayer(Main.LocalPlayer.whoAmI, NPCID.MoonLordCore);
+                    BaseUtility.Chat("The god of destruction has summoned moon lord illusion", Color.Black);
+                    break;
             }
-            return true;
         }
 
-        public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+        public override void OnDefeat()
         {
-            if (TUAWorld.apocalypseMoon) {
-                pool.Clear();
-                editPool(pool);
-                checkWave();
-            }
-            base.EditSpawnPool(pool, spawnInfo);
-        }
-
-        private void editPool(IDictionary<int, float> pool) {
-            for (int i = 0; i < npcList[wave].Length; i++) {
-                pool.Add(npcList[wave][i], 10f);
-            } 
-        }
-
-        private void checkWave()
-        {
-            if(!initialMessage)
-            {
-                Main.NewText("The mechanical are raising against you...", Microsoft.Xna.Framework.Color.Purple);
-                initialMessage = true;
-                return;
-            }
-            if (wave == 0 && TUAWorld.apocalypseMoonPoint >= 50)
-            {
-                Main.NewText("The hidden beast are coming out!", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
-            else if (wave == 1 && TUAWorld.apocalypseMoonPoint >= 20)
-            {
-                Main.NewText("The spooky boss are invading the world!", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
-            else if (wave == 2 && TUAWorld.apocalypseMoonPoint >= 60)
-            {
-                Main.NewText("The festive boss are invading the world!", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
-            else if (wave == 3 && TUAWorld.apocalypseMoonPoint >= 60)
-            {
-                Main.NewText("The Vortex creature are invading the world!", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
-            else if (wave == 4 && TUAWorld.apocalypseMoonPoint >= 600)
-            {
-                Main.NewText("The Solar creature are invading the world!", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
-            else if (wave == 5 && TUAWorld.apocalypseMoonPoint >= 600)
-            {
-                Main.NewText("The stradust creature are invading the world!", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
-            else if (wave == 6 && TUAWorld.apocalypseMoonPoint >= 600)
-            {
-                Main.NewText("The nebula creature are invading the world!", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
-            else if (wave == 7 && TUAWorld.apocalypseMoonPoint >= 600)
-            {
-                Main.NewText("The moon lord is invading the world!", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
-            else if (wave == 8 && TUAWorld.apocalypseMoonPoint >= 15)
-            {
-                Main.NewText("<Eye of the apocalypse> : WHO SUMMONED ME, I AM ONE OF THE GOD THAT CREATED THIS WORLD AND THAT WILL DESTROY IT", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
+            BaseUtility.Chat("You proved yourself worthy of the god that once destroyed the world, the apocalypsio seem to have changed", Color.White);
         }
     }
 }

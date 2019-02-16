@@ -5,10 +5,12 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using log4net;
+using Mono.Cecil;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.GameContent.UI.States;
@@ -42,14 +44,14 @@ using ModExtension = BiomeLibrary.API.ModExtension;
 
 namespace TUA
 {
-    internal class TUA : Mod
+    internal class TerrariaUltraApocalypse : Mod
     {
         internal static string version = "0.1 dev";
         internal static String tModLoaderVersion2 = "";
         internal static Version tModLoaderVersion;
         internal static bool devMode = true;
 
-        internal static TUA instance;
+        internal static TerrariaUltraApocalypse instance;
 
         public static bool EoCUltraActivated = false;
         private readonly Type t2d = typeof(Texture2D);
@@ -70,9 +72,8 @@ namespace TUA
         private int animationTimer = 25;
         
 
-        private UIWorldSelect originalWorldSelect;
-        private readonly MainMenuUI newMainMenu = new MainMenuUI();
-        internal static TUASettingMenu setting = new TUASettingMenu();
+        internal UIWorldSelect originalWorldSelect;
+        internal readonly MainMenuUI newMainMenu = new MainMenuUI();
         internal static RaidsUI raidsUI = new RaidsUI();
 
         public static readonly string SAVE_PATH = Main.SavePath;
@@ -83,7 +84,7 @@ namespace TUA
         public static CustomTitleMenuConfig custom;
         public bool injectedConfigSetting = false;
 
-        public TUA()
+        public TerrariaUltraApocalypse()
         {
             Properties = new ModProperties()
             {
@@ -239,8 +240,9 @@ namespace TUA
                 originalMoon = Main.moonTexture;
                 SolarFog = GetTexture("CustomScreenShader/HeavyMist");
 
-                DRPSystem.Init();
-                Main.OnTick += DRPSystem.Update;
+                //DRPSystem.Init();
+                //Main.OnTick += DRPSystem.Update;
+                
             }
 
             if (IntPtr.Size == 8)
@@ -249,8 +251,8 @@ namespace TUA
             }
 
 
-            DRPSystem.Init();
-            Main.OnTick += DRPSystem.Update;
+            //DRPSystem.Init();
+            //Main.OnTick += DRPSystem.Update;
         }
 
         private static void LoadModContent(Action<Mod> loadAction)
@@ -331,8 +333,8 @@ namespace TUA
 
             if (!Main.dedServ)
             {
-                DRPSystem.Kill();
-                Main.OnTick -= DRPSystem.Update;
+                //DRPSystem.Kill();
+                //Main.OnTick -= DRPSystem.Update;
             }
         }
 
@@ -402,8 +404,8 @@ namespace TUA
                 Main.MenuUI.SetState(newMainMenu);
             }
             AnimateVersion();
-            if(Main.gameMenu && Main.menuMode == 0 || (Main.menuMode == 888 && TUA.custom.customMenu))
-                TUA.SetTheme();
+            if(Main.gameMenu && Main.menuMode == 0 || (Main.menuMode == 888 && TerrariaUltraApocalypse.custom.customMenu))
+                TerrariaUltraApocalypse.SetTheme();
 
         }
 
@@ -570,7 +572,7 @@ namespace TUA
             List<String> allKey = temp.Keys.ToList();
             foreach (var  key in allKey)
             {
-                if(key != TUA.custom.newMainMenuTheme)
+                if(key != TerrariaUltraApocalypse.custom.newMainMenuTheme)
                     Filters.Scene[key].Deactivate();
             }
 
@@ -578,30 +580,28 @@ namespace TUA
             allKey = temp2.Keys.ToList();
             foreach (var key in allKey)
             {
-                if (key != TUA.custom.newMainMenuTheme)
+                if (key != TerrariaUltraApocalypse.custom.newMainMenuTheme)
                     SkyManager.Instance.Deactivate(key);
             }
 
             Main.worldSurface = 565;
-            if (TUA.custom.newMainMenuTheme != "Vanilla" && !SkyManager.Instance[TUA.custom.newMainMenuTheme].IsActive())
+            if (TerrariaUltraApocalypse.custom.newMainMenuTheme != "Vanilla" && !SkyManager.Instance[TerrariaUltraApocalypse.custom.newMainMenuTheme].IsActive())
             {
-                switch (TUA.custom.newMainMenuTheme)
+                switch (TerrariaUltraApocalypse.custom.newMainMenuTheme)
                 {
                     case "Vanilla":
                         return;
                     default:
-                        if(Filters.Scene[TUA.custom.newMainMenuTheme] != null)
-                            Filters.Scene.Activate(TUA.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
-                        if (SkyManager.Instance[TUA.custom.newMainMenuTheme] != null)
-                            SkyManager.Instance.Activate(TUA.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
-                        if (Overlays.Scene[TUA.custom.newMainMenuTheme] != null)
-                            Overlays.Scene.Activate(TUA.custom.newMainMenuTheme,
-                            Vector2.Zero - new Vector2(0f, 10f), new object[0]);
-                        Filters.Scene[TUA.custom.newMainMenuTheme].GetShader().UseTargetPosition(new Vector2(2556.793f, 4500f));
+                        if(Filters.Scene[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
+                            Filters.Scene.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
+                        if (SkyManager.Instance[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
+                            SkyManager.Instance.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
+                        if (Overlays.Scene[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
+                            Overlays.Scene.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme,
+                                Vector2.Zero - new Vector2(0f, 10f), new object[0]);
                         break;
                 }
             }
         }
     }
-
 }

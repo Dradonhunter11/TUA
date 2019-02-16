@@ -33,31 +33,19 @@ namespace TUA.UIHijack.MainMenu
         {
             
             _menuButtonsList = new List<MenuButton>();
-            _menuButtonsList.Add(new PlayButton(Main.screenWidth / 2 - 250, 250 + 20).setPosition(new Vector2(1, 1)));
-            _menuButtonsList.Add(new MultiplayerPlayButton(Main.screenWidth / 2 + 100, 250 + 20).setPosition(new Vector2(0, 1)));
-            _menuButtonsList.Add(new OptionMenuButton(Main.screenWidth / 2 - 250, 250 + 70).setPosition(new Vector2(1, 2)));
-            _menuButtonsList.Add(new TUAOptionMenuButton(Main.screenWidth / 2 + 100, 250 + 70).setPosition(new Vector2(0, 2)));
-            _menuButtonsList.Add(new ModBrowserButton(Main.screenWidth / 2 - 250, 250 + 120).setPosition(new Vector2(1, 3)));
-            _menuButtonsList.Add(new ModSourceButton(Main.screenWidth / 2 + 100, 250 + 120).setPosition(new Vector2(0, 3)));
-            _menuButtonsList.Add(new ModsButton(Main.screenWidth / 2 + 100, 250 + 170).setPosition(new Vector2(1, 4)));
+            /*_menuButtonsList.Add(new MenuButton("Play/Select Character" ,Main.screenWidth / 2 - 250, 250 + 20).setPosition(new Vector2(Main.screenWidth / 2, Main.screenHeight / 2)).setChangingSize(1.5f, 2.5f));
+            _menuButtonsList.Add(new MenuButton("Mods", Main.screenWidth / 2 + 100, 250 + 70).setPosition(new Vector2(0, 2)));
+            _menuButtonsList.Add(new MenuButton("Mod Browser",Main.screenWidth / 2 - 250, 250 + 120).setPosition(new Vector2(1, 3)));
+            _menuButtonsList.Add(new MenuButton("Mod source", Main.screenWidth / 2 + 100, 250 + 120).setPosition(new Vector2(0, 3)));
+            _menuButtonsList.Add(new MenuButton("Settings", Main.screenWidth / 2 + 100, 250 + 170).setPosition(new Vector2(1, 4)));*/
 
-            _menuButtonsList.Add(new QuitButton(Main.screenWidth / 2 - 25, Main.screenHeight - 50));
+            //_menuButtonsList.Add(new QuitButton(Main.screenWidth / 2 - 25, Main.screenHeight - 50).setChangingSize(0.8f, 1f));
             AppendAllButton();
 
             currentWindowsSize = new Vector2(Main.screenWidth, Main.screenHeight);
             
         }
 
-        private void randomizeBackground()
-        {
-            if (!SkyManager.Instance["TUA:SolarMist"].IsActive())
-            {
-                Filters.Scene.Activate("TUA:SolarMist", Vector2.Zero - new Vector2(0f, 10f), new object[0]);
-                SkyManager.Instance.Activate("TUA:SolarMist", Vector2.Zero - new Vector2(0f, 10f), new object[0]);
-                Filters.Scene["TUA:SolarMist"].GetShader().UseIntensity(0f).UseProgress(0f);
-                Filters.Scene["TUA:SolarMist"].GetShader().UseTargetPosition(Vector2.Zero - new Vector2(0f, 10f));
-            }   
-        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -74,6 +62,7 @@ namespace TUA.UIHijack.MainMenu
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             Vector2 windowsSize = new Vector2(Main.screenWidth, Main.screenHeight);
             if (currentWindowsSize != new Vector2(Main.screenWidth, Main.screenHeight))
             {
@@ -82,7 +71,6 @@ namespace TUA.UIHijack.MainMenu
                 {
                     element.Recalculate();
                 }
-
             }
         }
 

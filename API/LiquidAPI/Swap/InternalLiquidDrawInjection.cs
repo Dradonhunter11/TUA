@@ -10,11 +10,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Mono.Cecil.Cil;
+using MonoMod.RuntimeDetour.HookGen;
 using Terraria;
 using Terraria.GameContent.Liquid;
 using Terraria.Graphics;
 using Terraria.Utilities;
 using TUA.API.Dev;
+using TUA.API.LiquidAPI.LiquidMod;
 
 namespace TUA.API.LiquidAPI.Swap
 {
@@ -43,14 +46,38 @@ namespace TUA.API.LiquidAPI.Swap
 
         public void load()
         {
-            On.Terraria.GameContent.Liquid.LiquidRenderer.InternalDraw += LiquidRendererExtension.InternalDraw;
-            On.Terraria.GameContent.Liquid.LiquidRenderer.InternalPrepareDraw += LiquidRendererExtension.InternalPrepareDraw;
+            IL.Terraria.GameContent.Liquid.LiquidRenderer.InternalDraw += ILEdit;
+            //On.Terraria.GameContent.Liquid.LiquidRenderer.InternalPrepareDraw += LiquidRendererExtension.InternalPrepareDraw;
         }
 
         public void unload()
         {
-            On.Terraria.GameContent.Liquid.LiquidRenderer.InternalDraw -= LiquidRendererExtension.InternalDraw;
-            On.Terraria.GameContent.Liquid.LiquidRenderer.InternalPrepareDraw -= LiquidRendererExtension.InternalPrepareDraw;
+            //On.Terraria.GameContent.Liquid.LiquidRenderer.InternalPrepareDraw -= LiquidRendererExtension.InternalPrepareDraw;
+        }
+
+        public void ILEdit(HookIL il)
+        {
+            int textureIndex = 0;
+            il.At(0).GotoNext(i => i.MatchLdcI4(11), i => i.MatchStloc(out textureIndex));
+            var c = il.At(0);
+            c.GotoNext(i => i.MatchStobj(typeof(Color)),
+                i => i.MatchLdsfld(typeof(Main).GetField("tileBatch", BindingFlags.Public | BindingFlags.Static)));
+            //c.Index++;
+            c.Emit(OpCodes.Ldc_I4, 15);
+            c.Emit(OpCodes.Stloc, textureIndex);
+
+
+
+            /*var processor = il.Method.Body.GetILProcessor();
+            var insert1 = processor.Create(OpCodes.Ldc_I4_S, 13);
+            var stack = processor.Create(OpCodes.Stloc_S, 9);
+            processor.InsertAfter(initialIntruction, insert1);
+            processor.InsertAfter(insert1, stack);*/
+        }
+
+        public void modifyLiquidTextureColor(int liquidIndex)
+        {
+
         }
 
         public static Texture2D[] liquidTexture2D = (Texture2D[]) LiquidRenderer.Instance._liquidTextures.Clone(); 

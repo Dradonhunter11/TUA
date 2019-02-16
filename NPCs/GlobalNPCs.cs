@@ -2,9 +2,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API;
+using TUA;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.NPCs
+namespace TUA.NPCs
 {
     class GlobalNPCs : GlobalNPC
     {   
@@ -19,7 +20,7 @@ namespace TerrariaUltraApocalypse.NPCs
                 npc.position.X = npc.position.X - (npc.width / 2);
                 npc.position.Y = npc.position.Y - (npc.height / 2);
                 Vector2 spawnAt = npc.Center + new Vector2(0f, npc.height / 2f);
-                Main.NewText("You thought that was all I had?", Color.Red);
+                BaseUtility.Chat("You thought that was all I had?", Color.Red);
                 TUAWorld.EoCPostML = true;
                 NPC.NewNPC((int)spawnAt.X, (int)spawnAt.Y, mod.NPCType<UEoC>());
             }

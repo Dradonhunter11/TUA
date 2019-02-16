@@ -6,19 +6,21 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Redemption;
+using TUA;
+using TUA;
 
-namespace Redemption
+
+namespace TUA
 {
 	public class MNet
 	{
 		public static void SendBaseNetMessage(int msg, params object[] param)
 		{
 			if (Main.netMode == 0) { return; } //nothing to sync in SP
-            BaseNet.WriteToPacket(Redemption.inst.GetPacket(), (byte)msg, param).Send();
+			BaseNet.WriteToPacket(TerrariaUltraApocalypse.instance.GetPacket(), (byte)msg, param).Send();
 		}
 
-		//OLD (moved to Redemption)
+		//OLD (moved to TUA)
 		/*public override void NetReceive(BinBuffer bb, int msg, MessageBuffer buffer)
 		{
 			if (msg == 0) //projectile hostility and ownership

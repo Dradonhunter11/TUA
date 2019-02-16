@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Linq;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -54,6 +55,8 @@ namespace TUA
                 bool inStardust = Dimlibs.Dimlibs.getPlayerDim() == "Stardust";
                 player.ManageSpecialBiomeVisuals("TUA:StardustPillar", inStardust, player.Center);
             }
+
+            
         }
 
         

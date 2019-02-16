@@ -1,6 +1,13 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using drpc;
+using log4net;
 using Terraria;
+using Terraria.ModLoader.IO;
 
 namespace TUA
 {
@@ -13,13 +20,52 @@ namespace TUA
 
         private static DiscordRP.EventHandlers handlers;
 
+        private static Assembly asm;
+
         public static void Init()
         {
+            ILog logger = LogManager.GetLogger("I'm a meme");
+            ILog bufferLogger = LogManager.GetLogger("Byte buffer");
+            IDictionary obj = (IDictionary) typeof(TmodFile)
+                .GetField("files", BindingFlags.NonPublic | BindingFlags.Instance)
+                .GetValue(TerrariaUltraApocalypse.instance.File);
             
-            handlers = default(DiscordRP.EventHandlers);
-            DiscordRP.Initialize(AppID, ref handlers, true, (string)null);
+            foreach (var yay in obj.Keys)
+            {
+                logger.Info(yay);
+            }
+            
+            var currentDirectory = "lib/";
+            //currentDirectory = Path.Combine(currentDirectory, (IntPtr.Size == 8) ? "x64/" : "x86/");
+            logger.Info(currentDirectory);
+            logger.Info(Path.Combine(currentDirectory, "drpc.dll"));
+            
+            if (File.Exists(Path.Combine(currentDirectory, "drpc.dll")))
+            {
+                logger.Info("I actually do exist :P");
+            }
+            byte[] buffer = TerrariaUltraApocalypse.instance.GetFileBytes(Path.Combine(currentDirectory, "drpc.dll"));
+            bufferLogger.Info("My current size is " + buffer.Length + " also I swear I am not a meme");
+            logger.Info(TerrariaUltraApocalypse.instance.File.path.Replace(".tmod", "") + "\\lib\\drpc.dll");
+            asm = Assembly.LoadFile(TerrariaUltraApocalypse.instance.File.path.Replace(".tmod", "") + "\\lib\\drpc.dll");
+            logger.Info("Before there was the apocalypse");
+            logger.Info(asm.Location);
+            AppDomain.CurrentDomain.AssemblyResolve += (o, args) =>
+            {
+                var name = new AssemblyName(args.Name).Name;
+                var path = Path.Combine(currentDirectory, name + ".dll");
+                logger.Info("Insane");
+                logger.Info(name);
+                logger.Info(path);
+                logger.Info("End of insane");
+                return File.Exists(path) ? Assembly.LoadFile(path) : null;
+            };
+            handlers = new drpc.DiscordRP.EventHandlers();
+            asm.GetType("DiscordRP").GetMethod("Initialize", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { AppID, handlers, true, (string)null});
+            //DiscordRP.Initialize(AppID, ref handlers, true, (string)null);
             Reset(true);
             Update();
+            
         }
 
         public static void Update()
@@ -62,7 +108,7 @@ namespace TUA
 
         public static void Kill()
         {
-            DiscordRP.Shutdown();
+            //DiscordRP.Shutdown();
         }
 
         private static void Reset(bool timestamp)

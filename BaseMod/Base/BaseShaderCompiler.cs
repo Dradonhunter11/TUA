@@ -30,7 +30,7 @@ namespace TUA
 				if(File.Exists(fileDir)) File.Delete(fileDir);	
 				using (FileStream fs = File.Create(fileDir))
 				{			
-					byte[] info = mod.File.GetFile(fileName + ".xnb");					
+					byte[] info = mod.File.GetBytes(fileName + ".xnb");					
 					fs.Write(info, 0, info.Length);
 				}
 				if(manager == null) manager = new ContentManager(Main.instance.Content.ServiceProvider, "Content\\ModShaders");				

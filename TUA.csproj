@@ -7,8 +7,8 @@
     <ProjectGuid>{8298EAB6-0586-4BDA-9483-83624B66B13A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TerrariaUltraApocalypse</RootNamespace>
-    <AssemblyName>TerrariaUltraApocalypse</AssemblyName>
+    <RootNamespace>TUA</RootNamespace>
+    <AssemblyName>TUA</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -82,6 +82,8 @@
     <Compile Include="API\Default\TUASolution.cs" />
     <Compile Include="API\Dev\ReflectionExtension.cs" />
     <Compile Include="API\Dev\SteamID64Checker.cs" />
+    <Compile Include="API\EventManager\MoonEvent.cs" />
+    <Compile Include="API\EventManager\MoonEventManagerWorld.cs" />
     <Compile Include="API\Experimental\ArrayChunk.cs" />
     <Compile Include="API\Experimental\Chunk.cs" />
     <Compile Include="API\Experimental\Vector2Int.cs" />
@@ -164,6 +166,24 @@
     <Compile Include="API\VoidClass\VoidUtils.cs" />
     <Compile Include="Backgrounds\Meteoridon\MeteoridonBG.cs" />
     <Compile Include="Backgrounds\Solar\SolarUnderBG.cs" />
+    <Compile Include="BaseMod\Base\BaseAI.cs" />
+    <Compile Include="BaseMod\Base\BaseConstants.cs" />
+    <Compile Include="BaseMod\Base\BaseDrawing.cs" />
+    <Compile Include="BaseMod\Base\BaseInvasion.cs" />
+    <Compile Include="BaseMod\Base\BaseNet.cs" />
+    <Compile Include="BaseMod\Base\BasePlayer.cs" />
+    <Compile Include="BaseMod\Base\BaseShaderCompiler.cs" />
+    <Compile Include="BaseMod\Base\BaseTile.cs" />
+    <Compile Include="BaseMod\Base\BaseUseStyle.cs" />
+    <Compile Include="BaseMod\Base\BaseUtility.cs" />
+    <Compile Include="BaseMod\Base\BaseWorldGen.cs" />
+    <Compile Include="BaseMod\Base\BaseWorldGenTex.cs" />
+    <Compile Include="BaseMod\MNet.cs" />
+    <Compile Include="BaseMod\MNPC.cs" />
+    <Compile Include="BaseMod\MPlayer.cs" />
+    <Compile Include="BaseMod\MProjectile.cs" />
+    <Compile Include="BaseMod\NPCs\ParentNPC.cs" />
+    <Compile Include="BaseMod\Projectiles\ParentProjectile.cs" />
     <Compile Include="Biomes\Meteoridon.cs" />
     <Compile Include="Biomes\Plagues.cs" />
     <Compile Include="Biomes\Wasteland.cs" />
@@ -230,6 +250,7 @@
     <Compile Include="MoonEvent\ApocalypseMoon.cs" />
     <Compile Include="MoonEvent\ApocalypseWMoon.cs" />
     <Compile Include="NPCs\AI\Worm.cs" />
+    <Compile Include="NPCs\GlobalNPCs.cs" />
     <Compile Include="NPCs\Gods\EoA\EoAHeal.cs" />
     <Compile Include="NPCs\Gods\EoA\Eye_of_ApocalypseNew.cs" />
     <Compile Include="NPCs\Gods\EoA\Eye_of_Apocalypse_clone.cs" />
@@ -264,7 +285,13 @@
     <Compile Include="Raids\Items\GuideVoodooDoll.cs" />
     <Compile Include="Raids\RaidsGlobalItem.cs" />
     <Compile Include="Raids\RaidsGlobalNPC.cs" />
+    <Compile Include="Raids\Script\Stage\BaseRaids.cs" />
+    <Compile Include="Raids\Script\Stage\BaseStage.cs" />
+    <Compile Include="Raids\Script\Stage\BossStage.cs" />
+    <Compile Include="Raids\Script\Stage\InvasionStage.cs" />
+    <Compile Include="Raids\Script\Stage\ItemPickupStage.cs" />
     <Compile Include="Raids\Script\WrathOfTheWasteland\NPC\Overgrowth.cs" />
+    <Compile Include="Raids\Script\WrathOfTheWasteland\WotW.cs" />
     <Compile Include="Raids\UI\RaidsPanel.cs" />
     <Compile Include="Raids\UI\RaidsUI.cs" />
     <Compile Include="SolarWorldGen.cs" />
@@ -304,19 +331,9 @@
     <Compile Include="TerrariaUltraApocalypse.cs" />
     <Compile Include="UIHijack\InGameUI\NPCDialog\NewNPCChatDraw.cs" />
     <Compile Include="UIHijack\MainMenu\TUAOptionMenu\CreditPanel.cs" />
-    <Compile Include="UIHijack\MainMenu\MainMenuButton\ModBrowserButton.cs" />
-    <Compile Include="UIHijack\MainMenu\MainMenuButton\ModsButton.cs" />
-    <Compile Include="UIHijack\MainMenu\MainMenuButton\ModSourceButton.cs" />
-    <Compile Include="UIHijack\MainMenu\MainMenuButton\MultiplayerPlayButton.cs" />
-    <Compile Include="UIHijack\MainMenu\MainMenuButton\OptionMenuButton.cs" />
-    <Compile Include="UIHijack\MainMenu\MainMenuButton\OverhaulSettingsButton.cs" />
-    <Compile Include="UIHijack\MainMenu\MainMenuButton\PlayButton.cs" />
     <Compile Include="UIHijack\MainMenu\MainMenuButton\QuitButton.cs" />
-    <Compile Include="UIHijack\MainMenu\MainMenuButton\TUAOptionMenuButton.cs" />
     <Compile Include="UIHijack\MainMenu\MainMenuUI.cs" />
     <Compile Include="UIHijack\MainMenu\MenuButton.cs" />
-    <Compile Include="UIHijack\MainMenu\ModSettingsUI.cs" />
-    <Compile Include="UIHijack\MainMenu\TUAOptionMenu\TUASettingMenu.cs" />
     <Compile Include="UIHijack\MainMenu\UITUACredit.cs" />
     <Compile Include="UIHijack\WorldSelection\ModElement\ModElement.cs" />
     <Compile Include="UIHijack\WorldSelection\NewUIWorldSelect.cs" />
@@ -339,7 +356,7 @@
       <HintPath>lib\drpc.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\..\TerrariaFullsource\Tmodloader 64bit 0.11- Beta 1\tModLoader-0.11-beta1 - original patch\src\tModLoader\bin\WindowsDebug\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\tml 64bit backup\tModLoader\references\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -358,7 +375,7 @@
       <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Microsoft.Xna.Framework.Xact.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
-      <HintPath>..\..\..\..\..\..\TerrariaFullsource\Tmodloader 64bit 0.11- Beta 1\tModLoader-0.11-beta1 - original patch\references\Mono.Cecil.dll</HintPath>
+      <HintPath>C:\Users\Alexandre Voghel\.nuget\packages\mono.cecil\0.10.0\lib\net35\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="MonoMod.RuntimeDetour">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\MonoMod.RuntimeDetour.dll</HintPath>
@@ -393,9 +410,13 @@
     <Folder Include="NPCs\Dimension\Solar\" />
     <Folder Include="Tiles\Furniture\Demon\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="BaseMod\NPCs\ParentNPC.png" />
+    <Content Include="BaseMod\Projectiles\ParentProjectile.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"D:\steam game\steamapps\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>"C:\Program Files (x86)\Steam\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

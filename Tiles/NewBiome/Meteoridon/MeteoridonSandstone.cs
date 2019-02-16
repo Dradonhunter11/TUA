@@ -16,6 +16,7 @@ namespace TUA.Tiles.NewBiome.Meteoridon
             Main.tileMergeDirt[Type] = true;
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
+            drop = mod.ItemType("MeteoridonSandstone");
             AddMapEntry(new Color(87, 53, 113));
         }
     }

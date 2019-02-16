@@ -12,7 +12,7 @@ namespace TUA.Tiles.NewBiome.Meteoridon
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
             TileID.Sets.Conversion.Ice[Type] = true;
-            drop = ItemID.DirtBlock;
+            drop = mod.TileType("BrownIce");
             AddMapEntry(new Microsoft.Xna.Framework.Color(255, 100, 35));
             base.SetDefaults();
         }

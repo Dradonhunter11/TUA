@@ -12,6 +12,8 @@ namespace TUA.API.LiquidAPI.Swap
 {
     class CollisionSwap
     {
+
+
         public static bool[] ModdedWetCollision(Vector2 Position, int Width, int Height)
         {
             bool[] moddedLiquid = new bool[256];

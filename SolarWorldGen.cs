@@ -17,7 +17,7 @@ namespace TUA
 {
 	public class SolarWorldGen : Dimlibs.API.DimGenerator
 	{
-	    public SolarWorldGen(string dimensionName) : base("Solar")
+	    public SolarWorldGen() : base("Solar")
 	    {
 	    }
 
