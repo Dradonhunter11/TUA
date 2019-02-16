@@ -8,30 +8,34 @@ using Terraria.ModLoader.IO;
 
 namespace TUA.API.EventManager
 {
-    
+
     internal abstract class MoonEvent : GlobalNPC
     {
         public override bool InstancePerEntity => true;
         public override bool CloneNewInstances => true;
 
-        
+        private bool _isActive = false;
 
-        public bool IsActive = false;
+        private bool downed = false;
 
-        public bool downed = false;
-
-        public int score = 0;
+        private int score = 0;
 
         private int waveCount = 0;
 
-        public Dictionary<int, List<Tuple<int, float, int>>> enemyWave = new Dictionary<int, List<Tuple<int, float, int>>>();
-        public int nextWave = 0;
+        protected Dictionary<int, List<Tuple<int, float, int>>> enemyWave = new Dictionary<int, List<Tuple<int, float, int>>>();
+
+        protected int nextWave = 0;
         public abstract List<int> scoreThresholdLimitPerWave { get; }
         public abstract string EventName { get; }
         public abstract int MaxWave { get; }
 
+        public bool IsActive
+        {
+            get => _isActive;
+            private set => _isActive = value;
+        }
+
         public abstract void Initialize();
-        
 
         public virtual Texture2D moonTexture => ModContent.GetTexture("Terraria/Moon_" + Main.moonType);
 
@@ -58,16 +62,6 @@ namespace TUA.API.EventManager
             nextWave = 0;
         }
 
-        public void AddEnemy(int enemyType, float chance, int point)
-        {
-            if (enemyWave.ContainsKey(nextWave))
-            {
-                enemyWave[nextWave].Add(Tuple.Create(enemyType, chance, point));
-                return;
-            }
-            enemyWave.Add(nextWave, new List<Tuple<int, float, int>>() { Tuple.Create(enemyType, chance, point) });
-        }
-
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
             if (IsActive)
@@ -85,21 +79,9 @@ namespace TUA.API.EventManager
             if (IsActive)
             {
                 MoonEventManagerWorld.moonEventList[EventName].TrueCheckDead(npc);
-                
+
             }
             return base.CheckDead(npc);
-        }
-
-        public bool TrueCheckDead(NPC npc)
-        {
-            int NPCID = npc.type;
-            if (enemyWave[waveCount].Any(i => i.Item1 == NPCID))
-            {
-                score += enemyWave[waveCount].Single(i => i.Item1 == NPCID).Item3;
-                BaseUtility.Chat(this.Name);
-            }
-
-            return true;
         }
 
         public override void PostAI(NPC npc)
@@ -107,21 +89,8 @@ namespace TUA.API.EventManager
             if (IsActive && MoonEventManagerWorld.moonEventList[EventName].score >= MoonEventManagerWorld.moonEventList[EventName].scoreThresholdLimitPerWave[waveCount])
             {
                 TruePostAI(npc);
-            }           
-            base.PostAI(npc);
-        }
-
-        public void TruePostAI(NPC npc)
-        {
-            
-
-            MoonEventManagerWorld.moonEventList[EventName].score = 0;
-            MoonEventManagerWorld.moonEventList[EventName].waveCount++;
-            Message(waveCount);
-            if (waveCount > MaxWave)
-            {
-                OnDefeat();
             }
+            base.PostAI(npc);
         }
 
         public virtual void Message(int wave)
@@ -152,6 +121,46 @@ namespace TUA.API.EventManager
         public static void ResetMoon()
         {
             Main.moonTexture[Main.moonType] = ModContent.GetTexture("Terraria/Moon_" + Main.moonType);
+        }
+
+        protected void AddEnemy(int enemyType, float chance, int point, bool newWave = false)
+        {
+            if (newWave)
+            {
+                nextWave++;
+            }
+
+            if (enemyWave.ContainsKey(nextWave))
+            {
+                enemyWave[nextWave].Add(Tuple.Create(enemyType, chance, point));
+                return;
+            }
+            enemyWave.Add(nextWave, new List<Tuple<int, float, int>>() { Tuple.Create(enemyType, chance, point) });
+        }
+
+        private bool TrueCheckDead(NPC npc)
+        {
+            int NPCID = npc.type;
+            if (enemyWave[waveCount].Any(i => i.Item1 == NPCID))
+            {
+                score += enemyWave[waveCount].Single(i => i.Item1 == NPCID).Item3;
+                BaseUtility.Chat(this.Name);
+            }
+
+            return true;
+        }
+
+        private void TruePostAI(NPC npc)
+        {
+
+
+            MoonEventManagerWorld.moonEventList[EventName].score = 0;
+            MoonEventManagerWorld.moonEventList[EventName].waveCount++;
+            Message(waveCount);
+            if (waveCount > MaxWave)
+            {
+                OnDefeat();
+            }
         }
     }
 }
