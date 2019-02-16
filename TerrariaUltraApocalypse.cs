@@ -421,22 +421,43 @@ namespace TUA
         {
             quote = new List<string>
             {
-                "now with 100% less life insurance! ",
-                "make sure to give EoA my best . . . or my worst depending on how you look at it ",
+                "Now with 100% less life insurance! ",
+                "Make sure to give EoA my best . . . or my worst depending on how you look at it ",
                 "I failed to help Heather with a door edition ",
-                "you have beings have only 3 dimensions? pffft ",
-                "you want me to die? Not if I kill myself first! ",
-                "the nurse may need a few more doctorate degrees . . . and a better hairdo ",
-                "our mod will create an exodus from the others! ",
-                "build a wall? Pffft, we have more important things to do ",
-                "old age should burn and rave at the close of day . . . yes, that means you, Jof ",
-                "now with a bunch of stupid title version like this one! ",
+                "You only have 3 dimensions? pffft ",
+                "You want me to die? Not if I kill myself first! ",
+                "The nurse may need a few more doctorate degrees . . . and a better hairdo ",
+                "Our mod will create an exodus from the others! ",
+                "Build a wall? Pffft, we have more important things to do ",
+                "Old age should burn and rave at the close of day . . . yes, that means you, Jof ",
+                "Now with a bunch of stupid title version like this one! ",
                 "I dont feel so good... ",
-                "should have gone for the cpu ",
+                "Should have gone for the cpu ",
                 "I'll go grab some pizza ",
                 "Don't forget to change this with something, ok? ",
                 "REEEEEEEEEEEEEEEEEEEE! ",
-                "just remember boys and girls, no anime :smile: "
+                "Just remember boys and girls, no anime :smile: ",
+                "This mod does not exist ",
+                "I heard from a guy a weird story abouts blocks ",
+                "Marble it down! ",
+                "Minecraft world loading screen? Don't be dumb ",
+                "I heard that forknife was a good kitchen utensil game, try it! ",
+                "So you heard that? No, welp it's you! ",
+                "Rumor has it that club penguin is evil ",
+                "I hate it when I code and a velociraptor throw a fridge at my grandma ",
+                "Meme? NO MEME ALLOWED HERE ",
+                "Dimension is a very simple thing, it's basically a bunch of non-sense my child ",
+                "Terraria is not a game, it's a mess! ",
+                "It's not a mess, it's red code",
+                "Somebody touch my spaghet code - Red ",
+                "This is minecraft, wait no it's evil ",
+                "The fairy land, it's great... and evil... but great! ",
+                "Lots of spaghetti! ",
+                "Terraria: A game you're currently playing ",
+                "Also available in 64bit ",
+                "Too many toasters! ",
+                "2738 times, now that's dedication! ",
+                "Now 100% clean code free "
             };
         }
 
@@ -499,10 +520,6 @@ namespace TUA
 
             foreach (Type type in mod.Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture))
             {
-                /*if (type.IsAbstract || type.GetConstructor(new Type[0]) == null)//don't autoload things with no default constructor
-                {
-                    continue;
-                }*/
                 if (type.IsSubclassOf(typeof(ModLiquid)))
                 {
                     AutoloadLiquid(type);
