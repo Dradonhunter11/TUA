@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace TUA
 {
-    class RecipeManager
+    class RecipeUtils
     {
         private static List<Recipe> removedRecipes = new List<Recipe>();
 
@@ -25,20 +25,14 @@ namespace TUA
             }
 
         }
-
-        public static ModRecipe createModRecipe(Mod mod)
-        {
-            return new ModRecipe(mod);
-        }
-
-        public static void AddRecipe(Mod mod, string result, int resultAmount, RecipeForma recipe)
+        public static void AddRecipe(Mod mod, List<Tuple<int, int>> ingredient, Tuple<int, int> result)
         {
             ModRecipe r = new ModRecipe(mod);
-            for (int i = 0; i < recipe.ingredient.Length; i++)
+            foreach (var tuple in ingredient)
             {
-                r.AddIngredient(mod, recipe.ingredient[i], recipe.number[i]);
+                r.AddIngredient(tuple.Item1, tuple.Item2);
             }
-            r.SetResult(mod, result, resultAmount);
+            r.SetResult(result.Item1, result.Item2);
             r.AddRecipe();
         }
 

@@ -43,40 +43,27 @@ namespace TUA
         internal static string version = "0.1 dev";
         internal static String tModLoaderVersion2 = "";
         internal static Version tModLoaderVersion;
-        internal static bool devMode = true;
+        internal static readonly string SAVE_PATH = Main.SavePath;
 
         internal static TerrariaUltraApocalypse instance;
 
-        public static bool EoCUltraActivated = false;
-        private readonly Type t2d = typeof(Texture2D);
-        private readonly Main instance2 = Main.instance;
-        private readonly string savePath, worldPath, playerPath;
-        private Texture2D logoOriginal;
-        public static Texture2D[] originalMoon;
 
-        public static Texture2D SolarFog;
+        internal static Texture2D SolarFog;
 
-        public static UserInterface machineInterface;
-        public static UserInterface CapacitorInterface;
-        public static UserInterface raidsInterface;
-
-        private static List<string> quote = new List<string>();
-        public static string animate = GetAnimatedTitle();
-
-        private int animationTimer = 25;
-        
+        internal static UserInterface machineInterface;
+        internal static UserInterface CapacitorInterface;
+        internal static UserInterface raidsInterface;
 
         internal UIWorldSelect originalWorldSelect;
         internal readonly MainMenuUI newMainMenu = new MainMenuUI();
         internal static RaidsUI raidsUI = new RaidsUI();
 
-        public static readonly string SAVE_PATH = Main.SavePath;
+        internal static CustomTitleMenuConfig custom;
 
-        public const uint SPI_GETMOUSESPEED = 0x0070;
+        private static List<string> quote = new List<string>();
+        private static string animate = GetAnimatedTitle();
 
-        
-        public static CustomTitleMenuConfig custom;
-        public bool injectedConfigSetting = false;
+        private int animationTimer = 25;
 
         public TerrariaUltraApocalypse()
         {
@@ -90,54 +77,136 @@ namespace TUA
             };
         }
 
+        public override void Load()
+        {
+            LoadModContent(mod =>
+            {
+                Autoload(mod);
+            });
+            newMainMenu.load();
+            
+
+            instance = this;
+            UpdateBiomesInjection.inject();
+            LiquidRegistery.MassMethodSwap();
+            Console.Write("AM I NULL? " + typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
+            MethodInfo attempt = typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
+                .GetMethod("PopulateModBrowser", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+            ReflectionExtension.MethodSwap(typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
+
+            Main.SavePath += "/Tapocalypse";
+            Main.PlayerPath = Main.SavePath + "/Player";
+            Main.WorldPath = Main.SavePath + "/World";
+
+            if (!Main.dedServ)
+            {
+                FieldInfo UIWorldSelectInfo =
+                    typeof(Main).GetField("_worldSelectMenu", BindingFlags.Static | BindingFlags.NonPublic);
+                originalWorldSelect = (UIWorldSelect)UIWorldSelectInfo.GetValue(null);
+                UIWorldSelectInfo.SetValue(null, new NewUIWorldSelect());
+
+                SteamID64Checker.getInstance().CopyIDToClipboard();
+
+                SolarFog = GetTexture("CustomScreenShader/HeavyMist");
+
+                //DRPSystem.Init();
+                //Main.OnTick += DRPSystem.Update;
+                
+
+                machineInterface = new UserInterface();
+                CapacitorInterface = new UserInterface();
+                raidsInterface = new UserInterface();
+
+                AddFilter();
+                CreateTranslation();
+            }
+
+
+            //DRPSystem.Init();
+            //Main.OnTick += DRPSystem.Update;
+        }
+
+        private static void AddFilter()
+        {
+            Filters.Scene["TUA:TUAPlayer"] =
+                new Filter(
+                    new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f),
+                    EffectPriority.VeryHigh);
+            SkyManager.Instance["TUA:TUAPlayer"] = new TUACustomSky();
+            Filters.Scene["TUA:StardustPillar"] =
+                new Filter(
+                    new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f),
+                    EffectPriority.VeryHigh);
+            SkyManager.Instance["TUA:StardustPillar"] = new StardustCustomSky();
+            Filters.Scene["TUA:SolarMist"] = new Filter(new MeteoridonScreenShader().UseColor(0.4f, 0, 0).UseOpacity(0.7f),
+                EffectPriority.VeryHigh);
+            SkyManager.Instance["TUA:SolarMist"] = new HeavyMistSky();
+        }
+
+        private void CreateTranslation()
+        {
+            var text = CreateTranslation("HotWFarAway0");
+            text.SetDefault("<{0}> Where do you think you're going??");
+            AddTranslation(text);
+
+            text = CreateTranslation("HotWFarAway1");
+            text.SetDefault("<{0}> No, no, no, we can't have that, come back here.");
+            AddTranslation(text);
+
+            text = CreateTranslation("HotWFarAway2");
+            text.SetDefault("<{0}> Come back here! You awakened me, so I will make you pay!");
+            AddTranslation(text);
+
+            text = CreateTranslation("HotWFarAway3");
+            text.SetDefault("<{0}> Face me, cowardly Terrarian!");
+            AddTranslation(text);
+
+            text = CreateTranslation("HotWFarAwayStuck");
+            text.SetDefault("<{0}> Welp, your fault for trying to run away.");
+        }
+
+        public static string GetAnimatedTitle()
+        {
+            Random r = new Random();
+            LazyWaytoShowTitle();
+
+            tModLoaderVersion2 = "tModLoader v" + ModLoader.version;
+            tModLoaderVersion = ModLoader.version;
+
+            return tModLoaderVersion2 + $" - TUA v{version} - {quote[r.Next(quote.Count - 1)]}";
+        }
+
+
+
+        public override void Unload()
+        {
+            //DrawMapInjection.revert();
+            UpdateBiomesInjection.inject();
+            LiquidRegistery.MassMethodSwap();
+
+            Main.SavePath = SAVE_PATH;
+
+            Main.PlayerPath = Main.SavePath + "/Player";
+            Main.WorldPath = Main.SavePath + "/World";
+
+            instance = null;
+            quote.Clear();
+            FieldInfo info2 = typeof(ModLoader).GetField("versionedName",
+                BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
+            info2.SetValue(null, string.Format("tModLoader v{0}", (object)Terraria.ModLoader.ModLoader.version) + (Terraria.ModLoader.ModLoader.branchName.Length == 0 ? "" : " " + Terraria.ModLoader.ModLoader.branchName) + (Terraria.ModLoader.ModLoader.beta == 0 ? "" : string.Format(" Beta {0}", (object)Terraria.ModLoader.ModLoader.beta)));
+
+            //Remember to re enable it once it's fixed
+            if (!Main.dedServ)
+            {
+                //DRPSystem.Kill();
+                //Main.OnTick -= DRPSystem.Update;
+            }
+        }
+
         public override void AddRecipes()
         {
-            RecipeManager.removeRecipe(ItemID.RegenerationPotion);
-            RecipeManager.removeRecipe(ItemID.IronskinPotion);
-            //RecipeManager.addRecipe(this, "Regeneration Potion", 1, new RecipeForma(new string[] { "Amethyst", "Bottled Water", "Day Bloom" }, new int[] { 3, 1, 1}));
-            //RecipeManager.addRecipe(this, "Ironskin Potion", 1, new RecipeForma(new string[] { "Iron Bar", "Bottled Water", "Day Bloom", "Iron Ore" }, new int[]{ 3, 1, 1, 3 }));
-
-
-            ModRecipe r = new ModRecipe(this);
-            r.AddIngredient(ItemID.Amethyst, 3);
-            r.AddIngredient(ItemID.BottledWater, 1);
-            r.AddIngredient(ItemID.Daybloom, 1);
-            r.SetResult(ItemID.RegenerationPotion);
-            r.AddRecipe();
-
-            ModRecipe r2 = RecipeManager.createModRecipe(this);
-            r2.AddIngredient(ItemID.IronBar, 3);
-            r2.AddIngredient(ItemID.BottledWater, 1);
-            r2.AddIngredient(ItemID.Daybloom, 1);
-            r2.AddIngredient(ItemID.IronOre, 3);
-
-            r2.SetResult(ItemID.IronskinPotion, 1);
-            r2.AddRecipe();
-
-            //Pre hardmode ore
-            addFurnaceRecipe(ItemID.CopperOre, ItemID.CopperBar);
-            addFurnaceRecipe(ItemID.TinOre, ItemID.TinBar, 10);
-            addFurnaceRecipe(ItemID.IronOre, ItemID.IronBar, 30);
-            addFurnaceRecipe(ItemID.LeadOre, ItemID.LeadBar);
-            addFurnaceRecipe(ItemID.SilverOre, ItemID.SilverBar);
-            addFurnaceRecipe(ItemID.TungstenOre, ItemID.TungstenBar);
-            addFurnaceRecipe(ItemID.GoldOre, ItemID.GoldBar, 30);
-            addFurnaceRecipe(ItemID.PlatinumOre, ItemID.PlatinumBar, 40);
-            addFurnaceRecipe(ItemID.CrimtaneOre, ItemID.CrimtaneBar);
-            addFurnaceRecipe(ItemID.DemoniteOre, ItemID.DemoniteBar);
-            addFurnaceRecipe(ItemID.Meteorite, ItemID.MeteoriteBar, 30);
-
-            //Hardmode ore 
-            addFurnaceRecipe(ItemID.CobaltOre, ItemID.CobaltBar, 25);
-            addFurnaceRecipe(ItemID.PalladiumOre, ItemID.PalladiumBar, 25);
-            addFurnaceRecipe(ItemID.MythrilOre, ItemID.MythrilBar, 40);
-            addFurnaceRecipe(ItemID.OrichalcumOre, ItemID.OrichalcumBar, 50);
-            addFurnaceRecipe(ItemID.AdamantiteOre, ItemID.AdamantiteBar, 70);
-            addFurnaceRecipe(ItemID.TitaniumOre, ItemID.TitaniumBar, 80);
-            addFurnaceRecipe(ItemID.ChlorophyteOre, ItemID.ChlorophyteBar, 120);
-            addFurnaceRecipe(ItemID.LunarOre, ItemID.LunarBar, 240);
-
-            //Non ore recipe for furnace
+            AddAllPreHardmodeRecipeFurnace();
+            AddAllHardmodeRecipeFurnace();
             addFurnaceRecipe(ItemID.SandBlock, ItemID.Glass, 20);
 
             //Smetler recipe recipe
@@ -145,7 +214,7 @@ namespace TUA
             AddInductionSmelterRecipe(ItemID.ChlorophyteBar, ItemID.Ectoplasm, ItemID.SpectreBar, 4, 1, 3);
             AddInductionSmelterRecipe(ItemID.ChlorophyteBar, ItemID.GlowingMushroom, ItemID.ShroomiteBar, 1, 5, 1, 180);
 
-            RecipeManager.GetAllRecipeByIngredientAndReplace(ItemID.PixieDust, ItemType<MeteorideScale>());
+            RecipeUtils.GetAllRecipeByIngredientAndReplace(ItemID.PixieDust, ItemType<MeteorideScale>());
         }
 
         public void addFurnaceRecipe(int itemID, int itemResult, int timer = 20)
@@ -166,189 +235,30 @@ namespace TUA
             fr1.addRecipe();
         }
 
-        public void convertTileToChunk(ArrayChunk<Tile> tiles)
+        public override void PostSetupContent()
         {
-            for (int i = 0; i < Main.maxTilesX; i++)
+            Mod bossChecklist = ModLoader.GetMod("BossChecklist");
+            if (bossChecklist != null)
             {
-                for (int j = 0; j < Main.maxTilesY; j++)
-                {
-                    tiles[i, j] = Main.tile[i, j];
-                }
-            }
-        }
-
-        public override void Load()
-        {
-            LoadModContent(mod =>
-            {
-                Autoload(mod);
-            });
-            ArrayChunk<Tile> tile = new ArrayChunk<Tile>();
-            convertTileToChunk(tile);
-            newMainMenu.load();
-            
-
-            instance = this;
-            UpdateBiomesInjection.inject();
-            LiquidRegistery.MassMethodSwap();
-            Console.Write("AM I NULL? " + typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
-            MethodInfo attempt = typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
-                .GetMethod("PopulateModBrowser", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
-            ReflectionExtension.MethodSwap(typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
-
-            Main.SavePath += "/Tapocalypse";
-            Main.PlayerPath = Main.SavePath + "/Player";
-            Main.WorldPath = Main.SavePath + "/World";
-            Main.musicVolume = 0.5f;
-
-            /*
-            if (Main.menuMode == 0)
-            {
-                //Main.spriteBatch.Draw(test, new Vector2((float)400, (float)500), Microsoft.Xna.Framework.Color.White);
-            }
-            */
-
-            // if (Main.netMode == 0)
-            if (!Main.dedServ)
-            {
-                FieldInfo UIWorldSelectInfo =
-                    typeof(Main).GetField("_worldSelectMenu", BindingFlags.Static | BindingFlags.NonPublic);
-                originalWorldSelect = (UIWorldSelect)UIWorldSelectInfo.GetValue(null);
-                UIWorldSelectInfo.SetValue(null, new NewUIWorldSelect());
-
-                SteamID64Checker.getInstance().CopyIDToClipboard();
-
-                logoOriginal = Main.logo2Texture;
-                originalMoon = Main.moonTexture;
-                SolarFog = GetTexture("CustomScreenShader/HeavyMist");
-
-                //DRPSystem.Init();
-                //Main.OnTick += DRPSystem.Update;
-                
-
-                machineInterface = new UserInterface();
-                CapacitorInterface = new UserInterface();
-                raidsInterface = new UserInterface();
-
-                Filters.Scene["TUA:TUAPlayer"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
-                SkyManager.Instance["TUA:TUAPlayer"] = new TUACustomSky();
-                Filters.Scene["TUA:StardustPillar"] = new Filter(new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
-                SkyManager.Instance["TUA:StardustPillar"] = new StardustCustomSky();
-                Filters.Scene["TUA:SolarMist"] = new Filter(new MeteoridonScreenShader().UseColor(0.4f, 0, 0).UseOpacity(0.7f), EffectPriority.VeryHigh);
-                SkyManager.Instance["TUA:SolarMist"] = new HeavyMistSky();
-
-                var text = CreateTranslation("HotWFarAway0");
-                text.SetDefault("<{0}> Where do you think you're going??");
-                AddTranslation(text);
-
-                text = CreateTranslation("HotWFarAway1");
-                text.SetDefault("<{0}> No, no, no, we can't have that, come back here.");
-                AddTranslation(text);
-
-                text = CreateTranslation("HotWFarAway2");
-                text.SetDefault("<{0}> Come back here! You awakened me, so I will make you pay!");
-                AddTranslation(text);
-
-                text = CreateTranslation("HotWFarAway3");
-                text.SetDefault("<{0}> Face me, cowardly Terrarian!");
-                AddTranslation(text);
-
-                text = CreateTranslation("HotWFarAwayStuck");
-                text.SetDefault("<{0}> Welp, your fault for trying to run away.");
-                
+                bossChecklist.Call("AddBossWithInfo", "Eye of cthulhu (Ultra Version)", 16.0f, (Func<bool>)(() => TUAWorld.EoCDeath >= 1), "Use a [i:" + ItemID.SuspiciousLookingEye + "] at night after Moon lord has been defeated");
+                bossChecklist.Call("AddBossWithInfo", "Eye of EoADowned - God of destruction", 16.1f, (Func<bool>)(() => TUAWorld.UltraMode), "Use a [i:" + ItemType("Spawner") + "] after --1sing Ay. 0F C1^lh> in ^1tra and murder it, if you can...");
             }
 
-            if (IntPtr.Size == 8)
+            Mod achievementLibs = ModLoader.GetMod("AchievementLibs");
+            if (achievementLibs != null)
             {
-                AllowGignaticWorld();
+                Func<bool> c = () => TUAWorld.EoADowned;
+                achievementLibs.Call("AddAchievementWithoutReward", this, "Once there was an eye that was a god...", "Kill the eye of apocalypse - god of destruction!", "Achievement/EoAKill", c);
+                achievementLibs.Call("AddAchievementWithoutReward", this, "The terrible moon tried to kill us", "Use [i:" + ItemType<Spawner>() + "] and succesfully survive all 8 wave of the apocalypse moon", "Achievement/EoAKill", (Func<bool>)(() => TUAWorld.ApoMoonDowned));
+                achievementLibs.Call("AddAchievementWithoutAction", this,
+                    "Once there was the eye of cthulhu... the ultra one", "Kill the ultra EoC succesfully.",
+                    "Achievement/UltraEoC", new int[] { ItemType<Spawner>() }, new int[] { 1 },
+                    (Func<bool>)(() => TUAWorld.EoCDeath >= 1));
             }
 
-
-            //DRPSystem.Init();
-            //Main.OnTick += DRPSystem.Update;
-        }
-
-        private static void LoadModContent(Action<Mod> loadAction)
-        {
-            for (int i = 0; i < ModLoader.Mods.Length; i++)
-            {
-                Mod mod = ModLoader.Mods[i];
-                try
-                {
-                    loadAction(mod);
-                }
-                catch { }
-            }
-        }
-
-        public void AllowGignaticWorld()
-        {
-            Main.chest = new Chest[10000];
-            Main.tile = new Tile[25200, 9600];
-            Main.maxTilesX = 25200;
-            Main.maxTilesY = 9600;
-        }
-
-        public static string GetAnimatedTitle()
-        {
-            Random r = new Random();
-            lazyWaytoShowTitle();
-
-            tModLoaderVersion2 = "tModLoader v" + ModLoader.version;
-            tModLoaderVersion = ModLoader.version;
-
-            return tModLoaderVersion2 + $" - TUA v{version} - {quote[r.Next(quote.Count - 1)]}";
-        }
-
-        public static void lazyWaytoShowTitle()
-        {
-            quote = new List<string>
-            {
-                "now with 100% less life insurance! ",
-                "make sure to give EoA my best . . . or my worst depending on how you look at it ",
-                "I failed to help Heather with a door edition ",
-                "you have beings have only 3 dimensions? pffft ",
-                "you want me to die? Not if I kill myself first! ",
-                "the nurse may need a few more doctorate degrees . . . and a better hairdo ",
-                "our mod will create an exodus from the others! ",
-                "build a wall? Pffft, we have more important things to do ",
-                "old age should burn and rave at the close of day . . . yes, that means you, Jof ",
-                "now with a bunch of stupid title version like this one! ",
-                "I dont feel so good... ",
-                "should have gone for the cpu ",
-                "I'll go grab some pizza ",
-                "Don't forget to change this with something, ok? ",
-                "REEEEEEEEEEEEEEEEEEEE! ",
-                "just remember boys and girls, no anime :smile: "
-            };
-        }
-
-
-
-        public override void Unload()
-        {
-            //DrawMapInjection.revert();
-            UpdateBiomesInjection.inject();
-            LiquidRegistery.MassMethodSwap();
-
-            Main.logo2Texture = logoOriginal;
-
-            Main.SavePath = SAVE_PATH;
-
-            Main.PlayerPath = Main.SavePath + "/Player";
-            Main.WorldPath = Main.SavePath + "/World";
-
-            instance = null;
-            quote.Clear();
-            FieldInfo info2 = typeof(ModLoader).GetField("versionedName",
-                BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
-            info2.SetValue(null, string.Format("tModLoader v{0}", (object)Terraria.ModLoader.ModLoader.version) + (Terraria.ModLoader.ModLoader.branchName.Length == 0 ? "" : " " + Terraria.ModLoader.ModLoader.branchName) + (Terraria.ModLoader.ModLoader.beta == 0 ? "" : string.Format(" Beta {0}", (object)Terraria.ModLoader.ModLoader.beta)));
-
-            if (!Main.dedServ)
-            {
-                //DRPSystem.Kill();
-                //Main.OnTick -= DRPSystem.Update;
-            }
+            RecipeUtils.setAllFurnaceRecipeSystem();
+            LiquidRegistery.getInstance().addNewModLiquid(new PlutonicWaste());
+            LiquidRegistery.getInstance().addNewModLiquid(new WeirdLiquid());
         }
 
         public override void UpdateUI(GameTime gameTime)
@@ -387,28 +297,7 @@ namespace TUA
             }
             if (Main.myPlayer != -1 && !Main.gameMenu && Main.LocalPlayer.active)
             {
-
-
-                //DimPlayer p = Main.LocalPlayer.GetModPlayer<DimPlayer>(this);
-                if (this.GetBiome("Meteoridon").InBiome())
-                {
-                    music = this.GetSoundSlot(SoundType.Music, "Sounds/Music/Stars_Lament_Loop");
-                }
-                else if (this.GetBiome("Plagues").InBiome())
-                {
-                    music = MusicID.LunarBoss;
-                }
-                else if (TUAWorld.apocalypseMoon)
-                {
-                    music = MusicID.LunarBoss;
-                }
-                else if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
-                {
-                    music = MusicID.TheTowers;
-                    Main.musicBox = 36;
-                    musicPriority = MusicPriority.Environment;
-
-                }
+                UpdateInGameMusic(ref music, ref musicPriority);
             }
 
             if (Main.menuMode == 0 && custom.customMenu)
@@ -417,76 +306,31 @@ namespace TUA
                 Main.MenuUI.SetState(newMainMenu);
             }
             AnimateVersion();
-            if(Main.gameMenu && Main.menuMode == 0 || (Main.menuMode == 888 && TerrariaUltraApocalypse.custom.customMenu))
+            if (Main.gameMenu && Main.menuMode == 0 || (Main.menuMode == 888 && TerrariaUltraApocalypse.custom.customMenu))
                 TerrariaUltraApocalypse.SetTheme();
 
         }
 
-        
-
-        private void AnimateVersion()
+        private void UpdateInGameMusic(ref int music, ref MusicPriority musicPriority)
         {
-            if (animationTimer == 0)
+            if (this.GetBiome("Meteoridon").InBiome())
             {
-                char last = animate[animate.Length - 1];
-                animate = animate.Remove(animate.Length - 1, 1);
-                animate = last + animate;
-                FieldInfo info2 = typeof(ModLoader).GetField("versionedName",
-                    BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
-                info2.SetValue(null, animate);
-                animationTimer = 10;
+                music = this.GetSoundSlot(SoundType.Music, "Sounds/Music/Stars_Lament_Loop");
             }
-
-            animationTimer--;
-
-        }
-
-
-        private static void resetMenu(Dictionary<string, LocalizedText> dictionary, FieldInfo textInfo)
-        {
-            if (Main.menuMode == 1)
+            else if (this.GetBiome("Plagues").InBiome())
             {
-                textInfo.SetValue(dictionary["UI.New"], "New");
-                textInfo.SetValue(dictionary["UI.SelectWorld"], "Select World");
+                music = MusicID.LunarBoss;
             }
-        }
-
-        internal void Autoload(Mod mod)
-        {
-
-            if (mod.Code == null)
+            else if (TUAWorld.apocalypseMoon)
             {
-                return;
+                music = MusicID.LunarBoss;
             }
-
-            foreach (Type type in mod.Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture))
+            else if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
             {
-                /*if (type.IsAbstract || type.GetConstructor(new Type[0]) == null)//don't autoload things with no default constructor
-                {
-                    continue;
-                }*/
-                if (type.IsSubclassOf(typeof(ModLiquid)))
-                {
-                    AutoloadLiquid(type);
-                }
-                if (type.IsSubclassOf(typeof(TUAGlobalNPC)))
-                {
-                    AutoloadTUAGlobalNPC(type);
-                }
-
+                music = MusicID.TheTowers;
+                Main.musicBox = 36;
+                musicPriority = MusicPriority.Environment;
             }
-        }
-
-        private void AutoloadLiquid(Type type)
-        {
-            ModLiquid liquid = (ModLiquid)Activator.CreateInstance(type);
-            LiquidRegistery.getInstance().addNewModLiquid(liquid);
-        }
-
-        private void AutoloadTUAGlobalNPC(Type type)
-        {
-            TUAGlobalNPC globalNPC = (TUAGlobalNPC)Activator.CreateInstance(type);
-            TUANPCLoader.addTUAGlobalNPC(globalNPC);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -534,40 +378,6 @@ namespace TUA
             }
         }
 
-        public override void PostSetupContent()
-        {
-            Mod bossChecklist = ModLoader.GetMod("BossChecklist");
-            if (bossChecklist != null)
-            {
-                bossChecklist.Call("AddBossWithInfo", "Eye of cthulhu (Ultra Version)", 16.0f, (Func<bool>)(() => TUAWorld.EoCDeath >= 1), "Use a [i:" + ItemID.SuspiciousLookingEye + "] at night after Moon lord has been defeated");
-                bossChecklist.Call("AddBossWithInfo", "Eye of EoADowned - God of destruction", 16.1f, (Func<bool>)(() => TUAWorld.UltraMode), "Use a [i:" + ItemType("Spawner") + "] after --1sing Ay. 0F C1^lh> in ^1tra and murder it, if you can...");
-            }
-
-            Mod achievementLibs = ModLoader.GetMod("AchievementLibs");
-            if (achievementLibs != null)
-            {
-                Func<bool> c = () => TUAWorld.EoADowned;
-                achievementLibs.Call("AddAchievementWithoutReward", this, "Once there was an eye that was a god...", "Kill the eye of apocalypse - god of destruction!", "Achievement/EoAKill", c);
-                achievementLibs.Call("AddAchievementWithoutReward", this, "The terrible moon tried to kill us", "Use [i:" + ItemType<Spawner>() + "] and succesfully survive all 8 wave of the apocalypse moon", "Achievement/EoAKill", (Func<bool>)(() => TUAWorld.ApoMoonDowned));
-                achievementLibs.Call("AddAchievementWithoutAction", this,
-                    "Once there was the eye of cthulhu... the ultra one", "Kill the ultra EoC succesfully.",
-                    "Achievement/UltraEoC", new int[] { ItemType<Spawner>() }, new int[] { 1 },
-                    (Func<bool>)(() => TUAWorld.EoCDeath >= 1));
-            }
-
-            Mod st = ModLoader.GetMod("SacredTool");
-            if (st != null)
-            {
-                bool ultraMode = (bool)st.Call("TrueMode");
-            }
-
-            RecipeManager.setAllFurnaceRecipeSystem();
-            LiquidRegistery.getInstance().addNewModLiquid(new PlutonicWaste());
-            LiquidRegistery.getInstance().addNewModLiquid(new WeirdLiquid());
-
-            
-        }
-
         public override object Call(params object[] args)
         {
             string command = args[0] as string;
@@ -578,18 +388,145 @@ namespace TUA
             return base.Call(args);
         }
 
-        public static void SetTheme()
+        
+
+        private void AddAllPreHardmodeRecipeFurnace()
+        {
+            addFurnaceRecipe(ItemID.CopperOre, ItemID.CopperBar);
+            addFurnaceRecipe(ItemID.TinOre, ItemID.TinBar, 10);
+            addFurnaceRecipe(ItemID.IronOre, ItemID.IronBar, 30);
+            addFurnaceRecipe(ItemID.LeadOre, ItemID.LeadBar);
+            addFurnaceRecipe(ItemID.SilverOre, ItemID.SilverBar);
+            addFurnaceRecipe(ItemID.TungstenOre, ItemID.TungstenBar);
+            addFurnaceRecipe(ItemID.GoldOre, ItemID.GoldBar, 30);
+            addFurnaceRecipe(ItemID.PlatinumOre, ItemID.PlatinumBar, 40);
+            addFurnaceRecipe(ItemID.CrimtaneOre, ItemID.CrimtaneBar);
+            addFurnaceRecipe(ItemID.DemoniteOre, ItemID.DemoniteBar);
+            addFurnaceRecipe(ItemID.Meteorite, ItemID.MeteoriteBar, 30);
+        }
+
+        private void AddAllHardmodeRecipeFurnace()
+        {
+            addFurnaceRecipe(ItemID.CobaltOre, ItemID.CobaltBar, 25);
+            addFurnaceRecipe(ItemID.PalladiumOre, ItemID.PalladiumBar, 25);
+            addFurnaceRecipe(ItemID.MythrilOre, ItemID.MythrilBar, 40);
+            addFurnaceRecipe(ItemID.OrichalcumOre, ItemID.OrichalcumBar, 50);
+            addFurnaceRecipe(ItemID.AdamantiteOre, ItemID.AdamantiteBar, 70);
+            addFurnaceRecipe(ItemID.TitaniumOre, ItemID.TitaniumBar, 80);
+            addFurnaceRecipe(ItemID.ChlorophyteOre, ItemID.ChlorophyteBar, 120);
+            addFurnaceRecipe(ItemID.LunarOre, ItemID.LunarBar, 240);
+        }
+
+        private static void LazyWaytoShowTitle()
+        {
+            quote = new List<string>
+            {
+                "now with 100% less life insurance! ",
+                "make sure to give EoA my best . . . or my worst depending on how you look at it ",
+                "I failed to help Heather with a door edition ",
+                "you have beings have only 3 dimensions? pffft ",
+                "you want me to die? Not if I kill myself first! ",
+                "the nurse may need a few more doctorate degrees . . . and a better hairdo ",
+                "our mod will create an exodus from the others! ",
+                "build a wall? Pffft, we have more important things to do ",
+                "old age should burn and rave at the close of day . . . yes, that means you, Jof ",
+                "now with a bunch of stupid title version like this one! ",
+                "I dont feel so good... ",
+                "should have gone for the cpu ",
+                "I'll go grab some pizza ",
+                "Don't forget to change this with something, ok? ",
+                "REEEEEEEEEEEEEEEEEEEE! ",
+                "just remember boys and girls, no anime :smile: "
+            };
+        }
+
+        private void AutoloadLiquid(Type type)
+        {
+            ModLiquid liquid = (ModLiquid)Activator.CreateInstance(type);
+            LiquidRegistery.getInstance().addNewModLiquid(liquid);
+        }
+
+        private void AutoloadTUAGlobalNPC(Type type)
+        {
+            TUAGlobalNPC globalNPC = (TUAGlobalNPC)Activator.CreateInstance(type);
+            TUANPCLoader.addTUAGlobalNPC(globalNPC);
+        }
+
+        private void resetMenu(Dictionary<string, LocalizedText> dictionary, FieldInfo textInfo)
+        {
+            if (Main.menuMode == 1)
+            {
+                textInfo.SetValue(dictionary["UI.New"], "New");
+                textInfo.SetValue(dictionary["UI.SelectWorld"], "Select World");
+            }
+        }
+
+        private void AnimateVersion()
+        {
+            if (animationTimer == 0)
+            {
+                char last = animate[animate.Length - 1];
+                animate = animate.Remove(animate.Length - 1, 1);
+                animate = last + animate;
+                FieldInfo info2 = typeof(ModLoader).GetField("versionedName",
+                    BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
+                info2.SetValue(null, animate);
+                animationTimer = 10;
+            }
+            animationTimer--;
+        }
+
+        private static void LoadModContent(Action<Mod> loadAction)
+        {
+            for (int i = 0; i < ModLoader.Mods.Length; i++)
+            {
+                Mod mod = ModLoader.Mods[i];
+                try
+                {
+                    loadAction(mod);
+                }
+                catch { }
+            }
+        }
+
+        private void Autoload(Mod mod)
+        {
+
+            if (mod.Code == null)
+            {
+                return;
+            }
+
+            foreach (Type type in mod.Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture))
+            {
+                /*if (type.IsAbstract || type.GetConstructor(new Type[0]) == null)//don't autoload things with no default constructor
+                {
+                    continue;
+                }*/
+                if (type.IsSubclassOf(typeof(ModLiquid)))
+                {
+                    AutoloadLiquid(type);
+                }
+                if (type.IsSubclassOf(typeof(TUAGlobalNPC)))
+                {
+                    AutoloadTUAGlobalNPC(type);
+                }
+
+            }
+        }
+
+        private static void SetTheme()
         {
             Dictionary<String, CustomSky> temp2 = (Dictionary<string, CustomSky>)typeof(SkyManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(SkyManager.Instance);
-            Dictionary<String, Filter> temp = (Dictionary<string, Filter>) typeof(FilterManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(Filters.Scene);
+            Dictionary<String, Filter> temp = (Dictionary<string, Filter>)typeof(FilterManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(Filters.Scene);
             List<String> allKey = temp.Keys.ToList();
-            foreach (var  key in allKey)
+            foreach (var key in allKey)
             {
-                if(key != TerrariaUltraApocalypse.custom.newMainMenuTheme)
+                if (key != TerrariaUltraApocalypse.custom.newMainMenuTheme)
                     Filters.Scene[key].Deactivate();
             }
 
-            
+
             allKey = temp2.Keys.ToList();
             foreach (var key in allKey)
             {
@@ -605,7 +542,7 @@ namespace TUA
                     case "Vanilla":
                         return;
                     default:
-                        if(Filters.Scene[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
+                        if (Filters.Scene[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
                             Filters.Scene.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
                         if (SkyManager.Instance[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
                             SkyManager.Instance.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
@@ -615,6 +552,18 @@ namespace TUA
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Move to dimlibs or implement trough the new Save File API
+        /// </summary>
+        private void AllowGignaticWorld()
+        {
+            /*
+            Main.chest = new Chest[10000];
+            Main.tile = new Tile[25200, 9600];
+            Main.maxTilesX = 25200;
+            Main.maxTilesY = 9600;*/
         }
     }
 }

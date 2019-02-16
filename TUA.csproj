@@ -324,7 +324,7 @@
     <Compile Include="TUAPlayer.cs" />
     <Compile Include="TUAWorld.cs" />
     <Compile Include="RecipeForma.cs" />
-    <Compile Include="RecipeManager.cs" />
+    <Compile Include="RecipeUtils.cs" />
     <Compile Include="Items\SetNight.cs" />
     <Compile Include="Items\EoA\Spawner.cs" />
     <Compile Include="NPCs\Gods\EoA\Eye_of_Apocalypse.cs" />
