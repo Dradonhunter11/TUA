@@ -25,7 +25,8 @@ namespace TUA.API.EventManager
         private int waveCount = 0;
 
         public Dictionary<int, List<Tuple<int, float, int>>> enemyWave = new Dictionary<int, List<Tuple<int, float, int>>>();
-        public abstract List<int> scoreTresholdLimitPerWave { get; }
+        public int nextWave = 0;
+        public abstract List<int> scoreThresholdLimitPerWave { get; }
         public abstract string EventName { get; }
         public abstract int MaxWave { get; }
 
@@ -54,16 +55,17 @@ namespace TUA.API.EventManager
             waveCount = 0;
             score = 0;
             IsActive = false;
+            nextWave = 0;
         }
 
-        public void AddEnemy(int wave, int enemyType, float chance, int point)
+        public void AddEnemy(int enemyType, float chance, int point)
         {
-            if (enemyWave.ContainsKey(wave))
+            if (enemyWave.ContainsKey(nextWave))
             {
-                enemyWave[wave].Add(Tuple.Create(enemyType, chance, point));
+                enemyWave[nextWave].Add(Tuple.Create(enemyType, chance, point));
                 return;
             }
-            enemyWave.Add(wave, new List<Tuple<int, float, int>>() { Tuple.Create(enemyType, chance, point) });
+            enemyWave.Add(nextWave, new List<Tuple<int, float, int>>() { Tuple.Create(enemyType, chance, point) });
         }
 
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
@@ -73,7 +75,6 @@ namespace TUA.API.EventManager
                 pool.Clear();
                 foreach (var enemy in enemyWave[waveCount])
                 {
-                    
                     pool.Add(enemy.Item1, enemy.Item2);
                 }
             }
