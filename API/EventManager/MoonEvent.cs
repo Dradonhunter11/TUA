@@ -8,8 +8,13 @@ using Terraria.ModLoader.IO;
 
 namespace TUA.API.EventManager
 {
+    
     internal abstract class MoonEvent : GlobalNPC
     {
+        public override bool InstancePerEntity => true;
+        public override bool CloneNewInstances => true;
+
+        
 
         public bool IsActive = false;
 
@@ -32,7 +37,10 @@ namespace TUA.API.EventManager
         public MoonEvent()
         {
             Initialize();
-            MoonEventManagerWorld
+            if (!MoonEventManagerWorld.moonEventList.ContainsKey(EventName))
+            {
+                MoonEventManagerWorld.moonEventList.Add(EventName, this);
+            }
         }
 
         public void Activate()
@@ -62,9 +70,10 @@ namespace TUA.API.EventManager
         {
             if (IsActive)
             {
+                pool.Clear();
                 foreach (var enemy in enemyWave[waveCount])
                 {
-                    pool.Clear();
+                    
                     pool.Add(enemy.Item1, enemy.Item2);
                 }
             }
@@ -74,29 +83,44 @@ namespace TUA.API.EventManager
         {
             if (IsActive)
             {
-                int NPCID = npc.type;
-                if (enemyWave[waveCount].Any(i => i.Item1 == NPCID))
-                {
-                    score += enemyWave[waveCount].Single(i => i.Item1 == NPCID).Item3;
-                }
+                MoonEventManagerWorld.moonEventList[EventName].TrueCheckDead(npc);
+                
             }
             return base.CheckDead(npc);
         }
 
+        public bool TrueCheckDead(NPC npc)
+        {
+            int NPCID = npc.type;
+            if (enemyWave[waveCount].Any(i => i.Item1 == NPCID))
+            {
+                score += enemyWave[waveCount].Single(i => i.Item1 == NPCID).Item3;
+                BaseUtility.Chat(this.Name);
+            }
+
+            return true;
+        }
+
         public override void PostAI(NPC npc)
         {
-            if (IsActive && score >= scoreTresholdLimitPerWave[waveCount])
+            if (IsActive && MoonEventManagerWorld.moonEventList[EventName].score >= MoonEventManagerWorld.moonEventList[EventName].scoreTresholdLimitPerWave[waveCount])
             {
-                Message(waveCount);
-
-                score = 0;
-                waveCount++;
-                if (waveCount > MaxWave)
-                {
-                    OnDefeat();
-                }
+                TruePostAI(npc);
             }           
             base.PostAI(npc);
+        }
+
+        public void TruePostAI(NPC npc)
+        {
+            
+
+            MoonEventManagerWorld.moonEventList[EventName].score = 0;
+            MoonEventManagerWorld.moonEventList[EventName].waveCount++;
+            Message(waveCount);
+            if (waveCount > MaxWave)
+            {
+                OnDefeat();
+            }
         }
 
         public virtual void Message(int wave)

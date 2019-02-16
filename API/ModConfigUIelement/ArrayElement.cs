@@ -269,10 +269,21 @@ namespace TUA.API.ModConfigUIelement
         {
             base.Update(gameTime);
             Dictionary<String, CustomSky> temp2 = (Dictionary<string, CustomSky>)typeof(SkyManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(SkyManager.Instance);
+            Dictionary<String, Overlay> temp = (Dictionary<string, Overlay>)typeof(OverlayManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(SkyManager.Instance);
             List<String> allKey = temp2.Keys.ToList();
+            List<String> allKey2 = temp.Keys.ToList();
             //Removing monolith and calamity background as most of them doesn't work anyway on the main menu 
             allKey = allKey.Where(i => !i.Contains("Monolith") && !i.Contains("CalamityMod")).ToList();
             allKey.Insert(0, "Vanilla");
+            foreach (var key in allKey2)
+            {
+                if (allKey.Any(i => i == key))
+                {
+                    continue;
+                }
+                allKey.Add(key);
+            }
+
             foreach (var key in allKey)
             {
                 if (key != TerrariaUltraApocalypse.custom.newMainMenuTheme && SkyManager.Instance[key] != null)

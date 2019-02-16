@@ -7,11 +7,15 @@ using TUA.NPCs.Gods.EoA;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.DataStructures;
+using TUA.API.EventManager;
 
 namespace TUA.Items.EoA
 {
     class Spawner : TUAModLegacyItem
     {
+        public override bool CloneNewInstances => false;
+        
+
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Apoclypsio");
@@ -22,6 +26,7 @@ namespace TUA.Items.EoA
 
         public override void SetDefaults()
         {
+            
             item.width = 20;
             item.height = 32;
             item.useTime = 20;
@@ -31,13 +36,11 @@ namespace TUA.Items.EoA
             item.stack = 20;
             item.UseSound = SoundID.Item1;
             item.consumable = false;
-
-            
         }
 
         public override bool CanUseItem(Player player)
         {
-            return true;
+            return !Main.dayTime || TUAWorld.ApoMoonDowned;
         }
 
         public override bool UseItem(Player player)
@@ -47,6 +50,16 @@ namespace TUA.Items.EoA
             if (!Main.expertMode)
             {
                 Main.expertMode = true;
+            }
+
+            if (TUAWorld.ApoMoonDowned)
+            {
+                Main.PlaySound(SoundID.Roar, player.position, 0);
+                NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - (76 * 16), mod.NPCType<Eye_of_ApocalypseNew>());
+            }
+            else
+            {
+                MoonEventManagerWorld.Activate("Apocalypse Moon");
             }
 
             if (Main.netMode != 1)

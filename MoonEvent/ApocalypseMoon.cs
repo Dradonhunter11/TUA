@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,6 +17,8 @@ namespace TUA.MoonEvent
         {
             50, 40, 150, 150, 200, 200, 200, 200, 20
         };
+
+        public override Texture2D moonTexture => mod.GetTexture("Texture/Moon/ApoMoon");
 
         public override string EventName => "Apocalypse Moon";
         public override int MaxWave => 8;
@@ -102,6 +105,7 @@ namespace TUA.MoonEvent
 
         public override void OnDefeat()
         {
+            TUAWorld.ApoMoonDowned = true;
             BaseUtility.Chat("You proved yourself worthy of the god that once destroyed the world, the apocalypsio seem to have changed", Color.White);
         }
     }

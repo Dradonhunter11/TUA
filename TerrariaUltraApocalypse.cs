@@ -255,6 +255,7 @@ namespace TUA
 
                 text = CreateTranslation("HotWFarAwayStuck");
                 text.SetDefault("<{0}> Welp, your fault for trying to run away.");
+                
             }
 
             if (IntPtr.Size == 8)
@@ -269,7 +270,6 @@ namespace TUA
 
         private static void LoadModContent(Action<Mod> loadAction)
         {
-            //Object o = new OverworldHandler();
             for (int i = 0; i < ModLoader.Mods.Length; i++)
             {
                 Mod mod = ModLoader.Mods[i];
