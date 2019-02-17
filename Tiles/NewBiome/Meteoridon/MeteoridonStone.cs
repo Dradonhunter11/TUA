@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace TUA.Tiles.NewBiome.Meteoridon
 {
-    class MeteoridonStone : ModTile
+    class MeteoridonStone : BaseMeteoridonTile
     {
         public override void SetDefaults()
         {

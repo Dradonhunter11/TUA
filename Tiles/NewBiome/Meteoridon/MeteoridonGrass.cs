@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace TUA.Tiles.NewBiome.Meteoridon
 {
-    class MeteoridonGrass : ModTile
+    class MeteoridonGrass : BaseMeteoridonTile
     {
         public override void SetDefaults()
         {

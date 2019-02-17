@@ -3,20 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 using TUA.API;
-using TUA.API.Default;
 
 namespace TUA.Tiles.NewBiome.Meteoridon
 {
-    class MeteoridonSand : TUAFallingBlock
+    abstract class BaseMeteoridonTile : ModTile
     {
-        public override int ItemDropID => mod.ItemType("MeteoridonSand");
-        public override int ItemProjectileID => mod.ProjectileType("MeteoridonSandProjectile");
-        public override bool sandTile => true;
-        public override Color mapColor => Color.DarkOrange;
-
         public override void RandomUpdate(int i, int j)
         {
             for (int x = -5; x > 5; x++)

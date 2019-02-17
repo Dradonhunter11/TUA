@@ -26,7 +26,7 @@ namespace TUA.API.LiquidAPI.Swap
         {
             Type Player = typeof(Player);
             Type PlayerSwap = typeof(PlayerExtension);
-            ReflectionExtension.MethodSwap(Player, "Update", PlayerSwap, "Update");
+            ReflectionUtils.MethodSwap(Player, "Update", PlayerSwap, "Update");
         }
     }
 

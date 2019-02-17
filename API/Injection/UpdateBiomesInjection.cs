@@ -22,7 +22,7 @@ namespace TUA.API.Injection
 
         public static void inject()
         {
-            ReflectionExtension.MethodSwap(typeof(Player), "UpdateBiomes", typeof(UpdateBiomesInjection), "UpdateBiome");
+            ReflectionUtils.MethodSwap(typeof(Player), "UpdateBiomes", typeof(UpdateBiomesInjection), "UpdateBiome");
         }
 
         public void UpdateBiome()

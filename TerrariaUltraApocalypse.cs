@@ -92,7 +92,7 @@ namespace TUA
             Console.Write("AM I NULL? " + typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
             MethodInfo attempt = typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
                 .GetMethod("PopulateModBrowser", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
-            ReflectionExtension.MethodSwap(typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
+            ReflectionUtils.MethodSwap(typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
 
             Main.SavePath += "/Tapocalypse";
             Main.PlayerPath = Main.SavePath + "/Player";
@@ -168,7 +168,7 @@ namespace TUA
         public static string GetAnimatedTitle()
         {
             Random r = new Random();
-            LazyWaytoShowTitle();
+            InitializeQuoteList();
 
             tModLoaderVersion2 = "tModLoader v" + ModLoader.version;
             tModLoaderVersion = ModLoader.version;
@@ -417,7 +417,7 @@ namespace TUA
             addFurnaceRecipe(ItemID.LunarOre, ItemID.LunarBar, 240);
         }
 
-        private static void LazyWaytoShowTitle()
+        private static void InitializeQuoteList()
         {
             quote = new List<string>
             {
@@ -457,7 +457,8 @@ namespace TUA
                 "Also available in 64bit ",
                 "Too many toasters! ",
                 "2738 times, now that's dedication! ",
-                "Now 100% clean code free "
+                "Now 100% clean code free ",
+                "All to the pickle train "
             };
         }
 

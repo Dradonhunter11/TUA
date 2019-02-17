@@ -80,7 +80,7 @@
     <Compile Include="API\CustomInventory\UI\OutputOnlySlot.cs" />
     <Compile Include="API\Default\TUADefaultBlockItem.cs" />
     <Compile Include="API\Default\TUASolution.cs" />
-    <Compile Include="API\Dev\ReflectionExtension.cs" />
+    <Compile Include="API\Dev\ReflectionUtils.cs" />
     <Compile Include="API\Dev\SteamID64Checker.cs" />
     <Compile Include="API\EventManager\MoonEvent.cs" />
     <Compile Include="API\EventManager\MoonEventManagerWorld.cs" />
@@ -128,6 +128,7 @@
     <Compile Include="API\TerraEnergy\EnergyAPI\EnergyWeapon.cs" />
     <Compile Include="API\TerraEnergy\UI\CapacitorUI.cs" />
     <Compile Include="API\TerraEnergy\UI\UIEnergyBar.cs" />
+    <Compile Include="API\TileSpreadUtils.cs" />
     <Compile Include="API\TranslationWrapper.cs" />
     <Compile Include="API\TUABlock.cs" />
     <Compile Include="API\TerraEnergy\Core.cs" />
@@ -302,6 +303,7 @@
     <Compile Include="Tiles\Furniture\Ingots\MeteoridonIngot.cs" />
     <Compile Include="Tiles\Furniture\Ingots\TUAIngot.cs" />
     <Compile Include="Tiles\Furniture\Ingots\WastestoneIngot.cs" />
+    <Compile Include="Tiles\NewBiome\Meteoridon\BaseMeteoridonTile.cs" />
     <Compile Include="Tiles\NewBiome\Meteoridon\MeteoridonHardenedSand.cs" />
     <Compile Include="Tiles\NewBiome\Meteoridon\MeteoridonSand.cs" />
     <Compile Include="Tiles\NewBiome\Meteoridon\MeteoridonSandstone.cs" />

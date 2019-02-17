@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace TUA.Tiles.NewBiome.Meteoridon
 {
-    class BrownIce : ModTile
+    class BrownIce : BaseMeteoridonTile
     {
         public override void SetDefaults()
         {

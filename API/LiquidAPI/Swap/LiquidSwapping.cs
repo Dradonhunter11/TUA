@@ -22,7 +22,7 @@ namespace TUA.API.LiquidAPI.Swap
             Type liquid = typeof(Liquid);
             Type thisObject = typeof(LiquidSwapping);
 
-            ReflectionExtension.MethodSwap(liquid, "AddWater", thisObject, "AddWater");
+            ReflectionUtils.MethodSwap(liquid, "AddWater", thisObject, "AddWater");
         }
 
         public static void AddWater(int x, int y)

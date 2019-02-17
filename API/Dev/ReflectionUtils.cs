@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TUA.API.Dev
 {
-    class ReflectionExtension
+    class ReflectionUtils
     {
         public static void MethodSwap(Type OriginalMethodType, string OriginalMethodName, Type NewMethodType, string NewMethodName)
         {

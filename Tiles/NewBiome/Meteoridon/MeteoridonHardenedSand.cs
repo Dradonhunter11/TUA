@@ -10,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace TUA.Tiles.NewBiome.Meteoridon
 {
-    class MeteoridonHardenedSand : ModTile
+    class MeteoridonHardenedSand : BaseMeteoridonTile
     {
         public override void SetDefaults()
         {

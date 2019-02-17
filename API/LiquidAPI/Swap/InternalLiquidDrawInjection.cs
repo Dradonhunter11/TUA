@@ -30,9 +30,9 @@ namespace TUA.API.LiquidAPI.Swap
 
             //ReflectionExtension.MethodSwap(typeof(Main), "DrawWater", customRenderer, "DrawWater");
             //ReflectionExtension.MethodSwap(liquidRenderer, "PrepareDraw", customRenderer, "PrepareDraw");
-            ReflectionExtension.MethodSwap(liquidRenderer, "HasFullWater", customRenderer, "HasFullWater");
-            ReflectionExtension.MethodSwap(liquidRenderer, "Update", customRenderer, "Update");
-            ReflectionExtension.MethodSwap(liquidRenderer, "SetWaveMaskData", customRenderer, "SetWaveMaskData");
+            ReflectionUtils.MethodSwap(liquidRenderer, "HasFullWater", customRenderer, "HasFullWater");
+            ReflectionUtils.MethodSwap(liquidRenderer, "Update", customRenderer, "Update");
+            ReflectionUtils.MethodSwap(liquidRenderer, "SetWaveMaskData", customRenderer, "SetWaveMaskData");
             //ReflectionExtension.MethodSwap(liquidRenderer, "InternalDraw", customRenderer, "InternalDraw");
             LiquidRendererExtension.Instance.load();
         }

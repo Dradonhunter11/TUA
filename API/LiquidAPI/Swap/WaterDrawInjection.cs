@@ -42,8 +42,8 @@ namespace TUA.API.LiquidAPI.Swap
         {
             Type Main = typeof(Main);
             Type WaterDrawInjection = typeof(WaterDrawInjection);
-            ReflectionExtension.MethodSwap(Main, "oldDrawWater", WaterDrawInjection, "oldDrawWater");
-            ReflectionExtension.MethodSwap(Main, "DrawTiles", WaterDrawInjection, "DrawTiles");
+            ReflectionUtils.MethodSwap(Main, "oldDrawWater", WaterDrawInjection, "oldDrawWater");
+            ReflectionUtils.MethodSwap(Main, "DrawTiles", WaterDrawInjection, "DrawTiles");
         }
 
         public void oldDrawWater(bool bg = false, int Style = 0, float Alpha = 1f)
