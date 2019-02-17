@@ -15,6 +15,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
+using Terraria.Utilities;
 using TUA.API;
 using TUA.API.Dev;
 using TUA.API.Experimental;
