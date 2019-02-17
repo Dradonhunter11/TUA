@@ -47,7 +47,6 @@ namespace TUA
 
         internal static TerrariaUltraApocalypse instance;
 
-
         internal static Texture2D SolarFog;
 
         internal static UserInterface machineInterface;
@@ -167,13 +166,13 @@ namespace TUA
 
         public static string GetAnimatedTitle()
         {
-            Random r = new Random();
+            var r = new UnifiedRandom();
             InitializeQuoteList();
 
             tModLoaderVersion2 = "tModLoader v" + ModLoader.version;
             tModLoaderVersion = ModLoader.version;
 
-            return tModLoaderVersion2 + $" - TUA v{version} - {quote[r.Next(quote.Count - 1)]}";
+            return $"{tModLoaderVersion2} - TUA v{version} - {quote[r.Next(quote.Count)]}";
         }
 
 
@@ -424,7 +423,7 @@ namespace TUA
                 "Now with 100% less life insurance! ",
                 "Make sure to give EoA my best . . . or my worst depending on how you look at it ",
                 "I failed to help Heather with a door edition ",
-                "You only have 3 dimensions? pffft ",
+                "You only have 3 dimensions? Pffft ",
                 "You want me to die? Not if I kill myself first! ",
                 "The nurse may need a few more doctorate degrees . . . and a better hairdo ",
                 "Our mod will create an exodus from the others! ",
@@ -458,7 +457,10 @@ namespace TUA
                 "Too many toasters! ",
                 "2738 times, now that's dedication! ",
                 "Now 100% clean code free ",
-                "All to the pickle train "
+                "All to the pickle train ",
+                "You beat the Moon Lord? HA, YEAH RIGHT, A PUNY KID LIKE YOU!? "
+                "Ya know, Ningishu just released a 45 minute Moon Lord speedrun "
+                "Nvidia Turing was a complete disappointment "
             };
         }
 
