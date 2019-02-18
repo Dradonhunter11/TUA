@@ -471,12 +471,6 @@ namespace TUA
             LiquidRegistery.getInstance().addNewModLiquid(liquid);
         }
 
-        private void AutoloadTUAGlobalNPC(Type type)
-        {
-            TUAGlobalNPC globalNPC = (TUAGlobalNPC)Activator.CreateInstance(type);
-            TUANPCLoader.addTUAGlobalNPC(globalNPC);
-        }
-
         private void resetMenu(Dictionary<string, LocalizedText> dictionary, FieldInfo textInfo)
         {
             if (Main.menuMode == 1)
@@ -522,17 +516,14 @@ namespace TUA
                 return;
             }
 
-            foreach (Type type in mod.Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture))
+            var array = mod.Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture);
+            for (int i = 0; i < array.Count(); i++)
             {
+                var type = array.ElementAt(i);
                 if (type.IsSubclassOf(typeof(ModLiquid)))
                 {
                     AutoloadLiquid(type);
                 }
-                if (type.IsSubclassOf(typeof(TUAGlobalNPC)))
-                {
-                    AutoloadTUAGlobalNPC(type);
-                }
-
             }
         }
 

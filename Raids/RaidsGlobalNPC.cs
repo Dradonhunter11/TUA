@@ -1,44 +1,65 @@
-﻿using System.Linq;
+﻿using MonoMod.RuntimeDetour.HookGen;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TUA.API;
 
 namespace TUA.Raids
 {
-    internal class RaidsTUAGlobalNPC : TUAGlobalNPC
+
+    internal class RaidsGlobalNPC : GlobalNPC
     {
-        public override void modifyNPCButtonChat(NPC npc, ref string button, ref string button2)
+        public override bool InstancePerEntity => true;
+        public bool giveRaidsDialog = false;
+
+        public override bool Autoload(ref string name)
         {
+            IL.Terraria.Main.GUIChatDrawInner += il =>
+            {
+                HookILCursor c = il.At(0);
+
+                // Let's go to the next SetChatButtons call.
+                // From the start of the method, it's the first one.
+                // Assuming that SetChatButtons is a static method in NPCLoader...
+                if (c.TryGotoNext(i => i.MatchCall(typeof(NPCLoader), "SetChatButtons")))
+                {
+
+                    // Let's replace the call with our custom C# code. It's the easiest method right now.
+                    c.Remove();
+                    c.EmitDelegate<SetChatButtonsReplacementDelegate>(SetChatButtonsReplacement);
+                }
+            };
+            return true;
+        }
+
+        private delegate void SetChatButtonsReplacementDelegate(ref string focusText, ref string focusText2);
+        private void SetChatButtonsReplacement(ref string focusText, ref string focusText2)
+        {
+            NPCLoader.SetChatButtons(ref focusText, ref focusText2);
+            var npc = Main.npc[Main.LocalPlayer.talkNPC];
             if (npc.type == NPCID.Guide)
             {
-                button = "Raids";
+                focusText = "Raids";
                 if (TerrariaUltraApocalypse.instance.GetModWorld<RaidsWorld>().currentRaids != RaidsType.noActiveRaids)
                 {
                     RaidsType raids = TerrariaUltraApocalypse.instance.GetModWorld<RaidsWorld>().currentRaids;
                     if (raids == RaidsType.theGreatHellRide)
                     {
-                        button = "The Great Hell Ride";
+                        focusText = "The Great Hell Ride";
                     }
 
                     if (raids == RaidsType.theWrathOfTheWasteland)
                     {
-                        button = "The Wrath of the Wasteland";
+                        focusText = "The Wrath of the Wasteland";
                     }
                 }
             }
 
             if (npc.type == NPCID.Cyborg)
             {
-                button2 = "Upgrade weapon";
+                focusText2 = "Upgrade weapon";
             }
         }
-    }
-
-    internal class RaidsGlobalNPC : GlobalNPC
-    {
-        public override bool InstancePerEntity => true;
-        public bool giveRaidsDialog = false;
 
         public override void OnChatButtonClicked(NPC npc, bool firstButton)
         {
@@ -86,7 +107,7 @@ namespace TUA.Raids
 
                 /*if (!NPC.downedBoss3)
                 {
-                    chat = "Come back when you'll have defeated the cursed man";
+                    chat = "Come back when you'll have rescued the cursed man";
                     return;
                 }*/
                 if (Main.ActiveWorldFileData.HasCorruption)
@@ -97,21 +118,20 @@ namespace TUA.Raids
                     }
                     else
                     {
-                        chat = "Hello, are you ready for a great hell ride? It's for sure gonna be fun! \nIf you see the great wall, tell me, I never seen it since I explode everytime someone summon it.";
+                        chat = "Hello, are you ready for a great hell ride? It's for sure gonna be fun! \nIf you see the great wall, tell me, I never seen it since I explode everytime someone summons it.";
                     }
                 }
                 else
                 {
                     if (!Main.LocalPlayer.inventory.Any(i => i.type == mod.ItemType("GuideVoodooDoll")))
                     {
-                        chat = "Come back when you'll have my doll, I mean the sacred doll!";
+                        chat = "Come back when you have my doll, and I mean the sacred doll!";
                     }
                     else
                     {
-                        chat = "I heard thing been happening in the wasteland, the core is apparently not happy and is menacing to destroy the world.\nYour goal is to calm down the heart of the wasteland but you'll need some stuff first.";
+                        chat = "I heard things have been happening in the wasteland, the core is apparently not happy and is menacing to destroy the world.\nYour goal is to calm down the heart of the wasteland but you'll need some stuff first.";
                     }
                 }
-
             }
         }
     }
