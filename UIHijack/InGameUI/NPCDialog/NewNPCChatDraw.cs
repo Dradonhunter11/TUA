@@ -465,7 +465,7 @@ namespace TUA.UIHijack.InGameUI.NPCDialog
                 }
             }
             NPCLoader.SetChatButtons(ref focusText, ref focusText2);
-            TUANPCLoader.ModifyNPCDialogButton(Main.npc[Main.player[Main.myPlayer].talkNPC], ref focusText, ref focusText2);
+            
             if (!flag)
             {
                 DrawNPCChatButtons.Invoke(null, new object[] {num, color2, num2, focusText, focusText2});

@@ -200,7 +200,7 @@ namespace TUA.Raids.UI
             {
                 return;
             }
-            TerrariaUltraApocalypse.instance.GetModWorld<RaidsWorld>().currentRaids = currentlySelectedRaids.raidsType;
+            RaidsWorld.currentRaids = currentlySelectedRaids.raidsType;
             Main.NewText(Main.LocalPlayer.name + " has started [" + RaidsWorld.raidsName[currentlySelectedRaids.raidsType] + "] raids!");
         }
 
