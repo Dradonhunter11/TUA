@@ -3,7 +3,6 @@ version = 0.0.1
 displayName = [c/8B0000:Terraria Ultra Apocalypse]
 hideCode = true
 hideResources = true
-includeSource = true
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*
 includePDB = true
 modReferences = BiomeLibrary@0.4, Dimlibs

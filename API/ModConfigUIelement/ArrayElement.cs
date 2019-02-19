@@ -268,7 +268,6 @@ namespace TUA.API.ModConfigUIelement
 
         public override void Update(GameTime gameTime)
         {
-            Overlays.Scene[""].Layer.
             base.Update(gameTime);
             Dictionary<String, CustomSky> temp2 = (Dictionary<string, CustomSky>)typeof(SkyManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(SkyManager.Instance);
             Dictionary<String, Overlay> temp = (Dictionary<string, Overlay>)typeof(OverlayManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(Overlays.Scene);

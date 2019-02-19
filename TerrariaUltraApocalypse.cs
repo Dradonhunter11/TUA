@@ -17,6 +17,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using TUA.API;
 using TUA.API.Dev;
+using TUA.API.EventManager;
 using TUA.API.Experimental;
 using TUA.API.Injection;
 using TUA.API.LiquidAPI;
@@ -59,6 +60,8 @@ namespace TUA
         internal static RaidsUI raidsUI = new RaidsUI();
 
         internal static CustomTitleMenuConfig custom;
+
+        internal static bool devMode = true;
 
         private static List<string> quote = new List<string>();
         private static string animate = GetAnimatedTitle();
@@ -119,6 +122,7 @@ namespace TUA
 
                 AddFilter();
                 CreateTranslation();
+                
             }
 
 
@@ -194,6 +198,8 @@ namespace TUA
             FieldInfo info2 = typeof(ModLoader).GetField("versionedName",
                 BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
             info2.SetValue(null, string.Format("tModLoader v{0}", (object)Terraria.ModLoader.ModLoader.version) + (Terraria.ModLoader.ModLoader.branchName.Length == 0 ? "" : " " + Terraria.ModLoader.ModLoader.branchName) + (Terraria.ModLoader.ModLoader.beta == 0 ? "" : string.Format(" Beta {0}", (object)Terraria.ModLoader.ModLoader.beta)));
+
+            MoonEventManagerWorld.moonEventList = null;
 
             //Remember to re enable it once it's fixed
             if (!Main.dedServ)
