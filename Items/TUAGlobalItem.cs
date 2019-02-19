@@ -50,7 +50,6 @@ namespace TUA.Items
         }
 
 
-
         public override bool UseItem(Item item, Player player)
         {
 
@@ -166,6 +165,5 @@ namespace TUA.Items
 
             multishot = false;
         }
-        
     }
 }

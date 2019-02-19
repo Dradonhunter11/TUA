@@ -152,8 +152,6 @@
     <Compile Include="API\TerraEnergy\UI\FurnaceUI.cs" />
     <Compile Include="API\TerraEnergy\UI\UIItemSlot.cs" />
     <Compile Include="API\TUADimItem.cs" />
-    <Compile Include="API\TUAGlobalNPC.cs" />
-    <Compile Include="API\TUANPCLoader.cs" />
     <Compile Include="API\TUAModItem.cs" />
     <Compile Include="API\TUAModLegacyItem.cs" />
     <Compile Include="API\TUAModNPC.cs" />
@@ -298,6 +296,7 @@
     <Compile Include="Raids\UI\RaidsPanel.cs" />
     <Compile Include="Raids\UI\RaidsUI.cs" />
     <Compile Include="SolarWorldGen.cs" />
+    <Compile Include="Spells\ISpell.cs" />
     <Compile Include="StardustWorldGen.cs" />
     <Compile Include="Structure\hellalt\TheHeartArena.cs" />
     <Compile Include="Tiles\Furniture\Coins\DiamondCoins.cs" />
@@ -379,10 +378,10 @@
       <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Microsoft.Xna.Framework.Xact.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
-      <HintPath>C:\Users\Alexandre Voghel\.nuget\packages\mono.cecil\0.10.0\lib\net35\Mono.Cecil.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Downloads\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="MonoMod.RuntimeDetour">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\MonoMod.RuntimeDetour.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Downloads\MonoMod.RuntimeDetour.dll</HintPath>
     </Reference>
     <Reference Include="MonoMod.Utils">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\MonoMod.Utils.dll</HintPath>
@@ -395,11 +394,11 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Terraria, Version=1.3.5.1, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\Terraria.exe</HintPath>
+      <HintPath>..\..\..\..\..\..\Downloads\Terraria.exe</HintPath>
     </Reference>
     <Reference Include="TerrariaHooks, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\TerrariaHooks.dll</HintPath>
+      <HintPath>..\InvTweaks\lib\TerrariaHooks.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -408,6 +407,7 @@
     <Folder Include="API\TerraEnergy\Texture\" />
     <Folder Include="Items\Armor\" />
     <Folder Include="Items\Block\PillarBiomeBlock\" />
+    <Folder Include="Items\Fishing\" />
     <Folder Include="Items\Meteoridon\Walls\" />
     <Folder Include="Items\Weapons\EoA\" />
     <Folder Include="Liquid\" />

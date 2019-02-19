@@ -1,10 +1,6 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -12,32 +8,26 @@ namespace TUA.Raids
 {
     class RaidsWorld : ModWorld
     {
-        internal RaidsType currentRaids = RaidsType.noActiveRaids;
-        internal int stage = 0;
+        internal static RaidsType currentRaids = RaidsType.noActiveRaids;
+        internal static int stage = 0;
         internal static Dictionary<RaidsType, String> raidsName = new Dictionary<RaidsType, string>();
 
-        public override void Initialize()
-        {
-            loadRaidsName();
-        }
+        public override void Initialize() => LoadRaidsName();
 
-
-        public override TagCompound Save()
-        {
-            TagCompound tag = new TagCompound();
-            tag.Add("currentRaids", (byte)currentRaids);
-            tag.Add("stage", stage);
-            return tag;
-        }
+        public override TagCompound Save() => new TagCompound
+            {
+                { "currentRaids", (byte)currentRaids },
+                { "stage", stage }
+            };
 
         public override void Load(TagCompound tag)
         {
             currentRaids = (RaidsType) tag.GetByte("currentRaids");
             stage = tag.GetInt("stage");
-            loadRaidsName();
+            LoadRaidsName();
         }
 
-        internal void loadRaidsName()
+        internal void LoadRaidsName()
         {
             raidsName.Clear();
             raidsName.Add(RaidsType.noActiveRaids, "No active raids");
