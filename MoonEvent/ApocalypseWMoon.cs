@@ -17,8 +17,8 @@ namespace TUA.MoonEvent
         public override void PreUpdate()
         {
             apocalypseMoon[0] = mod.GetTexture("Texture/Moon/ApoMoon");
-            apocalypseMoon[1] = mod.GetTexture("Texture/Moon/ApoMoon");
-            apocalypseMoon[2] = mod.GetTexture("Texture/Moon/ApoMoon");
+            apocalypseMoon[1] = apocalypseMoon[0];
+            apocalypseMoon[2] = apocalypseMoon[0];
             if (TUAWorld.apocalypseMoon) {
                 Main.moonTexture = apocalypseMoon;
             }
