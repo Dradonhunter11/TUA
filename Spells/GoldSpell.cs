@@ -6,13 +6,22 @@ namespace TUA.Spells
 {
     class GoldSpell : Spell
     {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Golden Shower");
+            Tooltip.SetDefault("Make it rain gold!");
+        }
+
         public override bool Cast(Player player)
         {
-            Item.NewItem((int)player.position.X, 
-                (int)player.position.Y - Main.rand.Next(5), 
-                player.width, player.height, Main.rand.Next(ItemID.SilverCoin, 
-                                                            ItemID.PlatinumCoin + 1)
-                                                            );
+            for (int i = 0; i < Main.rand.Next(15); i++)
+            {
+                Item.NewItem((int)player.position.X,
+                    (int)player.position.Y - Main.rand.Next(5),
+                    player.width, player.height, Main.rand.Next(ItemID.SilverCoin,
+                                                                ItemID.PlatinumCoin + 1)
+                                                                );
+            }
             return true;
         }
 
