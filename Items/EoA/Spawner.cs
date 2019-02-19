@@ -33,7 +33,7 @@ namespace TUA.Items.EoA
             item.useAnimation = 20;
             item.useStyle = 4;
             item.rare = 2;
-            item.stack = 20;
+            item.maxStack = 20;
             item.UseSound = SoundID.Item1;
             item.consumable = false;
         }

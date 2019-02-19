@@ -89,6 +89,8 @@ namespace TUA.API
             return null;
         }
 
+        
+
         public static bool IsFull(this Object[,] self)
         {
             int rowCount = self.GetLength(0);
@@ -105,6 +107,11 @@ namespace TUA.API
                 }
             }
             return validCase == rowCount * columnCount;
+        }
+
+        public static ushort TileID(this Mod mod, string tileName)
+        {
+            return (ushort) mod.TileType(tileName);
         }
     }
 }

@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 using Terraria.World;
 using Microsoft.Xna.Framework;
 using Terraria.World.Generation;
+using TUA.API.Dev;
 using TUA.API.Injection;
 using TUA.API.LiquidAPI.LiquidMod;
 using TUA.API.LiquidAPI.Swap;
@@ -20,10 +21,15 @@ namespace TUA.Items
     {
         private int timer = 0;
 
+        public override bool Autoload(ref string name)
+        {
+            return SteamID64Checker.getInstance().verifyID() && TerrariaUltraApocalypse.devMode;
+        }
+
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Set Night");
-            Tooltip.SetDefault("Set the time to night, just because you can\nUltra mode");
+            DisplayName.SetDefault("Dev Null'\'");
+            Tooltip.SetDefault("Dev item");
         }
 
         public override void SetDefaults()
@@ -41,7 +47,6 @@ namespace TUA.Items
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.DirtBlock, 1);
-            recipe.AddTile(TileID.Grass);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
@@ -52,9 +57,11 @@ namespace TUA.Items
             //Main.dayTime = false;
             //TUAWorld.apocalypseMoon = true;
             //Biomes<StardustFrozenForest>.Place((int)player.Center.X / 16, (int)player.Center.Y / 16, new StructureMap());
-            LiquidRef liquid = LiquidCore.grid[Player.tileTargetX, Player.tileTargetY];
-            Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 240;
-            liquid.setLiquidsState(3, true);
+            //LiquidRef liquid = LiquidCore.grid[Player.tileTargetX, Player.tileTargetY];
+            //Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 240;
+            //liquid.setLiquidsState(3, true);
+
+            Biomes<SolarVolcano>.Place((int) player.Center.X / 16, (int) player.Center.Y / 16 - 4, new StructureMap());
             return true;
         }
 

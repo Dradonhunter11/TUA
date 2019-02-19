@@ -29,7 +29,7 @@ namespace TUA.Items.EoA
             item.height = 20;
             item.value = 0;
             item.consumable = false;
-            item.stack = 20;
+            item.maxStack = 20;
         }
 
         public override bool UseItem(Player player)

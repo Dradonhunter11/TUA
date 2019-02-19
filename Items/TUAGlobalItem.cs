@@ -24,6 +24,8 @@ namespace TUA.Items
             get { return true; }
         }
 
+
+
         public override void SetDefaults(Item item)
         {
             if (item.type == ItemID.Mushroom || item.type == ItemID.LesserHealingPotion || item.type == ItemID.HealingPotion)
@@ -117,6 +119,7 @@ namespace TUA.Items
                 TooltipLine line = new TooltipLine(mod, "multishot", "Your weapon have an extra chance to shoot bullet for free!");
                 tooltips.Add(line);
             }
+            
         }
 
 
