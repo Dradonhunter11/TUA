@@ -1,5 +1,4 @@
-﻿using MonoMod.RuntimeDetour.HookGen;
-using System.Linq;
+﻿using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -20,9 +19,9 @@ namespace TUA.Raids
             if (npc.type == NPCID.Guide)
             {
                 focusText = "Raids";
-                if (TerrariaUltraApocalypse.instance.GetModWorld<RaidsWorld>().currentRaids != RaidsType.noActiveRaids)
+                if (RaidsWorld.currentRaids != RaidsType.noActiveRaids)
                 {
-                    RaidsType raids = TerrariaUltraApocalypse.instance.GetModWorld<RaidsWorld>().currentRaids;
+                    RaidsType raids = RaidsWorld.currentRaids;
                     if (raids == RaidsType.theGreatHellRide)
                     {
                         focusText = "The Great Hell Ride";
@@ -83,8 +82,6 @@ namespace TUA.Raids
         {
             if (npc.type == NPCID.Guide)
             {
-                chat = "";
-
                 /*if (!NPC.downedBoss3)
                 {
                     chat = "Come back when you'll have rescued the cursed man";
@@ -109,7 +106,7 @@ namespace TUA.Raids
                     }
                     else
                     {
-                        chat = "I heard things have been happening in the wasteland, the core is apparently not happy and is menacing to destroy the world.\nYour goal is to calm down the heart of the wasteland but you'll need some stuff first.";
+                        chat = "I heard that things have been happening in the wasteland, the core is apparently not happy and is menacing to destroy the world.\nYour goal is to calm down the heart of the wasteland but you'll need some stuff first.";
                     }
                 }
             }
