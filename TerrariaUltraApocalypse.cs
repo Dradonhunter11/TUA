@@ -36,6 +36,8 @@ using TUA.UIHijack.InGameUI.NPCDialog;
 using TUA.UIHijack.MainMenu;
 using TUA.UIHijack.MainMenu.TUAOptionMenu;
 using TUA.UIHijack.WorldSelection;
+using TUA.Raids;
+using MonoMod.RuntimeDetour.HookGen;
 
 namespace TUA
 {
@@ -84,7 +86,7 @@ namespace TUA
                 Autoload(mod);
             });
             newMainMenu.load();
-            
+
 
             instance = this;
             UpdateBiomesInjection.inject();
@@ -111,7 +113,7 @@ namespace TUA
 
                 //DRPSystem.Init();
                 //Main.OnTick += DRPSystem.Update;
-                
+
 
                 machineInterface = new UserInterface();
                 CapacitorInterface = new UserInterface();
@@ -121,9 +123,29 @@ namespace TUA
                 CreateTranslation();
             }
 
+            HookGenLoader();
 
             //DRPSystem.Init();
             //Main.OnTick += DRPSystem.Update;
+        }
+
+        private static void HookGenLoader()
+        {
+            IL.Terraria.Main.GUIChatDrawInner += il =>
+            {
+                HookILCursor c = il.At(0);
+
+                // Let's go to the next SetChatButtons call.
+                // From the start of the method, it's the first one.
+                // Assuming that SetChatButtons is a static method in NPCLoader...
+                if (c.TryGotoNext(i => i.MatchCall(typeof(NPCLoader), "SetChatButtons")))
+                {
+
+                    // Let's replace the call with our custom C# code. It's the easiest method right now.
+                    c.Remove();
+                    c.EmitDelegate<RaidsGlobalNPC.SetChatButtonsReplacementDelegate>(RaidsGlobalNPC.SetChatButtonsReplacement);
+                }
+            };
         }
 
         private static void AddFilter()
@@ -248,10 +270,10 @@ namespace TUA
             if (achievementLibs != null)
             {
                 Func<bool> c = () => TUAWorld.EoADowned;
-                achievementLibs.Call("AddAchievementWithoutReward", this, "Once there was an eye that was a god...", "Kill the eye of apocalypse - god of destruction!", "Achievement/EoAKill", c);
-                achievementLibs.Call("AddAchievementWithoutReward", this, "The terrible moon tried to kill us", "Use [i:" + ItemType<Spawner>() + "] and succesfully survive all 8 wave of the apocalypse moon", "Achievement/EoAKill", (Func<bool>)(() => TUAWorld.ApoMoonDowned));
+                achievementLibs.Call("AddAchievementWithoutReward", this, "Once there was an eye that was a god...", "Kill the Eye of Apocalypse - God of Destruction!", "Achievement/EoAKill", c);
+                achievementLibs.Call("AddAchievementWithoutReward", this, "The terrible moon tried to kill us", "Use [i:" + ItemType<Spawner>() + "] and succesfully survive all 8 wave of the Apocalypse Moon", "Achievement/EoAKill", (Func<bool>)(() => TUAWorld.ApoMoonDowned));
                 achievementLibs.Call("AddAchievementWithoutAction", this,
-                    "Once there was the eye of cthulhu... the ultra one", "Kill the ultra EoC succesfully.",
+                    "Once there was the Eye of Cthulhu... the ultra one", "Kill the Ultra EoC succesfully.",
                     "Achievement/UltraEoC", new int[] { ItemType<Spawner>() }, new int[] { 1 },
                     (Func<bool>)(() => TUAWorld.EoCDeath >= 1));
             }
@@ -306,8 +328,8 @@ namespace TUA
                 Main.MenuUI.SetState(newMainMenu);
             }
             AnimateVersion();
-            if (Main.gameMenu && Main.menuMode == 0 || (Main.menuMode == 888 && TerrariaUltraApocalypse.custom.customMenu))
-                TerrariaUltraApocalypse.SetTheme();
+            if (Main.gameMenu && Main.menuMode == 0 || (Main.menuMode == 888 && custom.customMenu))
+                SetTheme();
 
         }
 
@@ -381,7 +403,7 @@ namespace TUA
         public override object Call(params object[] args)
         {
             string command = args[0] as string;
-            if (args[0] == "UltraMode")
+            if (command == "UltraMode")
             {
                 return TUAWorld.UltraMode;
             }
@@ -516,7 +538,7 @@ namespace TUA
                 return;
             }
 
-            var array = mod.Code.GetTypes().OrderBy(type => type.FullName, StringComparer.InvariantCulture);
+            var array = mod.Code.DefinedTypes.OrderBy(type => type.FullName, StringComparer.InvariantCulture);
             for (int i = 0; i < array.Count(); i++)
             {
                 var type = array.ElementAt(i);
@@ -532,16 +554,18 @@ namespace TUA
             Dictionary<String, CustomSky> temp2 = (Dictionary<string, CustomSky>)typeof(SkyManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(SkyManager.Instance);
             Dictionary<String, Filter> temp = (Dictionary<string, Filter>)typeof(FilterManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(Filters.Scene);
             List<String> allKey = temp.Keys.ToList();
-            foreach (var key in allKey)
+            for (int i = 0; i < allKey.Count; i++)
             {
-                if (key != TerrariaUltraApocalypse.custom.newMainMenuTheme)
+                string key = allKey[i];
+                if (key != custom.newMainMenuTheme)
                     Filters.Scene[key].Deactivate();
             }
 
 
             allKey = temp2.Keys.ToList();
-            foreach (var key in allKey)
+            for (int i = 0; i < allKey.Count; i++)
             {
+                string key = allKey[i];
                 if (key != TerrariaUltraApocalypse.custom.newMainMenuTheme)
                     SkyManager.Instance.Deactivate(key);
             }

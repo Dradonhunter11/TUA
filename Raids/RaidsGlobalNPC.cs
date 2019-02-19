@@ -12,28 +12,8 @@ namespace TUA.Raids
         public override bool InstancePerEntity => true;
         public bool giveRaidsDialog = false;
 
-        public override bool Autoload(ref string name)
-        {
-            IL.Terraria.Main.GUIChatDrawInner += il =>
-            {
-                HookILCursor c = il.At(0);
-
-                // Let's go to the next SetChatButtons call.
-                // From the start of the method, it's the first one.
-                // Assuming that SetChatButtons is a static method in NPCLoader...
-                if (c.TryGotoNext(i => i.MatchCall(typeof(NPCLoader), "SetChatButtons")))
-                {
-
-                    // Let's replace the call with our custom C# code. It's the easiest method right now.
-                    c.Remove();
-                    c.EmitDelegate<SetChatButtonsReplacementDelegate>(SetChatButtonsReplacement);
-                }
-            };
-            return true;
-        }
-
-        private delegate void SetChatButtonsReplacementDelegate(ref string focusText, ref string focusText2);
-        private void SetChatButtonsReplacement(ref string focusText, ref string focusText2)
+        public delegate void SetChatButtonsReplacementDelegate(ref string focusText, ref string focusText2);
+        public static void SetChatButtonsReplacement(ref string focusText, ref string focusText2)
         {
             NPCLoader.SetChatButtons(ref focusText, ref focusText2);
             var npc = Main.npc[Main.LocalPlayer.talkNPC];

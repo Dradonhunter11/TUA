@@ -51,24 +51,24 @@ namespace TUA.MoonEvent
                     BaseUtility.Chat("The scary king and his minion decided to get out...", Color.Orange);
                     break;
                 case 3:
-                    BaseUtility.Chat("The chilling queen and her minion are freezing the atmosphere...", Color.LightBlue);
+                    BaseUtility.Chat("The chilling queen and her minions are freezing the atmosphere...", Color.LightBlue);
                     break;
                 case 4:
-                    BaseUtility.Chat("A breach has been observed in the sky, seem like it's solar invading the world", Color.Red);
+                    BaseUtility.Chat("A breach has been observed in the sky, seem like it's Solar invading the world", Color.Red);
                     break;
                 case 5:
-                    BaseUtility.Chat("A portal has quickly opened and close, seem like stardust summon are coming...", Color.Blue);
+                    BaseUtility.Chat("A portal has quickly opened and closed, seem like Stardust vermin are coming...", Color.Blue);
                     break;
                 case 6:
-                    BaseUtility.Chat("Your mind feel overtaken by creature from another world, maybe they are from Nebula", Color.Violet);
+                    BaseUtility.Chat("Your mind feels overtaken by creature from another world, maybe they are from the Nebula", Color.Violet);
                     break;
                 case 7:
-                    BaseUtility.Chat("The vortexian queen decided to send her minion from nebula into her, seem like they are invading", Color.Cyan);
+                    BaseUtility.Chat("The vortexian queen decided to send her minion from Nebula into her, seem like they are invading", Color.Cyan);
                     break;
                 case 8:
                     NPC.SpawnOnPlayer(Main.LocalPlayer.whoAmI, NPCID.MoonLordCore);
                     NPC.SpawnOnPlayer(Main.LocalPlayer.whoAmI, NPCID.MoonLordCore);
-                    BaseUtility.Chat("The god of destruction has summoned moon lord illusion", Color.Black);
+                    BaseUtility.Chat("The god of destruction has summoned a moon lord illusion", Color.Black);
                     break;
             }
         }
@@ -76,7 +76,7 @@ namespace TUA.MoonEvent
         public override void OnDefeat()
         {
             TUAWorld.ApoMoonDowned = true;
-            BaseUtility.Chat("You proved yourself worthy of the god that once destroyed the world, the apocalypsio seem to have changed", Color.White);
+            BaseUtility.Chat("You proved yourself worthy of the god that once destroyed the world, the apocalypsio seems to have changed", Color.White);
         }
 
         private void SetMechanicalWave()
