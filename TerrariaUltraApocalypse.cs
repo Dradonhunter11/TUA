@@ -349,9 +349,10 @@ namespace TUA
             {
                 music = MusicID.LunarBoss;
             }
-            else if (TUAWorld.apocalypseMoon)
+            else if (MoonEventManagerWorld.IsActive("Apocalypse Moon"))
             {
-                music = MusicID.LunarBoss;
+                music = this.GetSoundSlot(SoundType.Music, "Sounds/Music/Terminal_Inception");   
+                musicPriority = MusicPriority.BossHigh;
             }
             else if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
             {
@@ -395,7 +396,7 @@ namespace TUA
                     InterfaceScaleType.UI)
                 );
             }
-
+            /*
             if (npcDialog != -1)
             {
                 layers[npcDialog] = new LegacyGameInterfaceLayer("Vanilla: NPC / Sign Dialog", delegate
@@ -403,7 +404,7 @@ namespace TUA
                     NewNPCChatDraw.GUIChatDraw();
                     return true;
                 }, InterfaceScaleType.UI);
-            }
+            }*/
         }
 
         public override object Call(params object[] args)
@@ -487,8 +488,8 @@ namespace TUA
                 "2738 times, now that's dedication! ",
                 "Now 100% clean code free ",
                 "All to the pickle train ",
-                "You beat the Moon Lord? HA, YEAH RIGHT, A PUNY KID LIKE YOU!? "
-                "Ya know, Ningishu just released a 45 minute Moon Lord speedrun "
+                "You beat the Moon Lord? HA, YEAH RIGHT, A PUNY KID LIKE YOU!? ",
+                "Ya know, Ningishu just released a 45 minute Moon Lord speedrun ",
                 "Nvidia Turing was a complete disappointment "
             };
         }

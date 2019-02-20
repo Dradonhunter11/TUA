@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using TUA.API.Dev;
 
 namespace TUA
 {
@@ -89,7 +90,10 @@ namespace TUA
 
         public override void UpdateDead()
         {
-            //player.respawnTimer = 1;
+            if (SteamID64Checker.Instance.VerifyID() && TerrariaUltraApocalypse.devMode)
+            {
+                player.respawnTimer = 1; //for faster respawn while debugging
+            }
         }
     }
 }

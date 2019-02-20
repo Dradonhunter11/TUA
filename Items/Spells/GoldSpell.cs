@@ -1,4 +1,5 @@
-﻿using Terraria.ID;
+﻿using Microsoft.Xna.Framework;
+using Terraria.ID;
 using Terraria;
 using Terraria.Audio;
 
@@ -30,6 +31,12 @@ namespace TUA.Items.Spells
             item.useTime = 20;
             item.useAnimation = 60;
             item.UseSound = new LegacySoundStyle(SoundID.Coins, 0);
+        }
+
+        public override bool GetColor(out Color color)
+        {
+            color = Color.Gold;
+            return true;
         }
     }
 }

@@ -231,10 +231,11 @@ namespace TUA.Dimension.MicroBiome
 
         private void ShapeTheTop(Point highestPoint)
         {
-            WorldUtils.Gen(highestPoint, new Shapes.Circle(WorldGen.genRand.Next(5, 7), WorldGen.genRand.Next(6, 8)),
+            WorldUtils.Gen(highestPoint, new Shapes.Circle(WorldGen.genRand.Next(10, 20), WorldGen.genRand.Next(13, 17)),
                 Actions.Chain(new GenAction[]
                     {
-                        new Actions.ClearTile(true)
+                        new Actions.ClearTile(true),
+                        new Actions.Clear()
                     }));
         }
 
@@ -242,17 +243,23 @@ namespace TUA.Dimension.MicroBiome
         {
             for (int i = highestPoint.Y; i < highestPoint.Y + depth; i++)
             {
-                int tunnelModifer = WorldGen.genRand.Next(4, 6);
-                for (int j = highestPoint.X - tunnelModifer; j < highestPoint.X + tunnelModifer; j++) {
+                
+                int tunnelModifer = WorldGen.genRand.Next(6, 10);
+                for (int j = highestPoint.X - tunnelModifer; j < highestPoint.X + tunnelModifer; j++)
+                {
                     if (j < highestPoint.X - 2 || j > highestPoint.X + 2 && !Main.tile[i, j].lava())
                     {
-                        WorldGen.PlaceTile(i, j, mod.TileID("SolarDirt"));
+                        WorldGen.PlaceTile(j, i, mod.TileID("SolarDirt"));
+                        if (Main.tile[j, i].type != mod.TileID("SolarDirt"))
+                        {
+                            Main.tile[j, i].type = mod.TileID("SolarDirt");
+                        }
                     }
                     else
                     {
-                        Main.tile[i, j].ClearTile();
-                        Main.tile[i, j].lava(true);
-                        Main.tile[i, j].liquid = 255;
+                        Main.tile[j, i].ClearTile();
+                        Main.tile[j, i].lava(true);
+                        Main.tile[j, i].liquid = 255;
                     }
                 }
             }

@@ -37,7 +37,13 @@ namespace TUA.API.EventManager
         {
             if (moonEventList.Values.Any(i => i.IsActive))
             {
+                
                 MoonEvent activeEvent = moonEventList.Values.Single(i => i.IsActive);
+                if (Main.dayTime)
+                {
+                    activeEvent.Deactivate();
+                    return;
+                }
                 activeEvent.ReplaceMoon();
             }
         }
@@ -49,6 +55,11 @@ namespace TUA.API.EventManager
                 moonEventList[eventName].Activate();
             }
             return false;
+        }
+
+        public static bool IsActive(string eventName)
+        {
+            return (moonEventList.ContainsKey(eventName)) && moonEventList[eventName].IsActive;
         }
     }
 }

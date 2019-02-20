@@ -17,9 +17,9 @@ namespace TUA.Items.Spells
     {
         private int texStyle;
 
-        public override string Texture => "Scroll";
+        public override string Texture => "TUA/Spells/Scroll";
 
-        public bool GetColor(out Color color)
+        public virtual bool GetColor(out Color color)
         {
             color = default(Color);
             return false;

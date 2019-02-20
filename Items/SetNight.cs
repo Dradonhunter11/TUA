@@ -24,9 +24,10 @@ namespace TUA.Items
             item.width = 38;
             item.height = 40;
             item.useStyle = 4;
-            item.useTime = 20;
-            item.useAnimation = 20;
+            item.useTime = 2;
+            item.useAnimation = 2;
             item.rare = 9;
+            item.autoReuse = false;
             item.lavaWet = true;
         }
 

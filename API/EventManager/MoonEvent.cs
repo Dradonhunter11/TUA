@@ -54,6 +54,12 @@ namespace TUA.API.EventManager
             IsActive = true;
         }
 
+        public void Deactivate()
+        {
+            Reset();
+            ResetMoon();
+        }
+
         public virtual void Reset()
         {
             waveCount = 0;

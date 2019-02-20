@@ -11,28 +11,41 @@ namespace TUA.API
             Tile tile = Main.tile[x, y];
             if (tile.type == TileID.Stone || tile.type == TileID.Crimstone || tile.type == TileID.Ebonstone)
             {
-                Main.tile[x, y].type = (ushort)mod.TileType("MeteoridonStone");
+                TileSpreadUtils.ChangeTile(x, y, mod.TileType("MeteoridonStone"));
             }
             else if (tile.type == TileID.Grass || tile.type == TileID.CorruptGrass || tile.type == TileID.FleshGrass)
             {
-                Main.tile[x, y].type = (ushort)mod.TileType("MeteoridonGrass");
+                TileSpreadUtils.ChangeTile(x, y, mod.TileType("MeteoridonGrass"));
             }
             else if (tile.type == TileID.Sand || tile.type == TileID.Ebonsand || tile.type == TileID.Crimsand)
             {
-                Main.tile[x, y].type = (ushort)mod.TileType("MeteoridonSand");
+                TileSpreadUtils.ChangeTile(x, y, mod.TileType("MeteoridonSand"));
             }
             else if (tile.type == TileID.Sandstone || tile.type == TileID.CorruptSandstone || tile.type == TileID.CrimsonSandstone)
             {
-                Main.tile[x, y].type = (ushort)mod.TileType("MeteoridonSandstone");
+                TileSpreadUtils.ChangeTile(x, y, mod.TileType("MeteoridonSandstone"));
             }
             else if (tile.type == TileID.HardenedSand || tile.type == TileID.CorruptHardenedSand || tile.type == TileID.CrimsonHardenedSand)
             {
-                Main.tile[x, y].type = (ushort)mod.TileType("MeteoridonHardenedSand");
+                TileSpreadUtils.ChangeTile(x, y, mod.TileType("MeteoridonHardenedSand"));
             }
             else if (tile.type == TileID.IceBlock || tile.type == TileID.CorruptIce || tile.type == TileID.FleshIce)
             {
-                Main.tile[x, y].type = (ushort)mod.TileType("BrownIce");
+                TileSpreadUtils.ChangeTile(x, y, mod.TileType("BrownIce"));
             }
+        }
+
+        public static void ChangeTile(int x, int y, int tileType)
+        {
+            Main.tile[x, y].type = (ushort)tileType;
+            WorldGen.SquareTileFrame(x, y, true);
+            NetMessage.SendTileSquare(-1, x, y, 1);
+        }
+
+        public static void ChangeWall(int x, int y, int wallType)
+        {
+            Main.tile[x, y].type = (ushort) wallType;
+            //Add other net sync stuff related to wall if necessary
         }
     }
 }

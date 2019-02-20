@@ -204,6 +204,7 @@
     <Compile Include="Dimension\MicroBiome\SolarVolcano.cs" />
     <Compile Include="Dimension\MicroBiome\StardustFrozenForest.cs" />
     <Compile Include="Dimension\Sky\SolarScreenShaderData.cs" />
+    <Compile Include="Dimension\Sky\SolarWorld.cs" />
     <Compile Include="Dimension\Sky\StardustCustomSky.cs" />
     <Compile Include="DRPSystem.cs" />
     <Compile Include="Dusts\EotW\ArrowDust.cs" />
@@ -238,7 +239,6 @@
     <Compile Include="Items\Misc\Spawner\SoulCrystal.cs" />
     <Compile Include="Items\Misc\Tools\DoodooStickaxe.cs" />
     <Compile Include="Items\TUAGlobalItem.cs" />
-    <Compile Include="Items\TUATestingGlobalItemBug.cs" />
     <Compile Include="Items\Walls\Hell\AshWall.cs" />
     <Compile Include="Items\Walls\Wasteland\WastestoneBrickWall.cs" />
     <Compile Include="Items\Wasteland\Tools\WastestoneWaraxe.cs" />
@@ -296,8 +296,12 @@
     <Compile Include="Raids\UI\RaidsPanel.cs" />
     <Compile Include="Raids\UI\RaidsUI.cs" />
     <Compile Include="SolarWorldGen.cs" />
-    <Compile Include="Items\Spells\GoldSpell.cs" />
-    <Compile Include="Items\Spells\ISpell.cs" />
+    <Compile Include="Spells\BiomeSpell\BaseBiomeSpell.cs" />
+    <Compile Include="Spells\BiomeSpell\BaseBiomeSpellProjectile.cs" />
+    <Compile Include="Spells\BiomeSpell\DesertSpell.cs" />
+    <Compile Include="Spells\BiomeSpell\SnowSpell.cs" />
+    <Compile Include="Spells\GoldSpell.cs" />
+    <Compile Include="Spells\ISpell.cs" />
     <Compile Include="StardustWorldGen.cs" />
     <Compile Include="Structure\hellalt\TheHeartArena.cs" />
     <Compile Include="Tiles\Furniture\Coins\DiamondCoins.cs" />
@@ -406,6 +410,7 @@
     <Folder Include="Achievement\" />
     <Folder Include="API\FurnaceRework\Upgrade\" />
     <Folder Include="API\TerraEnergy\Texture\" />
+    <Folder Include="Dimension\Solar\" />
     <Folder Include="Items\Armor\" />
     <Folder Include="Items\Block\PillarBiomeBlock\" />
     <Folder Include="Items\Fishing\" />

@@ -48,7 +48,6 @@ namespace TUA.Projectiles
 
         public override void AI()
         {
-            projectile.rotation /= projectile.velocity.X / projectile.velocity.Y;
             timer++;
             if (timer == 75)
             {
@@ -81,8 +80,7 @@ namespace TUA.Projectiles
             Color? color = Color.DarkRed;
             if (color.HasValue) {
                 int dust = Dust.NewDust(projectile.position, 16, 16, DustID.FlameBurst);
-                Main.dust[dust].velocity *= 0.2f;
-                Main.dust[dust].velocity += projectile.velocity;
+                Main.dust[dust].velocity = projectile.velocity;
             }
         }
 
