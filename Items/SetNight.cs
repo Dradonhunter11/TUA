@@ -1,30 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.World;
-using Microsoft.Xna.Framework;
 using Terraria.World.Generation;
 using TUA.API.Dev;
-using TUA.API.Injection;
-using TUA.API.LiquidAPI.LiquidMod;
-using TUA.API.LiquidAPI.Swap;
 using TUA.Dimension.MicroBiome;
 
 namespace TUA.Items
 {
     class SetNight : ModItem
     {
-        private int timer = 0;
+        // private int timer = 0;
 
-        public override bool Autoload(ref string name)
-        {
-            return SteamID64Checker.getInstance().verifyID() && TerrariaUltraApocalypse.devMode;
-        }
+        public override bool Autoload(ref string name) => SteamID64Checker.Instance.VerifyID() && TerrariaUltraApocalypse.devMode;
 
         public override void SetStaticDefaults()
         {

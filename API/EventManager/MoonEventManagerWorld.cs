@@ -41,10 +41,9 @@ namespace TUA.API.EventManager
                 MoonEvent activeEvent = moonEventList.Values.Single(i => i.IsActive);
                 if (Main.dayTime)
                 {
-                    
-
+                    activeEvent.Deactivate();
+                    return;
                 }
-
                 activeEvent.ReplaceMoon();
             }
         }

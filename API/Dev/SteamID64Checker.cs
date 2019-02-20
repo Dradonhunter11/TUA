@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Terraria;
 using Terraria.ModLoader;
 
 namespace TUA.API.Dev
@@ -20,43 +11,42 @@ namespace TUA.API.Dev
         private static SteamID64Checker instance;
         private static string CurrentSteamID64;
 
-        public static SteamID64Checker getInstance()
+        public static SteamID64Checker Instance
         {
-            if (instance == null)
+            get
             {
-                instance = new SteamID64Checker();
-            }
+                if (instance == null)
+                {
+                    instance = new SteamID64Checker();
+                }
 
-            return instance;
+                return instance;
+            }
         }
 
         private SteamID64Checker()
         {
-            SteamId64List = new List<string>();
-
             PropertyInfo SteamID64Info =
                 typeof(ModLoader).GetProperty("SteamID64", BindingFlags.Static | BindingFlags.NonPublic);
             MethodInfo SteamID64 = SteamID64Info.GetAccessors(true)[0];
             CurrentSteamID64 = (string)SteamID64.Invoke(null, new object[] { });
 
-            SteamId64List.Add("76561198062217769"); //Dradonhunter11
-            SteamId64List.Add("76561197970658570"); //2grufs
-            SteamId64List.Add("76561193945835208"); //DarkPuppey
-            SteamId64List.Add("76561193830996047"); //Gator
-            SteamId64List.Add("76561198098585379"); //Chinzilla00
-            SteamId64List.Add("76561198265178242"); //Demi
-            SteamId64List.Add("76561193989806658"); //SDF
+            SteamId64List = new List<string>
+            {
+                "76561198062217769", //Dradonhunter11
+                "76561197970658570", //2grufs
+                "76561193945835208", //DarkPuppey
+                "76561193830996047", //Gator
+                "76561198098585379", //Chinzilla00
+                "76561198265178242", //Demi
+                "76561193989806658", //SDF
+                "76561198193865502" //Agrair
+            };
         }
 
-        public bool verifyID()
-        { 
-            return SteamId64List.Contains(CurrentSteamID64);
-        }
+        public bool VerifyID() => SteamId64List.Contains(CurrentSteamID64);
 
-        public bool checkSpecificID(string ID)
-        {
-            return CurrentSteamID64 == ID;
-        }
+        public bool CheckSpecificID(string ID) => CurrentSteamID64 == ID;
 
         public void CopyIDToClipboard()
         {
