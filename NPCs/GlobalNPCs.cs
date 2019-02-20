@@ -2,7 +2,6 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TUA;
 using TUA.API;
 
 namespace TUA.NPCs

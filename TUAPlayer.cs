@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -14,36 +15,56 @@ namespace TUA
 
         public bool noImmunityDebuff;
 
+        public string ID;
+
+        public override void Initialize()
+        {
+            ID = new Guid().ToString();
+        }
+
         public override void Load(TagCompound tag)
         {
-            Main.item = new Item[Main.itemTexture.Length];
-            base.Load(tag);
+            if (tag.GetString("GUID") is string str && !string.IsNullOrEmpty(str))
+            {
+                ID = str;
+            }
         }
 
-        public void setWorldPath()
+        public override TagCompound Save()
         {
-
-            if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
+            return new TagCompound
             {
-                Main.WorldPath = Main.SavePath + "/World/solar";
-
-            }
-            else if (Dimlibs.Dimlibs.getPlayerDim() == "overworld")
-            {
-                Main.WorldPath = Main.SavePath + "/World";
-            }
+                ["GUID"] = ID
+            };
         }
-
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
             if (arenaActive)
             {
-
                 arenaActive = false;
-                damageSource = PlayerDeathReason.ByCustomReason(player.name + " think he was more powerful than the god of destruction... really?");
+                switch (Main.rand.Next(3))
+                {
+                    case 0:
+                        damageSource = PlayerDeathReason.ByCustomReason($"Hey, {player.name}. You think he was more powerful than the God of Destruction... really?");
+                        break;
+                    case 1:
+                        damageSource = PlayerDeathReason.ByCustomReason($"Ouch, looks like {player.name} thought {(player.Male ? "he" : "she")} mistakenly thought they could take on the enemy.");
+                        break;
+                    case 2:
+                        damageSource = Main.player.Length > 1 ? PlayerDeathReason.ByCustomReason($"HAHAHA, can we get a RIP in the chat for {player.name}!?")
+                            : PlayerDeathReason.ByCustomReason($"Damn {player.name}, you really are a fool!");
+                        break;
+                }
             }
-            setWorldPath();
+            if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
+            {
+                Main.WorldPath = Main.SavePath + "/World/solar";
+            }
+            else if (Dimlibs.Dimlibs.getPlayerDim() == "overworld")
+            {
+                Main.WorldPath = Main.SavePath + "/World";
+            }
             return true;
         }
 
@@ -55,11 +76,7 @@ namespace TUA
                 bool inStardust = Dimlibs.Dimlibs.getPlayerDim() == "Stardust";
                 player.ManageSpecialBiomeVisuals("TUA:StardustPillar", inStardust, player.Center);
             }
-
-            
         }
-
-        
 
         public override void PreUpdate()
         {
@@ -74,7 +91,5 @@ namespace TUA
         {
             //player.respawnTimer = 1;
         }
-
-        
     }
 }
