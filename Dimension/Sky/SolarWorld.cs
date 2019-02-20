@@ -19,6 +19,7 @@ namespace TUA.Dimension.Sky
         public bool SolarFog = false;
 
         public int eventTimer = 1;
+        public int activeEventTimer = 1;
         public override void PreUpdate()
         {
             if (Dimlibs.Dimlibs.getPlayerDim() == "Solar")
@@ -26,7 +27,7 @@ namespace TUA.Dimension.Sky
                 eventTimer--;
                 if (eventTimer == 0)
                 {
-                    eventTimer = rand.Next(360000, 72000);
+                    eventTimer = rand.Next(54000, 72000);
                     SelectEvent();
                 }
             }
