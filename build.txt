@@ -1,6 +1,6 @@
-author = apocaypse mod team
+author = Apocalypse Mod Team
 version = 0.0.1
-displayName = [c/8B0000:Terraria Ultra Apocalypse]
+displayName = Terraria Ultra Apocalypse
 hideCode = true
 hideResources = true
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*

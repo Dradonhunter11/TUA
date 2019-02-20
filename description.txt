@@ -1,10 +1,20 @@
+[c/8B0000:Terraria Ultra Apocalypse]
+
+"Thousands of years ago, there were 2 races, the gods and the humans. The gods freely terrorized the humans as much as they wanted, with many gods implementing weapons of destruction, torturing, and even using humans as guinea pigs in vile experiments. The humans had technology and even their own magic, but it wasn't enough. But one day, a human had enough of it and went to the search of a way to seal the gods. Through the power of their will, the group traveled between dimensions, explored multiple worlds, and braved the worst biomes, until they finally defeated the highest of gods and sealed him. Without the power of their fearless leader, the demonic deities fled the land, and humans rejoiced. Thanks to the ravages of time, the names of these heroes has been forgetten, and even the name of their order has been lost. But my father, his father before him, and all the fathers in the sky above knew, that one day, the descendant of the mighty hero would one day come in a dark hour to defeat the gods again. I believe that that descendant stands before me now." - The Guide
+
+Welcome to [c/8B0000:Terraria Ultra Apocalypse], a mod where you'll truly be tested! 
+
 ========
 Current features:
-=========
-Automation and Electricity! Smelt bars in Furnaces automatically!
-New Dimensions- Travel to entirely new worlds of the Celestial Pillars!
-New Hell Alternate- The Wasteland!
+========
+Automation and Electricity:
+ - Smelt bars in Furnaces automatically!
+New Dimensions - Venture to the homeland of the Celestial pillars, the Lunar Dimensions!
+New Hell Alternate - The Wasteland!
 Mob Spawners in new Dungeon Structures to discover
 New Ultra difficulty
-New Ultra boss
---------
+New bosses:
+ - Ultra Eye of Cthulhu: And here we were, thinking that this was long behind us . . . surprise! The Eye of Cthulhu, but with new power granted to it by the gods. Post Moon Lord.
+ - Eye of Apocalypse
+New Moon Event - The foulest enemies, albeit ones you've faced before, approach you as the Apocalypsio Moon rises at evening.
+Story, plot, adventure, and free shipping included! Tax-free!
