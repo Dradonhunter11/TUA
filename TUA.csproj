@@ -296,8 +296,8 @@
     <Compile Include="Raids\UI\RaidsPanel.cs" />
     <Compile Include="Raids\UI\RaidsUI.cs" />
     <Compile Include="SolarWorldGen.cs" />
-    <Compile Include="Spells\GoldSpell.cs" />
-    <Compile Include="Spells\ISpell.cs" />
+    <Compile Include="Items\Spells\GoldSpell.cs" />
+    <Compile Include="Items\Spells\ISpell.cs" />
     <Compile Include="StardustWorldGen.cs" />
     <Compile Include="Structure\hellalt\TheHeartArena.cs" />
     <Compile Include="Tiles\Furniture\Coins\DiamondCoins.cs" />
