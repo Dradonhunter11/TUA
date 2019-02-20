@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TUA.Spells
+namespace TUA.Items.Spells
 {
     internal interface ISpell
     {

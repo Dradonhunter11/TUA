@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.Audio;
 
-namespace TUA.Spells
+namespace TUA.Items.Spells
 {
     class GoldSpell : Spell
     {
