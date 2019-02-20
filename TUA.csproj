@@ -204,6 +204,7 @@
     <Compile Include="Dimension\MicroBiome\SolarVolcano.cs" />
     <Compile Include="Dimension\MicroBiome\StardustFrozenForest.cs" />
     <Compile Include="Dimension\Sky\SolarScreenShaderData.cs" />
+    <Compile Include="Dimension\Sky\SolarWorld.cs" />
     <Compile Include="Dimension\Sky\StardustCustomSky.cs" />
     <Compile Include="DRPSystem.cs" />
     <Compile Include="Dusts\EotW\ArrowDust.cs" />
@@ -409,6 +410,7 @@
     <Folder Include="Achievement\" />
     <Folder Include="API\FurnaceRework\Upgrade\" />
     <Folder Include="API\TerraEnergy\Texture\" />
+    <Folder Include="Dimension\Solar\" />
     <Folder Include="Items\Armor\" />
     <Folder Include="Items\Block\PillarBiomeBlock\" />
     <Folder Include="Items\Fishing\" />

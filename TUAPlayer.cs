@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using TUA.API.Dev;
 
 namespace TUA
 {
@@ -14,26 +15,6 @@ namespace TUA
 
         public bool noImmunityDebuff;
 
-        public override void Load(TagCompound tag)
-        {
-            Main.item = new Item[Main.itemTexture.Length];
-            base.Load(tag);
-        }
-
-        public void setWorldPath()
-        {
-
-            if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
-            {
-                Main.WorldPath = Main.SavePath + "/World/solar";
-
-            }
-            else if (Dimlibs.Dimlibs.getPlayerDim() == "overworld")
-            {
-                Main.WorldPath = Main.SavePath + "/World";
-            }
-        }
-
 
         public override bool PreKill(double damage, int hitDirection, bool pvp, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
@@ -43,7 +24,6 @@ namespace TUA
                 arenaActive = false;
                 damageSource = PlayerDeathReason.ByCustomReason(player.name + " think he was more powerful than the god of destruction... really?");
             }
-            setWorldPath();
             return true;
         }
 
@@ -55,8 +35,6 @@ namespace TUA
                 bool inStardust = Dimlibs.Dimlibs.getPlayerDim() == "Stardust";
                 player.ManageSpecialBiomeVisuals("TUA:StardustPillar", inStardust, player.Center);
             }
-
-            
         }
 
         
@@ -72,7 +50,10 @@ namespace TUA
 
         public override void UpdateDead()
         {
-            //player.respawnTimer = 1;
+            if (SteamID64Checker.Instance.VerifyID() && TerrariaUltraApocalypse.devMode)
+            {
+                player.respawnTimer = 1; //for faster respawn while debugging
+            }
         }
 
         
