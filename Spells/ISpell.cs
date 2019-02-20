@@ -39,7 +39,7 @@ namespace TUA.Spells
             SafeSetDefaults();
             item.noMelee = true;
             item.noUseGraphic = true;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = ItemUseStyleID.HoldingOut;
             item.width = 30;
             item.height = 30;
             // texStyle = Main.rand.Next(); // This is for multiple different texStyles
