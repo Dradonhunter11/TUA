@@ -298,6 +298,7 @@
     <Compile Include="Spells\BiomeSpell\BaseBiomeSpell.cs" />
     <Compile Include="Spells\BiomeSpell\BaseBiomeSpellProjectile.cs" />
     <Compile Include="Spells\BiomeSpell\DesertSpell.cs" />
+    <Compile Include="Spells\BiomeSpell\SnowSpell.cs" />
     <Compile Include="Spells\GoldSpell.cs" />
     <Compile Include="Spells\ISpell.cs" />
     <Compile Include="StardustWorldGen.cs" />

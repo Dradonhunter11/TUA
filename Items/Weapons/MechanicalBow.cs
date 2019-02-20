@@ -41,7 +41,7 @@ namespace TUA.Items.Weapons
             item.useStyle = 5;
             item.shoot = mod.ProjectileType("GodExplosiveArrow");
             item.autoReuse = true;
-            item.shootSpeed = 2f;
+            item.shootSpeed = 12;
             item.knockBack = 10;
             item.useAnimation = 10;
             item.useTime = 20;
@@ -64,6 +64,7 @@ namespace TUA.Items.Weapons
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             Projectile.NewProjectile(position.X, position.Y, speedX, speedY, mod.ProjectileType("GodExplosiveArrow"), damage, knockBack, Main.myPlayer);
+            item.shootSpeed = 7;
             return false;
         }
 

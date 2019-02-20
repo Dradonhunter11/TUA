@@ -32,7 +32,7 @@ namespace TUA.Localization
 
         public void AddTranslation(GameCulture language, String key, String defaultString)
         {
-            if (manager.ContainsKey(key))
+            // if (manager.ContainsKey(key))
             {
                 manager[key].AddTranslation(language, defaultString);
             }
@@ -41,14 +41,11 @@ namespace TUA.Localization
         public String GetTranslation(String key)
         {
             GameCulture culture = Language.ActiveCulture;
-            if (manager.ContainsKey(key))
+            // if (manager.ContainsKey(key))
             {
-                if (manager[key].GetTranslation(culture) == null)
-                {
-                    return manager[key].GetDefault();
-                }
-
-                return manager[key].GetTranslation(culture);
+                // If `manager[key].GetTranslation(culture)` != null, return `manager[key].GetTranslation(culture)`
+                // If `manager[key].GetTranslation(culture)` == null, return `manager[key].GetDefault()`
+                return manager[key].GetTranslation(culture) ?? manager[key].GetDefault();
             }
             return "Unknown Translation";
         }

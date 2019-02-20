@@ -349,9 +349,10 @@ namespace TUA
             {
                 music = MusicID.LunarBoss;
             }
-            else if (TUAWorld.apocalypseMoon)
+            else if (MoonEventManagerWorld.IsActive("Apocalypse Moon"))
             {
-                music = MusicID.LunarBoss;
+                music = this.GetSoundSlot(SoundType.Music, "Sounds/Music/Terminal_Inception");   
+                musicPriority = MusicPriority.BossHigh;
             }
             else if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
             {

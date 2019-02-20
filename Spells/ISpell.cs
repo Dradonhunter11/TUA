@@ -15,9 +15,11 @@ namespace TUA.Spells
 
     internal abstract class Spell : ModItem, ISpell
     {
-        public sealed override string Texture => "Scroll";
+        private int texStyle;
 
-        public bool GetColor(out Color color)
+        public override string Texture => "TUA/Spells/Scroll";
+
+        public virtual bool GetColor(out Color color)
         {
             color = default(Color);
             return false;
@@ -38,53 +40,18 @@ namespace TUA.Spells
             item.noMelee = true;
             item.noUseGraphic = true;
             item.useStyle = ItemUseStyleID.SwingThrow;
+            item.width = 30;
+            item.height = 30;
+            // texStyle = Main.rand.Next(); // This is for multiple different texStyles
+            texStyle = 0;
         }
 
         public abstract void SafeSetDefaults();
 
-        /*
-        public override bool PreDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
-        {
-            var tex = mod.GetTexture("Spells/Scroll");
-            // Scroll_Mask should actually be "scripts" to go on top of Scroll
-            var tex2 = mod.GetTexture("Spells/Scroll_Mask");
-            spriteBatch.Draw(tex, frame, drawColor);
-            if (GetColor(out Color color))
-            {
-                spriteBatch.Draw(tex2, frame, color);
-            }
-            else
-            {
-                spriteBatch.Draw(tex2, frame, drawColor);
-            }
-            return false;
-        }
-
-        public override bool PreDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, ref float rotation, ref float scale, int whoAmI)
-        {
-            var tex = mod.GetTexture("Spells/Scroll");
-            // Scroll_Mask should actually be "scripts" to go on top of Scroll
-            var tex2 = mod.GetTexture("Spells/Scroll_Mask");
-            spriteBatch.Draw(tex, item.position, null, lightColor,
-                rotation, tex.Size() / 2, scale, SpriteEffects.None, 0);
-            if (GetColor(out Color color))
-            {
-                spriteBatch.Draw(tex2, item.position, null, color,
-                    rotation, tex2.Size() / 2, scale, SpriteEffects.None, 0);
-            }
-            else
-            {
-                spriteBatch.Draw(tex2, item.position, null, lightColor,
-                    rotation, tex2.Size() / 2, scale, SpriteEffects.None, 0);
-            }
-            return false;
-        }
-        */
-
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             // Scroll_Mask should actually be "writing" to go on top of Scroll
-            var tex2 = mod.GetTexture("Spells/Scroll_Mask");
+            var tex2 = mod.GetTexture($"Spells/Scroll_Mask{texStyle}");
             if (GetColor(out Color color))
             {
                 spriteBatch.Draw(tex2, frame, color);
@@ -98,7 +65,7 @@ namespace TUA.Spells
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             // Scroll_Mask should actually be "scripts" to go on top of Scroll
-            var tex2 = mod.GetTexture("Spells/Scroll_Mask");
+            var tex2 = mod.GetTexture($"Spells/Scroll_Mask{texStyle}");
             if (GetColor(out Color color))
             {
                 spriteBatch.Draw(tex2, item.position, null, color,

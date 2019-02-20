@@ -1,18 +1,22 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.ID;
 using TUA.API;
 
 namespace TUA.Spells.BiomeSpell
 {
-    internal class DesertSpell : BaseBiomeSpell
+    class SnowSpell : BaseBiomeSpell
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Desert Desolation");
+            DisplayName.SetDefault("Snow Blizzard");
             Tooltip.SetDefault("A spell created by the humans a long time ago.");
-            Tooltip.AddLine("The legends say that any land touching it get scorched");
+            Tooltip.AddLine("The legends say that any land touching it get instantly frozen");
         }
 
         public override void SetDefaults()
@@ -32,8 +36,8 @@ namespace TUA.Spells.BiomeSpell
             item.magic = true;
             item.mana = 20;
             item.shootSpeed = 13;
-            item.shoot = mod.ProjectileType("DesertSpellProjectile");
-            
+            item.shoot = mod.ProjectileType("SnowSpellProjectile");
+
         }
 
         public override bool Cast(Player player)
@@ -43,34 +47,29 @@ namespace TUA.Spells.BiomeSpell
 
         public override bool GetColor(out Color color)
         {
-            color = new Color(237, 201, 175);
+            color = Color.White;
             return true;
         }
     }
 
-    internal class DesertSpellProjectile : BaseBiomeSpellProjectile
+    class SnowSpellProjectile : BaseBiomeSpellProjectile
     {
         public override void Convert(int x, int y)
         {
             Tile tile = Main.tile[x, y];
             if (tile.wall == WallID.Dirt || WallID.Sets.Corrupt[tile.wall] || WallID.Sets.Crimson[tile.wall])
             {
-                TileSpreadUtils.ChangeWall(x, y, WallID.Sandstone);
+                TileSpreadUtils.ChangeWall(x, y, WallID.SnowWallUnsafe);
             }
 
-            if (tile.type == TileID.Dirt || TileID.Sets.Conversion.Grass[tile.type] || tile.type == TileID.SnowBlock)
+            if (tile.type == TileID.Dirt || TileID.Sets.Conversion.Grass[tile.type] || TileID.Sets.Conversion.Sand[tile.type])
             {
-                TileSpreadUtils.ChangeTile(x, y, TileID.Sand);
+                TileSpreadUtils.ChangeTile(x, y, TileID.SnowBlock);
             }
 
-            if (TileID.Sets.Conversion.Stone[tile.type])
+            if (TileID.Sets.Conversion.Stone[tile.type] || TileID.Sets.Conversion.Sandstone[tile.type] || TileID.Sets.Conversion.HardenedSand[tile.type])
             {
-                TileSpreadUtils.ChangeTile(x, y, TileID.Sandstone);
-            }
-
-            if (TileID.Sets.Conversion.Ice[tile.type])
-            {
-                TileSpreadUtils.ChangeTile(x, y, TileID.HardenedSand);
+                TileSpreadUtils.ChangeTile(x, y, TileID.IceBlock);
             }
 
         }
