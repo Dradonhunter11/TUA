@@ -94,10 +94,8 @@ namespace TUA.Dimension.MicroBiome
 
         public void GenerateVolcano(Point origin)
         {
-            Point highestPoint;
-            int depth;
-            GenerateMountainShape(origin, out highestPoint, mod);
-            GenerateBranch(highestPoint, out depth);
+            GenerateMountainShape(origin, out Point highestPoint, mod);
+            GenerateBranch(highestPoint, out int depth);
             GenerateTheDeepTunnel(highestPoint, depth);
             ShapeTheTop(highestPoint);
         }
@@ -193,7 +191,7 @@ namespace TUA.Dimension.MicroBiome
                 VolcanoBranch newerbranch =
                     new VolcanoBranch(branch, WorldGen.genRand.Next(10, 15), horizontal);
                 GenerateBranch(newerbranch);
-                if (WorldGen.genRand.Next(5) == 0)
+                if (WorldGen.genRand.NextBool(5))
                 {
                     newerbranch =
                         new VolcanoBranch(branch, WorldGen.genRand.Next(10, 15), !horizontal);

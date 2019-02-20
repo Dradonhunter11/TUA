@@ -1,6 +1,6 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -8,32 +8,29 @@ namespace TUA.Raids
 {
     class RaidsWorld : ModWorld
     {
-        internal static RaidsType currentRaids = RaidsType.noActiveRaids;
-        internal static int stage = 0;
-        internal static Dictionary<RaidsType, String> raidsName = new Dictionary<RaidsType, string>();
-
-        public override void Initialize() => LoadRaidsName();
+        public static RaidsType currentRaids = RaidsType.noActiveRaids;
+        public static int stage = 0;
+        public static Dictionary<RaidsType, String> raidsName = raidsName = new Dictionary<RaidsType, string>
+            {
+                { RaidsType.noActiveRaids, "No active raids" },
+                { RaidsType.theGreatHellRide, "The Great Hell Ride!" },
+                { RaidsType.theWrathOfTheWasteland, "The Wrath of the Wasteland!" },
+                { RaidsType.theEyeOfDestruction, "The God of Destruction" }
+            };
+        public static List<string> hasTalkedToGuide;
 
         public override TagCompound Save() => new TagCompound
             {
-                { "currentRaids", (byte)currentRaids },
-                { "stage", stage }
+                ["currentRaids"] = (byte)currentRaids,
+                ["stage"] = stage,
+                ["hasTalkedToGuide"] = hasTalkedToGuide
             };
 
         public override void Load(TagCompound tag)
         {
             currentRaids = (RaidsType) tag.GetByte("currentRaids");
             stage = tag.GetInt("stage");
-            LoadRaidsName();
-        }
-
-        internal void LoadRaidsName()
-        {
-            raidsName.Clear();
-            raidsName.Add(RaidsType.noActiveRaids, "No active raids");
-            raidsName.Add(RaidsType.theGreatHellRide, "The Great Hell Ride!");
-            raidsName.Add(RaidsType.theWrathOfTheWasteland, "The Wrath of the Wasteland!");
-            raidsName.Add(RaidsType.theEyeOfDestruction, "The God of Destruction");
+            hasTalkedToGuide = (List<string>)tag.GetList<string>("hasTalkedToGuide");
         }
     }
 

@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
-using TUA;
 using Microsoft.Xna.Framework;
 using BiomeLibrary;
-using TUA.Items.Misc.Spawner;
-using TUA.NPCs.NewBiome.Meteoridon;
-using TUA.NPCs.UltraBoss.UltraEoC;
 
 namespace TUA.NPCs
 {

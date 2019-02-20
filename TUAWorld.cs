@@ -28,14 +28,15 @@ namespace TUA
 
         public override TagCompound Save()
         {
-            TagCompound tc = new TagCompound();
-            tc.Add("UltraMode", UltraMode);
-            tc.Add("EoADowned", EoADowned);
-            tc.Add("UltraEoCDowned", EoCDeath);
-            tc.Add("hellAlt", Wasteland);
-            tc.Add("RealisticTimeMode", RealisticTimeMode);
+            return new TagCompound
+            {
+                { "UltraMode", UltraMode },
+                { "EoADowned", EoADowned },
+                { "UltraEoCDowned", EoCDeath },
+                { "hellAlt", Wasteland },
+                { "RealisticTimeMode", RealisticTimeMode }
+            };
             //tc.Add("apocalypseMoon", apocalypseMoon);
-            return tc;
         }
 
         public override void Load(TagCompound tag)
