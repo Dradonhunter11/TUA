@@ -110,7 +110,7 @@ namespace TUA
                 originalWorldSelect = (UIWorldSelect)UIWorldSelectInfo.GetValue(null);
                 UIWorldSelectInfo.SetValue(null, new NewUIWorldSelect());
 
-                SteamID64Checker.getInstance().CopyIDToClipboard();
+                SteamID64Checker.Instance.CopyIDToClipboard();
 
                 SolarFog = GetTexture("CustomScreenShader/HeavyMist");
 
