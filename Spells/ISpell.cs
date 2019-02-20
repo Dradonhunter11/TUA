@@ -88,7 +88,7 @@ namespace TUA.Spells
     {
         public new bool GetColor(out Color color)
         {
-            color = Color.Gold;
+            color = Color.DarkMagenta;
             return true;
         }
 
