@@ -149,11 +149,11 @@ namespace TUA.Raids
                 case 4:
                     return "He gathered about him a group friends, enemies, comrades in arms, all hell-bent on destroying the gods once and for all.";
                 case 5:
-                    return "Through the power of their will, the group traveled between dimensions, explored multiple worlds, and braved the worst biomes, until he finally defeated the highest of gods and sealed him.";
+                    return "Through the power of their will, the group traveled between dimensions, explored multiple worlds, and braved the worst biomes, until they finally defeated the highest of gods and sealed him.";
                 case 6:
                     return "Without the power of their fearless leader, the demonic deities fled the land, and humans rejoiced.";
                 case 7:
-                    return "Thanks to the ravages of time, the names of theses heroes has been forgetting, and even the name of their order has been lost.";
+                    return "Thanks to the ravages of time, the names of these heroes has been forgetten, and even the name of their order has been lost.";
                 case 8:
                     return "But my father, his father before him, and all the fathers in the sky above knew, that one day, the descendant of the mighty hero would one day come in a dark hour to defeat the gods again.";
                 case 9:
