@@ -199,7 +199,9 @@
     <Compile Include="CustomScreenShader\ScreenFog.cs" />
     <Compile Include="CustomSkies\HeavyMistSky.cs" />
     <Compile Include="CustomSkies\MeteoridonSky.cs" />
+    <Compile Include="Dimension\Block\InfestedTile.cs" />
     <Compile Include="Dimension\Block\MobSpawner.cs" />
+    <Compile Include="Dimension\DimensionUtil.cs" />
     <Compile Include="Dimension\DimGlobalNPC.cs" />
     <Compile Include="Dimension\MicroBiome\SolarVolcano.cs" />
     <Compile Include="Dimension\MicroBiome\StardustFrozenForest.cs" />
@@ -213,6 +215,8 @@
     <Compile Include="Dusts\EotW\MeleeDust.cs" />
     <Compile Include="Dusts\FireDust.cs" />
     <Compile Include="Dusts\TUAGlobalDust.cs" />
+    <Compile Include="Items\Armor\ArmorBase.cs" />
+    <Compile Include="Items\Armor\DruidicArmor.cs" />
     <Compile Include="Items\Block\Plagues\ApocalypseDirt.cs" />
     <Compile Include="Items\Block\Hopper.cs" />
     <Compile Include="Items\Block\Machine\DivinePortal.cs" />
@@ -253,7 +257,6 @@
     <Compile Include="MoonEvent\ApocalypseMoon.cs" />
     <Compile Include="MoonEvent\ApocalypseWMoon.cs" />
     <Compile Include="NPCs\AI\Worm.cs" />
-    <Compile Include="NPCs\GlobalNPCs.cs" />
     <Compile Include="NPCs\Gods\EoA\EoAHeal.cs" />
     <Compile Include="NPCs\Gods\EoA\Eye_of_ApocalypseNew.cs" />
     <Compile Include="NPCs\Gods\EoA\Eye_of_Apocalypse_clone.cs" />
@@ -407,7 +410,6 @@
     <Folder Include="API\FurnaceRework\Upgrade\" />
     <Folder Include="API\TerraEnergy\Texture\" />
     <Folder Include="Dimension\Solar\" />
-    <Folder Include="Items\Armor\" />
     <Folder Include="Items\Block\PillarBiomeBlock\" />
     <Folder Include="Items\Fishing\" />
     <Folder Include="Items\Meteoridon\Walls\" />

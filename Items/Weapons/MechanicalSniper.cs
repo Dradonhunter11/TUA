@@ -23,7 +23,7 @@ namespace TUA.Items.Weapons
 
         public override void SetDefaults()
         {
-            this.ultra = true;
+            this.Ultra = true;
             item.width = 74;
             item.height = 24;
             item.ranged = true;

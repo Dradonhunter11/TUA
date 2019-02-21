@@ -40,7 +40,7 @@ namespace TUA.API.VoidClass
         {
             safeSetDefaults();
             TrueVoidDamage = VoidDamage;
-            ultra = true;
+            Ultra = true;
             if (!haveNormalDamage)
             {
                 item.damage = 1;
