@@ -1,4 +1,7 @@
-﻿using Terraria.ModLoader;
+﻿using System.Collections.Generic;
+using Terraria;
+using Terraria.ModLoader;
+using TUA.API.Dev;
 
 namespace TUA.Items.Armor
 {
@@ -25,6 +28,57 @@ namespace TUA.Items.Armor
             value = 0;
             rare = 0;
             return false;
+        }
+
+        public sealed override void AddRecipes()
+        {
+            if (CraftingMaterials(out int[] items))
+            {
+                ModRecipe recipe = new ModRecipe(mod);
+                for (int i = 0; i < items.Length; i++)
+                {
+                    int item = items[i];
+                    recipe.AddIngredient(item);
+                }
+                OtherCraftingRequirements(recipe);
+                recipe.SetResult(this);
+                recipe.AddRecipe();
+            }
+        }
+
+        protected virtual bool CraftingMaterials(out int[] items)
+        {
+            items = new int[] { };
+            return false;
+        }
+
+        protected virtual void OtherCraftingRequirements(ModRecipe recipe)
+        {
+
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            if (DevSet(out var _) && !SteamID64Checker.Instance.VerifyID())
+            {
+                DevSetPenalty(player);
+            }
+        }
+
+        private bool DevSet(out string dev)
+        {
+            dev = "";
+            return false;
+        }
+
+        private void DevSetPenalty(Player plr) { plr.statLife--; }
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            if (DevSet(out string dev))
+            {
+                tooltips.Add(new TooltipLine(mod, "DevSet", $"Thanks for supporting Terraria Ultra Apocalypse! - {dev}"));
+            }
         }
     }
 }
