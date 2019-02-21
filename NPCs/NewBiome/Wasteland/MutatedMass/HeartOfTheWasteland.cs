@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -33,7 +29,6 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
             Main.npcFrameCount[npc.type] = 1;
         }
 
-
         public override void SetDefaults()
         {
             npc.width = 32;
@@ -58,7 +53,6 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
                 npc.buffImmune[i] = true;
             }
         }
-
 
         public override void AI()
         {
@@ -106,6 +100,13 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
             {
                 index = NPCHeadLoader.GetBossHeadSlot(HEAD_PATH + "1");
             }
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            
+            spriteBatch.Draw();
+            return false;
         }
     }
 }
