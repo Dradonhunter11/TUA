@@ -81,7 +81,7 @@ namespace TUA.Items.Armor
             }
         }
 
-        public override bool IsArmorSet(Item head, Item body, Item legs)
+        public sealed override bool IsArmorSet(Item head, Item body, Item legs)
         {
             bool flag = IsArmorSetSafe(head, body, legs);
             if (DevSet(out var _))
@@ -91,6 +91,6 @@ namespace TUA.Items.Armor
             return flag;
         }
 
-        public abstract bool IsArmorSetSafe(Item head, Item body, Item legs);
+        public virtual bool IsArmorSetSafe(Item head, Item body, Item legs) { return false; }
     }
 }

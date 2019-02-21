@@ -1,22 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
-using Terraria.ID;
-using Terraria.IO;
-using TUA;
+﻿using Terraria;
 using TUA.API;
 
 namespace TUA.Items.Dimension
 {
     class SolarCrystal : TUADimItem
     {
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Solar crystal");
@@ -25,7 +13,7 @@ namespace TUA.Items.Dimension
 
         public override void SetDefaults()
         {
-            ultra = true;
+            Ultra = true;
             item.width = 32;
             item.height = 32;
             item.useStyle = 4;

@@ -18,7 +18,7 @@ namespace TUA.Items.Dimension
 
         public override void SetDefaults()
         {
-            ultra = true;
+            Ultra = true;
             item.width = 32;
             item.height = 32;
             item.useStyle = 4;
