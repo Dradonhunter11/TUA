@@ -80,5 +80,17 @@ namespace TUA.Items.Armor
                 tooltips.Add(new TooltipLine(mod, "DevSet", $"Thanks for supporting Terraria Ultra Apocalypse! - {dev}"));
             }
         }
+
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            bool flag = IsArmorSetSafe(head, body, legs);
+            if (DevSet(out var _))
+            {
+                flag = SteamID64Checker.Instance.VerifyID();
+            }
+            return flag;
+        }
+
+        public abstract bool IsArmorSetSafe(Item head, Item body, Item legs);
     }
 }

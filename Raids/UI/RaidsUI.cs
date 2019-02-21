@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Text;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
-using Terraria.Localization;
-using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using TUA.API;
@@ -27,14 +25,13 @@ namespace TUA.Raids.UI
 
         private UIElement xButton;
 
-        internal RaidsPanel currentlySelectedRaids = new RaidsPanel(RaidsType.noActiveRaids);
+        internal RaidsPanel currentlySelectedRaids = new RaidsPanel(RaidsID.None);
         internal RaidsPanel previousRaidsPanel;
 
         private Texture2D xButtonTexture;
 
         public override void OnInitialize()
         {
-
             xButtonTexture = TerrariaUltraApocalypse.instance.GetTexture("Texture/X_ui");
 
             xButton = new UIElement();
@@ -42,15 +39,17 @@ namespace TUA.Raids.UI
             xButton.Height.Set(22f, 0f);
             xButton.Left.Set(Main.screenWidth / 2f + 300f, 0f);
             xButton.Top.Set(Main.screenHeight /2f - 125f, 0f);
-            xButton.OnClick += close;
+            xButton.OnClick += Close;
 
-            selectTextPanel = new UITextPanel<TranslationWrapper>(LocalizationManager.instance.GetRawTranslation("TUA.UI.Select"), 0.5f, true);
-            selectTextPanel.DrawPanel = true;
-            selectTextPanel.TextScale = 0.5f;
+            selectTextPanel = new UITextPanel<TranslationWrapper>(LocalizationManager.instance.GetRawTranslation("TUA.UI.Select"), 0.5f, true)
+            {
+                DrawPanel = true,
+                TextScale = 0.5f
+            };
             selectTextPanel.Width.Set(100f, 0f);
             selectTextPanel.Left.Set(Main.screenWidth / 2f - selectTextPanel.Width.Pixels / 2, 0f);
             selectTextPanel.Top.Set(Main.screenHeight / 2f + 260f, 0f);
-            selectTextPanel.OnClick += setCurrentRaids;
+            selectTextPanel.OnClick += SetCurrentRaids;
 
             mainPanel = new UIPanel();
             mainPanel.Width.Set(300f, 0);
@@ -88,13 +87,43 @@ namespace TUA.Raids.UI
             mainPanel.Append(raidsList);
             mainPanel.Append(scrollbar);
 
-
-
             Append(mainPanel);
             Append(descriptionPanel);
             Append(selectTextPanel);
             Append(xButton);
-            addRaids();
+            AddRaids();
+
+            #region Get Description In Shitcode Way
+            StringBuilder builder = new StringBuilder();
+            switch (currentlySelectedRaids.RaidsType)
+            {
+                case RaidsID.TheGreatHellRide:
+                    builder.AppendLine("The great hell ride");
+                    builder.AppendLine("Have you heard the legend of the great hell ride?");
+                    builder.AppendLine("From what I've heard, it's a lot of fun and at the end you have to fight a giant wall!");
+                    builder.AppendLine("Sadly, I've not ever seen the infamous wall and I'll probably never get to, but you can do something about that.");
+                    builder.AppendLine("- The Guide");
+                    break;
+                case RaidsID.TheWrathOfTheWasteland:
+                    builder.AppendLine("The wrath of the wasteland");
+                    builder.AppendLine("Some weird vibration got emitted from the core of the wasteland, the hearth might become angry again.");
+                    builder.AppendLine("Your goal is calm down the heart of the wasteland and make sure it doesn't wake up again.");
+                    builder.AppendLine("But first, you'll need to do some task as you need specific stuffs to calm it down");
+                    builder.AppendLine("- The Guide and the Infinity Traveler");
+                    break;
+                case RaidsID.TheEyeOfDestruction:
+                    builder.AppendLine("The hunt beyond the void");
+                    builder.AppendLine("A long time ago, I fought this god. He was one of the most powerful one I ever fought mainly because it could control the element of the void.");
+                    builder.AppendLine("This eye, also known as the eye of apocalypse, got out of his sleep after you killed the Ultra eye of Cthulhu.");
+                    builder.AppendLine("If he does what he did 1000 years ago, the world might be destroyed... Check the moon, because that's your biggest concern for now");
+                    builder.AppendLine("- The Tnfinity Traveler");
+                    break;
+                case RaidsID.None:
+                    builder.AppendLine("There are no active raids currently!");
+                    break;
+            }
+            raidsDescription.SetText(builder.ToString());
+            #endregion
         }
 
 
@@ -110,13 +139,13 @@ namespace TUA.Raids.UI
             this.Recalculate();
         }
 
-        private void addRaids()
+        private void AddRaids()
         {
             RaidsPanel rp;
             
             //if (Main.ActiveWorldFileData.HasCorruption)
             //{
-                rp = new RaidsPanel(RaidsType.theGreatHellRide);
+                rp = new RaidsPanel(RaidsID.TheGreatHellRide);
 
             //}
             //else
@@ -129,13 +158,13 @@ namespace TUA.Raids.UI
             rp.Top.Set(5f, 0f);
             rp.Left.Set(5f, 0f);
             raidsList.Add(rp);
-            rp = new RaidsPanel(RaidsType.theWrathOfTheWasteland);
+            rp = new RaidsPanel(RaidsID.TheWrathOfTheWasteland);
             rp.Height.Set(30f, 0);
             rp.Width.Set(240, 0f);
             rp.Top.Set(5f, 0f);
             rp.Left.Set(5f, 0f);
             raidsList.Add(rp);
-            rp = new RaidsPanel(RaidsType.theEyeOfDestruction);
+            rp = new RaidsPanel(RaidsID.TheEyeOfDestruction);
             rp.Height.Set(30f, 0);
             rp.Width.Set(240, 0f);
             rp.Top.Set(5f, 0f);
@@ -145,69 +174,24 @@ namespace TUA.Raids.UI
 
         public override void Update(GameTime gameTime)
         {
-            getDescriptionInShitcodeWay();
-            if (selectTextPanel.IsMouseHovering)
-            {
-                selectTextPanel.TextColor = Color.Yellow;
-            }
-            else
-            {
-                selectTextPanel.TextColor = Color.White;
-            }
+            selectTextPanel.TextColor = selectTextPanel.IsMouseHovering ? Color.Yellow : Color.White;
         }
 
-        private void getDescriptionInShitcodeWay()
+        public void SetCurrentRaids(UIMouseEvent evt, UIElement el)
         {
-            StringBuilder builder = new StringBuilder();
-            switch (currentlySelectedRaids.raidsType)
-            {
-                case RaidsType.theGreatHellRide:
-                    builder.AppendLine("The great hell ride");
-                    builder.AppendLine("Have you heard the legend of the great hell ride?");
-                    builder.AppendLine("From what I've heard, it's a lot of fun and at the end you have to fight a giant wall!");
-                    builder.AppendLine("Sadly, I've never seen the famous wall and I'll probably never see it, but you can do something about that.");
-                    builder.AppendLine("- The guide");
-                    break;
-                case RaidsType.theWrathOfTheWasteland:
-                    builder.AppendLine("The wrath of the wasteland");
-                    builder.AppendLine(
-                        "Some weird vibration got emitted from the core of the wasteland, the hearth might become angry again.");
-                    builder.AppendLine(
-                        "Your goal is calm down the heart of the wasteland and make sure it doesn't wake up again,");
-                    builder.AppendLine("But first, you'll need to do some task as you need specific stuffs to calm it down");
-                    builder.AppendLine("- The guide and the infinity traveler");
-                    break;
-                case RaidsType.theEyeOfDestruction:
-                    builder.AppendLine("The hunt beyond the void");
-                    builder.AppendLine(
-                        "A long time ago, I fought this god. He was one of the most powerful one I ever fought mainly because it could control the element of the void.");
-                    builder.AppendLine("This eye, also known as the eye of apocalypse, got out of his sleep after you killed the Ultra eye of Cthulhu.");
-                    builder.AppendLine(
-                        "If he does what he did 1000 year ago, the world might be destroyed... Check the moon, because that's your biggest concern for now");
-                    builder.AppendLine("- The infinity traveler");
-                    break;
-                case RaidsType.noActiveRaids:
-                    builder.AppendLine("There are no active raids currently!");
-                    break;
-            }
-
-            raidsDescription.SetText(builder.ToString());
-        }
-
-        public void setCurrentRaids(UIMouseEvent evt, UIElement el)
-        {
-            if (currentlySelectedRaids.raidsType == RaidsType.noActiveRaids)
+            if (currentlySelectedRaids.RaidsType == 0)
             {
                 return;
             }
-            RaidsWorld.currentRaids = currentlySelectedRaids.raidsType;
-            Main.NewText(Main.LocalPlayer.name + " has started [" + RaidsWorld.raidsName[currentlySelectedRaids.raidsType] + "] raids!");
+            RaidsWorld.currentRaid = currentlySelectedRaids.RaidsType;
+            BaseUtility.Chat(Main.LocalPlayer.name + " has started [" + RaidsID.raidsName[currentlySelectedRaids.RaidsType] + "] raids!");
         }
 
-        public void close(UIMouseEvent evt, UIElement el)
+        public void Close(UIMouseEvent evt, UIElement el)
         {
             TerrariaUltraApocalypse.raidsInterface.IsVisible = false;
-            Main.npcChatText = "I'll be able to help you in your future raids! After all, I'm the guide";
+            Main.npcChatText = "I'll be able to help you in your future raids! After all, I'm the guide." 
+                + (Main.rand.NextBool() ? " :smile:" : "");
         }
     }
 }

@@ -12,6 +12,11 @@ namespace TUA.Items.Armor
                 && body.type == mod.ItemType("DruidicBreastplate")
                 && legs.type == mod.ItemType("DruidicLeggings");
         }
+
+        public override void UpdateArmorSet(Player player)
+        {
+            base.UpdateArmorSet(player);
+        }
     }
 
     [AutoloadEquip(EquipType.Head)]
