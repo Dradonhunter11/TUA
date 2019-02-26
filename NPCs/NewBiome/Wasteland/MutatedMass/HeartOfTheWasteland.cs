@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -35,7 +30,6 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
         }
 
 
-
         public override void SetDefaults()
         {
             npc.width = (int) (158 * 1.7f);
@@ -63,7 +57,6 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
 
             tentacle = mod.GetTexture("Texture/NPCs/Heart_Tentacle");
         }
-
 
         public override void AI()
         {

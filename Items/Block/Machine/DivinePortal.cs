@@ -27,7 +27,7 @@ namespace TUA.Items.Block.Machine
             item.useStyle = 1;
             item.autoReuse = true;
             item.createTile = mod.TileType("DivinePortal");
-            ultra = true;
+            Ultra = true;
         }
     }
 }

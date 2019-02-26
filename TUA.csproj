@@ -199,7 +199,9 @@
     <Compile Include="CustomScreenShader\ScreenFog.cs" />
     <Compile Include="CustomSkies\HeavyMistSky.cs" />
     <Compile Include="CustomSkies\MeteoridonSky.cs" />
+    <Compile Include="Dimension\Block\InfestedTile.cs" />
     <Compile Include="Dimension\Block\MobSpawner.cs" />
+    <Compile Include="Dimension\DimensionUtil.cs" />
     <Compile Include="Dimension\DimGlobalNPC.cs" />
     <Compile Include="Dimension\MicroBiome\SolarVolcano.cs" />
     <Compile Include="Dimension\MicroBiome\StardustFrozenForest.cs" />
@@ -215,7 +217,9 @@
     <Compile Include="Dusts\FireDust.cs" />
     <Compile Include="Dusts\TUAGlobalDust.cs" />
     <Compile Include="Items\Block\PillarBiomeBlock\Solar\SolarMineralObsidian.cs" />
-    <Compile Include="Items\Block\Plagues\ApocalypseDirt.cs" />
+    <Compile Include="Items\Armor\ArmorBase.cs" />
+    <Compile Include="Items\Armor\DruidicArmor.cs" />
+	<Compile Include="Items\Block\Plagues\ApocalypseDirt.cs" />
     <Compile Include="Items\Block\Hopper.cs" />
     <Compile Include="Items\Block\Machine\DivinePortal.cs" />
     <Compile Include="Items\Block\Meteoridon\MeteoridonStone.cs" />
@@ -240,6 +244,7 @@
     <Compile Include="Items\Misc\Debug\DebugStick.cs" />
     <Compile Include="Items\Misc\Spawner\SoulCrystal.cs" />
     <Compile Include="Items\Misc\Tools\DoodooStickaxe.cs" />
+	<Compile Include="Items\Spells\ISpell.cs" />
     <Compile Include="Items\Spells\BiomeSpell\BaseBiomeSpell.cs" />
     <Compile Include="Items\Spells\BiomeSpell\BaseBiomeSpellProjectile.cs" />
     <Compile Include="Items\Spells\BiomeSpell\DesertSpell.cs" />
@@ -259,7 +264,6 @@
     <Compile Include="MoonEvent\ApocalypseMoon.cs" />
     <Compile Include="MoonEvent\ApocalypseWMoon.cs" />
     <Compile Include="NPCs\AI\Worm.cs" />
-    <Compile Include="NPCs\GlobalNPCs.cs" />
     <Compile Include="NPCs\Gods\EoA\EoAHeal.cs" />
     <Compile Include="NPCs\Gods\EoA\Eye_of_ApocalypseNew.cs" />
     <Compile Include="NPCs\Gods\EoA\Eye_of_Apocalypse_clone.cs" />
@@ -299,8 +303,7 @@
     <Compile Include="Raids\Script\Stage\BossStage.cs" />
     <Compile Include="Raids\Script\Stage\InvasionStage.cs" />
     <Compile Include="Raids\Script\Stage\ItemPickupStage.cs" />
-    <Compile Include="Raids\Script\WrathOfTheWasteland\NPC\Overgrowth.cs" />
-    <Compile Include="Raids\Script\WrathOfTheWasteland\WotW.cs" />
+    <Compile Include="Raids\Script\WrathOfTheWasteland\Overgrowth.cs" />
     <Compile Include="Raids\UI\RaidsPanel.cs" />
     <Compile Include="Raids\UI\RaidsUI.cs" />
     <Compile Include="SolarWorldGen.cs" />
@@ -402,8 +405,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="Terraria, Version=1.3.5.1, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Terraria">
       <HintPath>..\..\..\..\..\..\Downloads\Terraria.exe</HintPath>
     </Reference>
     <Reference Include="TerrariaHooks, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -415,7 +417,6 @@
     <Folder Include="Achievement\" />
     <Folder Include="API\FurnaceRework\Upgrade\" />
     <Folder Include="API\TerraEnergy\Texture\" />
-    <Folder Include="Items\Armor\" />
     <Folder Include="Items\Fishing\" />
     <Folder Include="Items\Meteoridon\Walls\" />
     <Folder Include="Items\Weapons\EoA\" />

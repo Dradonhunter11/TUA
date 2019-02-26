@@ -1,50 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
 namespace TUA.API
 {
     
     public class TUAModItem : ModItem
     {
-        public virtual bool ultra { get; set; }
-        public virtual bool furnace { get; set; }
+        public virtual bool Ultra { get; set; }
+        public virtual bool Furnace { get; set; }
         public override bool CloneNewInstances { get { return true; } }
-
-        protected void manipulateUltraProperty(bool isExpert) {
-            
-            item.rare = -12;
-            if (isExpert)
-            {
-                item.expert = false;
-                return;
-            }
-            else
-            {
-                item.expert = true;
-                return;
-            }
-        }
 
         public override bool NewPreReforge()
         {
-            if (ultra)
-            {
-                item.rare = -12;
-            }
+            if (Ultra)  item.rare = -12;
             return true;
         }
 
         public override void UpdateInventory(Player player)
         {
-            if (ultra)
+            if (Ultra)
             {
-                manipulateUltraProperty(true);
+                item.rare = -12;
+                item.expert = false;
             }
         }
 
@@ -55,9 +34,9 @@ namespace TUA.API
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "ItemName" && x.mod == "Terraria");
-            if (ultra)
+            if (Ultra)
             {
-                TooltipLine ultraline = new TooltipLine(mod, "ultra", "Ultra");
+                TooltipLine ultraline = new TooltipLine(mod, "IsUltraItem", "Ultra");
                 tooltips.Add(ultraline);
             }
 
@@ -68,11 +47,13 @@ namespace TUA.API
             }
         }
 
+        /*
         public override void AddRecipes()
         {
-            if (furnace) {
+            if (Furnace) {
 
             }
         }
+        */
     }
 }

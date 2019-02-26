@@ -2,17 +2,11 @@
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-using BiomeLibrary;
 
 namespace TUA.NPCs
 {
     class UltraEoC : GlobalNPC
     {
-        public override bool InstancePerEntity
-        {
-            get { return true; }
-        }
-
         public override void NPCLoot(NPC npc)
         {
             if (npc.type == NPCID.EyeofCthulhu && NPC.downedMoonlord && !TUAWorld.EoCPostML)

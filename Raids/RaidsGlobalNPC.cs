@@ -28,15 +28,15 @@ namespace TUA.Raids
                 else
                 {
                     focusText = "Raids";
-                    if (RaidsWorld.currentRaids != RaidsType.noActiveRaids)
+                    if (RaidsWorld.currentRaid != RaidsID.None)
                     {
-                        RaidsType raids = RaidsWorld.currentRaids;
-                        if (raids == RaidsType.theGreatHellRide)
+                        byte raids = RaidsWorld.currentRaid;
+                        if (raids == RaidsID.TheGreatHellRide)
                         {
                             focusText = "The Great Hell Ride";
                         }
 
-                        if (raids == RaidsType.theWrathOfTheWasteland)
+                        if (raids == RaidsID.TheWrathOfTheWasteland)
                         {
                             focusText = "The Wrath of the Wasteland";
                         }

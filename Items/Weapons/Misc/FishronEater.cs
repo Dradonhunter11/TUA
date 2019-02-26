@@ -29,7 +29,7 @@ namespace TUA.Items.Weapons.Misc
             item.noMelee = true;
             item.ranged = true;
             item.shootSpeed = 12;
-            ultra = true;
+            Ultra = true;
         }
     }
 }

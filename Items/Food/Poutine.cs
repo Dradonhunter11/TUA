@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using TUA.API;
 
@@ -17,7 +12,6 @@ namespace TUA.Items.Food
             Tooltip.AddLine("A purely awesome meal from the Canadians");
             Tooltip.AddLine("Heal 500 HP");
             Tooltip.AddLine("Give potion sickness for 30 second");
-            
         }
 
         public override void SetDefaults()

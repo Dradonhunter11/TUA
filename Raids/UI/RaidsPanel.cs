@@ -10,18 +10,18 @@ namespace TUA.Raids.UI
 {
     class RaidsPanel : UIPanel
     {
-        internal RaidsType raidsType { get;  }
+        internal byte RaidsType { get;  }
         private bool highlight = false;
 
 
-        public RaidsPanel(RaidsType raid)
+        public RaidsPanel(byte raid)
         {
-            this.raidsType = raid;
+            this.RaidsType = raid;
         }
 
-        public String getRaidsName()
+        public String GetRaidsName()
         {
-            return RaidsWorld.raidsName[raidsType];
+            return RaidsID.raidsName[RaidsType];
         }
 
         public override void OnInitialize()
@@ -60,16 +60,14 @@ namespace TUA.Raids.UI
 
             if (IsMouseHovering)
             {
-                ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, getRaidsName(),
+                ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, GetRaidsName(),
                     new Vector2(style.X - 5f, style.Y - 5f), Color.Yellow, 0f, Vector2.Zero, Vector2.One);
             }
             else
             {
-                ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, getRaidsName(),
+                ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, GetRaidsName(),
                     new Vector2(style.X - 5f, style.Y - 5f), Color.White, 0f, Vector2.Zero, Vector2.One);
             }
         }
-
-        
     }
 }
