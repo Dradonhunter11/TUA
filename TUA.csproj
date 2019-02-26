@@ -204,7 +204,8 @@
     <Compile Include="Dimension\MicroBiome\SolarVolcano.cs" />
     <Compile Include="Dimension\MicroBiome\StardustFrozenForest.cs" />
     <Compile Include="Dimension\Sky\SolarScreenShaderData.cs" />
-    <Compile Include="Dimension\Sky\SolarWorld.cs" />
+    <Compile Include="Dimension\Solar\SolarNPC.cs" />
+    <Compile Include="Dimension\Solar\SolarWorld.cs" />
     <Compile Include="Dimension\Sky\StardustCustomSky.cs" />
     <Compile Include="DRPSystem.cs" />
     <Compile Include="Dusts\EotW\ArrowDust.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Dusts\EotW\MeleeDust.cs" />
     <Compile Include="Dusts\FireDust.cs" />
     <Compile Include="Dusts\TUAGlobalDust.cs" />
+    <Compile Include="Items\Block\PillarBiomeBlock\Solar\SolarMineralObsidian.cs" />
     <Compile Include="Items\Block\Plagues\ApocalypseDirt.cs" />
     <Compile Include="Items\Block\Hopper.cs" />
     <Compile Include="Items\Block\Machine\DivinePortal.cs" />
@@ -238,6 +240,11 @@
     <Compile Include="Items\Misc\Debug\DebugStick.cs" />
     <Compile Include="Items\Misc\Spawner\SoulCrystal.cs" />
     <Compile Include="Items\Misc\Tools\DoodooStickaxe.cs" />
+    <Compile Include="Items\Spells\BiomeSpell\BaseBiomeSpell.cs" />
+    <Compile Include="Items\Spells\BiomeSpell\BaseBiomeSpellProjectile.cs" />
+    <Compile Include="Items\Spells\BiomeSpell\DesertSpell.cs" />
+    <Compile Include="Items\Spells\BiomeSpell\SnowSpell.cs" />
+    <Compile Include="Items\Spells\GoldSpell.cs" />
     <Compile Include="Items\TUAGlobalItem.cs" />
     <Compile Include="Items\Walls\Hell\AshWall.cs" />
     <Compile Include="Items\Walls\Wasteland\WastestoneBrickWall.cs" />
@@ -247,6 +254,7 @@
     <Compile Include="Items\Weapons\MechanicalBow.cs" />
     <Compile Include="Items\Weapons\MechanicalSniper.cs" />
     <Compile Include="Items\Weapons\Misc\FishronEater.cs" />
+    <Compile Include="Items\Spells\ISpell.cs" />
     <Compile Include="Localization\LocalizationManager.cs" />
     <Compile Include="MoonEvent\ApocalypseMoon.cs" />
     <Compile Include="MoonEvent\ApocalypseWMoon.cs" />
@@ -296,10 +304,6 @@
     <Compile Include="Raids\UI\RaidsPanel.cs" />
     <Compile Include="Raids\UI\RaidsUI.cs" />
     <Compile Include="SolarWorldGen.cs" />
-    <Compile Include="Spells\BiomeSpell\BaseBiomeSpell.cs" />
-    <Compile Include="Spells\BiomeSpell\BaseBiomeSpellProjectile.cs" />
-    <Compile Include="Spells\BiomeSpell\DesertSpell.cs" />
-    <Compile Include="Spells\BiomeSpell\SnowSpell.cs" />
     <Compile Include="StardustWorldGen.cs" />
     <Compile Include="Structure\hellalt\TheHeartArena.cs" />
     <Compile Include="Tiles\Furniture\Coins\DiamondCoins.cs" />
@@ -319,10 +323,11 @@
     <Compile Include="Tiles\NewBiome\Meteoridon\MeteoridonStone.cs" />
     <Compile Include="Tiles\NewBiome\Meteoridon\MeteoridonTree.cs" />
     <Compile Include="Tiles\NewBiome\Meteoridon\MeteoridonWood.cs" />
-    <Compile Include="Tiles\PillarBiome\SolarDirt.cs" />
-    <Compile Include="Tiles\PillarBiome\SolarRock.cs" />
-    <Compile Include="Tiles\PillarBiome\StardustIce.cs" />
-    <Compile Include="Tiles\PillarBiome\StardustRock.cs" />
+    <Compile Include="Tiles\PillarBiome\Solar\SolarDirt.cs" />
+    <Compile Include="Tiles\PillarBiome\Solar\SolarMineralObsidian.cs" />
+    <Compile Include="Tiles\PillarBiome\Solar\SolarRock.cs" />
+    <Compile Include="Tiles\PillarBiome\Stardust\StardustIce.cs" />
+    <Compile Include="Tiles\PillarBiome\Stardust\StardustRock.cs" />
     <Compile Include="Tiles\NewBiome\Wasteland\WastelandOre.cs" />
     <Compile Include="Tiles\NewBiome\Wasteland\WastelandRock.cs" />
     <Compile Include="Tiles\NewBiome\Wasteland\WastestoneBrick.cs" />
@@ -358,8 +363,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dimlibs\bin\Release\Dimlibs.dll</HintPath>
     </Reference>
-    <Reference Include="drpc">
-      <HintPath>lib\drpc.dll</HintPath>
+    <Reference Include="drpc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\DRPC CSharp\bin\Release\drpc.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\..\..\..\tml 64bit backup\tModLoader\references\log4net.dll</HintPath>
@@ -386,8 +392,9 @@
     <Reference Include="MonoMod.RuntimeDetour">
       <HintPath>..\..\..\..\..\..\Downloads\MonoMod.RuntimeDetour.dll</HintPath>
     </Reference>
-    <Reference Include="MonoMod.Utils">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\MonoMod.Utils.dll</HintPath>
+    <Reference Include="MonoMod.Utils, Version=18.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\tml 64bit backup\tModLoader\references\MonoMod.Utils.dll</HintPath>
     </Reference>
     <Reference Include="ReLogic, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -408,9 +415,7 @@
     <Folder Include="Achievement\" />
     <Folder Include="API\FurnaceRework\Upgrade\" />
     <Folder Include="API\TerraEnergy\Texture\" />
-    <Folder Include="Dimension\Solar\" />
     <Folder Include="Items\Armor\" />
-    <Folder Include="Items\Block\PillarBiomeBlock\" />
     <Folder Include="Items\Fishing\" />
     <Folder Include="Items\Meteoridon\Walls\" />
     <Folder Include="Items\Weapons\EoA\" />

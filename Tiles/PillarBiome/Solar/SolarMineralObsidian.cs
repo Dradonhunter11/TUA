@@ -6,26 +6,21 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TUA.Tiles.NewBiome.Meteoridon;
+using TUA.API;
 
-namespace TUA.Tiles.PillarBiome
+namespace TUA.Tiles.PillarBiome.Solar
 {
-    class SolarDirt : ModTile
+    class SolarMineralObsidian : ModTile
     {
-
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
-            Main.tileMerge[mod.TileType<SolarDirt>()][mod.TileType<SolarRock>()] = true;
-            Main.tileMerge[mod.TileType<SolarRock>()][mod.TileType<SolarDirt>()] = true;
-            SetModTree(new MeteoridonTree());
+            this.MergeTile(mod.TileID("SolarMineralObsidian"));
+            this.MergeTile(mod.TileID("SolarRock"));
             drop = ItemID.DirtBlock;
-            AddMapEntry(new Microsoft.Xna.Framework.Color(255, 120, 55));
-
-
+            AddMapEntry(new Microsoft.Xna.Framework.Color(128, 0, 0));
         }
-
     }
 }

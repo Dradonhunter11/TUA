@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -19,9 +20,9 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
 
         private static readonly string HEAD_PATH = "TUA/NPCs/NewBiome/Wasteland/MutatedMass/HeartOfTheWasteland_head";
 
-        public override string Texture {
-            get { return "Terraria/NPC_" + 548; }
-        }
+        private Texture2D tentacle;
+
+        private Vector2 topBlock;
 
         public override string BossHeadTexture {
             get { return "TUA/NPCs/NewBiome/Wasteland/MutatedMass/HeartOfTheWasteland_head0"; }
@@ -30,14 +31,15 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Heart of the wasteland");
-            Main.npcFrameCount[npc.type] = 1;
+            Main.npcFrameCount[npc.type] = 2;
         }
+
 
 
         public override void SetDefaults()
         {
-            npc.width = 32;
-            npc.height = 32;
+            npc.width = (int) (158 * 1.7f);
+            npc.height = (int) (222 * 1.7f);
             npc.lifeMax = 9000;
             npc.damage = 60;
             npc.defense = 20;
@@ -50,6 +52,7 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
             npc.immortal = true;
             npc.noGravity = true;
             npc.aiStyle = -1;
+            npc.scale = 2f;
             NPCID.Sets.MustAlwaysDraw[npc.type] = true;
             SleepState = true;
 
@@ -57,16 +60,20 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
             {
                 npc.buffImmune[i] = true;
             }
+
+            tentacle = mod.GetTexture("Texture/NPCs/Heart_Tentacle");
         }
 
 
         public override void AI()
         {
+            SearchTopBlock();
             if (SleepState)
             {
                 npc.dontTakeDamage = true;
                 return;
             }
+
             /*
              * Can someone explain what this is for - Agrair
             npc.boss = true;
@@ -91,6 +98,19 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
             }
         }
 
+        private void SearchTopBlock()
+        {
+            Tile tile = Main.tile[(int)(npc.Center.X / 16), (int)(npc.Center.Y / 16)];
+            int y = (int) (npc.Center.Y / 16);
+            int x = (int) (npc.Center.X / 16);
+            do
+            {
+                y--;
+                tile = Main.tile[x, y];
+            } while (!tile.active());
+            topBlock = new Vector2(x * 16, y * 16);
+        }
+
         public override bool CheckActive()
         {
             return false;
@@ -106,6 +126,36 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
             {
                 index = NPCHeadLoader.GetBossHeadSlot(HEAD_PATH + "1");
             }
+        }
+
+        public override void FindFrame(int frameHeight)
+        {
+            if (SleepState)
+            {
+                npc.frame.Y = frameHeight;
+                return;
+            } 
+        }
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
+        {
+            Vector2 npcPosition = npc.Center;
+            int distanceFromTop = (int) (npc.Center.Y - topBlock.Y);
+            int textureHeight = tentacle.Height;
+            do
+            {
+                int distanceToDraw = textureHeight;
+                if (distanceFromTop < textureHeight)
+                {
+                    distanceToDraw = distanceFromTop;
+                }
+
+                Vector2 temp = new Vector2(npcPosition.X - (tentacle.Width / 2) - Main.screenPosition.X, npcPosition.Y - distanceFromTop - Main.screenPosition.Y);
+                spriteBatch.Draw(mod.GetTexture("Texture/NPCs/Heart_Tentacle"), temp, new Rectangle(0, 0, tentacle.Width, distanceToDraw), drawColor, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                distanceFromTop -= textureHeight;
+            } while (distanceFromTop >  0);
+
+            return true;
         }
     }
 }

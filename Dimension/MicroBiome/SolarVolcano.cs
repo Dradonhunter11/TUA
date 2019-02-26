@@ -186,7 +186,6 @@ namespace TUA.Dimension.MicroBiome
 
             if (branch.currentStep < branch.maxStep)
             {
-                log.Info("Loop #" + branch.loop);
                 bool horizontal = WorldGen.genRand.NextBool();
                 VolcanoBranch newerbranch =
                     new VolcanoBranch(branch, WorldGen.genRand.Next(10, 15), horizontal);

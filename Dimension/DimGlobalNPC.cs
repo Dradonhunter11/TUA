@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 
 namespace TUA.Dimension
 {
+    [Obsolete("Delete later")]
     class DimGlobalNPC : GlobalNPC
     {
 

@@ -7,11 +7,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TUA.Spells.BiomeSpell
+namespace TUA.Items.Spells.BiomeSpell
 {
     abstract class BaseBiomeSpellProjectile : ModProjectile
     {
-        public override string Texture => "TUA/Spells/BiomeSpell/BiomeSpellProj";
+        public override string Texture => "TUA/Texture/Projectiles/DefaultProjectile";
 
         public abstract void Convert(int x, int y);
 

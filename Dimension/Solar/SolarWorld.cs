@@ -9,7 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.Main;
 
-namespace TUA.Dimension.Sky
+namespace TUA.Dimension.Solar
 {
     class SolarWorld : ModWorld
     {
@@ -17,9 +17,13 @@ namespace TUA.Dimension.Sky
         public bool VolcanoTremor = false;
         public bool PillarCrashEvent = false;
         public bool SolarFog = false;
+        public bool ashRain = false;
+
 
         public int eventTimer = 1;
         public int activeEventTimer = 1;
+
+
         public override void PreUpdate()
         {
             if (Dimlibs.Dimlibs.getPlayerDim() == "Solar")
@@ -100,12 +104,19 @@ namespace TUA.Dimension.Sky
 
         }
 
-        public override void PostDrawTiles()
+        public bool PillarDetection()
         {
             Player player = LocalPlayer;
+            return npc.Any(i =>
+                i.type == NPCID.LunarTowerSolar && Vector2.Distance(i.position, player.position) < 9600);
+        }
+
+        public override void PostDrawTiles()
+        {
+            
             if (Dimlibs.Dimlibs.getPlayerDim() == "Solar" && PillarCrashEvent)
             {
-                if (npc.Any(i => i.type == NPCID.LunarTowerSolar && Vector2.Distance(i.position, player.position) < 9600))
+                if (PillarDetection())
                 {
                     //Write solar pillar crash dark screen code here
                 }

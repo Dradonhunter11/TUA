@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using drpc;
+using log4net;
 using Mono.Cecil;
 using Terraria;
 using Terraria.GameContent.UI.States;
@@ -224,11 +226,11 @@ namespace TUA
             MoonEventManagerWorld.moonEventList = null;
 
             //Remember to re enable it once it's fixed
-            if (!Main.dedServ)
+            /*if (!Main.dedServ)
             {
-                //DRPSystem.Kill();
-                //Main.OnTick -= DRPSystem.Update;
-            }
+                DRPSystem.Kill();
+                Main.OnTick -= DRPSystem.Update;
+            }*/
         }
 
         public override void AddRecipes()

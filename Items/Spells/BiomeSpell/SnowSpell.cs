@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.ID;
 using TUA.API;
 
-namespace TUA.Spells.BiomeSpell
+namespace TUA.Items.Spells.BiomeSpell
 {
     class SnowSpell : BaseBiomeSpell
     {

@@ -113,5 +113,10 @@ namespace TUA.API
         {
             return (ushort) mod.TileType(tileName);
         }
+
+        public static void MergeTile(this ModTile self, int otherTile)
+        {
+            Main.tileMerge[self.Type][otherTile] = true;
+        }
     }
 }

@@ -4,7 +4,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using TUA.API;
 
-namespace TUA.Spells.BiomeSpell
+namespace TUA.Items.Spells.BiomeSpell
 {
     internal class DesertSpell : BaseBiomeSpell
     {

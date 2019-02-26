@@ -17,7 +17,7 @@ namespace TUA.Items.Spells
     {
         private int texStyle;
 
-        public override string Texture => "TUA/Spells/Scroll";
+        public override string Texture => "TUA/Items/Spells/Scroll";
 
         public virtual bool GetColor(out Color color)
         {
@@ -51,7 +51,7 @@ namespace TUA.Items.Spells
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             // Scroll_Mask should actually be "writing" to go on top of Scroll
-            var tex2 = mod.GetTexture($"Spells/Scroll_Mask{texStyle}");
+            var tex2 = mod.GetTexture($"Items/Spells/Scroll_Mask{texStyle}");
             if (GetColor(out Color color))
             {
                 spriteBatch.Draw(tex2, frame, color);
@@ -65,7 +65,7 @@ namespace TUA.Items.Spells
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
         {
             // Scroll_Mask should actually be "scripts" to go on top of Scroll
-            var tex2 = mod.GetTexture($"Spells/Scroll_Mask{texStyle}");
+            var tex2 = mod.GetTexture($"Items/Spells/Scroll_Mask{texStyle}");
             if (GetColor(out Color color))
             {
                 spriteBatch.Draw(tex2, item.position, null, color,
@@ -86,7 +86,7 @@ namespace TUA.Items.Spells
 
     internal abstract class Godspell : Spell
     {
-        public new bool GetColor(out Color color)
+        public override bool GetColor(out Color color)
         {
             color = Color.DarkMagenta;
             return true;

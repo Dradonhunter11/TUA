@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Terraria;
 using TUA.API;
+using TUA.Items.Spells;
 
-namespace TUA.Spells.BiomeSpell
+namespace TUA.Items.Spells.BiomeSpell
 {
     abstract class BaseBiomeSpell : TUAModLegacyItem, ISpell
     {

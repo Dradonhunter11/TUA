@@ -46,8 +46,6 @@ namespace TUA.Biomes
             {
                 CorruptPlagues(progress);
             }
-
-
         }
 
         private void CrimPlagues(GenerationProgress progress, int dungeonSide)
