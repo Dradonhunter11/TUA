@@ -353,13 +353,18 @@ namespace TUA
             }
             else if (MoonEventManagerWorld.IsActive("Apocalypse Moon"))
             {
-                music = this.GetSoundSlot(SoundType.Music, "Sounds/Music/Terminal_Inception");   
+                music = this.GetSoundSlot(SoundType.Music, "Sounds/Music/Terminal_Inception");
                 musicPriority = MusicPriority.BossHigh;
             }
-            else if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
+            else if (Dimlibs.Dimlibs.getPlayerDim() == "Solar")
             {
                 music = MusicID.TheTowers;
                 Main.musicBox = 36;
+                musicPriority = MusicPriority.Environment;
+            } else if (Main.LocalPlayer.position.Y / 16 > Main.maxTilesY - 200 &&
+                       Main.ActiveWorldFileData.HasCrimson)
+            {
+                music = this.GetSoundSlot(SoundType.Music, "Sounds/Music/Exclusion_Zone");
                 musicPriority = MusicPriority.Environment;
             }
         }

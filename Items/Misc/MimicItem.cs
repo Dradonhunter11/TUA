@@ -44,7 +44,7 @@ namespace TUA.Items.Misc
         }
     }
 
-    class MimicItemReal : ModItem
+    abstract class MimicItemReal : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -66,7 +66,7 @@ namespace TUA.Items.Misc
         public override bool CanSellItem(NPC vendor, Item[] shopInventory, Item item)
         {
             item.value = 0;
-            Main.NewText("RIP, DID YOU REALLY THINK I WAS WORTH THAT MUCH?");
+            Main.NewText("RIP, DID YOU REALLY THINK IT WAS WORTH THAT MUCH?");
             return true;
         }
     }

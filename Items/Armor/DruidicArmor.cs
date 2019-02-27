@@ -43,9 +43,9 @@ namespace TUA.Items.Armor
     }
 
     [AutoloadEquip(EquipType.Head)]
-    class DruidicHelmet : DruidicArmor { }
+    abstract class DruidicHelmet : DruidicArmor { }
     [AutoloadEquip(EquipType.Body)]
-    class DruidicBreastplate : DruidicArmor { }
+    abstract class DruidicBreastplate : DruidicArmor { }
     [AutoloadEquip(EquipType.Legs)]
-    class DruidicLeggings : DruidicArmor { }
+    abstract class DruidicLeggings : DruidicArmor { }
 }

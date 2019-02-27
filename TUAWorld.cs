@@ -49,7 +49,7 @@ namespace TUA
 
             if (!Main.ActiveWorldFileData.HasCorruption)
             {
-                NPC.NewNPC((Main.maxTilesX / 2) * 16, (Main.maxTilesY - 100) * 16, mod.NPCType("HeartOfTheWasteland"), 0, 0f, 0f, 0f, 0f, 255);
+                NPC.NewNPC((Main.maxTilesX / 2) * 16, (Main.maxTilesY - 100) * 16 + 444, mod.NPCType("HeartOfTheWasteland"), 0, 0f, 0f, 0f, 0f, 255);
             }
         }
 
@@ -66,9 +66,9 @@ namespace TUA
         {
             Main.bottomWorld = Main.maxTilesY * 16 + 400;
 
-            if (NPC.CountNPCS(mod.NPCType<HeartOfTheWasteland>()) == 0)
+            if (NPC.CountNPCS(mod.NPCType<HeartOfTheWasteland>()) == 0 && Main.ActiveWorldFileData.HasCrimson)
             {
-                NPC.NewNPC((Main.maxTilesX / 2) * 16, (Main.maxTilesY - 100) * 16, mod.NPCType("HeartOfTheWasteland"), 0, 0f, 0f, 0f, 0f, 255);
+                NPC.NewNPC((Main.maxTilesX / 2) * 16, (Main.maxTilesY - 100) * 16 + 444, mod.NPCType("HeartOfTheWasteland"), 0, 0f, 0f, 0f, 0f, 255);
             }
 
             if (RealisticTimeMode)
@@ -115,7 +115,7 @@ namespace TUA
             {
                 Wasteland = true;
                 wastelandGeneration(progress);
-                NPC.NewNPC((Main.maxTilesX / 2) * 16, (Main.maxTilesY - 100) * 16, mod.NPCType("HeartOfTheWasteland"), 0, 0f, 0f, 0f, 0f, 255);
+                NPC.NewNPC((Main.maxTilesX / 2) * 16, (Main.maxTilesY - 100) * 16 - 444, mod.NPCType("HeartOfTheWasteland"), 0, 0f, 0f, 0f, 0f, 255);
             }
             else
             {
