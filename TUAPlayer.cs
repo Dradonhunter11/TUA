@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -10,6 +11,7 @@ namespace TUA
 {
     class TUAPlayer : ModPlayer
     {
+
         public static bool AugmendVortex = false;
 
         public static bool arenaActive = false;
@@ -17,6 +19,11 @@ namespace TUA
         public bool noImmunityDebuff;
 
         public string ID;
+
+        public bool EoApositionLock = false;
+        public Vector2 EoAPosition = Vector2.Zero;
+
+        private static int splashTimer = 0;
 
         public override void Initialize()
         {
@@ -94,6 +101,20 @@ namespace TUA
             {
                 player.respawnTimer = 1; //for faster respawn while debugging
             }
+        }
+
+        public override void ModifyScreenPosition()
+        {
+            if (EoApositionLock)
+            {
+                Main.screenPosition = EoAPosition;
+            }
+        }
+
+        public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+        {
+            
+            base.DrawEffects(drawInfo, ref r, ref g, ref b, ref a, ref fullBright);
         }
     }
 }

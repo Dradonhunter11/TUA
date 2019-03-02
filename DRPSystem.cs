@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using drpc;
+using drpc.drpc;
 using log4net;
 using Terraria;
 using Terraria.ModLoader.IO;
@@ -25,7 +26,7 @@ namespace TUA
         public static void Init()
         {
 
-            handlers = new drpc.DiscordRP.EventHandlers();
+            handlers = new DiscordRP.EventHandlers();
             //asm.GetType("DiscordRP").GetMethod("Initialize", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { AppID, handlers, true, (string)null});
             DiscordRP.Initialize(AppID, ref handlers, true, (string)null);
             Reset(true);

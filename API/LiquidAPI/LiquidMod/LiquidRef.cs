@@ -14,7 +14,7 @@ namespace TUA.API.LiquidAPI.LiquidMod
         public int y;
         public Tile tile;        
 
-        public byte liquid
+        public byte liquidType
         {
             get
             {
@@ -24,6 +24,12 @@ namespace TUA.API.LiquidAPI.LiquidMod
             {
                 LiquidCore.liquidGrid[x, y] = value;
             }
+        }
+
+        public byte liquidAmount
+        {
+            get => tile.liquid;
+            set => tile.liquid = value;
         }
 
         public LiquidRef(int x, int y)
@@ -36,26 +42,26 @@ namespace TUA.API.LiquidAPI.LiquidMod
             {
                 if (tile.bTileHeader == 159)
                 {
-                    liquid = 0;
+                    liquidType = 0;
                 }
                 else if (tile.lava())
                 {
-                    liquid = 1;
+                    liquidType = 1;
                 }
                 else if (tile.honey())
                 {
-                    liquid = 2;
+                    liquidType = 2;
                 }
             }
             else
             {
-                liquid = 255;
+                liquidType = 255;
             }
         }
 
         public bool checkingLiquid()
         {
-            return liquid == 255;
+            return liquidType == 255;
         }
 
         public bool liquids(byte index)
@@ -65,11 +71,11 @@ namespace TUA.API.LiquidAPI.LiquidMod
                 switch (index)
                 {
                     case 0:
-                        return liquid == 0;
+                        return liquidType == 0;
                     case 1:
-                        return liquid == 1;
+                        return liquidType == 1;
                     case 2:
-                        return liquid == 2;
+                        return liquidType == 2;
                 }
             }
             return LiquidCore.liquidGrid[x, y][index];
@@ -77,7 +83,7 @@ namespace TUA.API.LiquidAPI.LiquidMod
 
         public byte liquidsType()
         {
-            return liquid;
+            return liquidType;
         }
 
         public void setLiquidsState(byte index, bool value)
@@ -87,17 +93,17 @@ namespace TUA.API.LiquidAPI.LiquidMod
                 switch (index)
                 {
                     case 0:
-                        liquid = 0;
+                        liquidType = 0;
                         tile.liquidType(0);
                         LiquidCore.liquidGrid[x, y][index] = value;
                         break;
                     case 1:
-                        liquid = 1;
+                        liquidType = 1;
                         tile.lava(value);
                         LiquidCore.liquidGrid[x, y][index] = value;
                         break;
                     case 2:
-                        liquid = 2;
+                        liquidType = 2;
                         tile.honey(value);
                         LiquidCore.liquidGrid[x, y][index] = value;
                         break;
@@ -105,12 +111,12 @@ namespace TUA.API.LiquidAPI.LiquidMod
             }
             else
             {
-                liquid = index;
+                liquidType = index;
                 LiquidCore.liquidGrid[x, y][index] = value;
             }
         }
 
-        public byte getLiquidLayer()
+        public byte getLiquidAmount()
         {
             return tile.liquid;
         }

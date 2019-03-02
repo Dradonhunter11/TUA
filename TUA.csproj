@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="API\CustomInventory\BasicInventory.cs" />
     <Compile Include="API\CustomInventory\ExtraSlot.cs" />
+    <Compile Include="API\CustomInventory\TileEntityContainer\Tank.cs" />
     <Compile Include="API\CustomInventory\UI\ChargingSlot.cs" />
     <Compile Include="API\CustomInventory\UI\FuelSlot.cs" />
     <Compile Include="API\CustomInventory\UI\InputOutputSlot.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="API\TUAModItem.cs" />
     <Compile Include="API\TUAModLegacyItem.cs" />
     <Compile Include="API\TUAModNPC.cs" />
+    <Compile Include="API\UI\LiquidTank.cs" />
     <Compile Include="API\UI\UIPanelTrigger.cs" />
     <Compile Include="API\UI\UIScrollingText.cs" />
     <Compile Include="API\VoidClass\VoidDamageGlobalNPC.cs" />
@@ -163,6 +165,7 @@
     <Compile Include="API\VoidClass\VoidDamagePlayer.cs" />
     <Compile Include="API\VoidClass\VoidDamageProjectile.cs" />
     <Compile Include="API\VoidClass\VoidUtils.cs" />
+    <Compile Include="API\Wrapper\SpriteSheet.cs" />
     <Compile Include="Backgrounds\Meteoridon\MeteoridonBG.cs" />
     <Compile Include="Backgrounds\Solar\SolarUnderBG.cs" />
     <Compile Include="BaseMod\Base\BaseAI.cs" />
@@ -349,6 +352,7 @@
     <Compile Include="UIHijack\WorldSelection\NewUIWorldSelect.cs" />
     <Compile Include="UIHijack\WorldSelection\NewUIWorldListItem.cs" />
     <Compile Include="UIHijack\WorldSelection\WorldPreLoader.cs" />
+    <Compile Include="UI\Cobblegen\CobbleGenUI.cs" />
     <Compile Include="Walls\Hell\AshWall.cs" />
     <Compile Include="Walls\Wasteland\WastestoneBrickWall.cs" />
     <Compile Include="World\OreSpread.cs" />

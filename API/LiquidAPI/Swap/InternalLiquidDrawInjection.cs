@@ -46,8 +46,9 @@ namespace TUA.API.LiquidAPI.Swap
 
         public void load()
         {
-            IL.Terraria.GameContent.Liquid.LiquidRenderer.InternalDraw += ILEdit;
-            //On.Terraria.GameContent.Liquid.LiquidRenderer.InternalPrepareDraw += LiquidRendererExtension.InternalPrepareDraw;
+            //IL.Terraria.GameContent.Liquid.LiquidRenderer.InternalDraw += ILEdit;
+            On.Terraria.GameContent.Liquid.LiquidRenderer.InternalPrepareDraw += LiquidRendererExtension.InternalPrepareDraw;
+            On.Terraria.GameContent.Liquid.LiquidRenderer.InternalDraw += InternalDraw;
         }
 
         public void unload()

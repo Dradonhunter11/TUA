@@ -97,7 +97,7 @@ namespace TUA.API.LiquidAPI.Swap
                         float liquidLayer = (float)(256 - (int)Main.tile[x, y].liquid);
                         liquidLayer /= 32f;
                         int textureIndex = 0;
-                        if (liquid.liquid == 1)
+                        if (liquid.liquidType == 1)
                         {
                             if (Main.drewLava)
                             {
@@ -127,7 +127,7 @@ namespace TUA.API.LiquidAPI.Swap
                             textureIndex = 1;
                         }
                         //if liquid is honey, it give it's proper texture index, aka 12
-                        else if (liquid.liquid == 2)
+                        else if (liquid.liquidType == 2)
                         {
                             textureIndex = 11;
                         }
@@ -161,7 +161,7 @@ namespace TUA.API.LiquidAPI.Swap
                             {
                                 sourceRectangle = new Microsoft.Xna.Framework.Rectangle(16, 1280, sourceRectangle.Width, sourceRectangle.Height);
                             }
-                            if (LiquidCore.grid[x, y + 1].getLiquidLayer() < 245 && (!Main.tile[x, y + 1].nactive() || !Main.tileSolid[(int)Main.tile[x, y + 1].type] || Main.tileSolidTop[(int)Main.tile[x, y + 1].type]))
+                            if (LiquidCore.grid[x, y + 1].getLiquidAmount() < 245 && (!Main.tile[x, y + 1].nactive() || !Main.tileSolid[(int)Main.tile[x, y + 1].type] || Main.tileSolidTop[(int)Main.tile[x, y + 1].type]))
                             {
                                 float num18 = (float)(256 - (int)Main.tile[x, y + 1].liquid);
                                 num18 /= 32f;
@@ -175,7 +175,7 @@ namespace TUA.API.LiquidAPI.Swap
                                     Opacity = 0.35f;
                                 }
                                 float num19 = liquidLayer / 2f;
-                                if (LiquidCore.grid[x, y + 1].getLiquidLayer() < 200)
+                                if (LiquidCore.grid[x, y + 1].getLiquidAmount() < 200)
                                 {
                                     if (bg)
                                     {
@@ -188,7 +188,7 @@ namespace TUA.API.LiquidAPI.Swap
                                         Opacity = 0.5f;
                                     }
                                     else*/
-                                    if (LiquidCore.grid[x, y - 1].getLiquidLayer() > 0)
+                                    if (LiquidCore.grid[x, y - 1].getLiquidAmount() > 0)
                                     {
                                         drawingPosition = new Vector2((float)(x * 16), (float)(y * 16 + 4));
                                         sourceRectangle = new Microsoft.Xna.Framework.Rectangle(0, 4, 16, 12);
@@ -198,7 +198,7 @@ namespace TUA.API.LiquidAPI.Swap
                                             sourceRectangle = new Microsoft.Xna.Framework.Rectangle(16, 1280 + 4, sourceRectangle.Width, sourceRectangle.Height);
                                         }
                                     }
-                                    else if (LiquidCore.grid[x, y + 1].getLiquidLayer() > 0)
+                                    else if (LiquidCore.grid[x, y + 1].getLiquidAmount() > 0)
                                     {
                                         drawingPosition = new Vector2((float)(x * 16), (float)(y * 16 + (int)liquidLayer * 2 + (int)num18 * 2));
                                         sourceRectangle = new Microsoft.Xna.Framework.Rectangle(0, 4, 16, 16 - (int)liquidLayer * 2);
@@ -290,7 +290,7 @@ namespace TUA.API.LiquidAPI.Swap
                                 if (Main.rand.Next(20000) < num21)
                                 {
                                     Microsoft.Xna.Framework.Color newColor = new Microsoft.Xna.Framework.Color(255, 255, 255);
-                                    if (LiquidCore.grid[x, y].liquid == 2)
+                                    if (LiquidCore.grid[x, y].liquidType == 2)
                                     {
                                         newColor = new Microsoft.Xna.Framework.Color(255, 255, 50);
                                     }
@@ -298,7 +298,7 @@ namespace TUA.API.LiquidAPI.Swap
                                     Main.dust[num22].velocity *= 0f;
                                 }
                             }
-                            if (liquid.liquid == 2)
+                            if (liquid.liquidType == 2)
                             {
                                 Opacity *= 1.6f;
                                 if (Opacity > 1f)
@@ -307,7 +307,7 @@ namespace TUA.API.LiquidAPI.Swap
                                 }
                             }
                             
-                            if (liquid.liquid == 1)
+                            if (liquid.liquidType == 1)
                             {
                                 Opacity *= 1.8f;
                                 if (Opacity > 1f)
@@ -2766,7 +2766,7 @@ namespace TUA.API.LiquidAPI.Swap
                                         if (!tile3r.noLiquid() && num108 != 1 && num108 != 3)
                                         {
                                             flag8 = true;
-                                            switch (tile3r.liquid)
+                                            switch (tile3r.liquidType)
                                             {
                                                 case 0:
                                                     flag12 = true;
@@ -2795,7 +2795,7 @@ namespace TUA.API.LiquidAPI.Swap
                                         if (!tile2r.noLiquid() && num108 != 2 && num108 != 4)
                                         {
                                             flag9 = true;
-                                            switch (tile2r.liquid)
+                                            switch (tile2r.liquidType)
                                             {
                                                 case 0:
                                                     flag12 = true;
@@ -2824,7 +2824,7 @@ namespace TUA.API.LiquidAPI.Swap
                                         if (!tile4r.noLiquid()&& num108 != 3 && num108 != 4)
                                         {
                                             flag10 = true;
-                                            switch (tile4r.liquid)
+                                            switch (tile4r.liquidType)
                                             {
                                                 case 0:
                                                     flag12 = true;
@@ -2854,7 +2854,7 @@ namespace TUA.API.LiquidAPI.Swap
                                             {
                                                 flag11 = true;
                                             }
-                                            switch (tile5r.liquid)
+                                            switch (tile5r.liquidType)
                                             {
                                                 case 0:
                                                     flag12 = true;

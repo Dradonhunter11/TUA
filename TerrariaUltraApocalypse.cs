@@ -2,14 +2,12 @@ using BiomeLibrary.API;
 using Dimlibs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoMod.RuntimeDetour.HookGen;
+using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using drpc;
-using log4net;
-using Mono.Cecil;
 using Terraria;
 using Terraria.GameContent.UI.States;
 using Terraria.Graphics.Effects;
@@ -18,15 +16,13 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.Utilities;
-using TUA.API;
 using TUA.API.Dev;
 using TUA.API.EventManager;
-using TUA.API.Experimental;
 using TUA.API.Injection;
 using TUA.API.LiquidAPI;
 using TUA.API.LiquidAPI.Test;
-using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 using TUA.API.TerraEnergy.MachineRecipe.Forge;
+using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 using TUA.Configs;
 using TUA.CustomScreenShader;
 using TUA.CustomSkies;
@@ -34,13 +30,11 @@ using TUA.Dimension.Sky;
 using TUA.Items.EoA;
 using TUA.Items.Meteoridon.Materials;
 using TUA.NPCs;
+using TUA.Raids;
 using TUA.Raids.UI;
 using TUA.UIHijack.InGameUI.NPCDialog;
 using TUA.UIHijack.MainMenu;
-using TUA.UIHijack.MainMenu.TUAOptionMenu;
 using TUA.UIHijack.WorldSelection;
-using TUA.Raids;
-using MonoMod.RuntimeDetour.HookGen;
 
 namespace TUA
 {
@@ -71,6 +65,9 @@ namespace TUA
         private static string animate = GetAnimatedTitle();
 
         private int animationTimer = 25;
+
+        private int titleTimer = 0;
+        private Title currentTitle;
 
         public TerrariaUltraApocalypse()
         {
@@ -116,8 +113,8 @@ namespace TUA
 
                 SolarFog = GetTexture("CustomScreenShader/HeavyMist");
 
-                //DRPSystem.Init();
-                //Main.OnTick += DRPSystem.Update;
+                /*DRPSystem.Init();
+                Main.OnTick += DRPSystem.Update;*/
 
 
                 machineInterface = new UserInterface();
@@ -126,7 +123,7 @@ namespace TUA
 
                 AddFilter();
                 CreateTranslation();
-                
+
             }
 
             HookGenLoader();
@@ -226,11 +223,11 @@ namespace TUA
             MoonEventManagerWorld.moonEventList = null;
 
             //Remember to re enable it once it's fixed
-            /*if (!Main.dedServ)
+            if (!Main.dedServ)
             {
-                DRPSystem.Kill();
-                Main.OnTick -= DRPSystem.Update;
-            }*/
+                //DRPSystem.Kill();
+                //Main.OnTick -= DRPSystem.Update;
+            }
         }
 
         public override void AddRecipes()
@@ -337,8 +334,9 @@ namespace TUA
             }
             AnimateVersion();
             if (Main.gameMenu && Main.menuMode == 0 || (Main.menuMode == 888 && custom.customMenu))
+            {
                 SetTheme();
-
+            }
         }
 
         private void UpdateInGameMusic(ref int music, ref MusicPriority musicPriority)
@@ -361,8 +359,9 @@ namespace TUA
                 music = MusicID.TheTowers;
                 Main.musicBox = 36;
                 musicPriority = MusicPriority.Environment;
-            } else if (Main.LocalPlayer.position.Y / 16 > Main.maxTilesY - 200 &&
-                       Main.ActiveWorldFileData.HasCrimson)
+            }
+            else if (Main.LocalPlayer.position.Y / 16 > Main.maxTilesY - 200 &&
+                     Main.ActiveWorldFileData.HasCrimson)
             {
                 music = this.GetSoundSlot(SoundType.Music, "Sounds/Music/Exclusion_Zone");
                 musicPriority = MusicPriority.Environment;
@@ -403,7 +402,7 @@ namespace TUA
                     InterfaceScaleType.UI)
                 );
             }
-            /*
+
             if (npcDialog != -1)
             {
                 layers[npcDialog] = new LegacyGameInterfaceLayer("Vanilla: NPC / Sign Dialog", delegate
@@ -411,7 +410,7 @@ namespace TUA
                     NewNPCChatDraw.GUIChatDraw();
                     return true;
                 }, InterfaceScaleType.UI);
-            }*/
+            }
         }
 
         public override object Call(params object[] args)
@@ -424,7 +423,7 @@ namespace TUA
             return base.Call(args);
         }
 
-        
+
 
         private void AddAllPreHardmodeRecipeFurnace()
         {
@@ -572,7 +571,9 @@ namespace TUA
             {
                 string key = allKey[i];
                 if (key != custom.newMainMenuTheme)
+                {
                     Filters.Scene[key].Deactivate();
+                }
             }
 
 
@@ -581,7 +582,9 @@ namespace TUA
             {
                 string key = allKey[i];
                 if (key != TerrariaUltraApocalypse.custom.newMainMenuTheme)
+                {
                     SkyManager.Instance.Deactivate(key);
+                }
             }
 
             Main.worldSurface = 565;
@@ -593,12 +596,21 @@ namespace TUA
                         return;
                     default:
                         if (Filters.Scene[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
+                        {
                             Filters.Scene.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
+                        }
+
                         if (SkyManager.Instance[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
+                        {
                             SkyManager.Instance.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
+                        }
+
                         if (Overlays.Scene[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
+                        {
                             Overlays.Scene.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme,
                                 Vector2.Zero - new Vector2(0f, 10f), new object[0]);
+                        }
+
                         break;
                 }
             }
@@ -614,6 +626,85 @@ namespace TUA
             Main.tile = new Tile[25200, 9600];
             Main.maxTilesX = 25200;
             Main.maxTilesY = 9600;*/
+        }
+
+        public override void PostDrawInterface(SpriteBatch spriteBatch)
+        {
+            if (currentTitle.active)
+            {
+                titleTimer--;
+                currentTitle.Draw(spriteBatch, titleTimer);
+            }
+        }
+
+        public void SetTitle(string text, string subText, Color textColor, Color subTextColor, DynamicSpriteFont font, int timer = 30, float baseOpacity = 1f, bool fadeEffect = false)
+        {
+            titleTimer = timer;
+            currentTitle = new Title(text, subText, textColor, subTextColor, font, timer, baseOpacity, fadeEffect);
+        }
+
+        protected struct Title
+        {
+            internal string text;
+            internal string subText;
+            internal Color textColor;
+            internal Color subTextColor;
+            internal DynamicSpriteFont font;
+            internal float baseOpacity;
+            internal float currentOpacity;
+            internal bool fadeEffect;
+            internal int maxTimer;
+            internal bool active;
+            
+
+            public Title(string text, string subText, Color textColor, Color subTextColor, DynamicSpriteFont font, int maxTimer = 30, float baseOpacity = 1, bool fadeEffect = true)
+            {
+                this.text = text;
+                this.subText = subText;
+                this.textColor = textColor;
+                this.subTextColor = subTextColor;
+                this.font = font;
+                this.baseOpacity = baseOpacity;
+                this.fadeEffect = fadeEffect;
+                this.maxTimer = maxTimer;
+                this.currentOpacity = 0;
+                this.active = true;
+            }
+
+            public void Draw(SpriteBatch sb, int currentTimer)
+            {
+                
+                Vector2 textSize = font.MeasureString(text) * 1.5f;
+                Vector2 subTextSize = font.MeasureString(subText) * 0.9f;
+
+                float top = Main.screenHeight / 2 - 50;
+                float bottom = Main.screenHeight / 2 + 50;
+                float textPositionLeft = Main.screenWidth / 2 - textSize.X / 2;
+                float subTextPositionLeft = Main.screenWidth / 2 - subTextSize.X / 2;
+
+                if (fadeEffect)
+                {
+                    if (currentTimer > maxTimer - 10 && currentOpacity < baseOpacity)
+                    {
+                        currentOpacity += 0.1f;
+                    } else if(currentTimer < 10)
+                    {
+                        currentOpacity -= 0.1f;
+                    }
+                }
+                else
+                {
+                    currentOpacity = baseOpacity;
+                }
+
+                if (currentTimer == 0)
+                {
+                    active = false;
+                }
+
+                Utils.DrawBorderStringFourWay(sb, font, text, textPositionLeft, top, textColor * currentOpacity, Color.Gray * currentOpacity, Vector2.Zero, 1.5f);
+                Utils.DrawBorderStringFourWay(sb, font, subText, subTextPositionLeft, bottom, subTextColor * currentOpacity, Color.Gray * currentOpacity, Vector2.Zero, 0.9f);
+            }
         }
     }
 }
