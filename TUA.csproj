@@ -267,7 +267,7 @@
     <Compile Include="MoonEvent\ApocalypseMoon.cs" />
     <Compile Include="MoonEvent\ApocalypseWMoon.cs" />
     <Compile Include="NPCs\AI\Worm.cs" />
-    <Compile Include="NPCs\Gods\EoA\Eye_of_ApocalypseNew.cs" />
+    <Compile Include="NPCs\Gods\EoA\Eye_of_Apocalypse.cs" />
     <Compile Include="Dimension\Sky\TUACustomSky.cs" />
     <Compile Include="NPCs\NewBiome\Wasteland\MutatedMass\HeartOfTheWasteland.cs" />
     <Compile Include="NPCs\NewBiome\Wasteland\MutatedSludge.cs" />
