@@ -279,8 +279,9 @@ namespace TUA
 					if (item != null && item.type == types[m2] && item.stack >= counts[m2]) { foundItem[m2] = true; indexArray[m2] = m; }
 				}
 			}
-			foreach(bool f in foundItem) if(!f) return false;
-			return true;
+            for (int i = 0; i < foundItem.Length; i++) if (!foundItem[i]) return false;
+
+            return true;
 		}
 
 		public static bool HasItem(Player player, int type, int count = 1, bool includeAmmo = false, bool includeCoins = false)
@@ -380,9 +381,10 @@ namespace TUA
 		 */
 		public static bool IsInSet(Mod mod, string setName, params Item[] items)
 		{
-			foreach (Item item in items)
+            for (int i = 0; i < items.Length; i++)
 			{
-				if (item == null || item.IsBlank()) return false; //items in the list cannot be null!
+                Item item = items[i];
+                if (item == null || item.IsBlank()) return false; //items in the list cannot be null!
 				if(!item.Name.StartsWith(setName)) return false;	
 				if(mod != null && item.modItem != null && !(item.modItem.mod.Name.ToLower().Equals(mod.Name.ToLower()))) return false;
 			}
@@ -436,9 +438,10 @@ namespace TUA
 					Item item = player.armor[m];
 					if (item != null && !item.IsBlank())
 					{
-						foreach (int type in types)
+                        for (int i = 0; i < types.Length; i++)
 						{
-							if (item.type == type) { index = m; social = true; if (oneOf) { return true; } else { trueCount++; } }
+                            int type = types[i];
+                            if (item.type == type) { index = m; social = true; if (oneOf) { return true; } else { trueCount++; } }
 						}
 					}
 				}
@@ -450,9 +453,10 @@ namespace TUA
 					Item item = player.armor[m];
 					if (item != null && !item.IsBlank())
 					{
-						foreach (int type in types)
+                        for (int i = 0; i < types.Length; i++)
 						{
-							if (item.type == type) { index = m; social = false; if (oneOf) { return true; } else { trueCount++; } }
+                            int type = types[i];
+                            if (item.type == type) { index = m; social = false; if (oneOf) { return true; } else { trueCount++; } }
 						}
 					}
 				}

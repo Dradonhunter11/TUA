@@ -73,8 +73,9 @@ namespace TUA.API.EventManager
             if (IsActive)
             {
                 pool.Clear();
-                foreach (var enemy in enemyWave[waveCount])
+                for (int i = 0; i < enemyWave[waveCount].Count; i++)
                 {
+                    Tuple<int, float, int> enemy = enemyWave[waveCount][i];
                     pool.Add(enemy.Item1, enemy.Item2);
                 }
             }

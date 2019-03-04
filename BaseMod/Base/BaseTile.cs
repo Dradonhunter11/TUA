@@ -47,9 +47,10 @@ namespace TUA
 			 Chest[] chests = GetVanillaChestsNear(origin, distance, chestStyles, special);
 			 if (chests.Length == 0) { return null; }
 			 Chest current = null;
-			 foreach (Chest chest in chests)
+            for (int i = 0; i < chests.Length; i++)
 			 {
-				 float dist = Vector2.Distance(origin, new Vector2(chest.x * 16, chest.y * 16));
+                Chest chest = chests[i];
+                float dist = Vector2.Distance(origin, new Vector2(chest.x * 16, chest.y * 16));
 				 if(distance == -1 || dist < distance)
 				 {
 					 distance = dist; current = chest;
@@ -152,9 +153,10 @@ namespace TUA
             Tile tile = Main.tile[x, y];
             if(tile != null && tile.active() && tile.type == 21)
             {
-				foreach (int chestStyle in chestStyles)
+                for (int i = 0; i < chestStyles.Length; i++)
 				{
-					if (tile.frameX == (short)(36 * chestStyle) || tile.frameX == (short)(36 * chestStyle) + 18)
+                    int chestStyle = chestStyles[i];
+                    if (tile.frameX == (short)(36 * chestStyle) || tile.frameX == (short)(36 * chestStyle) + 18)
 					{
 						return true;
 					}
@@ -2398,15 +2400,17 @@ namespace TUA
                     addedTile = false;
                     if (tile.active())
                     {
-                        foreach (int i in tileTypes)
+                        for (int i1 = 0; i1 < tileTypes.Length; i1++)
                         {
+                            int i = tileTypes[i1];
                             if (tile.type == i) { tileCount++; addedTile = true; break; }
                         }
                     }
                     if (!addedTile)
                     {
-                        foreach (int i in wallTypes)
+                        for (int i1 = 0; i1 < wallTypes.Length; i1++)
                         {
+                            int i = wallTypes[i1];
                             if (tile.wall == i) { tileCount++; break; }
                         }
                     }
@@ -2431,8 +2435,9 @@ namespace TUA
                     if (x2 < 0 || y2 < 0 || x2 > Main.maxTilesX || y2 > Main.maxTilesY) { continue; }
                     Tile tile = Main.tile[x2, y2];
                     if (tile == null) { continue; }
-                    foreach (int i in wallTypes)
+                    for (int i1 = 0; i1 < wallTypes.Length; i1++)
                     {
+                        int i = wallTypes[i1];
                         if (tile.wall == i) { wallCount++; break; }
                     }
                 }
@@ -2455,8 +2460,9 @@ namespace TUA
                     if (x2 < 0 || y2 < 0 || x2 > Main.maxTilesX || y2 > Main.maxTilesY) { continue; }
                     Tile tile = Main.tile[x2, y2];
                     if (tile == null || !tile.active()) { continue; }
-                    foreach (int i in tileTypes)
+                    for (int i1 = 0; i1 < tileTypes.Length; i1++)
                     {
+                        int i = tileTypes[i1];
                         if (tile.type == i) { tileCount++; break; }
                     }
                 }

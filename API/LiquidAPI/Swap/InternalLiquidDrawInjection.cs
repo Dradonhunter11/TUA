@@ -668,8 +668,9 @@ namespace TUA.API.LiquidAPI.Swap
             {
                 Object[] waveObject = {_waveMask, _drawArea};
                 MethodInfo[] methodArray = waveFilterInfo.GetOtherMethods();
-                foreach (MethodInfo m in methodArray)
+                for (int i = 0; i < methodArray.Length; i++)
                 {
+                    MethodInfo m = methodArray[i];
                     m.Invoke(LiquidRenderer.Instance, waveObject);
                 }
             }

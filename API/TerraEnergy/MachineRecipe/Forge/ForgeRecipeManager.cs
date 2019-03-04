@@ -38,8 +38,9 @@ namespace TUA.API.TerraEnergy.MachineRecipe.Forge
 
         public bool validRecipe(Item[] ingredient)
         {
-            foreach (ForgeRecipe i in forgeRecipeList)
+            for (int i1 = 0; i1 < forgeRecipeList.Count; i1++)
             {
+                ForgeRecipe i = forgeRecipeList[i1];
                 if (i.checkItem(ingredient) && i.checkQuantity(ingredient))
                 {
                     currentRecipe = i;

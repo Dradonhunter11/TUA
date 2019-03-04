@@ -24,8 +24,9 @@ namespace TUA.Items.Block
             {
                 list = new Item[5];
             }
-            foreach (Item t in Main.item)
+            for (int i = 0; i < Main.item.Length; i++)
             {
+                Item t = Main.item[i];
                 if (t.position.X == Position.X && t.position.Y == Position.Y + 1)
                 {
                     absorb(t);

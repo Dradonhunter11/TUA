@@ -67,17 +67,19 @@ namespace TUA.API.LiquidAPI
 
 		public static void PreDrawValue(ref bool bg, ref int style, ref float Alpha)
 		{
-			foreach (ModLiquid liquid in liquidList)
+            for (int i = 0; i < liquidList.Count; i++)
 			{
-				liquid.PreDraw(Main.tileBatch);
+                ModLiquid liquid = liquidList[i];
+                liquid.PreDraw(Main.tileBatch);
 			}
 		}
 
 		public static void Update()
 		{
-			foreach (ModLiquid liquid in liquidList)
+            for (int i = 0; i < liquidList.Count; i++)
 			{
-				liquid.Update();
+                ModLiquid liquid = liquidList[i];
+                liquid.Update();
 			}
 		}
 

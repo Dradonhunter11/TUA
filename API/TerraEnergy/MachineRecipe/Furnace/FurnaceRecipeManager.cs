@@ -42,8 +42,9 @@ namespace TUA.API.TerraEnergy.MachineRecipe.Furnace
 
         public bool validRecipe(Item ingredient)
         {
-            foreach (FurnaceRecipe i in furnaceRecipeList)
+            for (int i1 = 0; i1 < furnaceRecipeList.Count; i1++)
             {
+                FurnaceRecipe i = furnaceRecipeList[i1];
                 if (i.checkItem(ingredient) && i.checkQuantity(ingredient.stack))
                 {
                     currentRecipe = i;

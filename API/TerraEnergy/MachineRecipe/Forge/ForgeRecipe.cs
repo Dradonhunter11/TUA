@@ -52,8 +52,9 @@ namespace TUA.API.TerraEnergy.MachineRecipe.Forge
         internal bool checkItem(Item[] ingredients)
         {
             string ingredientList = "";
-            foreach (Item i in ingredients)
+            for (int i1 = 0; i1 < ingredients.Length; i1++)
             {
+                Item i = ingredients[i1];
                 if (i != null)
                 {
                     ingredientList += i.Name + " ";
@@ -66,8 +67,9 @@ namespace TUA.API.TerraEnergy.MachineRecipe.Forge
         {
             bool ingredientFlag = false;
             bool catalyserFlag = false;
-            foreach (Item i in ingredients)
+            for (int i1 = 0; i1 < ingredients.Length; i1++)
             {
+                Item i = ingredients[i1];
                 if (i.Name == ingredient.Name && i.stack >= ingredient.stack)
                 {
                     ingredientFlag = true;

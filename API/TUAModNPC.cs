@@ -43,7 +43,8 @@ namespace TUA.API
 
         public static void SpawnHotW()
         {
-            foreach(NPC npc in Main.npc) {
+            for (int i = 0; i < Main.npc.Length; i++) {
+                NPC npc = Main.npc[i];
                 if (npc.modNPC is HeartOfTheWasteland)
                 {
                     HeartOfTheWasteland boss = npc.modNPC as HeartOfTheWasteland;

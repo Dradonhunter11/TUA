@@ -33,8 +33,9 @@ namespace TUA.API.TerraEnergy.TileEntities
         public override void SaveEntity(TagCompound tag)
         {
             int itemSlotId = 0;
-            foreach (var extraSlot in slot)
+            for (int i = 0; i < slot.Length; i++)
             {
+                ExtraSlot extraSlot = slot[i];
                 tag.Add("slot" + 0, extraSlot.getItem(true));
                 itemSlotId++;
             }
@@ -44,8 +45,9 @@ namespace TUA.API.TerraEnergy.TileEntities
         {
             InitializeItemSlot();
             int itemSlotId = 0;
-            foreach (var extraSlot in slot)
+            for (int i = 0; i < slot.Length; i++)
             {
+                ExtraSlot extraSlot = slot[i];
                 Item item = tag.Get<Item>("slot" + itemSlotId);
                 SetAir(ref item);
                 extraSlot.setItem(ref item);
