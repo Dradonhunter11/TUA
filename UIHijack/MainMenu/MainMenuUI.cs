@@ -67,8 +67,9 @@ namespace TUA.UIHijack.MainMenu
             if (currentWindowsSize != new Vector2(Main.screenWidth, Main.screenHeight))
             {
                 currentWindowsSize = windowsSize;
-                foreach (UIElement element in this.Elements)
+                for (int i = 0; i < Elements.Count; i++)
                 {
+                    UIElement element = Elements[i];
                     element.Recalculate();
                 }
             }
@@ -76,13 +77,14 @@ namespace TUA.UIHijack.MainMenu
 
         private void AppendAllButton()
         {
-            foreach (var menuButton in _menuButtonsList)
+            for (int i = 0; i < _menuButtonsList.Count; i++)
             {
+                MenuButton menuButton = _menuButtonsList[i];
                 Append(menuButton);
             }
         }
 
-        public void load()
+        public void Load()
         {
             IL.Terraria.Main.DrawMenu += HookMenu;
         }

@@ -1,14 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using drpc;
-using drpc.drpc;
 using log4net;
 using Terraria;
-using Terraria.ModLoader.IO;
 
 namespace TUA
 {
@@ -85,7 +79,7 @@ namespace TUA
             presence.largeImageKey = "logo";
             presence.smallImageText = null;
             presence.smallImageKey = null;
-            presence.details = "In Main Menu " + ((Environment.Is64BitProcess) ? "(64bit)" : "(32bit)");
+            presence.details = Environment.Is64BitProcess ? "In Main Menu (64bit)" : "In Main Menu";
             presence.state = null; 
             if (timestamp)
             {

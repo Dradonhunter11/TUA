@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader.IO;
 using TUA.API.TerraEnergy.Block.FunctionnalBlock;
@@ -14,7 +9,7 @@ namespace TUA.API.TerraEnergy.TileEntities
 
     class EnergyCollectorEntity : StorageEntity
     {
-        private int drainRange = 50;
+        private readonly int drainRange = 50;
         private int maxEnergy = 100000;
         private CapacitorEntity boundCapacitor;
 

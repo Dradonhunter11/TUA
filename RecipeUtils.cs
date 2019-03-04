@@ -18,8 +18,10 @@ namespace TUA
             RecipeFinder rf = new RecipeFinder();
             rf.SetResult(itemID);
 
-            foreach (Recipe r in rf.SearchRecipes())
+            List<Recipe> list = rf.SearchRecipes();
+            for (int i = 0; i < list.Count; i++)
             {
+                Recipe r = list[i];
                 RecipeEditor re = new RecipeEditor(r);
                 re.DeleteRecipe();
             }
@@ -28,8 +30,9 @@ namespace TUA
         public static void AddRecipe(Mod mod, List<Tuple<int, int>> ingredient, Tuple<int, int> result)
         {
             ModRecipe r = new ModRecipe(mod);
-            foreach (var tuple in ingredient)
+            for (int i = 0; i < ingredient.Count; i++)
             {
+                Tuple<int, int> tuple = ingredient[i];
                 r.AddIngredient(tuple.Item1, tuple.Item2);
             }
             r.SetResult(result.Item1, result.Item2);
@@ -41,8 +44,10 @@ namespace TUA
             RecipeFinder rf = new RecipeFinder();
             rf.AddIngredient(ingredientToReplace);
 
-            foreach (Recipe r in rf.SearchRecipes())
+            List<Recipe> list = rf.SearchRecipes();
+            for (int i = 0; i < list.Count; i++)
             {
+                Recipe r = list[i];
                 Recipe recipe = r;
                 RecipeEditor re = new RecipeEditor(recipe);
                 
@@ -61,8 +66,10 @@ namespace TUA
             RecipeFinder rf = new RecipeFinder();
             rf.AddTile(TileID.Furnaces);
 
-            foreach (Recipe r in rf.SearchRecipes())
+            List<Recipe> list = rf.SearchRecipes();
+            for (int i = 0; i < list.Count; i++)
             {
+                Recipe r = list[i];
                 Recipe recipe = r;
                 if (recipe.requiredItem.Length == 1)
                 {
@@ -74,13 +81,14 @@ namespace TUA
             }
         }
 
-        public static void setBackAllRecipe()
+        /*
+        public static void SetBackAllRecipe()
         {
-            foreach (var recipe in removedRecipes)
+            for (int i = 0; i < removedRecipes.Count; i++)
             {
                 
             }
         }
-
+        */
     }
 }
