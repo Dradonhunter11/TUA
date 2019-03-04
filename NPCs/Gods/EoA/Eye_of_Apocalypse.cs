@@ -15,7 +15,7 @@ using TUA.NPCs.Gods.EoA;
 
 namespace TUA.NPCs.Gods.EoA
 {
-    public class Eye_of_ApocalypseNew : ModNPC
+    public class Eye_of_Apocalypse : ModNPC
     {
         private Player target => Main.player[npc.target];
         
@@ -65,6 +65,11 @@ namespace TUA.NPCs.Gods.EoA
             
             if (cutscenePhase != 6)
             {
+                if (cutscenePhase >= 1)
+                {
+                    SpawnCircleDust(10 * 16, DustID.Shadowflame);
+                }
+
                 ExecuteCutscene();
                 return;
             }
@@ -102,7 +107,6 @@ namespace TUA.NPCs.Gods.EoA
                 switch (cutscenePhase)
                 {
                     case 0:
-                        TerrariaUltraApocalypse.instance.SetTitle("Eye of Azathoth", "The god of destruction", Color.Red, Color.Black, Main.fontDeathText, 300, 1, true);
                         BaseUtility.Chat("<???> Who summoned this to this world again? It will be a pleasure to destroy them, like I did a long time ago.", Color.Black);
                         npc.GivenName = "???";
                         break;
@@ -157,6 +161,21 @@ namespace TUA.NPCs.Gods.EoA
             player = Main.LocalPlayer.GetModPlayer<TUAPlayer>();
             player.EoAPosition = screenEmplacement;
             player.EoApositionLock = lockCamera;
+        }
+
+        private void SpawnCircleDust(int radius, int dustType)
+        {
+            float x = 0;
+            float y = 0;
+            for (double circle = 0.0; circle < 360.0; circle += 2.0)
+            {
+                x = (float) (npc.Center.X + Math.Cos(circle) * radius);
+                y = (float) (npc.Center.Y + Math.Sin(circle) * radius);
+
+                Dust dust = Main.dust[Dust.NewDust(new Vector2(x, y), 2, 2, dustType, 0, 0, 0, Color.Black, 0.5f)];
+                dust.noGravity = true;
+                dust.fadeIn = 0f;
+            }
         }
     }
 }

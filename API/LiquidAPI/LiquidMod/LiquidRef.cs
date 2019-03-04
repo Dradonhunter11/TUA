@@ -1,84 +1,94 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 
 namespace TUA.API.LiquidAPI.LiquidMod
 {
-    class LiquidRef
+    internal class LiquidRef
     {
 
         public int x;
         public int y;
-        public Tile tile;        
+
+        public byte _liquidType;
+        public byte _liquidAmount;
+
+        public Tile tile;
 
         public byte liquidType
         {
             get
             {
-                return LiquidCore.liquidGrid[x, y];
+                return _liquidType;
             }
             set
             {
-                LiquidCore.liquidGrid[x, y] = value;
+                _liquidType = value;
             }
         }
 
         public byte liquidAmount
         {
-            get => tile.liquid;
-            set => tile.liquid = value;
+            get { return _liquidAmount; }
+            set
+            {
+                tile.liquid = value;
+                _liquidAmount = value;
+            }
+            
         }
 
         public LiquidRef(int x, int y)
         {
+            if (Main.tile[x, y] == null)
+            {
+                Main.tile[x, y] = new Tile();
+            }
             tile = Main.tile[x, y];
             this.x = x;
             this.y = y;
+            
 
             if (tile != null)
             {
                 if (tile.bTileHeader == 159)
                 {
-                    liquidType = 0;
+                    _liquidType = 0;
                 }
                 else if (tile.lava())
                 {
-                    liquidType = 1;
+                    _liquidType = 1;
                 }
                 else if (tile.honey())
                 {
-                    liquidType = 2;
+                    _liquidType = 2;
                 }
+                this._liquidType = tile.liquidType();
+                this._liquidAmount = tile.liquid;
             }
             else
             {
-                liquidType = 255;
+                _liquidType = 255;
             }
         }
 
-        public bool checkingLiquid()
+        public bool CheckingLiquid()
         {
             return liquidType == 255;
         }
 
-        public bool liquids(byte index)
+        public bool Liquids(byte index)
         {
-            if (index <= 2)
+
+            switch (index)
             {
-                switch (index)
-                {
-                    case 0:
-                        return liquidType == 0;
-                    case 1:
-                        return liquidType == 1;
-                    case 2:
-                        return liquidType == 2;
-                }
+                case 0:
+                    return tile.liquidType() == 0;
+                case 1:
+                    return tile.liquidType() == 1;
+                case 2:
+                    return tile.liquidType() == 2;
+                default:
+                    return LiquidCore.liquidGrid[x, y][index];
             }
-            return LiquidCore.liquidGrid[x, y][index];
         }
 
         public byte liquidsType()
@@ -86,42 +96,38 @@ namespace TUA.API.LiquidAPI.LiquidMod
             return liquidType;
         }
 
-        public void setLiquidsState(byte index, bool value)
+        public void SetLiquidsState(byte index, bool value)
         {
-            if (index <= 2)
+            switch (index)
             {
-                switch (index)
-                {
-                    case 0:
-                        liquidType = 0;
-                        tile.liquidType(0);
-                        LiquidCore.liquidGrid[x, y][index] = value;
-                        break;
-                    case 1:
-                        liquidType = 1;
-                        tile.lava(value);
-                        LiquidCore.liquidGrid[x, y][index] = value;
-                        break;
-                    case 2:
-                        liquidType = 2;
-                        tile.honey(value);
-                        LiquidCore.liquidGrid[x, y][index] = value;
-                        break;
-                }
-            }
-            else
-            {
-                liquidType = index;
-                LiquidCore.liquidGrid[x, y][index] = value;
+                case 0:
+                    _liquidType = 0;
+                    tile.liquidType(0);
+                    LiquidCore.liquidGrid[x, y][index] = value;
+                    break;
+                case 1:
+                    _liquidType = 1;
+                    tile.lava(value);
+                    LiquidCore.liquidGrid[x, y][index] = value;
+                    break;
+                case 2:
+                    _liquidType = 2;
+                    tile.honey(value);
+                    LiquidCore.liquidGrid[x, y][index] = value;
+                    break;
+                default:
+                    _liquidType = index;
+                    LiquidCore.liquidGrid[x, y][index] = value;
+                    break;
             }
         }
 
-        public byte getLiquidAmount()
+        public byte GetLiquidAmount()
         {
             return tile.liquid;
         }
 
-        public bool noLiquid()
+        public bool NoLiquid()
         {
             return tile.liquid == 0;
         }

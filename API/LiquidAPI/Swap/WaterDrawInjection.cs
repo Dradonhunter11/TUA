@@ -90,7 +90,7 @@ namespace TUA.API.LiquidAPI.Swap
                     {
                         Main.tile[x, y] = new Tile();
                     }
-                    if (!liquid.noLiquid() && (!Main.tile[x, y].nactive() || !Main.tileSolid[(int)Main.tile[x, y].type] || Main.tileSolidTop[(int)Main.tile[x, y].type]) && (Lighting.Brightness(x, y) > 0f || bg))
+                    if (!liquid.NoLiquid() && (!Main.tile[x, y].nactive() || !Main.tileSolid[(int)Main.tile[x, y].type] || Main.tileSolidTop[(int)Main.tile[x, y].type]) && (Lighting.Brightness(x, y) > 0f || bg))
                     {
                         Microsoft.Xna.Framework.Color color = Lighting.GetColor(x, y);
                         
@@ -138,7 +138,7 @@ namespace TUA.API.LiquidAPI.Swap
                         
                         for (byte b = 2; b < LiquidRegistery.liquidList.Count + 3; b = (byte)(b + 1))
                         {
-                            if (liquid.liquids(b))
+                            if (liquid.Liquids(b))
                             {
                                 textureIndex = 9 + b;
                             }
@@ -161,7 +161,7 @@ namespace TUA.API.LiquidAPI.Swap
                             {
                                 sourceRectangle = new Microsoft.Xna.Framework.Rectangle(16, 1280, sourceRectangle.Width, sourceRectangle.Height);
                             }
-                            if (LiquidCore.grid[x, y + 1].getLiquidAmount() < 245 && (!Main.tile[x, y + 1].nactive() || !Main.tileSolid[(int)Main.tile[x, y + 1].type] || Main.tileSolidTop[(int)Main.tile[x, y + 1].type]))
+                            if (LiquidCore.grid[x, y + 1].GetLiquidAmount() < 245 && (!Main.tile[x, y + 1].nactive() || !Main.tileSolid[(int)Main.tile[x, y + 1].type] || Main.tileSolidTop[(int)Main.tile[x, y + 1].type]))
                             {
                                 float num18 = (float)(256 - (int)Main.tile[x, y + 1].liquid);
                                 num18 /= 32f;
@@ -175,7 +175,7 @@ namespace TUA.API.LiquidAPI.Swap
                                     Opacity = 0.35f;
                                 }
                                 float num19 = liquidLayer / 2f;
-                                if (LiquidCore.grid[x, y + 1].getLiquidAmount() < 200)
+                                if (LiquidCore.grid[x, y + 1].GetLiquidAmount() < 200)
                                 {
                                     if (bg)
                                     {
@@ -188,7 +188,7 @@ namespace TUA.API.LiquidAPI.Swap
                                         Opacity = 0.5f;
                                     }
                                     else*/
-                                    if (LiquidCore.grid[x, y - 1].getLiquidAmount() > 0)
+                                    if (LiquidCore.grid[x, y - 1].GetLiquidAmount() > 0)
                                     {
                                         drawingPosition = new Vector2((float)(x * 16), (float)(y * 16 + 4));
                                         sourceRectangle = new Microsoft.Xna.Framework.Rectangle(0, 4, 16, 12);
@@ -198,7 +198,7 @@ namespace TUA.API.LiquidAPI.Swap
                                             sourceRectangle = new Microsoft.Xna.Framework.Rectangle(16, 1280 + 4, sourceRectangle.Width, sourceRectangle.Height);
                                         }
                                     }
-                                    else if (LiquidCore.grid[x, y + 1].getLiquidAmount() > 0)
+                                    else if (LiquidCore.grid[x, y + 1].GetLiquidAmount() > 0)
                                     {
                                         drawingPosition = new Vector2((float)(x * 16), (float)(y * 16 + (int)liquidLayer * 2 + (int)num18 * 2));
                                         sourceRectangle = new Microsoft.Xna.Framework.Rectangle(0, 4, 16, 16 - (int)liquidLayer * 2);
@@ -2763,7 +2763,7 @@ namespace TUA.API.LiquidAPI.Swap
 
                                         // Search note: Slope liquid drawing
 
-                                        if (!tile3r.noLiquid() && num108 != 1 && num108 != 3)
+                                        if (!tile3r.NoLiquid() && num108 != 1 && num108 != 3)
                                         {
                                             flag8 = true;
                                             switch (tile3r.liquidType)
@@ -2780,7 +2780,7 @@ namespace TUA.API.LiquidAPI.Swap
                                                 default:
                                                     for (byte by = 2; by < LiquidRegistery.liquidList.Count + 3; by = (byte)(by + 1))
                                                     {
-                                                        if (tile3r.liquids(by))
+                                                        if (tile3r.Liquids(by))
                                                         {
                                                             liquidTextureIndex = 9 + by;
                                                         }
@@ -2792,7 +2792,7 @@ namespace TUA.API.LiquidAPI.Swap
                                                 num106 = (int)tile3.liquid;
                                             }
                                         }
-                                        if (!tile2r.noLiquid() && num108 != 2 && num108 != 4)
+                                        if (!tile2r.NoLiquid() && num108 != 2 && num108 != 4)
                                         {
                                             flag9 = true;
                                             switch (tile2r.liquidType)
@@ -2809,7 +2809,7 @@ namespace TUA.API.LiquidAPI.Swap
                                                 default:
                                                     for (byte by = 2; by < LiquidRegistery.liquidList.Count + 3; by = (byte)(by + 1))
                                                     {
-                                                        if (tile2r.liquids(by))
+                                                        if (tile2r.Liquids(by))
                                                         {
                                                             liquidTextureIndex = 9 + by;
                                                         }
@@ -2821,7 +2821,7 @@ namespace TUA.API.LiquidAPI.Swap
                                                 num106 = (int)tile2.liquid;
                                             }
                                         }
-                                        if (!tile4r.noLiquid()&& num108 != 3 && num108 != 4)
+                                        if (!tile4r.NoLiquid()&& num108 != 3 && num108 != 4)
                                         {
                                             flag10 = true;
                                             switch (tile4r.liquidType)
@@ -2838,7 +2838,7 @@ namespace TUA.API.LiquidAPI.Swap
                                                 default:
                                                     for (byte by = 2; by < LiquidRegistery.liquidList.Count + 3; by = (byte)(by + 1))
                                                     {
-                                                        if (tile4r.liquids(by))
+                                                        if (tile4r.Liquids(by))
                                                         {
                                                             liquidTextureIndex = 9 + by;
                                                         }
@@ -2848,7 +2848,7 @@ namespace TUA.API.LiquidAPI.Swap
                                         }
 
                                         
-                                        if (!tile5r.noLiquid() && num108 != 1 && num108 != 2)
+                                        if (!tile5r.NoLiquid() && num108 != 1 && num108 != 2)
                                         {
                                             if (tile5.liquid > 240)
                                             {
@@ -2868,7 +2868,7 @@ namespace TUA.API.LiquidAPI.Swap
                                                 default:
                                                     for (byte by = 2; by < LiquidRegistery.liquidList.Count + 3; by = (byte)(by + 1))
                                                     {
-                                                        if (tile5r.liquids(by))
+                                                        if (tile5r.Liquids(by))
                                                         {
                                                             liquidTextureIndex = 9 + by;
                                                         }

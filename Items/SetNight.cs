@@ -1,8 +1,10 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 using TUA.API.Dev;
+using TUA.API.LiquidAPI.LiquidMod;
 using TUA.Dimension.MicroBiome;
 
 namespace TUA.Items
@@ -15,7 +17,7 @@ namespace TUA.Items
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Dev Null'\'");
+            DisplayName.SetDefault("Dev Null\\");
             Tooltip.SetDefault("Dev item");
         }
 
@@ -45,11 +47,13 @@ namespace TUA.Items
             //Main.dayTime = false;
             //TUAWorld.apocalypseMoon = true;
             //Biomes<StardustFrozenForest>.Place((int)player.Center.X / 16, (int)player.Center.Y / 16, new StructureMap());
-            //LiquidRef liquid = LiquidCore.grid[Player.tileTargetX, Player.tileTargetY];
-            //Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 240;
-            //liquid.setLiquidsState(3, true);
-
-            Biomes<SolarVolcano>.Place((int) player.Center.X / 16, (int) player.Center.Y / 16 - 4, new StructureMap());
+            Main.PlaySound(19, (int)Main.LocalPlayer.position.X, (int)Main.LocalPlayer.position.Y, 1, 1f, 0f);
+            LiquidRef liquid = LiquidCore.grid[Player.tileTargetX, Player.tileTargetY];
+            Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 255;
+            liquid.SetLiquidsState(3, true);
+            WorldGen.SquareTileFrame(Player.tileTargetX, Player.tileTargetY, true);
+            TerrariaUltraApocalypse.instance.SetTitle("Hello world", "Yup an hello world message as title", Color.Green, Color.Pink, Main.fontDeathText, 30, 1f, true);
+            //Biomes<SolarVolcano>.Place((int) player.Center.X / 16, (int) player.Center.Y / 16 - 4, new StructureMap());
             return true;
         }
 

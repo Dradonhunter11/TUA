@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.GameContent.Liquid;
 using TUA.API.LiquidAPI.LiquidMod;
 using TUA.API.LiquidAPI.Swap;
+using Liquid = IL.Terraria.Liquid;
 
 namespace TUA.API.LiquidAPI
 {
@@ -55,6 +56,7 @@ namespace TUA.API.LiquidAPI
 			LiquidSwapping.MethodSwap();
 			WaterDrawInjection.MethodSwap();
 			InternalLiquidDrawInjection.SwapMethod();
+            LiquidExtension.MethodSwap();
 		}
 
 		public void Unload()
@@ -85,7 +87,7 @@ namespace TUA.API.LiquidAPI
 		{
 			for (byte by = 0; by < LiquidRegistery.liquidList.Count; by = (byte)(by + 1))
 			{
-				if (liquid.liquids((byte) (2 + by)))
+				if (liquid.Liquids((byte) (2 + by)))
 				{
 					return liquidList[by].SetLiquidOpacity();
 				}
@@ -107,5 +109,10 @@ namespace TUA.API.LiquidAPI
 		{
 			liquidList[index].ItemInteraction(item);
 		}
+
+	    public static bool RunUpdate(byte index, int x, int y)
+	    {
+            return liquidList[index].CustomPhysic(x, y);
+	    }
 	}
 }

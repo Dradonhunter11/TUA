@@ -50,7 +50,7 @@ namespace TUA.API.LiquidAPI.Swap
                     if (Main.tile[x, y] != null)
                     {
                         LiquidRef liquid = LiquidCore.grid[x, y];
-                        if (!liquid.noLiquid())
+                        if (!liquid.NoLiquid())
                         {
                             Vector2 vector2;
                             vector2.X = (float)(x * 16);
@@ -64,7 +64,7 @@ namespace TUA.API.LiquidAPI.Swap
                             {
                                 for (byte b = 0; b < LiquidRegistery.liquidList.Count; b++)
                                 {
-                                    if (liquid.liquids((byte)(b + 3)))
+                                    if (liquid.Liquids((byte)(b + 3)))
                                     {
                                         moddedLiquid[b] = true;
                                     }
@@ -85,7 +85,7 @@ namespace TUA.API.LiquidAPI.Swap
                                 {
                                     for (byte b = 2; b < LiquidRegistery.liquidList.Count + 2; b++)
                                     {
-                                        if (liquid.liquids((byte)(b)))
+                                        if (liquid.Liquids((byte)(b)))
                                         {
                                             moddedLiquid[b] = true;
                                         }

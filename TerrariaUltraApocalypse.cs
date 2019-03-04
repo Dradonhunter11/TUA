@@ -13,6 +13,7 @@ using Terraria.GameContent.UI.States;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.Map;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.Utilities;
@@ -502,7 +503,9 @@ namespace TUA
 
         private void AutoloadLiquid(Type type)
         {
+            Color[] color = (Color[]) typeof(MapHelper).GetField("colorLookup", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
             ModLiquid liquid = (ModLiquid)Activator.CreateInstance(type);
+            //Array.Resize(ref color, color.Length+1);
             LiquidRegistery.getInstance().addNewModLiquid(liquid);
         }
 
@@ -677,8 +680,8 @@ namespace TUA
                 Vector2 textSize = font.MeasureString(text) * 1.5f;
                 Vector2 subTextSize = font.MeasureString(subText) * 0.9f;
 
-                float top = Main.screenHeight / 2 - 50;
-                float bottom = Main.screenHeight / 2 + 50;
+                float top = Main.screenHeight / 2 - 150;
+                float bottom = Main.screenHeight / 2 - 50;
                 float textPositionLeft = Main.screenWidth / 2 - textSize.X / 2;
                 float subTextPositionLeft = Main.screenWidth / 2 - subTextSize.X / 2;
 

@@ -22,12 +22,16 @@ namespace TUA.API.LiquidAPI.Swap
             Type liquid = typeof(Liquid);
             Type thisObject = typeof(LiquidSwapping);
 
-            ReflectionUtils.MethodSwap(liquid, "AddWater", thisObject, "AddWater");
+            //ReflectionUtils.MethodSwap(liquid, "AddWater", thisObject, "AddWater");
         }
 
         public static void AddWater(int x, int y)
         {
             Tile tile = Main.tile[x, y];
+            if (tile == null)
+            {
+                return;
+            }
             LiquidRef liquid = new LiquidRef(x, y);
             if (Main.tile[x, y] == null)
             {
@@ -41,7 +45,7 @@ namespace TUA.API.LiquidAPI.Swap
 
             for (byte b = 0; b < LiquidRegistery.liquidList.Count + 1; b = (byte) (b + 1))
             {
-                if (liquid.noLiquid())
+                if (liquid.NoLiquid())
                 {
                     return;
                 }
@@ -83,7 +87,7 @@ namespace TUA.API.LiquidAPI.Swap
             if (tile.active() && !WorldGen.gen)
             {
                 bool flag = false;
-                if (liquid.liquids(1))
+                if (liquid.Liquids(1))
                 {
                     if (TileObjectData.CheckLavaDeath(tile))
                     {

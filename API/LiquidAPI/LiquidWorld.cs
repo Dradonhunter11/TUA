@@ -10,14 +10,5 @@ namespace TUA.API.LiquidAPI
 {
     class LiquidWorld : ModWorld
     {
-        public override void PreUpdate()
-        {
-            if (Liquid.skipCount >= 0)
-            {
-                LiquidExtension.UpdateLiquid();
-            }
-
-            Liquid.skipCount++;
-        }
     }
 }
