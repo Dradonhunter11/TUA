@@ -62,9 +62,10 @@ namespace TUA.API.LiquidAPI.Swap
                             num7 -= (int)(num8 * 2f);
                             if (vector.X + (float)num > vector2.X && vector.X < vector2.X + 16f && vector.Y + (float)num2 > vector2.Y && vector.Y < vector2.Y + (float)num7)
                             {
-                                for (byte b = 0; b < LiquidRegistery.liquidList.Count; b++)
+
+                                for (byte b = 3; b < 2 + LiquidRegistery.liquidList.Count; b++)
                                 {
-                                    if (liquid.Liquids((byte)(b + 3)))
+                                    if (LiquidCore.liquidGrid[x, y].data == b)
                                     {
                                         moddedLiquid[b] = true;
                                     }
@@ -83,9 +84,9 @@ namespace TUA.API.LiquidAPI.Swap
                             if (vector.X + (float)num > vector2.X && vector.X < vector2.X + 16f && vector.Y + (float)num2 > vector2.Y && vector.Y < vector2.Y + (float)num9)
                             {
                                 {
-                                    for (byte b = 2; b < LiquidRegistery.liquidList.Count + 2; b++)
+                                    for (byte b = 3; b < 2 + LiquidRegistery.liquidList.Count; b++)
                                     {
-                                        if (liquid.Liquids((byte)(b)))
+                                        if (LiquidCore.liquidGrid[x, y].data == b)
                                         {
                                             moddedLiquid[b] = true;
                                         }

@@ -16,7 +16,15 @@ namespace TUA.API.LiquidAPI.Test
     {
         public override Texture2D texture
         {
-            get { return ModLoader.GetMod("TUA").GetTexture("Texture/water/BestWater"); }
+            get { return mod.GetTexture("Texture/water/BestWater"); }
+        }
+
+        public override string name => "liquid waste";
+        public override bool Autoload(ref string name)
+        {
+            liquidColor = Color.GreenYellow;
+            
+            return base.Autoload(ref name);
         }
 
         public override void PreDrawValueSet(ref bool bg, ref int style, ref float Alpha)
@@ -32,8 +40,7 @@ namespace TUA.API.LiquidAPI.Test
 
         public override void PlayerInteraction(Player target)
         {
-            PlayerDeathReason reason = PlayerDeathReason.ByCustomReason(target.name + " learned that waste is dangerous and can kill.");
-            //target.KillMe(reason, 1000, 1);
+            Main.NewText("This is liquid waste");
         }
 
         public override void NpcInteraction(NPC target)

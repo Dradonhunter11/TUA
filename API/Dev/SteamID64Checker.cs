@@ -40,21 +40,17 @@ namespace TUA.API.Dev
                 "76561198098585379", //Chinzilla00
                 "76561198265178242", //Demi
                 "76561193989806658", //SDF
-                "76561198193865502" //Agrair
+                "76561198193865502", //Agrair
+                "76561198108364775"  //HumanGamer
             };
         }
 
-        public bool VerifyID() => SteamId64List.Contains(CurrentSteamID64);
+        public bool VerifyDevID() => SteamId64List.Contains(CurrentSteamID64);
 
         public bool CheckSpecificID(string ID) => CurrentSteamID64 == ID;
 
         public void CopyIDToClipboard()
         {
-            /*Thread thread = new Thread(() => Clipboard.SetText(CurrentSteamID64));
-            thread.SetApartmentState(ApartmentState.STA);
-            thread.Start();
-            thread.Join();*/
-            
         }
     }
 }

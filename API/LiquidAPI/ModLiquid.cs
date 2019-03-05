@@ -7,7 +7,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Graphics;
+using Terraria.ID;
+using Terraria.ModLoader;
 using TUA.API.LiquidAPI.LiquidMod;
+using WorldGen = On.Terraria.WorldGen;
 
 namespace TUA.API.LiquidAPI
 {
@@ -15,9 +18,10 @@ namespace TUA.API.LiquidAPI
     {
         public bool gravity = true;
         public int customDelay = 1; //Default value, aka 
-        public Dictionary<Func<bool>, Texture2D> altTexture;
-        internal int liquidID = 0;
-        internal Color liquidColor;
+        public Color liquidColor = Color.Gray;
+        public Mod mod { get; internal set; }
+
+        public virtual string name { get; }
 
         public Liquid liquid { get; } = new Liquid();
 
@@ -27,8 +31,19 @@ namespace TUA.API.LiquidAPI
         }
         internal int liquidIndex;
 
+        /// <summary>
+        /// Take an array that contain legacy style texture and 1.3.4+ texture style
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public virtual bool Autoload(ref string name)
+        {
+            return true;
+        }
+
         public virtual void Update()
         {
+            
         }
 
         //Normally trigger if gravity is at false
@@ -99,14 +114,147 @@ namespace TUA.API.LiquidAPI
 
         public virtual void NpcInteraction(NPC target)
         {
+
         }
 
         public virtual void ItemInteraction(Item target)
         {
+
         }
 
-        public virtual void LiquidInteraction(ModLiquid target)
+        public virtual void LiquidInteraction(int x, int y, ModLiquid target)
         {
+
+        }
+
+        public virtual void LavaInteraction(int x, int y)
+        {
+
+        }
+
+        public virtual void HoneyInteraction(int x, int y)
+        {
+
+        }
+    }
+
+    public class ModBucket : ModItem
+    {
+        private int liquidType = -1;
+
+        private string name
+        {
+            get
+            {
+                switch (liquidType)
+                {
+                    case -1:
+                        return "Empty bucket";
+                    case 0:
+                        return "Water bucket";
+                    case 1:
+                        return "Lava bucket";
+                    case 2:
+                        return "Honey bucket";
+                    default:
+                        return LiquidRegistery.liquidList[liquidType-3].name + "bucket";
+                }
+            }
+        }
+
+        public override bool Autoload(ref string name)
+        {
+            
+            return base.Autoload(ref name);
+        }
+
+        public override void SetDefaults()
+        {
+            item.maxStack = 99;
+            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useTime = 100;
+            item.useAnimation = 1;
+            item.consumable = true;
+        }
+
+        public override void UpdateInventory(Player player)
+        {
+            item.SetNameOverride(name);
+        }
+
+        public override bool UseItem(Player player)
+        {
+            if (Main.tile[Player.tileTargetX, Player.tileTargetY].liquid < 240)
+            {
+                return false;
+            }
+
+            byte getLiquidType = LiquidCore.liquidGrid[Player.tileTargetX, Player.tileTargetY].data;
+            Item newItem = Main.item[Item.NewItem(player.position, item.type)];
+            ModBucket newBucket = newItem.modItem as ModBucket;
+            newBucket.liquidType = getLiquidType;
+            player.PutModItemInInventory(newBucket);
+            item.stack--;
+            return true;
+        }
+
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor,
+            Vector2 origin, float scale)
+        {
+            item.useAnimation = 45;
+            item.useTime = 45;
+            item.useStyle = 4;
+            if (liquidType == -1)
+            {
+                return;
+            }
+
+            Texture2D liquidTexture = TerrariaUltraApocalypse.instance.GetTexture("Texture/Bucket/liquid");
+            Color liquidColor;
+            switch (liquidType)
+            {
+                case 0:
+                    liquidColor = Color.Blue;
+                    break;
+                case 1:
+                    liquidColor = Color.Red;
+                    break;
+                case 2:
+                    liquidColor = Color.Yellow;
+                    break;
+                default:
+                    liquidColor = LiquidRegistery.liquidList[liquidType - 3].liquidColor;
+                    break;
+            }
+            spriteBatch.Draw(liquidTexture, Vector2.Zero, liquidColor);
+        }
+
+        public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale,
+            int whoAmI)
+        {
+            if (liquidType == -1)
+            {
+                return;
+            }
+
+            Texture2D liquidTexture = TerrariaUltraApocalypse.instance.GetTexture("Texture/Bucket/liquid");
+            Color liquidColor;
+            switch (liquidType)
+            {
+                case 0:
+                    liquidColor = Color.Blue;
+                    break;
+                case 1:
+                    liquidColor = Color.Red;
+                    break;
+                case 2:
+                    liquidColor = Color.Yellow;
+                    break;
+                default:
+                    liquidColor = LiquidRegistery.liquidList[liquidType - 3].liquidColor;
+                    break;
+            }
+            spriteBatch.Draw(liquidTexture, Vector2.Zero, liquidColor);
         }
     }
 }

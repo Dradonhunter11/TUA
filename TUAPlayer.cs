@@ -97,7 +97,7 @@ namespace TUA
 
         public override void UpdateDead()
         {
-            if (SteamID64Checker.Instance.VerifyID() && TerrariaUltraApocalypse.devMode)
+            if (SteamID64Checker.Instance.VerifyDevID() && TerrariaUltraApocalypse.devMode)
             {
                 player.respawnTimer = 1; //for faster respawn while debugging
             }

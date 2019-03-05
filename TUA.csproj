@@ -113,12 +113,14 @@
     <Compile Include="API\LiquidAPI\Swap\InternalLiquidDrawInjection.cs" />
     <Compile Include="API\LiquidAPI\Swap\LiquidSwapping.cs" />
     <Compile Include="API\LiquidAPI\Swap\PlayerSwap.cs" />
+    <Compile Include="API\LiquidAPI\Swap\TempClass.cs" />
     <Compile Include="API\LiquidAPI\Swap\WaterDrawInjection.cs" />
     <Compile Include="API\LiquidAPI\Test\PlutonicWaste.cs" />
     <Compile Include="API\LiquidAPI\Test\WeirdLiquid.cs" />
     <Compile Include="API\LiquidAPI\TileExtension.cs" />
     <Compile Include="API\ModConfigUIelement\ArrayElement.cs" />
     <Compile Include="API\ModExtension.cs" />
+    <Compile Include="API\MonoModExtraHook.cs" />
     <Compile Include="API\TerraEnergy\Block\Capacitor.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\BasicTECapacitor.cs" />
     <Compile Include="API\TerraEnergy\Block\FunctionnalBlock\EnergyCollector.cs" />
@@ -195,6 +197,7 @@
     <Compile Include="Buff\Debuff\EotW\BulletDebuff.cs" />
     <Compile Include="Buff\Debuff\EotW\MagicDebuff.cs" />
     <Compile Include="Buff\Debuff\EotW\MeleeDebuff.cs" />
+    <Compile Include="Commands\ToggleEvent.cs" />
     <Compile Include="Commands\ToggleTime.cs" />
     <Compile Include="Configs\CustomTitleMenuConfig.cs" />
     <Compile Include="CustomScreenShader\SolarWorld.cs" />
@@ -355,7 +358,6 @@
     <Compile Include="UI\Cobblegen\CobbleGenUI.cs" />
     <Compile Include="Walls\Hell\AshWall.cs" />
     <Compile Include="Walls\Wasteland\WastestoneBrickWall.cs" />
-    <Compile Include="World\OreSpread.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="BiomeLibrary, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">

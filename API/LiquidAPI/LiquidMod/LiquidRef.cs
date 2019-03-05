@@ -51,15 +51,15 @@ namespace TUA.API.LiquidAPI.LiquidMod
             {
                 if (tile.bTileHeader == 159)
                 {
-                    _liquidType = 0;
+                    LiquidCore.liquidGrid[x, y][0] = true;
                 }
                 else if (tile.lava())
                 {
-                    _liquidType = 1;
+                    LiquidCore.liquidGrid[x, y][1] = true;
                 }
                 else if (tile.honey())
                 {
-                    _liquidType = 2;
+                    LiquidCore.liquidGrid[x, y][2] = true;
                 }
                 this._liquidType = tile.liquidType();
                 this._liquidAmount = tile.liquid;
@@ -77,49 +77,36 @@ namespace TUA.API.LiquidAPI.LiquidMod
 
         public bool Liquids(byte index)
         {
-
-            switch (index)
-            {
-                case 0:
-                    return tile.liquidType() == 0;
-                case 1:
-                    return tile.liquidType() == 1;
-                case 2:
-                    return tile.liquidType() == 2;
-                default:
-                    return LiquidCore.liquidGrid[x, y][index];
-            }
+            return LiquidCore.liquidGrid[x, y][index];
         }
 
         public byte liquidsType()
         {
-            return liquidType;
+            return _liquidType;
         }
 
         public void SetLiquidsState(byte index, bool value)
         {
-            switch (index)
+            LiquidCore.liquidGrid[x, y].data = index;
+            /*switch (index)
             {
                 case 0:
                     _liquidType = 0;
-                    tile.liquidType(0);
-                    LiquidCore.liquidGrid[x, y][index] = value;
+                    LiquidCore.liquidGrid[x, y].data = index;
                     break;
                 case 1:
                     _liquidType = 1;
-                    tile.lava(value);
                     LiquidCore.liquidGrid[x, y][index] = value;
                     break;
                 case 2:
                     _liquidType = 2;
-                    tile.honey(value);
                     LiquidCore.liquidGrid[x, y][index] = value;
                     break;
                 default:
                     _liquidType = index;
                     LiquidCore.liquidGrid[x, y][index] = value;
                     break;
-            }
+            }*/
         }
 
         public byte GetLiquidAmount()

@@ -13,7 +13,7 @@ namespace TUA.Items
     {
         // private int timer = 0;
 
-        public override bool Autoload(ref string name) => SteamID64Checker.Instance.VerifyID() && TerrariaUltraApocalypse.devMode;
+        public override bool Autoload(ref string name) => SteamID64Checker.Instance.VerifyDevID() && TerrariaUltraApocalypse.devMode;
 
         public override void SetStaticDefaults()
         {
@@ -43,6 +43,13 @@ namespace TUA.Items
 
         public override bool UseItem(Player player)
         {
+            for (int i = 0; i < Main.maxTilesX; i++)
+            {
+                for (int j = 0; j < Main.maxTilesY; j++)
+                {
+                    Main.tile[i, j].liquid = 0;
+                }
+            }
             //Main.time = 0;
             //Main.dayTime = false;
             //TUAWorld.apocalypseMoon = true;

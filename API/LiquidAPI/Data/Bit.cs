@@ -8,7 +8,7 @@ namespace TUA.API.LiquidAPI.Data
 {
     public struct Bit
     {
-        private byte data;
+        internal byte data;
 
         public bool this[int index]
         {

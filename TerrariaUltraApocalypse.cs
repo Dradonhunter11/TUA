@@ -17,10 +17,12 @@ using Terraria.Map;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.Utilities;
+using TUA.API;
 using TUA.API.Dev;
 using TUA.API.EventManager;
 using TUA.API.Injection;
 using TUA.API.LiquidAPI;
+using TUA.API.LiquidAPI.Swap;
 using TUA.API.LiquidAPI.Test;
 using TUA.API.TerraEnergy.MachineRecipe.Forge;
 using TUA.API.TerraEnergy.MachineRecipe.Furnace;
@@ -70,6 +72,8 @@ namespace TUA
         private int titleTimer = 0;
         private Title currentTitle;
 
+        private const int initialLiquidTextureIndex = 12;
+
         public TerrariaUltraApocalypse()
         {
             Properties = new ModProperties()
@@ -95,9 +99,11 @@ namespace TUA
             UpdateBiomesInjection.inject();
             LiquidRegistery.MassMethodSwap();
             Console.Write("AM I NULL? " + typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
-            MethodInfo attempt = typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
-                .GetMethod("PopulateModBrowser", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
-            ReflectionUtils.MethodSwap(typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
+            //MethodInfo attempt = typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
+            //    .GetMethod("PopulateModBrowser", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+            //ReflectionUtils.MethodSwap(typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
+            MonoModExtraHook.populatebrowser_Hook += ModBrowserInjection.PopulateModBrowser;
+
 
             Main.SavePath += "/Tapocalypse";
             Main.PlayerPath = Main.SavePath + "/Player";
@@ -109,8 +115,6 @@ namespace TUA
                     typeof(Main).GetField("_worldSelectMenu", BindingFlags.Static | BindingFlags.NonPublic);
                 originalWorldSelect = (UIWorldSelect)UIWorldSelectInfo.GetValue(null);
                 UIWorldSelectInfo.SetValue(null, new NewUIWorldSelect());
-
-                SteamID64Checker.Instance.CopyIDToClipboard();
 
                 SolarFog = GetTexture("CustomScreenShader/HeavyMist");
 
@@ -223,6 +227,9 @@ namespace TUA
 
             MoonEventManagerWorld.moonEventList = null;
 
+            Array.Resize(ref Main.liquidTexture, initialLiquidTextureIndex);
+            Array.Resize(ref LiquidRendererExtension.liquidTexture2D, initialLiquidTextureIndex);
+
             //Remember to re enable it once it's fixed
             if (!Main.dedServ)
             {
@@ -285,8 +292,6 @@ namespace TUA
             }
 
             RecipeUtils.setAllFurnaceRecipeSystem();
-            LiquidRegistery.getInstance().addNewModLiquid(new PlutonicWaste());
-            LiquidRegistery.getInstance().addNewModLiquid(new WeirdLiquid());
         }
 
         public override void UpdateUI(GameTime gameTime)
@@ -501,12 +506,23 @@ namespace TUA
             };
         }
 
-        private void AutoloadLiquid(Type type)
+        private void AutoloadLiquid(Mod mod, Type type)
         {
             Color[] color = (Color[]) typeof(MapHelper).GetField("colorLookup", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
             ModLiquid liquid = (ModLiquid)Activator.CreateInstance(type);
-            //Array.Resize(ref color, color.Length+1);
-            LiquidRegistery.getInstance().addNewModLiquid(liquid);
+            liquid.mod = mod;
+            string texturePath = liquid.GetType().FullName.Replace(".", "/").Replace(this.Name + "/", "");
+            if (liquid.Autoload(ref texturePath))
+            {
+                
+                if (Main.netMode == 0)
+                {
+                    Main.liquidTexture[Main.liquidTexture.Length - 1] = this.GetTexture(texturePath);
+                    LiquidRendererExtension.liquidTexture2D[LiquidRendererExtension.liquidTexture2D.Length - 1] =
+                        this.GetTexture(texturePath);
+                }
+                LiquidRegistery.getInstance().addNewModLiquid(liquid);
+            }
         }
 
         private void resetMenu(Dictionary<string, LocalizedText> dictionary, FieldInfo textInfo)
@@ -560,7 +576,7 @@ namespace TUA
                 var type = array.ElementAt(i);
                 if (type.IsSubclassOf(typeof(ModLiquid)))
                 {
-                    AutoloadLiquid(type);
+                    AutoloadLiquid(mod, type);
                 }
             }
         }

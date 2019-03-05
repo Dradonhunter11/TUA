@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -108,6 +109,52 @@ namespace TUA.API
         public static void MergeTile(this ModTile self, int otherTile)
         {
             Main.tileMerge[self.Type][otherTile] = true;
+        }
+
+        public static void PutModItemInInventory(this Player self, ModItem item, int selItem = -1)
+        {
+            for (int i = 0; i < 58; i++)
+            {
+                Item inventoryItem = self.inventory[i];
+                if (inventoryItem.stack > 0 && inventoryItem.type == item.item.type && inventoryItem.stack < inventoryItem.maxStack)
+                {
+                    inventoryItem.stack++;
+                    return;
+                }
+            }
+            if (selItem >= 0 && (self.inventory[selItem].type == 0 || self.inventory[selItem].stack <= 0))
+            {
+                ModItem newItem = item.Clone();
+                newItem.item.maxStack = 1;
+                self.inventory[selItem].SetDefaults(newItem.item.type, false);
+                typeof(Item).GetField("modItem", BindingFlags.Public | BindingFlags.Instance).SetValue(self.inventory[selItem], newItem);
+                return;
+            }
+
+            ModItem newModItem = item.Clone();
+            newModItem.item.maxStack = 1;
+            self.inventory[selItem].SetDefaults(newModItem.item.type, false);
+
+            Item newItem2 = new Item();
+            newItem2.SetDefaults(item.item.type, false);
+            typeof(Item).GetField("modItem", BindingFlags.Public | BindingFlags.Instance).SetValue(newItem2, newModItem);
+            Item item3 = self.GetItem(self.whoAmI, newItem2, false, false);
+            if (item3.stack > 0)
+            {
+                int number = Item.NewItem((int)self.position.X, (int)self.position.Y, self.width, self.height, item.item.type, 1, false, 0, true, false);
+                if (Main.netMode == 1)
+                {
+                    NetMessage.SendData(21, -1, -1, null, number, 1f, 0f, 0f, 0, 0, 0);
+                    return;
+                }
+            }
+            else
+            {
+                newItem2.position.X = self.Center.X - (float)(newItem2.width / 2);
+                newItem2.position.Y = newItem2.Center.Y - (float)(newItem2.height / 2);
+                newItem2.active = true;
+                ItemText.NewText(newItem2, 0, false, false);
+            }
         }
 
         public static Texture2D SubImage(this Texture2D texture, int frameNumber, int frame)

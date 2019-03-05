@@ -136,7 +136,7 @@ namespace TUA.API.LiquidAPI.Swap
                             textureIndex = Style;
                         }
                         
-                        for (byte b = 2; b < LiquidRegistery.liquidList.Count + 3; b = (byte)(b + 1))
+                        for (byte b = 2; b < Main.liquidTexture.Length + 3; b = (byte)(b + 1))
                         {
                             if (liquid.Liquids(b))
                             {
@@ -157,10 +157,6 @@ namespace TUA.API.LiquidAPI.Swap
                             }
                             Vector2 drawingPosition = new Vector2((float)(x * 16), (float)(y * 16 + (int)liquidLayer * 2));
                             Microsoft.Xna.Framework.Rectangle sourceRectangle = new Microsoft.Xna.Framework.Rectangle(0, 0, 16, 16 - (int)liquidLayer * 2);
-                            if (textureIndex > 11)
-                            {
-                                sourceRectangle = new Microsoft.Xna.Framework.Rectangle(16, 1280, sourceRectangle.Width, sourceRectangle.Height);
-                            }
                             if (LiquidCore.grid[x, y + 1].GetLiquidAmount() < 245 && (!Main.tile[x, y + 1].nactive() || !Main.tileSolid[(int)Main.tile[x, y + 1].type] || Main.tileSolidTop[(int)Main.tile[x, y + 1].type]))
                             {
                                 float num18 = (float)(256 - (int)Main.tile[x, y + 1].liquid);
@@ -193,56 +189,32 @@ namespace TUA.API.LiquidAPI.Swap
                                         drawingPosition = new Vector2((float)(x * 16), (float)(y * 16 + 4));
                                         sourceRectangle = new Microsoft.Xna.Framework.Rectangle(0, 4, 16, 12);
                                         Opacity = 0.5f;
-                                        if (textureIndex > 11)
-                                        {
-                                            sourceRectangle = new Microsoft.Xna.Framework.Rectangle(16, 1280 + 4, sourceRectangle.Width, sourceRectangle.Height);
-                                        }
                                     }
                                     else if (LiquidCore.grid[x, y + 1].GetLiquidAmount() > 0)
                                     {
                                         drawingPosition = new Vector2((float)(x * 16), (float)(y * 16 + (int)liquidLayer * 2 + (int)num18 * 2));
                                         sourceRectangle = new Microsoft.Xna.Framework.Rectangle(0, 4, 16, 16 - (int)liquidLayer * 2);
-                                        if (textureIndex > 11)
-                                        {
-                                            sourceRectangle = new Microsoft.Xna.Framework.Rectangle(16, 1280 + 4, sourceRectangle.Width, sourceRectangle.Height);
-                                        }
                                     }
                                     else
                                     {
                                         drawingPosition = new Vector2((float)(x * 16 + (int)num19), (float)(y * 16 + (int)num19 * 2 + (int)num18 * 2));
                                         sourceRectangle = new Microsoft.Xna.Framework.Rectangle(0, 4, 16 - (int)num19 * 2, 16 - (int)num19 * 2);
-                                        if (textureIndex > 11)
-                                        {
-                                            sourceRectangle = new Microsoft.Xna.Framework.Rectangle(16, 1280 + 4, sourceRectangle.Width, sourceRectangle.Height);
-                                        }
                                     }
                                 }
                                 else
                                 {
                                     Opacity = 0.5f;
                                     sourceRectangle = new Microsoft.Xna.Framework.Rectangle(0, 4, 16, 16 - (int)liquidLayer * 2 + (int)num18 * 2);
-                                    if (textureIndex > 11)
-                                    {
-                                        sourceRectangle = new Microsoft.Xna.Framework.Rectangle(16, 1280 + 4, sourceRectangle.Width, sourceRectangle.Height);
-                                    }
                                 }
                             }
                             else if (Main.tile[x, y - 1].liquid > 32)
                             {
                                 sourceRectangle = new Microsoft.Xna.Framework.Rectangle(0, 4, sourceRectangle.Width, sourceRectangle.Height);
-                                if (textureIndex > 11)
-                                {
-                                    sourceRectangle = new Microsoft.Xna.Framework.Rectangle(16, 1280 + 4, sourceRectangle.Width, sourceRectangle.Height);
-                                }
                             }
                             else if (liquidLayer < 1f && Main.tile[x, y - 1].nactive() && Main.tileSolid[(int)Main.tile[x, y - 1].type] && !Main.tileSolidTop[(int)Main.tile[x, y - 1].type])
                             {
                                 drawingPosition = new Vector2((float)(x * 16), (float)(y * 16));
                                 sourceRectangle = new Microsoft.Xna.Framework.Rectangle(0, 4, 16, 16);
-                                if (textureIndex > 11)
-                                {
-                                    sourceRectangle = new Microsoft.Xna.Framework.Rectangle(16, 1280 + 4, sourceRectangle.Width, sourceRectangle.Height);
-                                }
                             }
                             else
                             {
@@ -261,18 +233,10 @@ namespace TUA.API.LiquidAPI.Swap
                                 {
                                     Opacity = 0.5f;
                                     sourceRectangle = new Microsoft.Xna.Framework.Rectangle(0, 4, 16, 16);
-                                    if (textureIndex > 11)
-                                    {
-                                        sourceRectangle = new Microsoft.Xna.Framework.Rectangle(16, 1280 + 4, sourceRectangle.Width, sourceRectangle.Height);
-                                    }
                                 }
                                 else if (Main.tile[x, y - 1].liquid > 0)
                                 {
                                     sourceRectangle = new Microsoft.Xna.Framework.Rectangle(0, 2, sourceRectangle.Width, sourceRectangle.Height);
-                                    if (textureIndex > 11)
-                                    {
-                                        sourceRectangle = new Microsoft.Xna.Framework.Rectangle(16, 1280 + 2, sourceRectangle.Width, sourceRectangle.Height);
-                                    }
                                 }
                             }
                             if ((color.R > 20 || color.B > 20 || color.G > 20) && sourceRectangle.Y < 4)
@@ -415,14 +379,11 @@ namespace TUA.API.LiquidAPI.Swap
                                 {
                                     sourceRectangle.X += (int)(Main.wFrame * 18f);
                                 }
-                                if(textureIndex <= 11) 
-                                    Main.spriteBatch.Draw(Main.liquidTexture[textureIndex], drawingPosition - Main.screenPosition + zero, new Microsoft.Xna.Framework.Rectangle?(sourceRectangle), color, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
-                                else
-                                {
+
                                     Vector2 megaVector = new Vector2(drawingPosition.X - Main.screenPosition.X + zero.X,
                                         drawingPosition.Y - Main.screenPosition.Y + zero.Y);
-                                    Main.spriteBatch.Draw(Main.liquidTexture[textureIndex], megaVector, sourceRectangle, color, 0f, default(Vector2), new Vector2(1f, 1.30f), SpriteEffects.None, 0f);
-                                }
+                                    Main.spriteBatch.Draw(Main.liquidTexture[11], megaVector, sourceRectangle, color, 0f, default(Vector2), new Vector2(1f, 1.30f), SpriteEffects.None, 0f);
+                                
                                    
                             }
 
@@ -2778,13 +2739,8 @@ namespace TUA.API.LiquidAPI.Swap
                                                     liquidTextureIndex = 11;
                                                     break;
                                                 default:
-                                                    for (byte by = 2; by < LiquidRegistery.liquidList.Count + 3; by = (byte)(by + 1))
-                                                    {
-                                                        if (tile3r.Liquids(by))
-                                                        {
-                                                            liquidTextureIndex = 9 + by;
-                                                        }
-                                                    }
+                                                    
+                                                    liquidTextureIndex = LiquidCore.liquidGrid[j - 1, i].data + 8;
                                                     break;
                                             }
                                             if ((int)tile3.liquid > num106)
@@ -2807,13 +2763,7 @@ namespace TUA.API.LiquidAPI.Swap
                                                     liquidTextureIndex = 11;
                                                     break;
                                                 default:
-                                                    for (byte by = 2; by < LiquidRegistery.liquidList.Count + 3; by = (byte)(by + 1))
-                                                    {
-                                                        if (tile2r.Liquids(by))
-                                                        {
-                                                            liquidTextureIndex = 9 + by;
-                                                        }
-                                                    }
+                                                    liquidTextureIndex = LiquidCore.liquidGrid[j + 1, i].data + 8;
                                                     break;
                                             }
                                             if ((int)tile2.liquid > num106)
@@ -2836,13 +2786,7 @@ namespace TUA.API.LiquidAPI.Swap
                                                     liquidTextureIndex = 11;
                                                     break;
                                                 default:
-                                                    for (byte by = 2; by < LiquidRegistery.liquidList.Count + 3; by = (byte)(by + 1))
-                                                    {
-                                                        if (tile4r.Liquids(by))
-                                                        {
-                                                            liquidTextureIndex = 9 + by;
-                                                        }
-                                                    }
+                                                    liquidTextureIndex = LiquidCore.liquidGrid[j, i - 1].data + 8;
                                                     break;
                                             }
                                         }
@@ -2866,13 +2810,7 @@ namespace TUA.API.LiquidAPI.Swap
                                                     liquidTextureIndex = 11;
                                                     break;
                                                 default:
-                                                    for (byte by = 2; by < LiquidRegistery.liquidList.Count + 3; by = (byte)(by + 1))
-                                                    {
-                                                        if (tile5r.Liquids(by))
-                                                        {
-                                                            liquidTextureIndex = 9 + by;
-                                                        }
-                                                    }
+                                                    liquidTextureIndex = LiquidCore.liquidGrid[j, i + 1].data + 8;
                                                     break;
                                             }
                                         }
@@ -2922,28 +2860,16 @@ namespace TUA.API.LiquidAPI.Swap
                                                     {
                                                         value2 = new Vector2((float)(j * 16), (float)(i * 16 + (int)num109 * 2));
                                                         value3 = new Microsoft.Xna.Framework.Rectangle(0, y, 16, 16 - (int)num109 * 2);
-                                                        if (liquidTextureIndex > 11)
-                                                        {
-                                                            value3 = new Microsoft.Xna.Framework.Rectangle(16, 1280, value3.Width, value3.Height);
-                                                        }
                                                     }
                                                     else if (flag8)
                                                     {
                                                         value2 = new Vector2((float)(j * 16), (float)(i * 16 + (int)num109 * 2));
                                                         value3 = new Microsoft.Xna.Framework.Rectangle(0, y, 4, 16 - (int)num109 * 2);
-                                                        if (liquidTextureIndex > 11)
-                                                        {
-                                                            value3 = new Microsoft.Xna.Framework.Rectangle(16, 1280, value3.Width, value3.Height);
-                                                        }
                                                     }
                                                     else
                                                     {
                                                         value2 = new Vector2((float)(j * 16 + 12), (float)(i * 16 + (int)num109 * 2));
                                                         value3 = new Microsoft.Xna.Framework.Rectangle(0, y, 4, 16 - (int)num109 * 2);
-                                                        if (liquidTextureIndex > 11)
-                                                        {
-                                                            value3 = new Microsoft.Xna.Framework.Rectangle(16, 1280, value3.Width, value3.Height);
-                                                        }
                                                     }
                                                 }
                                             }
@@ -2987,7 +2913,6 @@ namespace TUA.API.LiquidAPI.Swap
                                             float num113 = (float)color6.B * Opacity;
                                             float num114 = (float)color6.A * Opacity;
                                             color6 = new Microsoft.Xna.Framework.Color((int)((byte)num111), (int)((byte)num112), (int)((byte)num113), (int)((byte)num114));
-                                            liquidTextureIndex = 12;
                                             Main.spriteBatch.Draw(Main.liquidTexture[liquidTextureIndex], value2 - Main.screenPosition + zero, new Microsoft.Xna.Framework.Rectangle?(value3), color6, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
                                         }
                                     }

@@ -13,7 +13,12 @@ namespace TUA.API.LiquidAPI.Test
     {
         public override Texture2D texture
         {
-            get { return ModLoader.GetMod("TUA").GetTexture("Texture/water/BestWater2"); }
+            get { return mod.GetTexture("Texture/water/BestWater2"); }
+        }
+
+        public override bool Autoload(ref string name)
+        {
+            return false;
         }
 
         public override void PreDrawValueSet(ref bool bg, ref int style, ref float Alpha)
