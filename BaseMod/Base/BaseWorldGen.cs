@@ -812,9 +812,10 @@ namespace TUA
 
 				List<Point> points = new List<Point>();
 				Point? lastPoint = null;
-				foreach (TileData data in tiles)
+                for (int i = 0; i < tiles.Count; i++)
 				{
-					Vector2 rot = new Vector2(data.X * 16, data.Y * 16);
+                    TileData data = tiles[i];
+                    Vector2 rot = new Vector2(data.X * 16, data.Y * 16);
 					rot = BaseUtility.RotateVector(rotVec, rot, genRotation);
 					int x1 = (int)rot.X / 16, y1 = (int)rot.Y / 16;
 					if (rot.X % 16 > 0) x1 -= 1; if (rot.Y % 16 > 0) y1 -= 1;
@@ -834,9 +835,10 @@ namespace TUA
 					points.Add(point);
 					Main.tile[x1, y1] = data.tile;
 				}
-				foreach (Point point in points) //tileframes
+                for (int i = 0; i < points.Count; i++) //tileframes
 				{
-					WorldGen.TileFrame(point.X, point.Y, false, false);
+                    Point point = points[i];
+                    WorldGen.TileFrame(point.X, point.Y, false, false);
 					Tile tile = Main.tile[point.X, point.Y];
 					if (tile != null && tile.wall > 0) Framing.WallFrame(point.X, point.Y, false);
 				}

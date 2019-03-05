@@ -1,5 +1,6 @@
 ﻿using BiomeLibrary.API;
 using BiomeLibrary.Enums;
+using System;
 using Terraria;
 using TUA.Tiles.NewBiome.Meteoridon;
 
@@ -20,6 +21,7 @@ namespace TUA.Biomes
             MinimumTileRequirement = 150;
         }
 
+        [Obsolete]
         public override bool BiomeAltGeneration(ref string message)
         {
             message = "A meteor strike is happening";

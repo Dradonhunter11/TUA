@@ -104,7 +104,7 @@ namespace TUA.API.TerraEnergy.EnergyAPI
             return energy.getMaxEnergyLevel();
         }
 
-        public int Place(int i, int j)
+        public new int Place(int i, int j)
         {
             ModTileEntity modTileEntity = ModTileEntity.ConstructFromBase(this);
             modTileEntity.Position = new Point16(i, j);

@@ -183,9 +183,10 @@ namespace TUA
 			}else
 			{
 				string[] modNames = ModLoader.Mods.Select(m => m.Name).ToArray();
-				foreach (string name in modNames)
+                for (int i = 0; i < modNames.Length; i++)
 				{
-					Mod mod = ModLoader.GetMod(name);
+                    string name = modNames[i];
+                    Mod mod = ModLoader.GetMod(name);
 					ModNPC m = mod.GetNPC(n);
 					if (m != null) return m.npc;
 				}
@@ -203,9 +204,10 @@ namespace TUA
 			}else
 			{
 				string[] modNames = ModLoader.Mods.Select(m => m.Name).ToArray();
-				foreach (string name in modNames)
+                for (int i = 0; i < modNames.Length; i++)
 				{
-					Mod mod = ModLoader.GetMod(name);
+                    string name = modNames[i];
+                    Mod mod = ModLoader.GetMod(name);
 					ModItem m = mod.GetItem(n);
 					if (m != null) return m.item;
 				}
@@ -224,9 +226,10 @@ namespace TUA
 			else
 			{
 				string[] modNames = ModLoader.Mods.Select(m => m.Name).ToArray();
-				foreach (string name in modNames)
+                for (int i = 0; i < modNames.Length; i++)
 				{
-					Mod mod = ModLoader.GetMod(name);
+                    string name = modNames[i];
+                    Mod mod = ModLoader.GetMod(name);
 					ModProjectile m = mod.GetProjectile(n);
 					if (m != null) return m.projectile;
 				}
@@ -244,9 +247,10 @@ namespace TUA
 			}else
 			{
 				string[] modNames = ModLoader.Mods.Select(m => m.Name).ToArray();
-				foreach (string name in modNames)
+                for (int i = 0; i < modNames.Length; i++)
 				{
-					Mod mod = ModLoader.GetMod(name);
+                    string name = modNames[i];
+                    Mod mod = ModLoader.GetMod(name);
 					ModTile m = mod.GetTile(n);
 					if (m != null) return m;
 				}

@@ -23,15 +23,6 @@ using TUA.API.Dev;
 using TUA.API.LiquidAPI;
 using TUA.API.LiquidAPI.LiquidMod;
 using TUA.API.TerraEnergy;
-using System.Diagnostics;
-using Terraria.ObjectData;
-using Terraria.GameContent.Events;
-using Terraria.GameContent;
-using Terraria.ID;
-using Terraria.GameContent.Tile_Entities;
-using Terraria.DataStructures;
-using Terraria.UI;
-using TUA.API.Dev;
 
 namespace TUA.API.LiquidAPI.Swap
 {
@@ -4058,7 +4049,7 @@ namespace TUA.API.LiquidAPI.Swap
                                                 FieldInfo _tileFrameSeedInfo = typeof(Main).GetField("_tileFrameSeed",
                                                     BindingFlags.NonPublic | BindingFlags.Static);
 
-                                                ulong num190 = (ulong) _tileFrameSeedInfo.GetValue(null) ^ (ulong)((long)j << 32 | (long)((ulong)i));
+                                                ulong num190 = (ulong) _tileFrameSeedInfo.GetValue(null) ^ (ulong)(((long)j << 32) | (long)(ulong)i);
                                                 int num191 = (int)type;
                                                 int num192 = 0;
                                                 if (num191 == 4)

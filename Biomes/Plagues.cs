@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using BiomeLibrary.API;
 using BiomeLibrary.Enums;
 using Microsoft.Xna.Framework;
@@ -37,7 +33,7 @@ namespace TUA.Biomes
                 )
                 .Single(x => x.Name == "dungeonSide");
             int dungeonSide = (int)dungeonSideInfo.GetValue(method.Target);
-            progress.Message = "Spreading the plagues onto the fake evil...";
+            progress.Message = "Spreading the plagues...";
             if (WorldGen.crimson)
             {
                 CrimPlagues(progress, dungeonSide);

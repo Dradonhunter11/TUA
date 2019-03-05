@@ -92,7 +92,7 @@ namespace TUA
             {
                 Autoload(mod);
             });
-            newMainMenu.load();
+            newMainMenu.Load();
 
 
             instance = this;

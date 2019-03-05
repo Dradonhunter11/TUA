@@ -17,7 +17,7 @@ namespace TUA.API.EventManager
         {
             TagCompound tag = new TagCompound();
             MoonEvent.ResetMoon();
-            foreach (var moonEvent in moonEventList.Values)
+            foreach (MoonEvent moonEvent in moonEventList.Values)
             {
                 moonEvent.Save(tag);
             }

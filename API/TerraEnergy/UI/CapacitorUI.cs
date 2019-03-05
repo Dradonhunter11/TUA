@@ -43,8 +43,9 @@ namespace TUA.API.TerraEnergy.UI
             panel.Left.Set(Main.screenWidth / 2 - 200, 0);
 
             int space = 40;
-            foreach (ChargingSlot slot in chargingSlot)
+            for (int i = 0; i < chargingSlot.Length; i++)
             {
+                ChargingSlot slot = chargingSlot[i];
                 slot.Top.Set(25, 0);
                 slot.Left.Set(space, 0);
                 slot.Width.Set(64, 0);

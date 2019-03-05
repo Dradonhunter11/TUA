@@ -276,8 +276,9 @@ namespace TUA.API.ModConfigUIelement
             //Removing monolith and calamity background as most of them doesn't work anyway on the main menu 
             allKey = allKey.Where(i => !i.Contains("Monolith") && !i.Contains("CalamityMod")).ToList();
             allKey.Insert(0, "Vanilla");
-            foreach (var key in allKey2)
+            for (int k = 0; k < allKey2.Count; k++)
             {
+                string key = allKey2[k];
                 if (allKey.Any(i => i == key))
                 {
                     continue;
@@ -285,8 +286,9 @@ namespace TUA.API.ModConfigUIelement
                 allKey.Add(key);
             }
 
-            foreach (var key in allKey)
+            for (int i = 0; i < allKey.Count; i++)
             {
+                string key = allKey[i];
                 if (key != TerrariaUltraApocalypse.custom.newMainMenuTheme && SkyManager.Instance[key] != null)
                     SkyManager.Instance[key].Deactivate();
             }

@@ -4101,8 +4101,9 @@ namespace TUA.API.LiquidAPI.Swap
                 }
                 if (vector3.Y == 0f && !self.fireWalk)
                 {
-                    foreach (Point current in self.TouchedTiles)
+                    for (int i1 = 0; i1 < self.TouchedTiles.Count; i1++)
                     {
+                        Point current = self.TouchedTiles[i1];
                         Tile tile = Main.tile[current.X, current.Y];
                         if (tile != null && tile.active() && tile.nactive() && !self.fireWalk && TileID.Sets.TouchDamageHot[(int)tile.type] != 0)
                         {

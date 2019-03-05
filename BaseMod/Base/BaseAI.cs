@@ -5219,9 +5219,10 @@ namespace TUA
 					bool add = true;
 					if (projsToExclude != default(int[]))
 					{
-						foreach (int m in projsToExclude)
+                        for (int i1 = 0; i1 < projsToExclude.Length; i1++)
 						{
-							if (m == proj.whoAmI) { add = false; break; }
+                            int m = projsToExclude[i1];
+                            if (m == proj.whoAmI) { add = false; break; }
 						}
 					}
 					if (add && CanAdd != null && !CanAdd(proj)) { continue; }
@@ -5257,9 +5258,10 @@ namespace TUA
 					bool add = true;
 					if (projsToExclude != default(int[]))
 					{
-						foreach (int m in projsToExclude)
+                        for (int i1 = 0; i1 < projsToExclude.Length; i1++)
 						{
-							if (m == proj.whoAmI) { add = false; break; }
+                            int m = projsToExclude[i1];
+                            if (m == proj.whoAmI) { add = false; break; }
 						}
 					}
 					if (add && CanAdd != null && !CanAdd(proj)) { continue; }
@@ -5291,14 +5293,15 @@ namespace TUA
 				if (proj != null && proj.active && (owner == -1 || proj.owner == owner) && (distance == -1 || proj.Distance(center) < distance))
 				{
 					bool isType = false;
-					foreach (int type in projTypes) { if (proj.type == type) { isType = true; break; } }
+                    for (int i1 = 0; i1 < projTypes.Length; i1++) { int type = projTypes[i1]; if (proj.type == type) { isType = true; break; } }
 					if (!isType) { continue; }
 					bool add = true;
 					if (projsToExclude != default(int[]))
 					{
-						foreach (int m in projsToExclude)
+                        for (int i1 = 0; i1 < projsToExclude.Length; i1++)
 						{
-							if (m == proj.whoAmI) { add = false; break; }
+                            int m = projsToExclude[i1];
+                            if (m == proj.whoAmI) { add = false; break; }
 						}
 					}
 					if (add && CanAdd != null && !CanAdd(proj)) { continue; }
@@ -5327,9 +5330,10 @@ namespace TUA
 					bool add = true;
 					if (npcsToExclude != default(int[]))
 					{
-						foreach (int m in npcsToExclude)
+                        for (int i1 = 0; i1 < npcsToExclude.Length; i1++)
 						{
-							if (m == npc.whoAmI) { add = false; break; }
+                            int m = npcsToExclude[i1];
+                            if (m == npc.whoAmI) { add = false; break; }
 						}
 					}
 					if (add && CanAdd != null && !CanAdd(npc)) continue;
@@ -5361,8 +5365,9 @@ namespace TUA
                     bool add = true;
                     if (npcsToExclude != default(int[]))
                     {
-                        foreach (int m in npcsToExclude)
+                        for (int i1 = 0; i1 < npcsToExclude.Length; i1++)
                         {
+                            int m = npcsToExclude[i1];
                             if (m == npc.whoAmI) { add = false; break; }
                         }
                     }
@@ -5399,8 +5404,9 @@ namespace TUA
                     bool add = true;
                     if (npcsToExclude != default(int[]))
                     {
-                        foreach (int m in npcsToExclude)
+                        for (int i1 = 0; i1 < npcsToExclude.Length; i1++)
                         {
+                            int m = npcsToExclude[i1];
                             if (m == npc.whoAmI) { add = false; break; }
                         }
                     }
@@ -5429,8 +5435,9 @@ namespace TUA
                     bool add = true;
                     if (playersToExclude != default(int[]))
                     {
-                        foreach (int m in playersToExclude)
+                        for (int i1 = 0; i1 < playersToExclude.Length; i1++)
                         {
+                            int m = playersToExclude[i1];
                             if (m == plr.whoAmI) { add = false; break; }
                         }
                     }
@@ -5481,8 +5488,9 @@ namespace TUA
                     bool add = true;
                     if (playersToExclude != default(int[]))
                     {
-                        foreach (int m in playersToExclude)
+                        for (int i1 = 0; i1 < playersToExclude.Length; i1++)
                         {
+                            int m = playersToExclude[i1];
                             if (m == player.whoAmI) { add = false; break; }
                         }
                     }
@@ -5518,8 +5526,9 @@ namespace TUA
                     bool add = true;
                     if (playersToExclude != default(int[]))
                     {
-                        foreach (int m in playersToExclude)
+                        for (int i1 = 0; i1 < playersToExclude.Length; i1++)
                         {
+                            int m = playersToExclude[i1];
                             if (m == player.whoAmI) { add = false; break; }
                         }
                     }

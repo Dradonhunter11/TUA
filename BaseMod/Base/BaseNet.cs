@@ -36,8 +36,13 @@ namespace TUA
 				if(obj is byte[])
 				{
 					byte[] array = (byte[])obj;
-					foreach(byte b in array) packet.Write((byte)b); 
-				}else
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        byte b = array[i];
+                        packet.Write((byte)b);
+                    }
+                }
+                else
                 if (obj is bool) packet.Write((bool)obj); else
                 if (obj is byte) packet.Write((byte)obj); else
                 if (obj is short) packet.Write((short)obj); else
@@ -76,8 +81,9 @@ namespace TUA
         {
             System.Collections.Generic.List<object> list = new System.Collections.Generic.List<object>();
             list.Add(array.Length);
-            foreach (Vector2 vec in array)
+            for (int i = 0; i < array.Length; i++)
             {
+                Vector2 vec = array[i];
                 list.Add(vec.X); list.Add(vec.Y);
             }
             return list.ToArray();
@@ -89,8 +95,9 @@ namespace TUA
         public static void WriteVector2Array(Vector2[] array, BinaryWriter writer)
         {
             writer.Write(array.Length);
-            foreach (Vector2 vec in array)
+            for (int i = 0; i < array.Length; i++)
             {
+                Vector2 vec = array[i];
                 writer.Write(vec.X); writer.Write(vec.Y);
             }
         }

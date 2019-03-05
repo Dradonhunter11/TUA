@@ -71,8 +71,9 @@ namespace TUA.API
         /// <param name="quantity"></param>
         /// <returns></returns>
         public static Item scanForItemInInventory(this Player player, int itemType, int quantity) {
-            foreach (Item i in player.inventory)
+            for (int i1 = 0; i1 < player.inventory.Length; i1++)
             {
+                Item i = player.inventory[i1];
                 if (i.type == itemType && i.stack == quantity)
                 {
                     return i;

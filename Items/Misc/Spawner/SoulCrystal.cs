@@ -96,8 +96,9 @@ namespace TUA.Items.Misc.Spawner
 
         public override bool OnPickup(Player player)
         {
-            foreach (var items in player.inventory)
+            for (int i = 0; i < player.inventory.Length; i++)
             {
+                Item items = player.inventory[i];
                 if (items.modItem is SoulCrystal)
                 {
                     SoulCrystal sc = items.modItem as SoulCrystal;
