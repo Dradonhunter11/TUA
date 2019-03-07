@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Terraria;
+using Terraria.GameContent.UI.Elements;
 using Terraria.GameContent.UI.States;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
@@ -88,14 +89,26 @@ namespace TUA
 
         public override void Load()
         {
+            instance = this;
+
+            ModBucket bucket = new ModBucket(-1, Color.Gray, "Empty");
+            AddItem(bucket.name, bucket.Clone());
+
+            bucket = new ModBucket(0, new Color(51, 107, 249), "Water");
+            AddItem(bucket.name, bucket.Clone());
+
+            bucket = new ModBucket(1, new Color(253, 62, 3), "Lava");
+            AddItem(bucket.name, bucket.Clone());
+
+            bucket = new ModBucket(2, new Color(215, 131, 8), "Honey");
+            AddItem(bucket.name, bucket.Clone());
+
             LoadModContent(mod =>
             {
                 Autoload(mod);
             });
             newMainMenu.Load();
-
-
-            instance = this;
+            
             UpdateBiomesInjection.inject();
             LiquidRegistery.MassMethodSwap();
             Console.Write("AM I NULL? " + typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
@@ -292,6 +305,8 @@ namespace TUA
             }
 
             RecipeUtils.setAllFurnaceRecipeSystem();
+
+            
         }
 
         public override void UpdateUI(GameTime gameTime)
@@ -407,15 +422,6 @@ namespace TUA
                     },
                     InterfaceScaleType.UI)
                 );
-            }
-
-            if (npcDialog != -1)
-            {
-                layers[npcDialog] = new LegacyGameInterfaceLayer("Vanilla: NPC / Sign Dialog", delegate
-                {
-                    NewNPCChatDraw.GUIChatDraw();
-                    return true;
-                }, InterfaceScaleType.UI);
             }
         }
 

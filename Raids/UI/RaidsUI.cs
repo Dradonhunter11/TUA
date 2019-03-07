@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Reflection;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Text;
 using Terraria;
@@ -13,8 +14,8 @@ namespace TUA.Raids.UI
 {
     internal class RaidsUI : UIState
     {
-        private UIPanel mainPanel;
-        private UIPanel descriptionPanel;
+        private CustomizableUIPanel mainPanel;
+        private CustomizableUIPanel descriptionPanel;
 
         private UIList raidsList;
         private UIScrollbar scrollbar;
@@ -24,11 +25,12 @@ namespace TUA.Raids.UI
         private UITextPanel<TranslationWrapper> selectTextPanel;
 
         private UIElement xButton;
+        private Texture2D xButtonTexture;
 
         internal RaidsPanel currentlySelectedRaids = new RaidsPanel(RaidsID.None);
         internal RaidsPanel previousRaidsPanel;
 
-        private Texture2D xButtonTexture;
+        
 
         public override void OnInitialize()
         {
@@ -51,16 +53,17 @@ namespace TUA.Raids.UI
             selectTextPanel.Top.Set(Main.screenHeight / 2f + 260f, 0f);
             selectTextPanel.OnClick += SetCurrentRaids;
 
-            mainPanel = new UIPanel();
+            mainPanel = new CustomizableUIPanel(TerrariaUltraApocalypse.instance.GetTexture("Texture/UI/panel"));
+            
             mainPanel.Width.Set(300f, 0);
             mainPanel.Height.Set(350f, 0);
             mainPanel.Left.Set(Main.screenWidth / 2f - 305f, 0f);
             mainPanel.Top.Set(Main.screenHeight / 2f - 100f, 0f);
 
-            descriptionPanel = new UIPanel();
+            descriptionPanel = new CustomizableUIPanel(TerrariaUltraApocalypse.instance.GetTexture("Texture/UI/panel"));
             descriptionPanel.Width.Set(300f, 0);
             descriptionPanel.Height.Set(350f, 0);
-            descriptionPanel.Left.Set(Main.screenWidth / 2f + 5f, 0f);
+            descriptionPanel.Left.Set(Main.screenWidth / 2f + 5f, 0f); 
             descriptionPanel.Top.Set(Main.screenHeight / 2f - 100f, 0f);
 
             raidsDescription = new UIScrollingText();
@@ -116,7 +119,7 @@ namespace TUA.Raids.UI
                     builder.AppendLine("A long time ago, I fought this god. He was one of the most powerful one I ever fought mainly because it could control the element of the void.");
                     builder.AppendLine("This eye, also known as the eye of apocalypse, got out of his sleep after you killed the Ultra eye of Cthulhu.");
                     builder.AppendLine("If he does what he did 1000 years ago, the world might be destroyed... Check the moon, because that's your biggest concern for now");
-                    builder.AppendLine("- The Tnfinity Traveler");
+                    builder.AppendLine("- The Infinity Traveler");
                     break;
                 case RaidsID.None:
                     builder.AppendLine("There are no active raids currently!");

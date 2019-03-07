@@ -8,9 +8,13 @@ using Terraria.GameContent.UI.Elements;
 
 namespace TUA.API.UI
 {
-    class UIPanelTrigger : UIPanel
+    class UIPanelTrigger : CustomizableUIPanel
     {
         public bool isVisible;
+
+        public UIPanelTrigger(Texture2D texture) : base(texture)
+        {
+        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -19,5 +23,7 @@ namespace TUA.API.UI
                 base.Draw(spriteBatch);
             }
         }
+
+        
     }
 }

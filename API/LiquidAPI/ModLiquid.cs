@@ -18,7 +18,12 @@ namespace TUA.API.LiquidAPI
     {
         public bool gravity = true;
         public int customDelay = 1; //Default value, aka 
-        public Color liquidColor = Color.Gray;
+
+        public virtual Color liquidColor
+        {
+            get { return Color.White; } 
+        }
+
         public Mod mod { get; internal set; }
 
         public virtual string name { get; }
@@ -45,6 +50,8 @@ namespace TUA.API.LiquidAPI
         {
             
         }
+
+        
 
         //Normally trigger if gravity is at false
         public virtual bool CustomPhysic(int x, int y)
@@ -136,36 +143,35 @@ namespace TUA.API.LiquidAPI
         {
 
         }
+
+        internal void AddModBucket()
+        {
+            ModBucket bucket = new ModBucket(liquidIndex, liquidColor, name);
+            mod.AddItem(bucket.name, bucket.Clone());
+        }
     }
 
     public class ModBucket : ModItem
     {
-        private int liquidType = -1;
+        private int liquidType { get; set; }
 
-        private string name
+        private Color liquidColor;
+
+        public override string Texture => "TUA/API/LiquidAPI/ModBucket";
+
+        internal string name;
+
+        public override bool CloneNewInstances => true;
+
+        public ModBucket()
         {
-            get
-            {
-                switch (liquidType)
-                {
-                    case -1:
-                        return "Empty bucket";
-                    case 0:
-                        return "Water bucket";
-                    case 1:
-                        return "Lava bucket";
-                    case 2:
-                        return "Honey bucket";
-                    default:
-                        return LiquidRegistery.liquidList[liquidType-3].name + "bucket";
-                }
-            }
         }
 
-        public override bool Autoload(ref string name)
+        public ModBucket(int liquid, Color color, string liquidName)
         {
-            
-            return base.Autoload(ref name);
+            liquidType = liquid;
+            liquidColor = color;
+            name = liquidName + " bucket";
         }
 
         public override void SetDefaults()
@@ -175,11 +181,6 @@ namespace TUA.API.LiquidAPI
             item.useTime = 100;
             item.useAnimation = 1;
             item.consumable = true;
-        }
-
-        public override void UpdateInventory(Player player)
-        {
-            item.SetNameOverride(name);
         }
 
         public override bool UseItem(Player player)
@@ -192,7 +193,7 @@ namespace TUA.API.LiquidAPI
             byte getLiquidType = LiquidCore.liquidGrid[Player.tileTargetX, Player.tileTargetY].data;
             Item newItem = Main.item[Item.NewItem(player.position, item.type)];
             ModBucket newBucket = newItem.modItem as ModBucket;
-            newBucket.liquidType = getLiquidType;
+            liquidType = getLiquidType;
             player.PutModItemInInventory(newBucket);
             item.stack--;
             return true;
@@ -210,23 +211,7 @@ namespace TUA.API.LiquidAPI
             }
 
             Texture2D liquidTexture = TerrariaUltraApocalypse.instance.GetTexture("Texture/Bucket/liquid");
-            Color liquidColor;
-            switch (liquidType)
-            {
-                case 0:
-                    liquidColor = Color.Blue;
-                    break;
-                case 1:
-                    liquidColor = Color.Red;
-                    break;
-                case 2:
-                    liquidColor = Color.Yellow;
-                    break;
-                default:
-                    liquidColor = LiquidRegistery.liquidList[liquidType - 3].liquidColor;
-                    break;
-            }
-            spriteBatch.Draw(liquidTexture, Vector2.Zero, liquidColor);
+            spriteBatch.Draw(liquidTexture, position, liquidColor);
         }
 
         public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale,
@@ -238,23 +223,13 @@ namespace TUA.API.LiquidAPI
             }
 
             Texture2D liquidTexture = TerrariaUltraApocalypse.instance.GetTexture("Texture/Bucket/liquid");
-            Color liquidColor;
-            switch (liquidType)
-            {
-                case 0:
-                    liquidColor = Color.Blue;
-                    break;
-                case 1:
-                    liquidColor = Color.Red;
-                    break;
-                case 2:
-                    liquidColor = Color.Yellow;
-                    break;
-                default:
-                    liquidColor = LiquidRegistery.liquidList[liquidType - 3].liquidColor;
-                    break;
-            }
-            spriteBatch.Draw(liquidTexture, Vector2.Zero, liquidColor);
+            spriteBatch.Draw(liquidTexture, item.position, liquidColor);
+        }
+
+        public override bool OnPickup(Player player)
+        {
+            
+            return base.OnPickup(player);
         }
     }
 }

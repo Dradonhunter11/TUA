@@ -43,7 +43,7 @@ namespace TUA.API.LiquidAPI
 			    LiquidRendererExtension.liquidTexture2D[LiquidRendererExtension.liquidTexture2D.Length - 1] =
 			        liquid.texture;
 			}
-			
+			liquid.AddModBucket();
 		}
 
 		private LiquidRegistery()

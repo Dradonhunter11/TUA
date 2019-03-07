@@ -19,10 +19,12 @@ namespace TUA.API.LiquidAPI.Test
             get { return mod.GetTexture("Texture/water/BestWater"); }
         }
 
-        public override string name => "liquid waste";
+        public override string name => "Liquid waste";
+
+        public override Color liquidColor => Color.GreenYellow;
+
         public override bool Autoload(ref string name)
         {
-            liquidColor = Color.GreenYellow;
             
             return base.Autoload(ref name);
         }
@@ -53,5 +55,7 @@ namespace TUA.API.LiquidAPI.Test
                     ModLoader.GetMod("TUA").NPCType("MutatedSludge"));
             }
         }
+
+        
     }
 }

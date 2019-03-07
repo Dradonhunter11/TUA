@@ -6,27 +6,32 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.UI;
 
 namespace TUA.API.CustomInventory
 {
 
     class ExtraSlot
     {
-        protected Item currentItem;
+        public Item Item;
+
+
+        public int ItemStack => Item.stack;
+        public int ItemType => Item.type;
 
         public ExtraSlot()
         {
-            currentItem = new Item();
-            currentItem.TurnToAir();
+            Item = new Item();
+            Item.TurnToAir();
         }
 
         public Item getItem(bool fullStack)
         {
-            if (currentItem.IsAir)
+            if (Item.IsAir)
             {
-                return currentItem;
+                return Item;
             }
-            return currentItem.Clone();
+            return Item.Clone();
         }
         
 
@@ -35,20 +40,20 @@ namespace TUA.API.CustomInventory
             Item tempItem;
             if (fullStack)
             {
-                tempItem = currentItem;
-                currentItem.TurnToAir();
+                tempItem = Item;
+                Item.TurnToAir();
                 return tempItem;
             }
 
-            tempItem = currentItem.Clone();
+            tempItem = Item.Clone();
             tempItem.stack = 1;
-            currentItem.stack -= 1;
+            Item.stack -= 1;
             return tempItem;
         }
 
         public bool setItem(ref Item newItem)
         {
-            if (!currentItem.IsAir)
+            if (!Item.IsAir)
             {
                 return false;
             }
@@ -56,46 +61,71 @@ namespace TUA.API.CustomInventory
             return true;
         }
 
-        public bool manipulateCurrentItem(Item newItem, int i = 1)
+        public bool manipulateItem(Item newItem, int i = 1)
         {
-            if (currentItem.type == newItem.type)
+            if (Item.type == newItem.type)
             {
-                int calculateAfterStack = currentItem.stack + newItem.stack;
-                if (calculateAfterStack > currentItem.maxStack)
+                int calculateAfterStack = Item.stack + newItem.stack;
+                if (calculateAfterStack > Item.maxStack)
                 {
-                    int calculateItemToSubstract = calculateAfterStack - currentItem.stack;
-                    currentItem.stack += calculateItemToSubstract;
+                    int calculateItemToSubstract = calculateAfterStack - Item.stack;
+                    Item.stack += calculateItemToSubstract;
                     newItem.stack -= calculateItemToSubstract;
                 }
             }
             return false;
         }
 
+        public void manipulateCurrentStack(ref int number)
+        {
+            int preCalculate = Item.stack + number;
+            if (preCalculate >= Item.maxStack)
+            {
+                int overflow = preCalculate - Item.maxStack;
+                number = overflow;
+                Item.stack = Item.maxStack;
+                return;   
+            }
+            Item.stack = preCalculate;
+        }
+
         public void manipulateCurrentStack(int number)
         {
-            if (currentItem.stack <= 0)
+            int preCalculate = Item.stack + number;
+            if (preCalculate >= Item.maxStack)
             {
-                currentItem.TurnToAir();
+                int overflow = preCalculate - Item.maxStack;
+                number = overflow;
+                Item.stack = Item.maxStack;
                 return;
             }
+            Item.stack = preCalculate;
+        }
 
-            currentItem.stack += number;
+        public void ManipulateSingleItem(ref int targetItem)
+        {
+            targetItem++;
+            Item.stack--;
+            if (Item.stack == 0)
+            {
+                Item.TurnToAir();
+            }
         }
 
         public bool isEmpty()
         {
-            return currentItem.IsAir;
+            return Item.IsAir;
         }
 
         public Texture2D getItemTexture()
         {
-            return Main.itemTexture[currentItem.type];
+            return Main.itemTexture[Item.type];
         }
 
         public void swap(ref Item mouseItem)
         {
-            Utils.Swap<Item>(ref currentItem, ref mouseItem);
+            ItemSlot.LeftClick(ref Item);
+            Utils.Swap<Item>(ref Item, ref mouseItem);
         }
-
     }
 }

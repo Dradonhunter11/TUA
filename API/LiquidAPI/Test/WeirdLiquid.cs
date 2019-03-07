@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
@@ -16,9 +17,13 @@ namespace TUA.API.LiquidAPI.Test
             get { return mod.GetTexture("Texture/water/BestWater2"); }
         }
 
+        public override string name => "Test liquid";
+
+        public override Color liquidColor => Color.White;
+
         public override bool Autoload(ref string name)
         {
-            return false;
+            return true;
         }
 
         public override void PreDrawValueSet(ref bool bg, ref int style, ref float Alpha)

@@ -158,6 +158,7 @@
     <Compile Include="API\TUAModItem.cs" />
     <Compile Include="API\TUAModLegacyItem.cs" />
     <Compile Include="API\TUAModNPC.cs" />
+    <Compile Include="API\UI\CustomizableUIPanel.cs" />
     <Compile Include="API\UI\LiquidTank.cs" />
     <Compile Include="API\UI\UIPanelTrigger.cs" />
     <Compile Include="API\UI\UIScrollingText.cs" />

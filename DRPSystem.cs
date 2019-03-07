@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using drpc;
+using drpc.drpc;
 using log4net;
 using Terraria;
 
@@ -16,7 +17,7 @@ namespace TUA
         private static DiscordRP.EventHandlers handlers;
 
         private static Assembly asm;
-
+        
         public static void Init()
         {
 

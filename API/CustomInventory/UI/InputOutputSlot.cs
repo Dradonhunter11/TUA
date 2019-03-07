@@ -24,6 +24,8 @@ namespace TUA.API.CustomInventory.UI
         public int customOffsetX = 2;
         public int customOffsetY = 0;
 
+        public int clickCooldown = 20;
+
         public InputOutputSlot(ExtraSlot boundSlot, Texture2D slotTexture)
         {
             CalculatedStyle s = GetInnerDimensions();
@@ -37,7 +39,8 @@ namespace TUA.API.CustomInventory.UI
             Width.Set(slotTexture.Width, 0f);
             Height.Set(slotTexture.Height, 0f);
             OnClick += OnMouseClick;
-            OnRightClick += OnMouseRightClick;
+
+            
             OnMouseOver += MouseHover;
             NewInitialize();
         }
@@ -46,6 +49,8 @@ namespace TUA.API.CustomInventory.UI
         {
 
         }
+
+        
 
         public void MouseHover(UIMouseEvent mouseEvent, UIElement listeningElement)
         {
@@ -58,62 +63,41 @@ namespace TUA.API.CustomInventory.UI
         public void OnMouseClick(UIMouseEvent mouseEvent, UIElement listeningElement)
         {
             Item item = Main.mouseItem;
+            if (clickCooldown == 0)
+            {
+                clickCooldown = 10;
+                if (item.IsAir && boundSlot.isEmpty())
+                {
+                    return;
+                }
 
-            if (!item.IsAir)
-            {
-                if (boundSlot.isEmpty())
+                if (item.IsAir && !boundSlot.isEmpty())
                 {
-                    boundSlot.setItem(ref Main.mouseItem);
-                    Main.mouseItem.TurnToAir();
+                    boundSlot.swap(ref Main.mouseItem);
+                    return;
                 }
-                else if (boundSlot.setItem(ref Main.mouseItem))
+
+                if (!item.IsAir && boundSlot.isEmpty())
                 {
-                    Main.mouseItem.TurnToAir();
+                    boundSlot.swap(ref Main.mouseItem);
+                    return;
                 }
-                else if (boundSlot.manipulateCurrentItem(item))
+
+                if (item.type == boundSlot.ItemType)
                 {
-                    Main.mouseItem = item;
+                    boundSlot.manipulateCurrentStack(ref item.stack);
+                    return;
                 }
-                Main.mouseItem.TurnToAir();
-            } else if (!boundSlot.isEmpty() && item.IsAir)
-            {
-                boundSlot.swap(ref Main.mouseItem);
             }
-            
         }
 
-        public void OnMouseRightClick(UIMouseEvent mouseEvent, UIElement listeningElement)
+        public override void Update(GameTime gameTime)
         {
-            Item item = Main.mouseItem.Clone();
-            item.stack = 1;
-
-            if (!item.IsAir)
+            if (clickCooldown != 0)
             {
-                if (boundSlot.isEmpty())
-                {
-                    boundSlot.setItem(ref Main.mouseItem);
-                    Main.mouseItem.stack--;
-                    Main.mouseItem.TurnToAir();
-                }
-                else if (boundSlot.manipulateCurrentItem(item))
-                {
-                    Main.mouseItem.stack--;
-                    Main.mouseItem.TurnToAir();
-                }
-
-                if (Main.mouseItem.stack == 0)
-                {
-                    Main.mouseItem.TurnToAir();
-                }
+                clickCooldown--;
             }
-
-            if (Main.netMode != 0)
-            {
-                NetMessage.SendData(MessageID.SyncItem);
-            }
-
         }
-
 
         public virtual void PreDraw(SpriteBatch spriteBatch)
         {
