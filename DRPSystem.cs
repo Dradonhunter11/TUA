@@ -1,92 +1,88 @@
+using DiscordRPC;
+using Terraria;
 using System;
+<<<<<<< Updated upstream
 using System.Reflection;
 using drpc;
 using drpc.drpc;
+=======
+using TUA.API.Dev;
+>>>>>>> Stashed changes
 using log4net;
-using Terraria;
 
 namespace TUA
 {
-    // Almost all of this is from Overhaul.
     public static class DRPSystem
     {
-        private const string AppID = "528086919670792233";
+        private static ILog Logger;
 
-        private static DiscordRP.RichPresence presence;
+        private const string ClientID = "528086919670792233";
 
-        private static DiscordRP.EventHandlers handlers;
+        private static RichPresence presence;
 
+<<<<<<< Updated upstream
         private static Assembly asm;
         
         public static void Init()
-        {
+=======
+        private static DiscordRpcClient client;
 
-            handlers = new DiscordRP.EventHandlers();
-            //asm.GetType("DiscordRP").GetMethod("Initialize", BindingFlags.Public | BindingFlags.Static).Invoke(null, new object[] { AppID, handlers, true, (string)null});
-            DiscordRP.Initialize(AppID, ref handlers, true, (string)null);
-            Reset(true);
-            Update();
-            
+        public static void Boot()
+>>>>>>> Stashed changes
+        {
+            presence = new RichPresence()
+            {
+                Details = $"In Main Menu ({(Environment.Is64BitProcess ? "64" : "32")}bit)",
+                State = (SteamID64Checker.VerifyID() && TerrariaUltraApocalypse.devMode)
+                    ? "Debugging/Developing" :
+                        (Main.netMode == 0 ? Main.rand.Next(new string[] { "Playing Alone", "Lone Samurai", "Singleplayer" })
+                        : "In A Game Of " + Main.ActivePlayersCount),
+                Assets = new Assets()
+                {
+                    LargeImageKey = "logo",
+                    LargeImageText = Main.rand.NextBool() ? "Playing TUA" : "Doing Nothing"
+                }
+            };
+            client = new DiscordRpcClient(ClientID, SteamID64Checker.CurrentSteamID64, true, -1);
+            client.OnReady += (sender, args) => { Logger.Info("Rich Presence is ready for connection!"); };
+            client.OnClose += (sender, args) => { Logger.Info("Rich Presense closed."); };
+            client.OnError += (sender, args) => { Logger.ErrorFormat("Rich Presence failed. Code {1}, {0}", args.Message, args.Code); };
+            presence.Timestamps = new Timestamps()
+            {
+                Start = DateTime.UtcNow,
+                End = DateTime.UtcNow + TimeSpan.FromSeconds(15)
+            };
+            client.SetPresence(presence);
+            client.Initialize();
         }
 
         public static void Update()
         {
-            if (Main.gameMenu & Main.rand.NextBool(100))
-            {
-                Reset(false);
-                return;
-            }
+            // Runs through all of discord-rpc's logging stuff, basically
+            client?.Invoke();
 
-
-            // https://discordapp.com/developers/docs/rich-presence/how-to#updating-presence-update-presence-payload-fields
-            /*
-            if (!NPC.downedSlimeKing | !NPC.downedBoss1)
+            if (Main.rand.NextBool(100))
             {
-                presence.smallImageText = "Tier 0: Pre Eye of Cthulhu/King Slime";
+                if (!Main.gameMenu)
+                {
+                    presence.Details = "Playing Terraria";
+                }
+                else if (Main.rand.NextBool(10000))
+                {
+                    presence.Details = $"In Main Menu ({(Environment.Is64BitProcess ? "64" : "32")}bit)";
+                    presence.State = (SteamID64Checker.VerifyID() && TerrariaUltraApocalypse.devMode)
+                        ? "Debugging/Developing" :
+                            (Main.netMode == 0 ? Main.rand.Next(new string[] { "Playing Alone", "Lone Samurai", "Singleplayer" })
+                            : "In A Game Of " + Main.ActivePlayersCount);
+                    presence.Assets.LargeImageKey = "logo";
+                    presence.Assets.LargeImageText = Main.rand.NextBool() ? "Playing TUA" : "Doing Nothing";
+                }
+                client.SetPresence(presence);
             }
-            if (NPC.downedBoss1 & NPC.downedSlimeKing)
-            {
-                presence.smallImageText = "Tier 1: Eye of Cthulhu/King Slime";
-            }
-            if (NPC.downedBoss2)
-            {
-                presence.smallImageText = Main.ActiveWorldFileData.HasCrimson ? 
-                    "Tier 2: Brain of Cthulhu"
-                    : "Tier 2: Eater of Worlds";
-            }
-            if (NPC.downedBoss3)
-            {
-                presence.smallImageText = "Tier 3: Skeletron";
-            }
-            if (Main.hardMode)
-            {
-                presence.smallImageText = "Tier 4: Hardmode";
-            }
-            if (NPC.downedPlantBoss)
-            {
-                presence.smallImageText = "Tier 5: Plantera";
-            }
-            */
         }
 
-        public static void Kill()
-        {
-            DiscordRP.Shutdown();
-        }
+        public static void Kill() => client.Dispose();
 
-        private static void Reset(bool timestamp)
-        {
-            presence.largeImageText = "TUA";
-            presence.largeImageKey = "logo";
-            presence.smallImageText = null;
-            presence.smallImageKey = null;
-            presence.details = Environment.Is64BitProcess ? "In Main Menu (64bit)" : "In Main Menu";
-            presence.state = null; 
-            if (timestamp)
-            {
-                presence.startTimestamp = Convert.ToInt64((DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds);
-            }
-            DiscordRP.UpdatePresence(ref presence);
-        }
+        public static void ReloadLogger() => Logger = TerrariaUltraApocalypse.instance.Logger;
     }
 }

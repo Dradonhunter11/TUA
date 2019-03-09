@@ -36,7 +36,7 @@ namespace TUA.API.TerraEnergy.TileEntities
             for (int i = 0; i < slot.Length; i++)
             {
                 ExtraSlot extraSlot = slot[i];
-                tag.Add("slot" + 0, extraSlot.getItem(true));
+                tag.Add("slot" + 0, extraSlot.GetItem());
                 itemSlotId++;
             }
         }
@@ -50,7 +50,7 @@ namespace TUA.API.TerraEnergy.TileEntities
                 ExtraSlot extraSlot = slot[i];
                 Item item = tag.Get<Item>("slot" + itemSlotId);
                 SetAir(ref item);
-                extraSlot.setItem(ref item);
+                extraSlot.SetItem(ref item);
                 itemSlotId++;
             }
         }

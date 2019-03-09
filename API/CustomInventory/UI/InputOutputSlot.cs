@@ -54,9 +54,9 @@ namespace TUA.API.CustomInventory.UI
 
         public void MouseHover(UIMouseEvent mouseEvent, UIElement listeningElement)
         {
-            if (!boundSlot.isEmpty())
+            if (!boundSlot.IsEmpty)
             {
-                Main.hoverItemName = boundSlot.getItem(false).HoverName;
+                Main.hoverItemName = boundSlot.GetItem().HoverName;
             }
         }
 
@@ -65,6 +65,7 @@ namespace TUA.API.CustomInventory.UI
             Item item = Main.mouseItem;
             if (clickCooldown == 0)
             {
+<<<<<<< Updated upstream
                 clickCooldown = 10;
                 if (item.IsAir && boundSlot.isEmpty())
                 {
@@ -78,6 +79,43 @@ namespace TUA.API.CustomInventory.UI
                 }
 
                 if (!item.IsAir && boundSlot.isEmpty())
+=======
+                if (boundSlot.IsEmpty)
+                {
+                    boundSlot.SetItem(ref Main.mouseItem);
+                    Main.mouseItem.TurnToAir();
+                }
+                else if (boundSlot.SetItem(ref Main.mouseItem))
+                {
+                    Main.mouseItem.TurnToAir();
+                }
+                else if (boundSlot.ManipulateCurrentItem(item))
+                {
+                    Main.mouseItem = item;
+                }
+                Main.mouseItem.TurnToAir();
+            } else if (!boundSlot.IsEmpty && item.IsAir)
+            {
+                boundSlot.Swap(ref Main.mouseItem);
+            }
+            
+        }
+
+        public void OnMouseRightClick(UIMouseEvent mouseEvent, UIElement listeningElement)
+        {
+            Item item = Main.mouseItem.Clone();
+            item.stack = 1;
+
+            if (!item.IsAir)
+            {
+                if (boundSlot.IsEmpty)
+                {
+                    boundSlot.SetItem(ref Main.mouseItem);
+                    Main.mouseItem.stack--;
+                    Main.mouseItem.TurnToAir();
+                }
+                else if (boundSlot.ManipulateCurrentItem(item))
+>>>>>>> Stashed changes
                 {
                     boundSlot.swap(ref Main.mouseItem);
                     return;
@@ -127,15 +165,15 @@ namespace TUA.API.CustomInventory.UI
             CalculatedStyle innerDimension = GetInnerDimensions();
             innerDimension.X += customOffsetX;
             innerDimension.Y += customOffsetY;
-            Texture2D itemTexture = boundSlot.getItemTexture();
-            Item item = boundSlot.getItem(true);
+            Texture2D itemTexture = boundSlot.GetItemTexture;
+            Item item = boundSlot.GetItem();
             float scale = 0.90f;
 
             Vector2 vector = slotTexture.Size() * scale;
             Rectangle rectangle2;
-            if (Main.itemAnimations[boundSlot.getItem(false).type] != null)
+            if (Main.itemAnimations[boundSlot.GetItem().type] != null)
             {
-                rectangle2 = Main.itemAnimations[boundSlot.getItem(false).type].GetFrame(itemTexture);
+                rectangle2 = Main.itemAnimations[boundSlot.GetItem().type].GetFrame(itemTexture);
             }
             else
             {
@@ -143,7 +181,7 @@ namespace TUA.API.CustomInventory.UI
             }
             Color color = Color.White;
             float num8 = 1f;
-            ItemSlot.GetItemLight(ref color, ref num8, boundSlot.getItem(false), false);
+            ItemSlot.GetItemLight(ref color, ref num8, boundSlot.GetItem(), false);
             float num9 = 1f;
             float AvailableWidth = slotTexture.Width * scale;
             if (rectangle2.Width > slotTexture.Width || rectangle2.Height > slotTexture.Width)
@@ -161,7 +199,7 @@ namespace TUA.API.CustomInventory.UI
             num9 *= scale;
             Vector2 position2 = innerDimension.Position() + vector / 2f - rectangle2.Size() * num9 / 2f;
             Vector2 origin = rectangle2.Size() * (num8 / 2f - 0.5f);
-            if (ItemLoader.PreDrawInInventory(boundSlot.getItem(false), spriteBatch, position2, rectangle2, boundSlot.getItem(false).GetAlpha(color), boundSlot.getItem(false).GetColor(color), origin, num9 * num8))
+            if (ItemLoader.PreDrawInInventory(boundSlot.GetItem(), spriteBatch, position2, rectangle2, boundSlot.GetItem().GetAlpha(color), boundSlot.GetItem().GetColor(color), origin, num9 * num8))
             {
                 spriteBatch.Draw(itemTexture, position2, new Rectangle?(rectangle2), item.GetAlpha(color), 0f, origin, num9 * num8, SpriteEffects.None, 0f);
                 if (item.color != Color.Transparent)
@@ -189,7 +227,7 @@ namespace TUA.API.CustomInventory.UI
             DrawChildren(spriteBatch);
             DrawSelf(spriteBatch);
             spriteBatch.Draw(slotTexture, new Vector2(innerDimension.X, innerDimension.Y), Color.White);
-            if (!boundSlot.isEmpty())
+            if (!boundSlot.IsEmpty)
             {
                 drawItem(spriteBatch);
             }

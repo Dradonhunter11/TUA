@@ -223,6 +223,7 @@
     <Compile Include="Dusts\EotW\MeleeDust.cs" />
     <Compile Include="Dusts\FireDust.cs" />
     <Compile Include="Dusts\TUAGlobalDust.cs" />
+    <Compile Include="Items\Armor\SpectralCloth.cs" />
     <Compile Include="Items\Block\PillarBiomeBlock\Solar\SolarMineralObsidian.cs" />
     <Compile Include="Items\Armor\ArmorBase.cs" />
     <Compile Include="Items\Armor\DruidicArmor.cs" />
@@ -369,9 +370,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dimlibs\bin\Release\Dimlibs.dll</HintPath>
     </Reference>
-    <Reference Include="drpc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\DRPC CSharp\bin\Release\drpc.dll</HintPath>
+    <Reference Include="DiscordRPC">
+      <HintPath>lib\DiscordRPC.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\..\..\..\tml 64bit backup\tModLoader\references\log4net.dll</HintPath>
@@ -416,6 +416,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\InvTweaks\lib\TerrariaHooks.dll</HintPath>
     </Reference>
+    <Reference Include="TerrariaHooks.Windows, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\tModLoader\references\TerrariaHooks.Windows.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Achievement\" />
@@ -432,6 +436,11 @@
   <ItemGroup>
     <Content Include="BaseMod\NPCs\ParentNPC.png" />
     <Content Include="BaseMod\Projectiles\ParentProjectile.png" />
+    <Content Include="build.txt" />
+    <Content Include="description.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Localization\en-US.lang" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -13,7 +13,11 @@ namespace TUA.Items
     {
         // private int timer = 0;
 
+<<<<<<< Updated upstream
         public override bool Autoload(ref string name) => SteamID64Checker.Instance.VerifyDevID() && TerrariaUltraApocalypse.devMode;
+=======
+        public override bool Autoload(ref string name) => SteamID64Checker.VerifyID() && TerrariaUltraApocalypse.devMode;
+>>>>>>> Stashed changes
 
         public override void SetStaticDefaults()
         {

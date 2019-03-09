@@ -26,7 +26,7 @@ namespace TUA.API.CustomInventory.UI
 
         public override void Update(GameTime gameTime)
         {
-            ModItem item = boundSlot.getItem(false).modItem;
+            ModItem item = boundSlot.GetItem().modItem;
             if (item is EnergyItem energyItem)
             {
                 if (!energyItem.isFull())
@@ -40,7 +40,7 @@ namespace TUA.API.CustomInventory.UI
         {
             CalculatedStyle innerDim = GetInnerDimensions();
             Vector2 position = new Vector2(innerDim.X, innerDim.Y - 15);
-            ModItem item = boundSlot.getItem(false)?.modItem;
+            ModItem item = boundSlot.GetItem()?.modItem;
             if (item != null)
             {
                 if (item is EnergyItem)
