@@ -59,11 +59,7 @@ namespace TUA.Items.Armor
 
         public override void UpdateEquip(Player player)
         {
-<<<<<<< Updated upstream
-            if (DevSet(out var _) && !SteamID64Checker.Instance.VerifyDevID())
-=======
             if (DevSet(out var _) && !SteamID64Checker.VerifyID())
->>>>>>> Stashed changes
             {
                 DevSetPenalty(player);
             }
@@ -90,11 +86,7 @@ namespace TUA.Items.Armor
             bool flag = IsArmorSetSafe(head, body, legs) && DevSet(out var _) && SteamID64Checker.VerifyID();
             if (DevSet(out var _))
             {
-<<<<<<< Updated upstream
-                flag = SteamID64Checker.Instance.VerifyDevID();
-=======
                 flag = SteamID64Checker.VerifyID();
->>>>>>> Stashed changes
             }
             return flag;
         }

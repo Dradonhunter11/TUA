@@ -1,13 +1,7 @@
 using DiscordRPC;
 using Terraria;
 using System;
-<<<<<<< Updated upstream
-using System.Reflection;
-using drpc;
-using drpc.drpc;
-=======
 using TUA.API.Dev;
->>>>>>> Stashed changes
 using log4net;
 
 namespace TUA
@@ -20,15 +14,9 @@ namespace TUA
 
         private static RichPresence presence;
 
-<<<<<<< Updated upstream
-        private static Assembly asm;
-        
-        public static void Init()
-=======
         private static DiscordRpcClient client;
 
         public static void Boot()
->>>>>>> Stashed changes
         {
             presence = new RichPresence()
             {

@@ -97,11 +97,7 @@ namespace TUA
 
         public override void UpdateDead()
         {
-<<<<<<< Updated upstream
-            if (SteamID64Checker.Instance.VerifyDevID() && TerrariaUltraApocalypse.devMode)
-=======
             if (SteamID64Checker.VerifyID() && TerrariaUltraApocalypse.devMode)
->>>>>>> Stashed changes
             {
                 player.respawnTimer = 1; //for faster respawn while debugging
             }

@@ -157,11 +157,7 @@ namespace TUA.API.FurnaceRework.TileEntity
         {
             if (progression >= cookTimer)
             {
-<<<<<<< Updated upstream
-                InputSlot.manipulateCurrentStack(currentRecipe.getIngredientStack());
-=======
-                InputSlot.ManipulateCurrentStack(-currentRecipe.GetIngredientStack());
->>>>>>> Stashed changes
+                InputSlot.ManipulateCurrentStack(currentRecipe.GetIngredientStack());
 
                 Item result = currentRecipe.GetResult().Clone();
 

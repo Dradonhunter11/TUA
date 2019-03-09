@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
@@ -16,7 +11,7 @@ namespace TUA.API.CustomInventory.UI
     class ChargingSlot : InputOutputSlot
     {
         private StorageEntity storageEntity;
-        private int maxTransferRate;
+        private readonly int maxTransferRate;
 
         public ChargingSlot(ExtraSlot boundSlot, Texture2D slotTexture, StorageEntity storageEntity, int maxTransferRate) : base(boundSlot, slotTexture)
         {
@@ -36,7 +31,7 @@ namespace TUA.API.CustomInventory.UI
             }
         }
 
-        public override void PostDraw(SpriteBatch spriteBatch)
+        protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             CalculatedStyle innerDim = GetInnerDimensions();
             Vector2 position = new Vector2(innerDim.X, innerDim.Y - 15);
