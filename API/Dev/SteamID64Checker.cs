@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using Terraria.ModLoader;
+using Terraria.Social;
 
 namespace TUA.API.Dev
 {
@@ -34,10 +35,17 @@ namespace TUA.API.Dev
 
         private SteamID64Checker()
         {
-            PropertyInfo SteamID64Info =
-                typeof(ModLoader).GetProperty("SteamID64", BindingFlags.Static | BindingFlags.NonPublic);
-            MethodInfo SteamID64 = SteamID64Info.GetAccessors(true)[0];
-            CurrentSteamID64 = (string)SteamID64.Invoke(null, new object[] { });
+	        if (SocialAPI.Mode == SocialMode.Steam)
+	        {
+		        PropertyInfo SteamID64Info =
+			        typeof(ModLoader).GetProperty("SteamID64", BindingFlags.Static | BindingFlags.NonPublic);
+		        MethodInfo SteamID64 = SteamID64Info.GetAccessors(true)[0];
+		        CurrentSteamID64 = (string) SteamID64.Invoke(null, new object[] { });
+	        }
+	        else
+	        {
+		        CurrentSteamID64 = "";
+	        }
         }
 
         public bool VerifyDevID() => SteamId64List.Contains(CurrentSteamID64);

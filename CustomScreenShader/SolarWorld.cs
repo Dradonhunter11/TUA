@@ -30,7 +30,7 @@ namespace TUA.CustomScreenShader
 
         public override void PostUpdate()
         {
-            ScreenFog.Update(TerrariaUltraApocalypse.SolarFog);
+            ScreenFog.Update(TUA.SolarFog);
 
             if (solarMistTimer <= 0)
             {
@@ -45,7 +45,7 @@ namespace TUA.CustomScreenShader
         {
             if (Dimlibs.Dimlibs.getPlayerDim() == "Solar" && solarMist && Main.netMode == 0)
             {
-                ScreenFog.Draw(TerrariaUltraApocalypse.SolarFog, 0.3f, 0.1f);
+                ScreenFog.Draw(TUA.SolarFog, 0.3f, 0.1f);
             }
             
         }

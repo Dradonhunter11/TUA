@@ -24,7 +24,7 @@ namespace TUA.Configs
 
         public override void PostAutoLoad()
         {        
-            TerrariaUltraApocalypse.custom = this;
+            TUA.custom = this;
         }
     }
 }

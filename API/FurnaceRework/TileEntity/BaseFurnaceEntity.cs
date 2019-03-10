@@ -64,8 +64,8 @@ namespace TUA.API.FurnaceRework.TileEntity
             }
 
             Main.playerInventory = true;
-            TerrariaUltraApocalypse.machineInterface.SetState(furnaceUi);
-            TerrariaUltraApocalypse.machineInterface.IsVisible = true;
+            TUA.machineInterface.SetState(furnaceUi);
+            TUA.machineInterface.IsVisible = true;
         }
 
         public sealed override void Load(TagCompound tag)

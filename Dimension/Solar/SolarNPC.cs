@@ -14,7 +14,7 @@ namespace TUA.Dimension.Solar
     {
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
         {
-            SolarWorld solar = TerrariaUltraApocalypse.instance.GetModWorld<SolarWorld>();
+            SolarWorld solar = TUA.instance.GetModWorld<SolarWorld>();
             if (solar.PillarCrashEvent && solar.PillarDetection())
             {
                 drawColor *= 0.1f;

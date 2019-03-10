@@ -61,8 +61,8 @@ namespace TUA.Raids
                 }
                 else
                 {
-                    TerrariaUltraApocalypse.raidsInterface.SetState(new UI.RaidsUI());
-                    TerrariaUltraApocalypse.raidsInterface.IsVisible = !TerrariaUltraApocalypse.raidsInterface.IsVisible;
+                    TUA.raidsInterface.SetState(new UI.RaidsUI());
+                    TUA.raidsInterface.IsVisible = !TUA.raidsInterface.IsVisible;
                     /*if (Main.ActiveWorldFileData.HasCorruption)
                     {
                         if (!Main.LocalPlayer.inventory.Any(i => i.type == mod.ItemType("GuideVoodooDoll")))

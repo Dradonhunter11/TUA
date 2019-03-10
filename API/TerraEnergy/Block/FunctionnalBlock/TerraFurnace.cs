@@ -123,8 +123,8 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             }
 
             Main.playerInventory = true;
-            TerrariaUltraApocalypse.machineInterface.SetState(furnaceUi);
-            TerrariaUltraApocalypse.machineInterface.IsVisible = true;
+            TUA.machineInterface.SetState(furnaceUi);
+            TUA.machineInterface.IsVisible = true;
         }
 
         public override void LoadEntity(TagCompound tag)

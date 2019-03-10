@@ -34,7 +34,7 @@ namespace TUA.Raids.UI
 
         public override void OnInitialize()
         {
-            xButtonTexture = TerrariaUltraApocalypse.instance.GetTexture("Texture/X_ui");
+            xButtonTexture = TUA.instance.GetTexture("Texture/X_ui");
 
             xButton = new UIElement();
             xButton.Width.Set(20f, 0f);
@@ -53,14 +53,14 @@ namespace TUA.Raids.UI
             selectTextPanel.Top.Set(Main.screenHeight / 2f + 260f, 0f);
             selectTextPanel.OnClick += SetCurrentRaids;
 
-            mainPanel = new CustomizableUIPanel(TerrariaUltraApocalypse.instance.GetTexture("Texture/UI/panel"));
+            mainPanel = new CustomizableUIPanel(TUA.instance.GetTexture("Texture/UI/panel"));
             
             mainPanel.Width.Set(300f, 0);
             mainPanel.Height.Set(350f, 0);
             mainPanel.Left.Set(Main.screenWidth / 2f - 305f, 0f);
             mainPanel.Top.Set(Main.screenHeight / 2f - 100f, 0f);
 
-            descriptionPanel = new CustomizableUIPanel(TerrariaUltraApocalypse.instance.GetTexture("Texture/UI/panel"));
+            descriptionPanel = new CustomizableUIPanel(TUA.instance.GetTexture("Texture/UI/panel"));
             descriptionPanel.Width.Set(300f, 0);
             descriptionPanel.Height.Set(350f, 0);
             descriptionPanel.Left.Set(Main.screenWidth / 2f + 5f, 0f); 
@@ -192,7 +192,7 @@ namespace TUA.Raids.UI
 
         public void Close(UIMouseEvent evt, UIElement el)
         {
-            TerrariaUltraApocalypse.raidsInterface.IsVisible = false;
+            TUA.raidsInterface.IsVisible = false;
             Main.npcChatText = "I'll be able to help you in your future raids! After all, I'm the guide." 
                 + (Main.rand.NextBool() ? " :smile:" : "");
         }

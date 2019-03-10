@@ -60,7 +60,7 @@ namespace TUA.API.TerraEnergy.UI
 
         public override void OnInitialize()
         {
-            xButtonTexture = TerrariaUltraApocalypse.instance.GetTexture("Texture/X_ui");
+            xButtonTexture = TUA.instance.GetTexture("Texture/X_ui");
 
             xButton = new UIElement();
             xButton.Width.Set(20f, 0f);
@@ -69,14 +69,14 @@ namespace TUA.API.TerraEnergy.UI
             xButton.Top.Set(Main.screenHeight / 2f - 90f, 0f);
             xButton.OnClick += CloseButtonClicked;
 
-            furnaceUI = new CustomizableUIPanel(TerrariaUltraApocalypse.instance.GetTexture("Texture/UI/panel"));
+            furnaceUI = new CustomizableUIPanel(TUA.instance.GetTexture("Texture/UI/panel"));
             furnaceUI.SetPadding(0);
             furnaceUI.Width.Set(400, 0f);
             furnaceUI.Height.Set(200, 0f);
             furnaceUI.Top.Set(Main.screenHeight / 2 - 100, 0f);
             furnaceUI.Left.Set(Main.screenWidth / 2 - 200, 0f);
 
-            upgradeUI = new CustomizableUIPanel(TerrariaUltraApocalypse.instance.GetTexture("Texture/UI/panel"));
+            upgradeUI = new CustomizableUIPanel(TUA.instance.GetTexture("Texture/UI/panel"));
             upgradeUI.SetPadding(0);
             upgradeUI.Width.Set(200, 0f);
             upgradeUI.Height.Set(150, 0f);
@@ -121,7 +121,7 @@ namespace TUA.API.TerraEnergy.UI
 
         private void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
-            TerrariaUltraApocalypse.machineInterface.IsVisible = false;
+            TUA.machineInterface.IsVisible = false;
             Main.playerInventory = false;
         }
 

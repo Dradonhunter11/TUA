@@ -56,7 +56,7 @@ namespace TUA.Dimension.MicroBiome
         private const int WIDTH = 200;
         private const int HEIGHT = 150;
 
-        internal Mod mod = TerrariaUltraApocalypse.instance;
+        internal Mod mod = TUA.instance;
 
         public override bool Place(Point origin, StructureMap structures)
         {

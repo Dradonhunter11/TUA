@@ -22,9 +22,6 @@ using TUA.API;
 using TUA.API.Dev;
 using TUA.API.EventManager;
 using TUA.API.Injection;
-using TUA.API.LiquidAPI;
-using TUA.API.LiquidAPI.Swap;
-using TUA.API.LiquidAPI.Test;
 using TUA.API.TerraEnergy.MachineRecipe.Forge;
 using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 using TUA.Configs;
@@ -42,14 +39,14 @@ using TUA.UIHijack.WorldSelection;
 
 namespace TUA
 {
-    internal class TerrariaUltraApocalypse : Mod
+    internal class TUA : Mod
     {
         internal static string version = "0.1 dev";
         internal static String tModLoaderVersion2 = "";
         internal static Version tModLoaderVersion;
         internal static readonly string SAVE_PATH = Main.SavePath;
 
-        internal static TerrariaUltraApocalypse instance;
+        internal static TUA instance;
 
         internal static Texture2D SolarFog;
 
@@ -73,9 +70,7 @@ namespace TUA
         private int titleTimer = 0;
         private Title currentTitle;
 
-        private const int initialLiquidTextureIndex = 12;
-
-        public TerrariaUltraApocalypse()
+        public TUA()
         {
             Properties = new ModProperties()
             {
@@ -90,27 +85,10 @@ namespace TUA
         public override void Load()
         {
             instance = this;
-
-            ModBucket bucket = new ModBucket(-1, Color.Gray, "Empty");
-            AddItem(bucket.name, bucket.Clone());
-
-            bucket = new ModBucket(0, new Color(51, 107, 249), "Water");
-            AddItem(bucket.name, bucket.Clone());
-
-            bucket = new ModBucket(1, new Color(253, 62, 3), "Lava");
-            AddItem(bucket.name, bucket.Clone());
-
-            bucket = new ModBucket(2, new Color(215, 131, 8), "Honey");
-            AddItem(bucket.name, bucket.Clone());
-
-            LoadModContent(mod =>
-            {
-                Autoload(mod);
-            });
+			
             newMainMenu.Load();
             
             UpdateBiomesInjection.inject();
-            LiquidRegistery.MassMethodSwap();
             Console.Write("AM I NULL? " + typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
             //MethodInfo attempt = typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
             //    .GetMethod("PopulateModBrowser", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
@@ -225,7 +203,6 @@ namespace TUA
         {
             //DrawMapInjection.revert();
             UpdateBiomesInjection.inject();
-            LiquidRegistery.MassMethodSwap();
 
             Main.SavePath = SAVE_PATH;
 
@@ -239,9 +216,6 @@ namespace TUA
             info2.SetValue(null, string.Format("tModLoader v{0}", (object)Terraria.ModLoader.ModLoader.version) + (Terraria.ModLoader.ModLoader.branchName.Length == 0 ? "" : " " + Terraria.ModLoader.ModLoader.branchName) + (Terraria.ModLoader.ModLoader.beta == 0 ? "" : string.Format(" Beta {0}", (object)Terraria.ModLoader.ModLoader.beta)));
 
             MoonEventManagerWorld.moonEventList = null;
-
-            Array.Resize(ref Main.liquidTexture, initialLiquidTextureIndex);
-            Array.Resize(ref LiquidRendererExtension.liquidTexture2D, initialLiquidTextureIndex);
 
             //Remember to re enable it once it's fixed
             if (!Main.dedServ)
@@ -512,25 +486,6 @@ namespace TUA
             };
         }
 
-        private void AutoloadLiquid(Mod mod, Type type)
-        {
-            Color[] color = (Color[]) typeof(MapHelper).GetField("colorLookup", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
-            ModLiquid liquid = (ModLiquid)Activator.CreateInstance(type);
-            liquid.mod = mod;
-            string texturePath = liquid.GetType().FullName.Replace(".", "/").Replace(this.Name + "/", "");
-            if (liquid.Autoload(ref texturePath))
-            {
-                
-                if (Main.netMode == 0)
-                {
-                    Main.liquidTexture[Main.liquidTexture.Length - 1] = this.GetTexture(texturePath);
-                    LiquidRendererExtension.liquidTexture2D[LiquidRendererExtension.liquidTexture2D.Length - 1] =
-                        this.GetTexture(texturePath);
-                }
-                LiquidRegistery.getInstance().addNewModLiquid(liquid);
-            }
-        }
-
         private void resetMenu(Dictionary<string, LocalizedText> dictionary, FieldInfo textInfo)
         {
             if (Main.menuMode == 1)
@@ -555,38 +510,6 @@ namespace TUA
             animationTimer--;
         }
 
-        private static void LoadModContent(Action<Mod> loadAction)
-        {
-            for (int i = 0; i < ModLoader.Mods.Length; i++)
-            {
-                Mod mod = ModLoader.Mods[i];
-                try
-                {
-                    loadAction(mod);
-                }
-                catch { }
-            }
-        }
-
-        private void Autoload(Mod mod)
-        {
-
-            if (mod.Code == null)
-            {
-                return;
-            }
-
-            var array = mod.Code.DefinedTypes.OrderBy(type => type.FullName, StringComparer.InvariantCulture);
-            for (int i = 0; i < array.Count(); i++)
-            {
-                var type = array.ElementAt(i);
-                if (type.IsSubclassOf(typeof(ModLiquid)))
-                {
-                    AutoloadLiquid(mod, type);
-                }
-            }
-        }
-
         private static void SetTheme()
         {
             Dictionary<String, CustomSky> temp2 = (Dictionary<string, CustomSky>)typeof(SkyManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(SkyManager.Instance);
@@ -606,33 +529,33 @@ namespace TUA
             for (int i = 0; i < allKey.Count; i++)
             {
                 string key = allKey[i];
-                if (key != TerrariaUltraApocalypse.custom.newMainMenuTheme)
+                if (key != TUA.custom.newMainMenuTheme)
                 {
                     SkyManager.Instance.Deactivate(key);
                 }
             }
 
             Main.worldSurface = 565;
-            if (TerrariaUltraApocalypse.custom.newMainMenuTheme != "Vanilla" && !SkyManager.Instance[TerrariaUltraApocalypse.custom.newMainMenuTheme].IsActive())
+            if (TUA.custom.newMainMenuTheme != "Vanilla" && !SkyManager.Instance[TUA.custom.newMainMenuTheme].IsActive())
             {
-                switch (TerrariaUltraApocalypse.custom.newMainMenuTheme)
+                switch (TUA.custom.newMainMenuTheme)
                 {
                     case "Vanilla":
                         return;
                     default:
-                        if (Filters.Scene[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
+                        if (Filters.Scene[TUA.custom.newMainMenuTheme] != null)
                         {
-                            Filters.Scene.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
+                            Filters.Scene.Activate(TUA.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
                         }
 
-                        if (SkyManager.Instance[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
+                        if (SkyManager.Instance[TUA.custom.newMainMenuTheme] != null)
                         {
-                            SkyManager.Instance.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
+                            SkyManager.Instance.Activate(TUA.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
                         }
 
-                        if (Overlays.Scene[TerrariaUltraApocalypse.custom.newMainMenuTheme] != null)
+                        if (Overlays.Scene[TUA.custom.newMainMenuTheme] != null)
                         {
-                            Overlays.Scene.Activate(TerrariaUltraApocalypse.custom.newMainMenuTheme,
+                            Overlays.Scene.Activate(TUA.custom.newMainMenuTheme,
                                 Vector2.Zero - new Vector2(0f, 10f), new object[0]);
                         }
 
