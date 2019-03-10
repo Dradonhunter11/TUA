@@ -11,7 +11,6 @@ namespace TUA.Items
 {
     class SetNight : ModItem
     {
-        // private int timer = 0;
 
         public override bool Autoload(ref string name) => SteamID64Checker.Instance.VerifyDevID() && TUA.devMode;
 

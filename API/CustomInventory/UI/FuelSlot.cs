@@ -24,9 +24,9 @@ namespace TUA.API.CustomInventory.UI
 
         public override void Update(GameTime gameTime)
         {
-            if (!boundSlot.isEmpty())
+            if (!boundSlot.IsEmpty)
             {
-                boundSlot.manipulateCurrentStack(-1);
+                boundSlot.ManipulateCurrentStack(-1);
                 core.addEnergy(1);
             }
         }

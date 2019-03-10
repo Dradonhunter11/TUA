@@ -7,7 +7,7 @@ namespace TUA.Commands
     {
         public override void Action(CommandCaller caller, string input, string[] args)
         {
-            if (SteamID64Checker.Instance.VerifyDevID())
+            if (SteamID64Checker.VerifyID())
             {
                 TUAWorld.RealisticTimeMode = !TUAWorld.RealisticTimeMode;
             }

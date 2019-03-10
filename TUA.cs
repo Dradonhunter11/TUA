@@ -109,23 +109,25 @@ namespace TUA
 
                 SolarFog = GetTexture("CustomScreenShader/HeavyMist");
 
-                /*DRPSystem.Init();
-                Main.OnTick += DRPSystem.Update;*/
-
+                /*
+                DRPSystem.ReloadLogger();
+                Main.OnTick += DRPSystem.ReloadLogger;
+                Main.OnTick += DRPSystem.Update;
+                DRPSystem.Boot();
+                */
+                
 
                 machineInterface = new UserInterface();
                 CapacitorInterface = new UserInterface();
                 raidsInterface = new UserInterface();
 
                 AddFilter();
-                CreateTranslation();
+                AddHotWTranslations();
 
+                SteamID64Checker.Initiate();
             }
 
             HookGenLoader();
-
-            //DRPSystem.Init();
-            //Main.OnTick += DRPSystem.Update;
         }
 
         private static void HookGenLoader()
@@ -164,7 +166,7 @@ namespace TUA
             SkyManager.Instance["TUA:SolarMist"] = new HeavyMistSky();
         }
 
-        private void CreateTranslation()
+        private void AddHotWTranslations()
         {
             var text = CreateTranslation("HotWFarAway0");
             text.SetDefault("<{0}> Where do you think you're going??");
@@ -197,8 +199,6 @@ namespace TUA
             return $"{tModLoaderVersion2} - TUA v{version} - {quote[r.Next(quote.Count)]}";
         }
 
-
-
         public override void Unload()
         {
             //DrawMapInjection.revert();
@@ -220,8 +220,11 @@ namespace TUA
             //Remember to re enable it once it's fixed
             if (!Main.dedServ)
             {
-                //DRPSystem.Kill();
-                //Main.OnTick -= DRPSystem.Update;
+                /*
+                DRPSystem.Kill();
+                Main.OnTick -= DRPSystem.ReloadLogger;
+                Main.OnTick -= DRPSystem.Update;
+                */
             }
         }
 
@@ -242,10 +245,10 @@ namespace TUA
         public void addFurnaceRecipe(int itemID, int itemResult, int timer = 20)
         {
             FurnaceRecipe r1 = FurnaceRecipeManager.CreateRecipe(this);
-            r1.addIngredient(itemID, 1);
-            r1.setResult(itemResult, 1);
-            r1.setCostAndCookTime(timer);
-            r1.addRecipe();
+            r1.AddIngredient(itemID, 1);
+            r1.SetResult(itemResult, 1);
+            r1.SetCostAndCookTime(timer);
+            r1.AddRecipe();
         }
 
         public void AddInductionSmelterRecipe(int itemID1, int itemID2, int itemResult, int quantityItem1 = 1, int quantityItem2 = 1, int resultQuantity = 1, int timer = 120)

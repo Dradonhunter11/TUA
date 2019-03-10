@@ -7,33 +7,11 @@ namespace TUA.API.Dev
 {
     class SteamID64Checker
     {
-        private static List<string> SteamId64List = new List<string>
-            {
-                "76561198062217769", //Dradonhunter11
-                "76561197970658570", //2grufs
-                "76561193945835208", //DarkPuppey
-                "76561193830996047", //Gator
-                "76561198098585379", //Chinzilla00
-                "76561198265178242", //Demi
-                "76561193989806658", //SDF
-                "76561198193865502", //Agrair
-                "76561198108364775"  //HumanGamer
-            };
-        
-        private static SteamID64Checker instance;
-        private static string CurrentSteamID64;
+        public static string CurrentSteamID64;
 
-        public static SteamID64Checker Instance
-        {
-            get
-            {
-                instance = instance ?? new SteamID64Checker();
+        private static List<string> SteamId64List;
 
-                return instance;
-            }
-        }
-
-        private SteamID64Checker()
+        public static void Initiate()
         {
 	        if (SocialAPI.Mode == SocialMode.Steam)
 	        {
@@ -54,6 +32,9 @@ namespace TUA.API.Dev
 
         public void CopyIDToClipboard()
         {
+            System.Windows.Forms.Clipboard.SetText(CurrentSteamID64);
         }
+
+        public static bool VerifyID() => SteamId64List.Contains(CurrentSteamID64);
     }
 }
