@@ -40,7 +40,7 @@ namespace TUA.Items.Armor
                     int item = items[i];
                     recipe.AddIngredient(item);
                 }
-                OtherCraftingRequirements(recipe);
+                CraftingConditions(recipe);
                 recipe.SetResult(this);
                 recipe.AddRecipe();
             }
@@ -52,14 +52,14 @@ namespace TUA.Items.Armor
             return false;
         }
 
-        protected virtual void OtherCraftingRequirements(ModRecipe recipe)
+        protected virtual void CraftingConditions(ModRecipe recipe)
         {
 
         }
 
         public override void UpdateEquip(Player player)
         {
-            if (DevSet(out var _) && !SteamID64Checker.Instance.VerifyDevID())
+            if (DevSet(out var _) && !SteamID64Checker.VerifyID())
             {
                 DevSetPenalty(player);
             }
@@ -71,7 +71,7 @@ namespace TUA.Items.Armor
             return false;
         }
 
-        private void DevSetPenalty(Player plr) { plr.statLife--; }
+        protected virtual void DevSetPenalty(Player plr) { plr.statLife--; }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
@@ -83,10 +83,10 @@ namespace TUA.Items.Armor
 
         public sealed override bool IsArmorSet(Item head, Item body, Item legs)
         {
-            bool flag = IsArmorSetSafe(head, body, legs);
+            bool flag = IsArmorSetSafe(head, body, legs) && DevSet(out var _) && SteamID64Checker.VerifyID();
             if (DevSet(out var _))
             {
-                flag = SteamID64Checker.Instance.VerifyDevID();
+                flag = SteamID64Checker.VerifyID();
             }
             return flag;
         }

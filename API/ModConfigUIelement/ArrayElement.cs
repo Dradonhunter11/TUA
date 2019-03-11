@@ -289,7 +289,7 @@ namespace TUA.API.ModConfigUIelement
             for (int i = 0; i < allKey.Count; i++)
             {
                 string key = allKey[i];
-                if (key != TerrariaUltraApocalypse.custom.newMainMenuTheme && SkyManager.Instance[key] != null)
+                if (key != TUA.custom.newMainMenuTheme && SkyManager.Instance[key] != null)
                     SkyManager.Instance[key].Deactivate();
             }
 

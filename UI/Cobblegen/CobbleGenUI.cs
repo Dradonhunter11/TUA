@@ -16,7 +16,7 @@ namespace TUA.UI.Cobblegen
         private CustomizableUIPanel panel;
         private UIImageButton exitButton;
 
-        private static Texture2D background = TerrariaUltraApocalypse.instance.GetTexture("Texture/UI/Panel");
+        private static Texture2D background = TUA.instance.GetTexture("Texture/UI/Panel");
 
         private static int CORNER_SIZE = 12;
         private static int BAR_SIZE = 4;
@@ -26,7 +26,7 @@ namespace TUA.UI.Cobblegen
             panel = new CustomizableUIPanel(background);
 
 
-            exitButton = new UIImageButton(TerrariaUltraApocalypse.instance.GetTexture("Texture/X_ui"));
+            exitButton = new UIImageButton(TUA.instance.GetTexture("Texture/X_ui"));
             exitButton.Width.Set(20f, 0);
             exitButton.Height.Set(22f, 0);
             exitButton.HAlign = 1f;

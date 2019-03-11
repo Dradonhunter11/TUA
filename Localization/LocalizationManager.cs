@@ -13,7 +13,7 @@ namespace TUA.Localization
     class LocalizationManager
     {
 
-        private Dictionary<String, TranslationWrapper> manager;
+        private Dictionary<string, TranslationWrapper> manager;
 
         public static readonly LocalizationManager instance = new LocalizationManager();
 
@@ -23,14 +23,14 @@ namespace TUA.Localization
             initLocalization();
         }
 
-        public void AddNewTranslationToManager(String key, String defaultString)
+        public void AddNewTranslationToManager(string key, string defaultString)
         {
-            TranslationWrapper translation = new TranslationWrapper(TerrariaUltraApocalypse.instance.CreateTranslation(key));TerrariaUltraApocalypse.instance.CreateTranslation(key);
+            TranslationWrapper translation = new TranslationWrapper(TUA.instance.CreateTranslation(key));TUA.instance.CreateTranslation(key);
             translation.SetDefault(defaultString);
             manager.Add(key, translation);
         }
 
-        public void AddTranslation(GameCulture language, String key, String defaultString)
+        public void AddTranslation(GameCulture language, string key, string defaultString)
         {
             // if (manager.ContainsKey(key))
             {
@@ -38,7 +38,7 @@ namespace TUA.Localization
             }
         }
 
-        public String GetTranslation(String key)
+        public string GetTranslation(string key)
         {
             GameCulture culture = Language.ActiveCulture;
             // if (manager.ContainsKey(key))
@@ -50,7 +50,7 @@ namespace TUA.Localization
             return "Unknown Translation";
         }
 
-        public TranslationWrapper GetRawTranslation(String key)
+        public TranslationWrapper GetRawTranslation(string key)
         {
             GameCulture culture = Language.ActiveCulture;
             if (manager.ContainsKey(key))

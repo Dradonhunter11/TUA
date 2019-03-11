@@ -40,7 +40,7 @@ namespace TUA.UIHijack.MainMenu
 
         public void backButtonEvent(UIMouseEvent MouseEvent, UIElement element)
         {
-            Main.MenuUI.SetState(TerrariaUltraApocalypse.instance.newMainMenu);
+            Main.MenuUI.SetState(TUA.instance.newMainMenu);
             Main.PlaySound(10, -1, -1, 1, 1f, 0f);
         }
 

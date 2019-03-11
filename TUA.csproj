@@ -39,7 +39,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
-    <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -99,26 +99,6 @@
     <Compile Include="API\Injection\DrawMapInjection.cs" />
     <Compile Include="API\Injection\ModBrowserInjection.cs" />
     <Compile Include="API\Injection\UpdateBiomesInjection.cs" />
-    <Compile Include="API\Injection\UpdateLiquidInjection.cs" />
-    <Compile Include="API\LiquidAPI\Data\Bit.cs" />
-    <Compile Include="API\LiquidAPI\LiquidExtension.cs" />
-    <Compile Include="API\LiquidAPI\LiquidMod\LiquidCore.cs" />
-    <Compile Include="API\LiquidAPI\LiquidMod\LiquidGlobalItem.cs" />
-    <Compile Include="API\LiquidAPI\LiquidMod\LiquidGlobalNPC.cs" />
-    <Compile Include="API\LiquidAPI\LiquidMod\LiquidPlayer.cs" />
-    <Compile Include="API\LiquidAPI\LiquidMod\LiquidRef.cs" />
-    <Compile Include="API\LiquidAPI\LiquidRegistery.cs" />
-    <Compile Include="API\LiquidAPI\LiquidWorld.cs" />
-    <Compile Include="API\LiquidAPI\ModLiquid.cs" />
-    <Compile Include="API\LiquidAPI\Swap\CollisionSwap.cs" />
-    <Compile Include="API\LiquidAPI\Swap\InternalLiquidDrawInjection.cs" />
-    <Compile Include="API\LiquidAPI\Swap\LiquidSwapping.cs" />
-    <Compile Include="API\LiquidAPI\Swap\PlayerSwap.cs" />
-    <Compile Include="API\LiquidAPI\Swap\TempClass.cs" />
-    <Compile Include="API\LiquidAPI\Swap\WaterDrawInjection.cs" />
-    <Compile Include="API\LiquidAPI\Test\PlutonicWaste.cs" />
-    <Compile Include="API\LiquidAPI\Test\WeirdLiquid.cs" />
-    <Compile Include="API\LiquidAPI\TileExtension.cs" />
     <Compile Include="API\ModConfigUIelement\ArrayElement.cs" />
     <Compile Include="API\ModExtension.cs" />
     <Compile Include="API\MonoModExtraHook.cs" />
@@ -224,6 +204,7 @@
     <Compile Include="Dusts\EotW\MeleeDust.cs" />
     <Compile Include="Dusts\FireDust.cs" />
     <Compile Include="Dusts\TUAGlobalDust.cs" />
+    <Compile Include="Items\Armor\SpectralCloth.cs" />
     <Compile Include="Items\Block\PillarBiomeBlock\Solar\SolarMineralObsidian.cs" />
     <Compile Include="Items\Armor\ArmorBase.cs" />
     <Compile Include="Items\Armor\DruidicArmor.cs" />
@@ -346,7 +327,7 @@
     <Compile Include="RecipeUtils.cs" />
     <Compile Include="Items\SetNight.cs" />
     <Compile Include="Items\EoA\Spawner.cs" />
-    <Compile Include="TerrariaUltraApocalypse.cs" />
+    <Compile Include="TUA.cs" />
     <Compile Include="UIHijack\InGameUI\NPCDialog\NewNPCChatDraw.cs" />
     <Compile Include="UIHijack\MainMenu\TUAOptionMenu\CreditPanel.cs" />
     <Compile Include="UIHijack\MainMenu\MainMenuButton\QuitButton.cs" />
@@ -362,20 +343,15 @@
     <Compile Include="Walls\Wasteland\WastestoneBrickWall.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="BiomeLibrary, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\BiomeLibrary\bin\Debug\BiomeLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="Dimlibs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dimlibs\bin\Release\Dimlibs.dll</HintPath>
     </Reference>
-    <Reference Include="drpc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\DRPC CSharp\bin\Release\drpc.dll</HintPath>
+    <Reference Include="DiscordRPC">
+      <HintPath>lib\DiscordRPC.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\..\tml 64bit backup\tModLoader\references\log4net.dll</HintPath>
+      <HintPath>..\..\references\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -394,28 +370,24 @@
       <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Microsoft.Xna.Framework.Xact.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
-      <HintPath>..\..\..\..\..\..\Downloads\Mono.Cecil.dll</HintPath>
+      <HintPath>..\..\references\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="MonoMod.RuntimeDetour">
-      <HintPath>..\..\..\..\..\..\Downloads\MonoMod.RuntimeDetour.dll</HintPath>
+      <HintPath>..\..\references\MonoMod.RuntimeDetour.dll</HintPath>
     </Reference>
-    <Reference Include="MonoMod.Utils, Version=18.10.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\tml 64bit backup\tModLoader\references\MonoMod.Utils.dll</HintPath>
+    <Reference Include="MonoMod.Utils">
+      <HintPath>..\..\references\MonoMod.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="ReLogic, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\TerrariaFullsource\ReLogic.dll</HintPath>
+    <Reference Include="ReLogic">
+      <HintPath>..\..\references\ReLogic.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="Terraria, Version=1.3.5.1, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\Terraria.exe</HintPath>
+    <Reference Include="Terraria">
+      <HintPath>..\..\..\..\..\..\..\Terraria\tModLoader 0.11b2 TUA Dev\Terraria.exe</HintPath>
     </Reference>
-    <Reference Include="TerrariaHooks, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\InvTweaks\lib\TerrariaHooks.dll</HintPath>
+    <Reference Include="TerrariaHooks">
+      <HintPath>..\..\references\TerrariaHooks.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -433,10 +405,32 @@
   <ItemGroup>
     <Content Include="BaseMod\NPCs\ParentNPC.png" />
     <Content Include="BaseMod\Projectiles\ParentProjectile.png" />
+    <Content Include="build.txt" />
+    <Content Include="description.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Localization\en-US.lang" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BiomeLibrary\BiomeLibrary.csproj">
+      <Project>{c69d2286-9eab-4009-9f64-62ab304c7cb6}</Project>
+      <Name>BiomeLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dimlibs\Dimlibs.csproj">
+      <Project>{a4ccb7fb-b9c6-4ea1-a379-849bd5f26330}</Project>
+      <Name>Dimlibs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LiquidAPI\LiquidAPI.csproj">
+      <Project>{d9056560-33e4-45b5-80c6-e4f4d2218f21}</Project>
+      <Name>LiquidAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Program Files (x86)\Steam\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>"E:\Terraria\tModLoader 0.11b2 TUA Dev\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

@@ -26,10 +26,10 @@ namespace TUA.Items.Materials.Wasteland
         public override void AddRecipes()
         {
             FurnaceRecipe furnace = new FurnaceRecipe(mod);
-            furnace.addIngredient(mod.ItemType("WastelandOre"), 10);
-            furnace.setCostAndCookTime(500);
-            furnace.setResult(mod.ItemType<WastestoneIngot>());
-            furnace.addRecipe();
+            furnace.AddIngredient(mod.ItemType("WastelandOre"), 10);
+            furnace.SetCostAndCookTime(500);
+            furnace.SetResult(mod.ItemType<WastestoneIngot>());
+            furnace.AddRecipe();
         }
     }
 }

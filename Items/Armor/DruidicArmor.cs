@@ -25,7 +25,7 @@ namespace TUA.Items.Armor
 
         public override void GetWeaponCrit(Item item, ref int crit)
         {
-            if (equipped && !Main.rand.NextBool(3))
+            if (equipped)
             {
                 crit += (int)(crit * .6);
             }
@@ -38,7 +38,7 @@ namespace TUA.Items.Armor
 
         public override void GetWeaponKnockback(Item item, ref float knockback)
         {
-            knockback *= 1.2f;
+            if (equipped) knockback *= 1.2f;
         }
     }
 

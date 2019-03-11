@@ -1,9 +1,9 @@
 author = Apocalypse Mod Team
 version = 0.0.1
-displayName = Terraria Ultra Apocalypse
+displayName = TUA
 hideCode = true
 hideResources = true
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*
 includePDB = true
-modReferences = BiomeLibrary@0.4, Dimlibs
-dllReferences =  drpc
+modReferences = BiomeLibrary@0.4, LiquidAPI, Dimlibs
+dllReferences =  DiscordRPC

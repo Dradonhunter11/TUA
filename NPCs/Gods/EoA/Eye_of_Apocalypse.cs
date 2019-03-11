@@ -124,7 +124,7 @@ namespace TUA.NPCs.Gods.EoA
                         BaseUtility.Chat("<Eye of Azathoth - God of destruction> But now I am back to seek revenge on the human, their spell and technology won't be able to stop me this time and everyone should perish under the plagues!");
                         break;
                     case 5:
-                        TerrariaUltraApocalypse.instance.SetTitle("Eye of Azathoth", "The god of destruction", Color.Red, Color.Black, Main.fontDeathText, 300, 1, true);
+                        TUA.instance.SetTitle("Eye of Azathoth", "The god of destruction", Color.Red, Color.Black, Main.fontDeathText, 300, 1, true);
                         BaseUtility.Chat("<Eye of Azathoth - God of destruction> We are taking our right back and we will conquer the world like we did a 1000 years ago, be ready to fight. ");
                         
                         break;

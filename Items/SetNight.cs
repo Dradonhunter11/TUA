@@ -4,16 +4,15 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 using TUA.API.Dev;
-using TUA.API.LiquidAPI.LiquidMod;
 using TUA.Dimension.MicroBiome;
+using LiquidAPI.LiquidMod;
 
 namespace TUA.Items
 {
     class SetNight : ModItem
     {
-        // private int timer = 0;
 
-        public override bool Autoload(ref string name) => SteamID64Checker.Instance.VerifyDevID() && TerrariaUltraApocalypse.devMode;
+        public override bool Autoload(ref string name) => SteamID64Checker.Instance.VerifyDevID() && TUA.devMode;
 
         public override void SetStaticDefaults()
         {
@@ -59,7 +58,7 @@ namespace TUA.Items
             Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 255;
             liquid.SetLiquidsState(3, true);
             WorldGen.SquareTileFrame(Player.tileTargetX, Player.tileTargetY, true);
-            TerrariaUltraApocalypse.instance.SetTitle("Hello world", "Yup an hello world message as title", Color.Green, Color.Pink, Main.fontDeathText, 30, 1f, true);
+            TUA.instance.SetTitle("Hello world", "Yup an hello world message as title", Color.Green, Color.Pink, Main.fontDeathText, 30, 1f, true);
             //Biomes<SolarVolcano>.Place((int) player.Center.X / 16, (int) player.Center.Y / 16 - 4, new StructureMap());
             return true;
         }

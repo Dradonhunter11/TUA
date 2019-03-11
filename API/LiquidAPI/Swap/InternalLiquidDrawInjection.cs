@@ -222,7 +222,6 @@ namespace TUA.API.LiquidAPI.Swap
                 typeof(LiquidRenderer).GetField("_animationFrame", BindingFlags.Instance | BindingFlags.NonPublic);
 
             Rectangle rectangle = new Rectangle(drawArea.X - 2, drawArea.Y - 2, drawArea.Width + 4, drawArea.Height + 4);
-            
 
             FieldInfo _waveMaskInfo =
                 typeof(LiquidRenderer).GetField("_waveMask", BindingFlags.Instance | BindingFlags.NonPublic);

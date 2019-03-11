@@ -15,7 +15,7 @@ namespace TUA.Commands
     {
         public override bool Autoload(ref string name)
         {
-            if (SteamID64Checker.Instance.VerifyDevID() && TerrariaUltraApocalypse.devMode)
+            if (SteamID64Checker.Instance.VerifyDevID() && TUA.devMode)
             {
                 return true;
             }
@@ -25,7 +25,7 @@ namespace TUA.Commands
 
         public override void Action(CommandCaller caller, string input, string[] args)
         {
-            if (SteamID64Checker.Instance.VerifyDevID())
+            if (SteamID64Checker.VerifyID())
             {
                 switch (args[0])
                 {

@@ -53,7 +53,7 @@ namespace TUA.API.Injection
                 string url = "http://javid.ddns.net/tModLoader/listmods.php";
                 var values = new NameValueCollection
                 {
-                    { "modloaderversion", TerrariaUltraApocalypse.tModLoaderVersion2 },
+                    { "modloaderversion", TUA.tModLoaderVersion2 },
                     { "platform", ModLoader.compressedPlatformRepresentation },
                 };
                 using (WebClient client = new WebClient())

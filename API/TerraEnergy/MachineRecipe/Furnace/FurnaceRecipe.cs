@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace TUA.API.TerraEnergy.MachineRecipe.Furnace
@@ -22,67 +17,40 @@ namespace TUA.API.TerraEnergy.MachineRecipe.Furnace
 
         }
 
-        public void setCostAndCookTime(int energyRequired)
+        public void SetCostAndCookTime(int energyRequired)
         {
             this.energyRequired = energyRequired;
         }
 
-        public int getCookTime()
-        {
-            return energyRequired;
-        }
+        public int GetCookTime() => energyRequired;
 
-        public void addIngredient(int itemID, int quantity = 1)
+        public void AddIngredient(int itemID, int quantity = 1)
         {
-            ingredient = new Item();
-            ingredient.type = itemID;
-            ingredient.stack = quantity;
+            ingredient = new Item
+            {
+                type = itemID,
+                stack = quantity
+            };
             ingrediantName = ingredient.Name;
         }
 
-        public void setResult(int itemID, int quantity = 1)
+        public void SetResult(int itemID, int quantity = 1)
         {
 
             result = new Item();
-            result.SetDefaults(itemID, false);
+            result.SetDefaults(itemID);
             result.stack = quantity;
             resultName = result.Name;
         }
 
-        public void addRecipe()
-        {
-            FurnaceRecipeManager.addRecipe(this);
-        }
+        public void AddRecipe() => FurnaceRecipeManager.addRecipe(this);
 
+        internal bool CheckQuantity(int i) => i >= ingredient.stack;
 
+        internal bool CheckItem(Item item) => ingredient.type == item.type;
 
-        internal bool checkQuantity(int i)
-        {
-            if (i >= ingredient.stack)
-            {
-                return true;
-            }
-            return false;
-        }
+        internal Item GetResult() => result.Clone();
 
-        internal bool checkItem(Item item)
-        {
-            if (ingredient.type == item.type)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        internal Item getResult()
-        {
-            Item item = result.Clone();
-            return item;
-        }
-
-        internal int getIngredientStack()
-        {
-            return ingredient.stack;
-        }
+        internal int GetIngredientStack() => ingredient.stack;
     }
 }

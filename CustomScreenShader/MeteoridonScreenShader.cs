@@ -21,12 +21,12 @@ namespace TUA.CustomScreenShader
         private int textureHeight;
         private readonly float fogOpacity1 = 0.5f;
         private readonly float fogOpacity2 = 0.4f;
-        private Texture2D texture = TerrariaUltraApocalypse.instance.GetTexture("CustomScreenShader/HeavyMist");
+        private Texture2D texture = TUA.instance.GetTexture("CustomScreenShader/HeavyMist");
 
 
         public MeteoridonScreenShader() : base("heavyFog")
         {
-            Texture2D fogTexture = TerrariaUltraApocalypse.instance.GetTexture("CustomScreenShader/HeavyMist");
+            Texture2D fogTexture = TUA.instance.GetTexture("CustomScreenShader/HeavyMist");
             textureWidth = fogTexture.Width;
             textureHeight = fogTexture.Height;
         }

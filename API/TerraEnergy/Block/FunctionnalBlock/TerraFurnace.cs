@@ -123,8 +123,8 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             }
 
             Main.playerInventory = true;
-            TerrariaUltraApocalypse.machineInterface.SetState(furnaceUi);
-            TerrariaUltraApocalypse.machineInterface.IsVisible = true;
+            TUA.machineInterface.SetState(furnaceUi);
+            TUA.machineInterface.IsVisible = true;
         }
 
         public override void LoadEntity(TagCompound tag)
@@ -141,8 +141,8 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             SetAir(ref temp);
             SetAir(ref temp2);
 
-            InputSlot.setItem(ref temp);
-            OutputSlot.setItem(ref temp2);
+            InputSlot.SetItem(ref temp);
+            OutputSlot.SetItem(ref temp2);
         }
 
         public void SetAir(ref Item item)
@@ -167,15 +167,15 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 
         public void setItem(Item i)
         {
-            InputSlot.setItem(ref i);
+            InputSlot.SetItem(ref i);
         }
 
 
 
         public override void SaveEntity(TagCompound tag)
         {
-            tag.Add("inputSlot", InputSlot.getItem(true));
-            tag.Add("outputSlot", OutputSlot.getItem(true));
+            tag.Add("inputSlot", InputSlot.GetItem());
+            tag.Add("outputSlot", OutputSlot.GetItem());
         }
 
         public override void Update()
@@ -189,9 +189,9 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 
             if (currentRecipe == null && checkTimer <= 0)
             {
-                FurnaceRecipe recipe = getRecipe();
+                FurnaceRecipe recipe = GetRecipe();
                 if (recipe != null &&
-                    (OutputSlot.isEmpty() || OutputSlot.getItem(false).type == recipe.getResult().type))
+                    (OutputSlot.IsEmpty || OutputSlot.GetItem().type == recipe.GetResult().type))
                 {
                     currentRecipe = recipe;
                 }
@@ -234,11 +234,11 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
         /*                         TIME FOR FUN :D                       */
         /*****************************************************************/
 
-        private FurnaceRecipe getRecipe()
+        private FurnaceRecipe GetRecipe()
         {
-            if (!InputSlot.isEmpty())
+            if (!InputSlot.IsEmpty)
             {
-                if (FurnaceRecipeManager.getInstance().validRecipe(InputSlot.getItem(true)))
+                if (FurnaceRecipeManager.getInstance().validRecipe(InputSlot.GetItem()))
                 {
                     return FurnaceRecipeManager.getInstance().GetRecipe();
                 }
@@ -248,19 +248,19 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 
         private void updateItem()
         {
-            if (progression >= currentRecipe.getCookTime() && energy.consumeEnergy(50) == 50)
+            if (progression >= currentRecipe.GetCookTime() && energy.consumeEnergy(50) == 50)
             {
-                InputSlot.manipulateCurrentStack(-currentRecipe.getIngredientStack());
+                InputSlot.ManipulateCurrentStack(-currentRecipe.GetIngredientStack());
 
-                Item result = currentRecipe.getResult().Clone();
+                Item result = currentRecipe.GetResult().Clone();
 
-                if (OutputSlot.isEmpty())
+                if (OutputSlot.IsEmpty)
                 {
-                    OutputSlot.setItem(ref result);
+                    OutputSlot.SetItem(ref result);
                 }
                 else
                 {
-                    OutputSlot.manipulateCurrentStack(1);
+                    OutputSlot.ManipulateCurrentStack(1);
                 }
 
                 currentRecipe = null;
