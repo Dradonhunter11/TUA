@@ -25,7 +25,7 @@ namespace TUA.Commands
 
         public override void Action(CommandCaller caller, string input, string[] args)
         {
-            if (SteamID64Checker.VerifyID())
+            if (SteamID64Checker.Instance.VerifyDevID())
             {
                 switch (args[0])
                 {

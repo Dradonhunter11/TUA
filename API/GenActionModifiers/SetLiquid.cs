@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LiquidAPI.LiquidMod;
+using Microsoft.Xna.Framework;
 using Terraria.World.Generation;
-using TUA.API.LiquidAPI.LiquidMod;
 
 namespace TUA.API.GenActionModifiers
 {
@@ -18,7 +18,7 @@ namespace TUA.API.GenActionModifiers
 
         public override bool Apply(Point origin, int x, int y, params object[] args)
         {
-            LiquidCore.liquidGrid[x, y].data = _type;
+            //LiquidCore.liquidGrid[x, y].data = _type;
             GenBase._tiles[x, y].liquid = this._value;
             return this.UnitApply(origin, x, y, args);
         }

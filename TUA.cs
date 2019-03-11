@@ -124,7 +124,7 @@ namespace TUA
                 AddFilter();
                 AddHotWTranslations();
 
-                SteamID64Checker.Initiate();
+                
             }
 
             HookGenLoader();

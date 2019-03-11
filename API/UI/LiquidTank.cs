@@ -43,7 +43,6 @@ namespace TUA.API.UI
             float calculateLiquidQuantity = tank.GetCurrentAmount() * 100 / tank.GetMaxCapacity();
 
             spriteBatch.Draw(backTexture, style.Position(), Color.White);
-            spriteBatch.Draw();
             if (IsMouseHovering)
             {
                 Main.hoverItemName = tank.GetCurrentAmount() + " mB";

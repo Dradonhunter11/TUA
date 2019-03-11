@@ -21,7 +21,7 @@ namespace TUA
             presence = new RichPresence()
             {
                 Details = $"In Main Menu ({(Environment.Is64BitProcess ? "64" : "32")}bit)",
-                State = (SteamID64Checker.VerifyID() && TUA.devMode)
+                State = (SteamID64Checker.Instance.VerifyDevID() && TUA.devMode)
                     ? "Debugging/Developing" :
                         (Main.netMode == 0 ? Main.rand.Next(new string[] { "Playing Alone", "Lone Samurai", "Singleplayer" })
                         : "In A Game Of " + Main.ActivePlayersCount),
@@ -58,7 +58,7 @@ namespace TUA
                 else if (Main.rand.NextBool(10000))
                 {
                     presence.Details = $"In Main Menu ({(Environment.Is64BitProcess ? "64" : "32")}bit)";
-                    presence.State = (SteamID64Checker.VerifyID() && TUA.devMode)
+                    presence.State = (SteamID64Checker.Instance.VerifyDevID() && TUA.devMode)
                         ? "Debugging/Developing" :
                             (Main.netMode == 0 ? Main.rand.Next(new string[] { "Playing Alone", "Lone Samurai", "Singleplayer" })
                             : "In A Game Of " + Main.ActivePlayersCount);

@@ -343,12 +343,19 @@
     <Compile Include="Walls\Wasteland\WastestoneBrickWall.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="BiomeLibrary, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BiomeLibrary\bin\Debug\BiomeLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Dimlibs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dimlibs\bin\Release\Dimlibs.dll</HintPath>
     </Reference>
     <Reference Include="DiscordRPC">
       <HintPath>lib\DiscordRPC.dll</HintPath>
+    </Reference>
+    <Reference Include="LiquidAPI">
+      <HintPath>..\LiquidAPI\bin\Debug\LiquidAPI.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\references\log4net.dll</HintPath>
@@ -412,17 +419,9 @@
     <None Include="Localization\en-US.lang" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BiomeLibrary\BiomeLibrary.csproj">
-      <Project>{c69d2286-9eab-4009-9f64-62ab304c7cb6}</Project>
-      <Name>BiomeLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dimlibs\Dimlibs.csproj">
       <Project>{a4ccb7fb-b9c6-4ea1-a379-849bd5f26330}</Project>
       <Name>Dimlibs</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LiquidAPI\LiquidAPI.csproj">
-      <Project>{d9056560-33e4-45b5-80c6-e4f4d2218f21}</Project>
-      <Name>LiquidAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -430,7 +429,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"E:\Terraria\tModLoader 0.11b2 TUA Dev\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>"C:\Program Files (x86)\Steam\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
