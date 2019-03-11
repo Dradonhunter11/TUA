@@ -9,12 +9,11 @@ namespace TUA.API.CustomInventory.TileEntityContainer
 {
     interface ITank
     {
-        int Capacity { get; set; }
-        bool SetCapacity(int capacity);
+        int CurrentAmount { get; set; }
+        bool SetCurrentAmount(int capacity);
         int SetMaxCapacity(int maxCapacity);
-        int GetCapacity();
+        int GetCurrentAmount();
         int GetMaxCapacity();
         Color GetLiquidColor();
-
     }
 }

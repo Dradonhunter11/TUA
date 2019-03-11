@@ -225,11 +225,5 @@ namespace TUA.API.LiquidAPI
             Texture2D liquidTexture = TerrariaUltraApocalypse.instance.GetTexture("Texture/Bucket/liquid");
             spriteBatch.Draw(liquidTexture, item.position, liquidColor);
         }
-
-        public override bool OnPickup(Player player)
-        {
-            
-            return base.OnPickup(player);
-        }
     }
 }

@@ -16,16 +16,20 @@ namespace TUA.API.UI
         private Texture2D backTexture;
         private Texture2D frontTexture;
         private ITank tank;
+        
 
-        public LiquidTank(Texture2D texture, int maxCapacity)
+        public LiquidTank(Texture2D texture, ITank tank)
         {
-            backTexture = texture.SubImage(2, 1);
-            frontTexture = texture.SubImage(2, 0);
+            backTexture = texture.SubImage(0, 0, 20, 28);
+            frontTexture = texture.SubImage(20, 0, 20, 28);
+            this.tank = tank;
         }
 
-        public LiquidTank(Texture2D textureFront, Texture2D textureBack, int maxCapacity)
+        public LiquidTank(Texture2D textureFront, Texture2D textureBack, ITank tank)
         {
-
+            backTexture = textureBack;
+            frontTexture = textureFront;
+            this.tank = tank;
         }
 
         public override void OnInitialize()
@@ -36,14 +40,14 @@ namespace TUA.API.UI
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             CalculatedStyle style = GetInnerDimensions();
+            float calculateLiquidQuantity = tank.GetCurrentAmount() * 100 / tank.GetMaxCapacity();
+
+            spriteBatch.Draw(backTexture, style.Position(), Color.White);
+            spriteBatch.Draw();
             if (IsMouseHovering)
             {
-                Main.hoverItemName = tank.GetCapacity() + " MB";
-            }
-
-            
+                Main.hoverItemName = tank.GetCurrentAmount() + " mB";
+            }   
         }
-
-        
     }
 }

@@ -189,43 +189,13 @@ namespace TUA.API.LiquidAPI
             byte liquidTypeLeft = LiquidCore.liquidGrid[self.x - 1, self.y].data;
             byte liquidTypeRight = LiquidCore.liquidGrid[self.x + 1, self.y].data;
             byte b = LiquidCore.liquidGrid[self.x, self.y].data;
-            if (b == 3)
+
+            if (liquidSelf.tile.nactive() && Main.tileSolid[(int)liquidSelf.tile.type] && !Main.tileSolidTop[(int)liquidSelf.tile.type])
             {
-                Main.NewText("Waste found");
+                self.kill = 9;
+                return;
             }
-
-            for (byte i = 0; i < 255; i++)
-            {
-                if (liquidSelf.Liquids(i))
-                {
-                    if (i >= 2)
-                    {
-                    }
-
-                    liquidTypeSelf = i;
-                    break;
-                }
-            }
-
-
-
-            for (byte i = 0; i < 255; i++)
-            {
-                if (liquidLeft.Liquids(i))
-                {
-                    liquidTypeLeft = i;
-                    break;
-                }
-            }
-
-            for (byte i = 0; i < 255; i++)
-            {
-                if (liquidRight.Liquids(i))
-                {
-                    liquidTypeRight = i;
-                    break;
-                }
-            }
+            byte liquid = liquidSelf.tile.liquid;
 
             if (liquidSelf.tile.nactive() && Main.tileSolid[(int)liquidSelf.tile.type] &&
                 !Main.tileSolidTop[(int)liquidSelf.tile.type])
@@ -808,13 +778,26 @@ namespace TUA.API.LiquidAPI
                                 Liquid.AddWater(self.x + 1, self.y);
                             }
 
-                            liquidLeft.tile.liquid = (byte)num;
+                            liquidSelf.tile.liquid = (byte)num;
                         }
                     }
 
                 }
-
+                
             }
+            if (liquidSelf.tile.liquid == liquid)
+            {
+                self.kill++;
+                return;
+            }
+            if (liquidSelf.tile.liquid == 254 && liquid == 255)
+            {
+                liquidSelf.tile.liquid = 255;
+                self.kill++;
+                return;
+            }
+            Liquid.AddWater(self.x, self.y - 1);
+            self.kill = 0;
         }
 
 

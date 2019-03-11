@@ -95,6 +95,7 @@
     <Compile Include="API\FurnaceRework\TileEntity\HellForgeEntity.cs" />
     <Compile Include="API\FurnaceRework\TileEntity\RegularFurnaceEntity.cs" />
     <Compile Include="API\GenActionModifiers\IntegretyFilter.cs" />
+    <Compile Include="API\GenActionModifiers\SetLiquid.cs" />
     <Compile Include="API\Injection\DrawMapInjection.cs" />
     <Compile Include="API\Injection\ModBrowserInjection.cs" />
     <Compile Include="API\Injection\UpdateBiomesInjection.cs" />

@@ -158,11 +158,20 @@ namespace TUA.API
             }
         }
 
-        public static Texture2D SubImage(this Texture2D texture, int frameNumber, int frame)
+        public static Texture2D SubFrameImage(this Texture2D texture, int frameNumber, int frame)
         {
-            RenderTarget2D target = new RenderTarget2D(Main.instance.GraphicsDevice, texture.Width, texture.Width / frame);
+            RenderTarget2D target = new RenderTarget2D(Main.instance.GraphicsDevice, texture.Width, texture.Height / frame);
             Main.graphics.GraphicsDevice.SetRenderTarget(target);
             Main.spriteBatch.Draw(texture, Vector2.Zero, new Rectangle(0, texture.Height / frameNumber * frame, texture.Width, texture.Height / frameNumber), Color.White);
+            Main.graphics.GraphicsDevice.SetRenderTarget(null);
+            return target;
+        }
+
+        public static Texture2D SubImage(this Texture2D texture, int x, int y, int width, int height)
+        {
+            RenderTarget2D target = new RenderTarget2D(Main.instance.GraphicsDevice, width, height);
+            Main.graphics.GraphicsDevice.SetRenderTarget(target);
+            Main.spriteBatch.Draw(texture, Vector2.Zero, new Rectangle(x, y, width, height), Color.White);
             Main.graphics.GraphicsDevice.SetRenderTarget(null);
             return target;
         }

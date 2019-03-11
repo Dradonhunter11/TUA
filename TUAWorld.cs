@@ -191,7 +191,7 @@ namespace TUA
             int originY = 100;
             bool inverted = false;
             int startingY = 175;
-
+            bool generateLiquid = false;
             for (int x = 0; x < Main.maxTilesX; x++)
             {
                 for (int y = Main.maxTilesY - 200; y < Main.maxTilesY; y++)
@@ -257,7 +257,10 @@ namespace TUA
             }
             for (int num11 = 0; num11 < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.0008); num11++)
             {
-                WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(Main.maxTilesY - 140, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 7), WorldGen.genRand.Next(3, 7), mod.TileType("WastelandOre"), false, 0f, 0f, false, true);
+                if (WorldGen.genRand.Next(50) == 0)
+                {
+                    WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(Main.maxTilesY - 140, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 7), WorldGen.genRand.Next(3, 7), mod.TileType("WastelandOre"), false, 0f, 0f, false, true);
+                }
             }
             Biomes<TheHeartArena>.Place((int)Main.maxTilesX / 2, (int)Main.maxTilesY - 100, WorldGen.structures);
         }
