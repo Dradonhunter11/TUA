@@ -14,17 +14,52 @@ namespace TUA
 {
     class TUAWorld : ModWorld
     {
-        public static bool apocalypseMoon = false;
+        //Non ultra mode stuff
+        public static bool Wasteland;
+        public static bool RealisticTimeMode = false;
+
+        //Ultra mode phase 1 - Release : TUA - The start of a new era
         public static bool EoADowned;
         public static bool ApoMoonDowned;
         public static bool UltraMode;
-        public static bool Wasteland;
-        public static bool EoCPostML;
-
-        public static int apocalypseMoonPoint = 0;
+        public static bool EoCPostMLDowned;
         public static int EoCDeath = 0;
+        public static bool EoCCutsceneFirstTimePlayed;
 
-        public static bool RealisticTimeMode = false;
+        /// <summary>
+        /// Expected to have an electricity system, as this phase will require some of the new crafting mechanic
+        /// Expected to have visited the solar dimension at least, to obtain the sun core modifier
+        /// </summary>
+        //Ultra mode phase 2 - 1.1 : TUA - The one that made the world
+        public static bool EvilPostMLDowned;
+        public static bool CotWDowned; //Creator of the world - God of balance
+        public static int EvilDeath = 0;
+
+        /// <summary>
+        /// Expected to have visited the stardust dimension, to get the stardust heart
+        /// </summary>
+        //Ultra mode phase 3 - 1.2 : Bringing of the plagues
+        public static bool KingSlimePostMLDowned;
+        public static bool SlimeMoonDowned;
+        public static int SlimeKingDeath = 0;
+        public static bool AtomicSludgeDowned; //Atomic Sludge - God of disease
+
+
+        //Ultra mode phase 4 
+        public static bool SkeletronPostMLDowned;
+        public static bool UndeadInvasionDowned;
+        public static int SkeletronDeath = 0;
+        public static bool SkeletronPrimal;
+
+        //Ultra mode phase 5
+        public static bool QueenBeePostMLDowned;
+        public static int QueenBeeDeath = 0;
+
+        //Ultra mode phase 6
+        public static bool HellBossPostMLDowned;
+        public static int HellBossKingDeath = 0;
+        public static bool wallOfTerrapocalypse;
+       
 
         public override TagCompound Save()
         {
@@ -34,6 +69,7 @@ namespace TUA
                 { "EoADowned", EoADowned },
                 { "UltraEoCDowned", EoCDeath },
                 { "hellAlt", Wasteland },
+                { "EoCCutscene", EoCCutsceneFirstTimePlayed },
                 { "RealisticTimeMode", RealisticTimeMode }
             };
             //tc.Add("apocalypseMoon", apocalypseMoon);
@@ -46,6 +82,7 @@ namespace TUA
             EoCDeath = tag.GetInt("UltraEoCDowned");
             Wasteland = tag.GetBool("hellAlt");
             RealisticTimeMode = tag.GetBool("RealisticTimeMode");
+            EoCCutsceneFirstTimePlayed = tag.GetBool("EoCCutscene");
 
             if (!Main.ActiveWorldFileData.HasCorruption)
             {

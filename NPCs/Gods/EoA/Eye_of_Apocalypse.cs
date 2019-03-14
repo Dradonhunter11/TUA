@@ -73,7 +73,7 @@ namespace TUA.NPCs.Gods.EoA
                 ExecuteCutscene();
                 return;
             }
-            lockPlayerCamera(false);
+            TUAPlayer.LockPlayerCamera(null, false);
             Main.musicVolume = previousMusicVolume;
             if (npc.ai[1] == 0)
             {
@@ -133,35 +133,13 @@ namespace TUA.NPCs.Gods.EoA
             }
 
 
-            lockPlayerCamera(true);
+            TUAPlayer.LockPlayerCamera(new Vector2(npc.Center.X - Main.screenWidth / 2, npc.Center.Y - Main.screenHeight / 2), true);
 
             Dust.NewDust(npc.Center, 5, 5, DustID.Electric, Main.rand.Next(-5, 5), Main.rand.Next(-5, 5), 255,
                 Color.White * opacity, 1f);
         }
 
-        private void lockPlayerCamera(bool lockCamera)
-        {
-            TUAPlayer player;
-            Vector2 screenEmplacement = new Vector2(npc.Center.X - Main.screenWidth / 2, npc.Center.Y - Main.screenHeight / 2);
-            if (Main.netMode == 2)
-            {
-                foreach (Player p in Main.player)
-                {
-                    if (p == null)
-                    {
-                        break;
-                    }
-                    player = p.GetModPlayer<TUAPlayer>();
-                    player.EoAPosition = screenEmplacement;
-                    player.EoApositionLock = lockCamera;
-                    NetMessage.SendData(MessageID.SyncPlayer, -1, 1);
-                }
-                return;
-            }
-            player = Main.LocalPlayer.GetModPlayer<TUAPlayer>();
-            player.EoAPosition = screenEmplacement;
-            player.EoApositionLock = lockCamera;
-        }
+        
 
         private void SpawnCircleDust(int radius, int dustType)
         {

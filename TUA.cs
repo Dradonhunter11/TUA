@@ -1,6 +1,7 @@
 using BiomeLibrary.API;
 using Dimlibs;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using MonoMod.RuntimeDetour.HookGen;
 using ReLogic.Graphics;
@@ -8,18 +9,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using IL.Terraria.UI.Chat;
+using Mono.Cecil;
 using Terraria;
-using Terraria.GameContent.UI.Elements;
 using Terraria.GameContent.UI.States;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.Localization;
-using Terraria.Map;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Audio;
 using Terraria.UI;
 using Terraria.Utilities;
 using TUA.API;
-using TUA.API.Dev;
 using TUA.API.EventManager;
 using TUA.API.Injection;
 using TUA.API.TerraEnergy.MachineRecipe.Forge;
@@ -33,7 +34,6 @@ using TUA.Items.Meteoridon.Materials;
 using TUA.NPCs;
 using TUA.Raids;
 using TUA.Raids.UI;
-using TUA.UIHijack.InGameUI.NPCDialog;
 using TUA.UIHijack.MainMenu;
 using TUA.UIHijack.WorldSelection;
 
@@ -85,9 +85,9 @@ namespace TUA
         public override void Load()
         {
             instance = this;
-			
+
             newMainMenu.Load();
-            
+
             UpdateBiomesInjection.inject();
             Console.Write("AM I NULL? " + typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
             //MethodInfo attempt = typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
@@ -109,13 +109,13 @@ namespace TUA
 
                 SolarFog = GetTexture("CustomScreenShader/HeavyMist");
 
-                /*
+
                 DRPSystem.ReloadLogger();
                 Main.OnTick += DRPSystem.ReloadLogger;
                 Main.OnTick += DRPSystem.Update;
                 DRPSystem.Boot();
-                */
-                
+
+
 
                 machineInterface = new UserInterface();
                 CapacitorInterface = new UserInterface();
@@ -124,17 +124,55 @@ namespace TUA
                 AddFilter();
                 AddHotWTranslations();
 
-                
+
             }
 
             HookGenLoader();
         }
 
+        public void CheckUpdateOnBrowser()
+        {
+
+        }
+
+        public override void Unload()
+        {
+            //DrawMapInjection.revert();
+            UpdateBiomesInjection.inject();
+
+            Main.SavePath = SAVE_PATH;
+
+            Main.PlayerPath = Main.SavePath + "/Player";
+            Main.WorldPath = Main.SavePath + "/World";
+
+            instance = null;
+            quote.Clear();
+            FieldInfo info2 = typeof(ModLoader).GetField("versionedName",
+                BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
+            info2.SetValue(null, string.Format("tModLoader v{0}", (object)Terraria.ModLoader.ModLoader.version) + (Terraria.ModLoader.ModLoader.branchName.Length == 0 ? "" : " " + Terraria.ModLoader.ModLoader.branchName) + (Terraria.ModLoader.ModLoader.beta == 0 ? "" : string.Format(" Beta {0}", (object)Terraria.ModLoader.ModLoader.beta)));
+
+            MoonEventManagerWorld.moonEventList = null;
+
+            //Remember to re enable it once it's fixed
+            if (!Main.dedServ)
+            {
+
+                DRPSystem.Kill();
+                Main.OnTick -= DRPSystem.ReloadLogger;
+                Main.OnTick -= DRPSystem.Update;
+
+            }
+        }
+
         private static void HookGenLoader()
         {
+            
+
+            HookILCursor c;
             IL.Terraria.Main.GUIChatDrawInner += il =>
             {
-                HookILCursor c = il.At(0);
+                
+                c = il.At(0);
 
                 // Let's go to the next SetChatButtons call.
                 // From the start of the method, it's the first one.
@@ -147,6 +185,37 @@ namespace TUA
                     c.EmitDelegate<RaidsGlobalNPC.SetChatButtonsReplacementDelegate>(RaidsGlobalNPC.SetChatButtonsReplacement);
                 }
             };
+
+            IL.Terraria.Main.UpdateAudio += il =>
+            {
+
+                c = il.At(0);
+                FieldReference reference;
+                FieldReference reference2;
+                int empty;
+                int empty2;
+                float anotherUseless;
+                if (c.TryGotoNext(i =>
+                    i.MatchLdarg(out empty), 
+                    i => i.MatchLdfld(out reference), 
+                    i => i.MatchStsfld(out reference2), 
+                    i => i.MatchLdcR4(out anotherUseless), 
+                    i => i.MatchStloc(out empty2)))
+                {
+                    c.Index += 5;
+                    c.EmitDelegate<Action>(PreUpdateAudio);
+                }
+            };
+        }
+
+        
+
+        public static void PreUpdateAudio()
+        {
+            if (Main.gameMenu)
+            {
+                Main.curMusic = TUA.instance.GetSoundSlot(SoundType.Music, "Sounds/Music/Exclusion_Zone");
+            }
         }
 
         private static void AddFilter()
@@ -199,34 +268,8 @@ namespace TUA
             return $"{tModLoaderVersion2} - TUA v{version} - {quote[r.Next(quote.Count)]}";
         }
 
-        public override void Unload()
-        {
-            //DrawMapInjection.revert();
-            UpdateBiomesInjection.inject();
 
-            Main.SavePath = SAVE_PATH;
 
-            Main.PlayerPath = Main.SavePath + "/Player";
-            Main.WorldPath = Main.SavePath + "/World";
-
-            instance = null;
-            quote.Clear();
-            FieldInfo info2 = typeof(ModLoader).GetField("versionedName",
-                BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
-            info2.SetValue(null, string.Format("tModLoader v{0}", (object)Terraria.ModLoader.ModLoader.version) + (Terraria.ModLoader.ModLoader.branchName.Length == 0 ? "" : " " + Terraria.ModLoader.ModLoader.branchName) + (Terraria.ModLoader.ModLoader.beta == 0 ? "" : string.Format(" Beta {0}", (object)Terraria.ModLoader.ModLoader.beta)));
-
-            MoonEventManagerWorld.moonEventList = null;
-
-            //Remember to re enable it once it's fixed
-            if (!Main.dedServ)
-            {
-                /*
-                DRPSystem.Kill();
-                Main.OnTick -= DRPSystem.ReloadLogger;
-                Main.OnTick -= DRPSystem.Update;
-                */
-            }
-        }
 
         public override void AddRecipes()
         {
@@ -283,7 +326,7 @@ namespace TUA
 
             RecipeUtils.setAllFurnaceRecipeSystem();
 
-            
+
         }
 
         public override void UpdateUI(GameTime gameTime)
@@ -606,7 +649,7 @@ namespace TUA
             internal bool fadeEffect;
             internal int maxTimer;
             internal bool active;
-            
+
 
             public Title(string text, string subText, Color textColor, Color subTextColor, DynamicSpriteFont font, int maxTimer = 30, float baseOpacity = 1, bool fadeEffect = true)
             {
@@ -624,7 +667,7 @@ namespace TUA
 
             public void Draw(SpriteBatch sb, int currentTimer)
             {
-                
+
                 Vector2 textSize = font.MeasureString(text) * 1.5f;
                 Vector2 subTextSize = font.MeasureString(subText) * 0.9f;
 
@@ -638,7 +681,8 @@ namespace TUA
                     if (currentTimer > maxTimer - 10 && currentOpacity < baseOpacity)
                     {
                         currentOpacity += 0.1f;
-                    } else if(currentTimer < 10)
+                    }
+                    else if (currentTimer < 10)
                     {
                         currentOpacity -= 0.1f;
                     }

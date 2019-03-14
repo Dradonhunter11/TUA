@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TUA</RootNamespace>
     <AssemblyName>TUA</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile>
@@ -251,7 +251,6 @@
     <Compile Include="Items\Weapons\Misc\FishronEater.cs" />
     <Compile Include="Localization\LocalizationManager.cs" />
     <Compile Include="MoonEvent\ApocalypseMoon.cs" />
-    <Compile Include="MoonEvent\ApocalypseWMoon.cs" />
     <Compile Include="NPCs\AI\Worm.cs" />
     <Compile Include="NPCs\Gods\EoA\Eye_of_Apocalypse.cs" />
     <Compile Include="Dimension\Sky\TUACustomSky.cs" />

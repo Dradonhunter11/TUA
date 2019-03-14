@@ -34,7 +34,7 @@ namespace TUA.Items.EoA
 
         public override bool UseItem(Player player)
         {
-            if (NPC.downedMoonlord && !TUAWorld.EoCPostML && !Main.dayTime)
+            if (NPC.downedMoonlord && !TUAWorld.EoCPostMLDowned && !Main.dayTime)
             {
                 NPC.SpawnOnPlayer(player.whoAmI, NPCID.EyeofCthulhu);
                 return true;

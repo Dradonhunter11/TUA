@@ -16,7 +16,7 @@ namespace TUA.API
 {
     class TUAModNPC : ModNPC
     {
-        public override bool CloneNewInstances { get { return true; } }
+        public override bool CloneNewInstances { get { return false; } }
         
 
 

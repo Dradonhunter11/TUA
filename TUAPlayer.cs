@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using TUA.API.Dev;
@@ -20,8 +21,8 @@ namespace TUA
 
         public string ID;
 
-        public bool EoApositionLock = false;
-        public Vector2 EoAPosition = Vector2.Zero;
+        public bool IsScreenLocked = false;
+        public Vector2 PositionLock = Vector2.Zero;
 
         private static int splashTimer = 0;
 
@@ -105,10 +106,41 @@ namespace TUA
 
         public override void ModifyScreenPosition()
         {
-            if (EoApositionLock)
+            if (IsScreenLocked)
             {
-                Main.screenPosition = EoAPosition;
+                Main.screenPosition = PositionLock;
             }
+        }
+
+        internal static void LockPlayerCamera(Vector2? position, bool lockCamera)
+        {
+            TUAPlayer player = Main.LocalPlayer.GetModPlayer<TUAPlayer>();
+
+            if (!lockCamera || !position.HasValue)
+            {
+                player.IsScreenLocked = false;
+                return;
+            }
+
+            
+            if (Main.netMode == 2)
+            {
+                foreach (Player p in Main.player)
+                {
+                    if (p == null)
+                    {
+                        break;
+                    }
+                    player = p.GetModPlayer<TUAPlayer>();
+                    player.PositionLock = position.Value;
+                    player.IsScreenLocked = lockCamera;
+                    NetMessage.SendData(MessageID.SyncPlayer, -1, 1);
+                }
+                return;
+            }
+            player = Main.LocalPlayer.GetModPlayer<TUAPlayer>();
+            player.PositionLock = position.Value;
+            player.IsScreenLocked = true;
         }
     }
 }
