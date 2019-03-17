@@ -13,13 +13,9 @@ using Terraria.World.Generation;
 
 namespace TUA
 {
-    class StardustWorldGen : Dimlibs.API.DimGenerator
+    /*class StardustWorldGen : Dimlibs.API.ModDimension
     {
         public static double iceLayer;
-
-        public StardustWorldGen() : base("Stardust")
-        {
-        }
 
         public override void ModifyGenerationPass(int seed, GenerationProgress customProgressObject)
         {
@@ -482,8 +478,8 @@ namespace TUA
                     
                     for (int currentY = (int) seaLevel; currentY > seaLevel + yModification; currentY--)
                     {
-                        /*Main.tile[currentX, currentY].type =
-                            (ushort)TUA.instance.TileType("StardustIce");*/
+                        Main.tile[currentX, currentY].type =
+                            (ushort)TUA.instance.TileType("StardustIce");
                         WorldGen.PlaceTile(currentX, currentY,
                             TUA.instance.TileType("StardustIce"));
                     }
@@ -567,5 +563,5 @@ namespace TUA
         }
 
 
-    }
+    }*/
 }

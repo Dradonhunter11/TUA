@@ -6,6 +6,8 @@ using Terraria.World.Generation;
 using TUA.API.Dev;
 using TUA.Dimension.MicroBiome;
 using LiquidAPI.LiquidMod;
+using Terraria.Cinematics;
+using TUA.Movie.Boss;
 
 namespace TUA.Items
 {
@@ -49,16 +51,17 @@ namespace TUA.Items
                     Main.tile[i, j].liquid = 0;
                 }
             }
+            CinematicManager.Instance.PlayFilm(new UEoCCutscene(new Vector2(player.position.X + 7000, player.position.Y + 6500)));
             //Main.time = 0;
             //Main.dayTime = false;
             //TUAWorld.apocalypseMoon = true;
             //Biomes<StardustFrozenForest>.Place((int)player.Center.X / 16, (int)player.Center.Y / 16, new StructureMap());
-            Main.PlaySound(19, (int)Main.LocalPlayer.position.X, (int)Main.LocalPlayer.position.Y, 1, 1f, 0f);
-            LiquidRef liquid = LiquidCore.grid[Player.tileTargetX, Player.tileTargetY];
-            Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 255;
-            liquid.SetLiquidsState(3, true);
-            WorldGen.SquareTileFrame(Player.tileTargetX, Player.tileTargetY, true);
-            TUA.instance.SetTitle("Hello world", "Yup an hello world message as title", Color.Green, Color.Pink, Main.fontDeathText, 30, 1f, true);
+            //Main.PlaySound(19, (int)Main.LocalPlayer.position.X, (int)Main.LocalPlayer.position.Y, 1, 1f, 0f);
+            //LiquidRef liquid = LiquidCore.grid[Player.tileTargetX, Player.tileTargetY];
+            //Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 255;
+            //liquid.SetLiquidsState(3, true);
+            //WorldGen.SquareTileFrame(Player.tileTargetX, Player.tileTargetY, true);
+            //TUA.instance.SetTitle("Hello world", "Yup an hello world message as title", Color.Green, Color.Pink, Main.fontDeathText, 30, 1f, true);
             //Biomes<SolarVolcano>.Place((int) player.Center.X / 16, (int) player.Center.Y / 16 - 4, new StructureMap());
             return true;
         }

@@ -61,23 +61,26 @@ namespace TUA.NPCs.Gods.EoA
 
         public override void AI()
         {
-            rotateToPlayer();
-            
-            if (cutscenePhase != 6)
+            if (npc.localAI[0] != 1f)
             {
-                if (cutscenePhase >= 1)
-                {
-                    SpawnCircleDust(10 * 16, DustID.Shadowflame);
-                }
+                rotateToPlayer();
 
-                ExecuteCutscene();
-                return;
-            }
-            TUAPlayer.LockPlayerCamera(null, false);
-            Main.musicVolume = previousMusicVolume;
-            if (npc.ai[1] == 0)
-            {
-                
+                if (cutscenePhase != 6)
+                {
+                    if (cutscenePhase >= 1)
+                    {
+                        SpawnCircleDust(10 * 16, DustID.Shadowflame);
+                    }
+
+                    ExecuteCutscene();
+                    return;
+                }
+                TUAPlayer.LockPlayerCamera(null, false);
+                Main.musicVolume = previousMusicVolume;
+                if (npc.ai[1] == 0)
+                {
+
+                }
             }
         }
 

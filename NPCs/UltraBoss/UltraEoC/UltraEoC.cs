@@ -54,16 +54,6 @@ namespace TUA.NPCs.UltraBoss.UltraEoC
 
         public override void AI()
         {
-            if (/*!TUAWorld.EoCCutsceneFirstTimePlayed || */CutscenePhase != 5)
-            {
-                IsCutsceneExecuting = true;
-                ExecuteCutscene();
-                npc.immortal = true;
-                npc.dontTakeDamage = true;
-                return;
-            }
-
-            npc.immortal = false;
         }
 
         private void ExecuteCutscene()
@@ -73,6 +63,8 @@ namespace TUA.NPCs.UltraBoss.UltraEoC
             
             TUAPlayer.LockPlayerCamera(new Vector2(npc.position.X + 300 - Main.screenWidth / 2, npc.Center.Y - Main.screenHeight / 2), true);
             
+
+
             if (CutsceneTimer == 0)
             {
                 switch (CutscenePhase)
@@ -132,14 +124,14 @@ namespace TUA.NPCs.UltraBoss.UltraEoC
 
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            if (IsCutsceneExecuting)
+            /*if (IsCutsceneExecuting)
             {
                 Vector2 EoAIllusionDrawingPosition = npc.position - Main.screenPosition + new Vector2(600f, 0f);
                 npc.TargetClosest();
                 float subit = (float)Math.PI / 2f;
                 Vector2 distance = EoAIllusionDrawingPosition - npc.Center;
                 spriteBatch.Draw(TUA.instance.GetTexture("NPCs/Gods/EoA/Eye_of_Apocalypse"), EoAIllusionDrawingPosition, new Rectangle(0, 0, 132, 166), Color.Black, (float)Math.Atan2(distance.Y, distance.X) - subit, new Vector2(npc.frame.X, npc.frame.Y), npc.scale, SpriteEffects.None, 1f);
-            }
+            }*/
 
             if (CloneCharge)
             {

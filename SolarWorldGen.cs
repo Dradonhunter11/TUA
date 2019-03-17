@@ -15,11 +15,8 @@ using Terraria.World.Generation;
 
 namespace TUA
 {
-	public class SolarWorldGen : Dimlibs.API.DimGenerator
+	public class SolarWorldGen : Dimlibs.API.ModDimension
 	{
-	    public SolarWorldGen() : base("Solar")
-	    {
-	    }
 
         public static bool GetMudwall()
 		{

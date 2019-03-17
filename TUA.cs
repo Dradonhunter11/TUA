@@ -12,6 +12,7 @@ using System.Reflection;
 using IL.Terraria.UI.Chat;
 using Mono.Cecil;
 using Terraria;
+using Terraria.Cinematics;
 using Terraria.GameContent.UI.States;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
@@ -70,6 +71,8 @@ namespace TUA
         private int titleTimer = 0;
         private Title currentTitle;
 
+        internal static GameTime gameTime = new GameTime();
+
         public TUA()
         {
             Properties = new ModProperties()
@@ -94,7 +97,7 @@ namespace TUA
             //    .GetMethod("PopulateModBrowser", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
             //ReflectionUtils.MethodSwap(typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
             MonoModExtraHook.populatebrowser_Hook += ModBrowserInjection.PopulateModBrowser;
-
+            On.Terraria.Cinematics.CinematicManager.Update += GetGameTime;
 
             Main.SavePath += "/Tapocalypse";
             Main.PlayerPath = Main.SavePath + "/Player";
@@ -128,6 +131,13 @@ namespace TUA
             }
 
             HookGenLoader();
+        }
+
+        public static void GetGameTime(On.Terraria.Cinematics.CinematicManager.orig_Update orig,
+            CinematicManager instance, GameTime time)
+        {
+            TUA.gameTime = time;
+            orig.Invoke(instance, gameTime);
         }
 
         public void CheckUpdateOnBrowser()
@@ -374,9 +384,12 @@ namespace TUA
                 Main.MenuUI.SetState(newMainMenu);
             }
             AnimateVersion();
-            if (Main.gameMenu && Main.menuMode == 0 || (Main.menuMode == 888 && custom.customMenu))
+            if (Main.gameMenu && Main.menuMode == 0)
             {
-                SetTheme();
+                if ((Main.menuMode == 888 && custom.customMenu))
+                {
+                    SetTheme();
+                }
             }
         }
 
@@ -452,6 +465,13 @@ namespace TUA
             {
                 return TUAWorld.UltraMode;
             }
+
+            if (command == "CurrentDimension")
+            {
+                string DimensionName = (string)args[1];
+                
+            }
+
             return base.Call(args);
         }
 

@@ -251,6 +251,7 @@
     <Compile Include="Items\Weapons\Misc\FishronEater.cs" />
     <Compile Include="Localization\LocalizationManager.cs" />
     <Compile Include="MoonEvent\ApocalypseMoon.cs" />
+    <Compile Include="Movie\Boss\UEoCCutscene.cs" />
     <Compile Include="NPCs\AI\Worm.cs" />
     <Compile Include="NPCs\Gods\EoA\Eye_of_Apocalypse.cs" />
     <Compile Include="Dimension\Sky\TUACustomSky.cs" />
@@ -348,7 +349,7 @@
     </Reference>
     <Reference Include="Dimlibs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dimlibs\bin\Release\Dimlibs.dll</HintPath>
+      <HintPath>..\Dimlibs\bin\Debug\Dimlibs.dll</HintPath>
     </Reference>
     <Reference Include="DiscordRPC">
       <HintPath>lib\DiscordRPC.dll</HintPath>
