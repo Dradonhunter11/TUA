@@ -2,6 +2,7 @@ using DiscordRPC;
 using System;
 using System.Linq;
 using Terraria;
+using Terraria.Utilities;
 using TUA.API.Dev;
 using TUA.API.EventManager;
 
@@ -19,9 +20,10 @@ namespace TUA
 
         public static void Boot()
         {
+	        UnifiedRandom rand = new UnifiedRandom();
             currentState = Main.netMode == 0
-                ? Main.rand.Next(new string[] { "Playing Alone", "Lone Samurai", "Singleplayer" })
-                : Main.rand.Next(new string[] { "Playing With Friends", "Multiplayer" });
+                ? rand.Next(new string[] { "Playing Alone", "Lone Samurai", "Singleplayer" })
+                : rand.Next(new string[] { "Playing With Friends", "Multiplayer" });
 
             presence = new RichPresence()
             {
@@ -58,8 +60,11 @@ namespace TUA
         // client.UpdateLargeAsset("EoC logo", Main.rand.NextBool() ? "Playing TUA" : "The start of a new day");
         public static void Update()
         {
+	        if (client == null)
+		        return;
+
             // Runs through all of discord-rpc's logging stuff, basically
-            client?.Invoke();
+            client.Invoke();
 
             if (Main.rand.NextBool(100))
             {
