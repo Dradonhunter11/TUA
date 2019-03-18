@@ -110,8 +110,8 @@ namespace TUA
                 SolarFog = GetTexture("CustomScreenShader/HeavyMist");
 
 
-                DRPSystem.ReloadLogger();
-                Main.OnTick += DRPSystem.ReloadLogger;
+                /*DRPSystem.ReloadLogger();
+                Main.OnTick += DRPSystem.ReloadLogger;*/
                 Main.OnTick += DRPSystem.Update;
                 DRPSystem.Boot();
 
@@ -165,7 +165,7 @@ namespace TUA
             {
 
                 DRPSystem.Kill();
-                Main.OnTick -= DRPSystem.ReloadLogger;
+                //Main.OnTick -= DRPSystem.ReloadLogger;
                 Main.OnTick -= DRPSystem.Update;
 
             }
