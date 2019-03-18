@@ -158,7 +158,7 @@ namespace TUA
                 BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
             info2.SetValue(null, string.Format("tModLoader v{0}", (object)Terraria.ModLoader.ModLoader.version) + (Terraria.ModLoader.ModLoader.branchName.Length == 0 ? "" : " " + Terraria.ModLoader.ModLoader.branchName) + (Terraria.ModLoader.ModLoader.beta == 0 ? "" : string.Format(" Beta {0}", (object)Terraria.ModLoader.ModLoader.beta)));
 
-            MoonEventManagerWorld.moonEventList = null;
+            MoonEventManagerWorld.moonEventList.Clear();
 
             //Remember to re enable it once it's fixed
             if (!Main.dedServ)

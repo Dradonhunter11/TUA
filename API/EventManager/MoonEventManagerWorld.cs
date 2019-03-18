@@ -11,7 +11,7 @@ namespace TUA.API.EventManager
 {
     class MoonEventManagerWorld : ModWorld
     {
-        internal static Dictionary<string, MoonEvent> moonEventList = new Dictionary<string, API.EventManager.MoonEvent>();
+	    internal static Dictionary<string, MoonEvent> moonEventList = new Dictionary<string, MoonEvent>();
 
         public override TagCompound Save()
         {
@@ -26,7 +26,7 @@ namespace TUA.API.EventManager
 
         public override void Load(TagCompound tag)
         {
-            MoonEvent.ResetMoon();
+			MoonEvent.ResetMoon();
             foreach (var moonEvent in moonEventList.Values)
             {
                 moonEvent.Load(tag);

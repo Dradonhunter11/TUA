@@ -42,6 +42,7 @@ namespace TUA.API.EventManager
         public MoonEvent()
         {
             Initialize();
+
             if (!MoonEventManagerWorld.moonEventList.ContainsKey(EventName))
             {
                 MoonEventManagerWorld.moonEventList.Add(EventName, this);
