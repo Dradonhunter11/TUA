@@ -197,7 +197,8 @@
     <Compile Include="Dimension\Solar\SolarNPC.cs" />
     <Compile Include="Dimension\Solar\SolarWorld.cs" />
     <Compile Include="Dimension\Sky\StardustCustomSky.cs" />
-    <Compile Include="DRPSystem.cs" />
+    <Compile Include="Discord\DRPMessage.cs" />
+    <Compile Include="Discord\DRPSystem.cs" />
     <Compile Include="Dusts\EotW\ArrowDust.cs" />
     <Compile Include="Dusts\EotW\BulletDust.cs" />
     <Compile Include="Dusts\EotW\MagicDust.cs" />

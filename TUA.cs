@@ -27,6 +27,7 @@ using TUA.Configs;
 using TUA.CustomScreenShader;
 using TUA.CustomSkies;
 using TUA.Dimension.Sky;
+using TUA.Discord;
 using TUA.Items.EoA;
 using TUA.Items.Meteoridon.Materials;
 using TUA.NPCs;

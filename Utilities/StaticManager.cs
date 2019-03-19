@@ -74,5 +74,16 @@ namespace TUA.Utilities
 		{
 			return GetItem(GetItemID(index));
 		}
+
+		public static Tuple<string, string, T>[] GetItems()
+		{
+			List<Tuple<string, string, T>> result = new List<Tuple<string, string, T>>();
+			foreach (var key in ITEMS.Keys)
+			{
+				result.Add(new Tuple<string, string, T>(key, ITEM_ID_TO_NAME_MAP[key], ITEMS[key]));
+			}
+
+			return result.ToArray();
+		}
 	}
 }

@@ -1,13 +1,15 @@
-using DiscordRPC;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using DiscordRPC;
 using Terraria;
 using Terraria.ID;
 using Terraria.Utilities;
 using TUA.API.Dev;
 using TUA.API.EventManager;
+using TUA.Utilities;
 
-namespace TUA
+namespace TUA.Discord
 {
     public static class DRPSystem
     {
@@ -18,6 +20,20 @@ namespace TUA
         private static DiscordRpcClient client;
 
         private static string currentState;
+
+        static DRPSystem()
+        {
+	        InitMessages();
+        }
+
+        private static void InitMessages()
+        {
+			StaticManager<DRPMessage>.AddItem("msgEye", new DRPMessage(
+				"The death of a god",
+				"has beaten the eye of apocalypse",
+				() => !Main.npc.Any(i => i.boss) && !MoonEventManagerWorld.moonEventList.Any(i => i.Value.IsActive) && TUAWorld.EoADowned
+			));
+        }
 
         public static void Boot()
         {
@@ -78,7 +94,24 @@ namespace TUA
                     presence.Details = Main.LocalPlayer.name + " is exploring the solar dimension";
                 }*/
 
-                if (!Main.npc.Any(i => i.boss) && !MoonEventManagerWorld.moonEventList.Any(i => i.Value.IsActive))
+                List<DRPMessage> validMessages = new List<DRPMessage>();
+
+                foreach (var msg in StaticManager<DRPMessage>.GetItems())
+                {
+	                if (!msg.Item3.CanCall())
+		                continue;
+
+	                validMessages.Add(msg.Item3);
+				}
+
+                if (validMessages.Count <= 0)
+	                return;
+                DRPMessage selectedMsg = validMessages[Main.rand.Next(0, validMessages.Count)];
+
+                client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : selectedMsg.Header);
+                client.UpdateDetails(Main.LocalPlayer.name + " " + selectedMsg.Message);
+				
+				/*if (!Main.npc.Any(i => i.boss) && !MoonEventManagerWorld.moonEventList.Any(i => i.Value.IsActive))
                 {
                     if (TUAWorld.EoADowned)
                     {
@@ -229,7 +262,7 @@ namespace TUA
                         client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The bloody brain");
                         client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Brain of Cthulhu");
                     }
-                }
+                }*/
                 
 
 
