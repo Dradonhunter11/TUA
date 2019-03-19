@@ -340,6 +340,7 @@
     <Compile Include="UIHijack\WorldSelection\NewUIWorldListItem.cs" />
     <Compile Include="UIHijack\WorldSelection\WorldPreLoader.cs" />
     <Compile Include="UI\Cobblegen\CobbleGenUI.cs" />
+    <Compile Include="Utilities\StaticManager.cs" />
     <Compile Include="Walls\Hell\AshWall.cs" />
     <Compile Include="Walls\Wasteland\WastestoneBrickWall.cs" />
   </ItemGroup>
@@ -430,7 +431,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Program Files (x86)\Steam\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>pushd $(ProjectDir)_scripts\
+"tmlbuild.bat" "$(ProjectDir)\" -eac "$(TargetPath)"
+popd</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
