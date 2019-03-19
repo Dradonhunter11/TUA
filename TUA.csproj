@@ -294,6 +294,7 @@
     <Compile Include="Raids\UI\RaidsUI.cs" />
     <Compile Include="SolarWorldGen.cs" />
     <Compile Include="StardustWorldGen.cs" />
+    <Compile Include="Structure\DungeonLike\SolarDungeon.cs" />
     <Compile Include="Structure\hellalt\TheHeartArena.cs" />
     <Compile Include="Tiles\Furniture\Coins\DiamondCoins.cs" />
     <Compile Include="API\Default\TUAFallingBlock.cs" />
@@ -429,7 +430,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"E:\Terraria\tModLoader 0.11b2 TUA Dev\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent>"C:\Program Files (x86)\Steam\steamapps\common\Terraria\tModLoaderServer.exe" -build "$(ProjectDir)\" -eac "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
