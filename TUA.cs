@@ -35,6 +35,8 @@ using TUA.Raids;
 using TUA.Raids.UI;
 using TUA.UIHijack.MainMenu;
 using TUA.UIHijack.WorldSelection;
+using Mono.Cecil.Cil;
+using Terraria.Graphics.Shaders;
 
 namespace TUA
 {
@@ -111,8 +113,6 @@ namespace TUA
                 SolarFog = GetTexture("CustomScreenShader/HeavyMist");
 
 
-                /*DRPSystem.ReloadLogger();
-                Main.OnTick += DRPSystem.ReloadLogger;*/
                 Main.OnTick += DRPSystem.Update;
                 DRPSystem.Boot();
 
@@ -157,16 +157,17 @@ namespace TUA
             quote.Clear();
             FieldInfo info2 = typeof(ModLoader).GetField("versionedName",
                 BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public);
-            info2.SetValue(null, string.Format("tModLoader v{0}", (object)Terraria.ModLoader.ModLoader.version) + (Terraria.ModLoader.ModLoader.branchName.Length == 0 ? "" : " " + Terraria.ModLoader.ModLoader.branchName) + (Terraria.ModLoader.ModLoader.beta == 0 ? "" : string.Format(" Beta {0}", (object)Terraria.ModLoader.ModLoader.beta)));
+            info2.SetValue(null, string.Format("tModLoader v{0}", (object)ModLoader.version)
+                + (ModLoader.branchName.Length == 0 ? "" : " " + ModLoader.branchName)
+                + (ModLoader.beta == 0 ? "" : string.Format(" Beta {0}", (object)ModLoader.beta)));
 
             MoonEventManagerWorld.moonEventList.Clear();
 
-            //Remember to re enable it once it's fixed
             if (!Main.dedServ)
             {
 
                 DRPSystem.Kill();
-                //Main.OnTick -= DRPSystem.ReloadLogger;
+                Main.OnTick -= DRPSystem.ReloadLogger;
                 Main.OnTick -= DRPSystem.Update;
 
             }
@@ -198,44 +199,30 @@ namespace TUA
             {
 
                 c = il.At(0);
-                FieldReference reference;
-                FieldReference reference2;
-                int empty;
-                int empty2;
-                float anotherUseless;
                 if (c.TryGotoNext(i =>
-                    i.MatchLdarg(out empty), 
-                    i => i.MatchLdfld(out reference), 
-                    i => i.MatchStsfld(out reference2), 
-                    i => i.MatchLdcR4(out anotherUseless), 
-                    i => i.MatchStloc(out empty2)))
+                    i.MatchLdarg(out int empty),
+                    i => i.MatchLdfld(out FieldReference reference),
+                    i => i.MatchStsfld(out FieldReference reference2),
+                    i => i.MatchLdcR4(out float anotherUseless),
+                    i => i.MatchStloc(out int empty2)))
                 {
                     c.Index += 5;
-                    c.EmitDelegate<Action>(PreUpdateAudio);
+                    c.EmitDelegate<Action>(() =>
+                    { if (Main.gameMenu) Main.curMusic = instance.GetSoundSlot(SoundType.Music, "Sounds/Music/Exclusion_Zone"); });
                 }
             };
-        }
-
-        
-
-        public static void PreUpdateAudio()
-        {
-            if (Main.gameMenu)
-            {
-                Main.curMusic = TUA.instance.GetSoundSlot(SoundType.Music, "Sounds/Music/Exclusion_Zone");
-            }
         }
 
         private static void AddFilter()
         {
             Filters.Scene["TUA:TUAPlayer"] =
                 new Filter(
-                    new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f),
+                    new ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f),
                     EffectPriority.VeryHigh);
             SkyManager.Instance["TUA:TUAPlayer"] = new TUACustomSky();
             Filters.Scene["TUA:StardustPillar"] =
                 new Filter(
-                    new Terraria.Graphics.Shaders.ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f),
+                    new ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f),
                     EffectPriority.VeryHigh);
             SkyManager.Instance["TUA:StardustPillar"] = new StardustCustomSky();
             Filters.Scene["TUA:SolarMist"] = new Filter(new MeteoridonScreenShader().UseColor(0.4f, 0, 0).UseOpacity(0.7f),

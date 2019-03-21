@@ -48,7 +48,7 @@ namespace TUA.API
                 if (npc.modNPC is HeartOfTheWasteland)
                 {
                     HeartOfTheWasteland boss = npc.modNPC as HeartOfTheWasteland;
-                    boss.SleepState = false;
+                    boss.IsSleeping = false;
 
                 }
             }

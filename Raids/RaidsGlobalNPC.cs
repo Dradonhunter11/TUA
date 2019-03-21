@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.UI.Gamepad;
 
 namespace TUA.Raids
 {
@@ -11,7 +13,21 @@ namespace TUA.Raids
     {
         public override bool InstancePerEntity => true;
         public bool giveRaidsDialog = false;
-        private byte currentGuideText = 0;
+        private byte currentGuideText;
+        /// <summary>
+        /// 0, 1, 2 is "Help", "Crafting", "Raids"
+        /// respectively
+        /// </summary>
+        private static byte guideFocusText;
+
+        public override void SetDefaults(NPC npc)
+        {
+            if (npc.type == NPCID.Guide)
+            {
+                currentGuideText = 0;
+                guideFocusText = 0;
+            }
+        }
 
         public delegate void SetChatButtonsReplacementDelegate(ref string focusText, ref string focusText2);
         public static void SetChatButtonsReplacement(ref string focusText, ref string focusText2)
@@ -23,24 +39,37 @@ namespace TUA.Raids
                 if (!RaidsWorld.hasTalkedToGuide.Contains(Main.player[Main.myPlayer].GetModPlayer<TUAPlayer>().ID))
                 {
                     focusText = "Next";
+                    focusText2 = "";
                 }
 
                 else
                 {
-                    focusText = "Raids";
-                    if (RaidsWorld.currentRaid != RaidsID.None)
+                    switch (guideFocusText)
                     {
-                        byte raids = RaidsWorld.currentRaid;
-                        if (raids == RaidsID.TheGreatHellRide)
-                        {
-                            focusText = "The Great Hell Ride";
-                        }
+                        case 2:
+                            focusText = "Raids";
+                            if (RaidsWorld.currentRaid != RaidsID.None)
+                            {
+                                byte raids = RaidsWorld.currentRaid;
+                                if (raids == RaidsID.TheGreatHellRide)
+                                {
+                                    focusText = "The Great Hell Ride";
+                                }
 
-                        if (raids == RaidsID.TheWrathOfTheWasteland)
-                        {
-                            focusText = "The Wrath of the Wasteland";
-                        }
+                                else if (raids == RaidsID.TheWrathOfTheWasteland)
+                                {
+                                    focusText = "The Wrath of the Wasteland";
+                                }
+                            }
+                            break;
+                        case 1:
+                            focusText = "Crafting";
+                            break;
+                        default:
+                            focusText = "Help";
+                            break;
                     }
+                    focusText2 = "Other";
                 }
             }
 
@@ -52,46 +81,43 @@ namespace TUA.Raids
 
         public override void OnChatButtonClicked(NPC npc, bool firstButton)
         {
-            if (firstButton && npc.type == NPCID.Guide)
+            if (npc.type == NPCID.Guide)
             {
-                if (!RaidsWorld.hasTalkedToGuide.Contains(Main.player[Main.myPlayer].GetModPlayer<TUAPlayer>().ID))
+                if (firstButton)
                 {
-                    Main.npcChatText = GetGuideStartText();
-                    currentGuideText++;
-                }
-                else
-                {
-                    TUA.raidsInterface.SetState(new UI.RaidsUI());
-                    TUA.raidsInterface.IsVisible = !TUA.raidsInterface.IsVisible;
-                    /*if (Main.ActiveWorldFileData.HasCorruption)
+                    if (!RaidsWorld.hasTalkedToGuide.Contains(Main.player[Main.myPlayer].GetModPlayer<TUAPlayer>().ID))
                     {
-                        if (!Main.LocalPlayer.inventory.Any(i => i.type == mod.ItemType("GuideVoodooDoll")))
-                        {
-
-                            Main.npcChatText = "Come back when you'll have my doll, I mean the sacred doll!";
-                        }
-                        else
-                        {
-                            mod.GetModWorld<RaidsWorld>().currentRaids = RaidsType.theGreatHellRide;
-                            Main.NewText(Main.LocalPlayer.name + " has started the great hell ride raids!", new Microsoft.Xna.Framework.Color(186, 85, 211));
-                            Main.npcChatText = "Hello, are you ready for a great hell ride? It's for sure gonna be fun! \nIf you see the great wall, tell me, I never seen it since I explode everytime someone summon it.";
-                        }
+                        Main.npcChatText = GetGuideStartText();
+                        currentGuideText++;
                     }
                     else
                     {
-                        if (!Main.LocalPlayer.inventory.Any(i => i.type == mod.ItemType("GuideVoodooDoll")))
+                        switch (guideFocusText)
                         {
-                            Main.npcChatText = "Come back when you'll have my doll, I mean the sacred doll!";
+                            case 2:
+                                TUA.raidsInterface.SetState(new UI.RaidsUI());
+                                TUA.raidsInterface.IsVisible = !TUA.raidsInterface.IsVisible;
+                                giveRaidsDialog = true;
+                                break;
+                            case 1:
+                                Main.playerInventory = true;
+                                Main.npcChatText = "";
+                                Main.PlaySound(12, -1, -1, 1, 1f, 0f);
+                                Main.InGuideCraftMenu = true;
+                                UILinkPointNavigator.GoToDefaultPage(0);
+                                break;
+                            default:
+                                Main.PlaySound(12, -1, -1, 1, 1f, 0f);
+                                // If someone can find a better way to do this, do it immediately
+                                typeof(Main).GetMethod("HelpText", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, null);
+                                break;
                         }
-                        else
-                        {
-                            mod.GetModWorld<RaidsWorld>().currentRaids = RaidsType.theWrathOfTheWasteland;
-                            Main.NewText(Main.LocalPlayer.name + " has started the wrath of the wasteland raids!");
-                            Main.npcChatText = "I heard thing been happening in the wasteland, the core is apparently not happy and is menacing to destroy the world.\nYour goal is to calm down the heart of the wasteland but you'll need some stuff first.";
-                        }
-                    }*/
-
-                    giveRaidsDialog = true;
+                    }
+                }
+                else
+                {
+                    if (guideFocusText == 2) guideFocusText = 0;
+                    else guideFocusText++;
                 }
             }
         }

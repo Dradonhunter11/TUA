@@ -19,6 +19,8 @@ namespace TUA.Discord
 
         private static DiscordRpcClient client;
 
+        // public static DiscordRpcClient Client => client;
+
         private static string currentState;
 
         static DRPSystem()
@@ -28,12 +30,15 @@ namespace TUA.Discord
 
         private static void InitMessages()
         {
-		
-			StaticManager<DRPMessage>.AddItem("msgEye", new DRPMessage(
-				"The death of a god",
-				"has beaten the eye of apocalypse",
-				() => !Main.npc.Any(i => i.boss) && !MoonEventManagerWorld.moonEventList.Any(i => i.Value.IsActive) && TUAWorld.EoADowned
+			StaticManager<DRPBossMessage>.AddItem("EoA", new DRPBossMessage(
+				"The Death of a God",
+				"has beaten the Eye of Apocalypse",
+				delegate { return TUAWorld.EoADowned; }
 			));
+            StaticManager<DRPBossMessage>.AddItem("ApoMoon", new DRPBossMessage(
+                "The Destruction of the Moon",
+                "skygazed beneath the Apocalypse Moon",
+                delegate { return TUAWorld.ApoMoonDowned; }));
         }
 
         public static void Boot()
@@ -95,22 +100,22 @@ namespace TUA.Discord
                     presence.Details = Main.LocalPlayer.name + " is exploring the solar dimension";
                 }*/
 
-                var validMessage = null;
-		var list = StaticManager<DRPMessage>.GetItems();
-                for (int k = 0; i < list.Length; i++)
+                DRPBossMessage validMessage = null;
+		        var list = StaticManager<DRPBossMessage>.GetItems();
+                for (int k = 0; k < list.Length; k++)
                 {
-			var msg = list[k];
-	                if (!msg.Item3.CanCall())
-		                continue;
-
-	                validMessage = msg.Item3;
+			        var msg = list[k];
+	                if (msg.Item3.CanCall())
+                    {
+                        validMessage = msg.Item3;
+                        goto FoundValidMessage;
+                    }
 				}
-
-                if (validMessage == null)
-	                return;
-		    
-                client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : validMessage.Header);
-                client.UpdateDetails(Main.LocalPlayer.name + " " + validMessage.Message);
+                FoundValidMessage:
+                {
+                    client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : validMessage.Header);
+                    client.UpdateDetails(Main.LocalPlayer.name + " " + validMessage.Message);
+                }
 				
 				/*if (!Main.npc.Any(i => i.boss) && !MoonEventManagerWorld.moonEventList.Any(i => i.Value.IsActive))
                 {
