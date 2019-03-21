@@ -28,6 +28,7 @@ namespace TUA.Discord
 
         private static void InitMessages()
         {
+		
 			StaticManager<DRPMessage>.AddItem("msgEye", new DRPMessage(
 				"The death of a god",
 				"has beaten the eye of apocalypse",
@@ -94,22 +95,22 @@ namespace TUA.Discord
                     presence.Details = Main.LocalPlayer.name + " is exploring the solar dimension";
                 }*/
 
-                List<DRPMessage> validMessages = new List<DRPMessage>();
-
-                foreach (var msg in StaticManager<DRPMessage>.GetItems())
+                var validMessage = null;
+		var list = StaticManager<DRPMessage>.GetItems();
+                for (int k = 0; i < list.Length; i++)
                 {
+			var msg = list[k];
 	                if (!msg.Item3.CanCall())
 		                continue;
 
-	                validMessages.Add(msg.Item3);
+	                validMessage = msg.Item3;
 				}
 
-                if (validMessages.Count <= 0)
+                if (validMessage == null)
 	                return;
-                DRPMessage selectedMsg = validMessages[Main.rand.Next(0, validMessages.Count)];
-
-                client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : selectedMsg.Header);
-                client.UpdateDetails(Main.LocalPlayer.name + " " + selectedMsg.Message);
+		    
+                client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : validMessage.Header);
+                client.UpdateDetails(Main.LocalPlayer.name + " " + validMessage.Message);
 				
 				/*if (!Main.npc.Any(i => i.boss) && !MoonEventManagerWorld.moonEventList.Any(i => i.Value.IsActive))
                 {
