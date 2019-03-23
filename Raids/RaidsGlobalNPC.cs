@@ -75,7 +75,7 @@ namespace TUA.Raids
 
             else if (npc.type == NPCID.Cyborg)
             {
-                focusText2 = "Upgrade weapon";
+                // focusText2 = "Upgrade weapon";
             }
         }
 
@@ -109,11 +109,12 @@ namespace TUA.Raids
                             default:
                                 Main.PlaySound(12, -1, -1, 1, 1f, 0f);
                                 // If someone can find a better way to do this, do it immediately
-                                typeof(Main).GetMethod("HelpText", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, null);
+                                StaticManager<Type>.GetItem("TMain").GetMethod("HelpText", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, null);
                                 break;
                         }
                     }
                 }
+
                 else
                 {
                     if (guideFocusText == 2) guideFocusText = 0;

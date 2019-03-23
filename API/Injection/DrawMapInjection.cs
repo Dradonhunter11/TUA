@@ -28,7 +28,7 @@ namespace TUA.API.Injection
         public static void inject()
         {
             MethodInfo OriginalDrawMap =
-                typeof(Main).GetMethod("DrawMap", BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic);
+                StaticManager<Type>.GetItem("TMain").GetMethod("DrawMap", BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic);
             MethodInfo NewDrawMap =
                 typeof(DrawMapInjection).GetMethod("DrawMap", BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static | BindingFlags.NonPublic);
 
@@ -37,7 +37,7 @@ namespace TUA.API.Injection
             RuntimeHelpers.PrepareMethod(OriginalDrawMap.MethodHandle);
             RuntimeHelpers.PrepareMethod(NewDrawMap.MethodHandle);
 
-            PostDrawFullscreenMap = typeof(Main).Assembly.GetType("Terraria.ModLoader.ModHooks").GetMethod("PostDrawFullscreenMap", BindingFlags.Static | BindingFlags.NonPublic);
+            PostDrawFullscreenMap = StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.ModHooks").GetMethod("PostDrawFullscreenMap", BindingFlags.Static | BindingFlags.NonPublic);
             
 
             IntPtr ptr = OriginalDrawMap.MethodHandle.Value + IntPtr.Size * 2;
@@ -47,7 +47,7 @@ namespace TUA.API.Injection
             Marshal.WriteInt32(ptr2, Marshal.ReadInt32(new IntPtr(value)));
         }
 
-        public static void revert()
+        public static void Revert()
         {
 
             MethodInfo NewDrawMap =
@@ -66,60 +66,60 @@ namespace TUA.API.Injection
 
         protected void DrawMap()
         {
-            MethodInfo DrawPlayerHead = typeof(Main).Assembly.GetType("Terraria.Main")
+            MethodInfo DrawPlayerHead = StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.Main")
         .GetMethod("DrawPlayerHead", BindingFlags.Instance | BindingFlags.NonPublic);
 
-            MethodInfo DrawMap_FindChestName = typeof(Main).Assembly.GetType("Terraria.Main")
+            MethodInfo DrawMap_FindChestName = StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.Main")
                 .GetMethod("DrawMap_FindChestName", BindingFlags.Instance | BindingFlags.NonPublic);
 
 
             FieldInfo mapDeathTextureInfo =
-                typeof(Main).GetField("mapDeathTexture", BindingFlags.Instance | BindingFlags.NonPublic);
+                StaticManager<Type>.GetItem("TMain").GetField("mapDeathTexture", BindingFlags.Instance | BindingFlags.NonPublic);
             Texture2D mapDeathTexture = (Texture2D)mapDeathTextureInfo.GetValue(Main.instance);
 
-            FieldInfo mapBG1TextureInfo = typeof(Main).GetField("mapBG1Texture", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo mapBG1TextureInfo = StaticManager<Type>.GetItem("TMain").GetField("mapBG1Texture", BindingFlags.Instance | BindingFlags.NonPublic);
             Texture2D mapBG1Texture = (Texture2D)mapDeathTextureInfo.GetValue(Main.instance);
 
-            FieldInfo mapBG2TextureInfo = typeof(Main).GetField("mapBG2Texture", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo mapBG2TextureInfo = StaticManager<Type>.GetItem("TMain").GetField("mapBG2Texture", BindingFlags.Instance | BindingFlags.NonPublic);
             Texture2D mapBG2Texture = (Texture2D)mapDeathTextureInfo.GetValue(Main.instance);
 
-            FieldInfo mapBG3TextureInfo = typeof(Main).GetField("mapBG3Texture", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo mapBG3TextureInfo = StaticManager<Type>.GetItem("TMain").GetField("mapBG3Texture", BindingFlags.Instance | BindingFlags.NonPublic);
             Texture2D mapBG3Texture = (Texture2D)mapDeathTextureInfo.GetValue(Main.instance);
 
-            FieldInfo mapBG4TextureInfo = typeof(Main).GetField("mapBG4Texture", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo mapBG4TextureInfo = StaticManager<Type>.GetItem("TMain").GetField("mapBG4Texture", BindingFlags.Instance | BindingFlags.NonPublic);
             Texture2D mapBG4Texture = (Texture2D)mapDeathTextureInfo.GetValue(Main.instance);
 
-            FieldInfo mapBG5TextureInfo = typeof(Main).GetField("mapBG5Texture", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo mapBG5TextureInfo = StaticManager<Type>.GetItem("TMain").GetField("mapBG5Texture", BindingFlags.Instance | BindingFlags.NonPublic);
             Texture2D mapBG5Texture = (Texture2D)mapDeathTextureInfo.GetValue(Main.instance);
 
-            FieldInfo mapBG6TextureInfo = typeof(Main).GetField("mapBG6Texture", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo mapBG6TextureInfo = StaticManager<Type>.GetItem("TMain").GetField("mapBG6Texture", BindingFlags.Instance | BindingFlags.NonPublic);
             Texture2D mapBG6Texture = (Texture2D)mapDeathTextureInfo.GetValue(Main.instance);
 
-            FieldInfo mapBG7TextureInfo = typeof(Main).GetField("mapBG7Texture", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo mapBG7TextureInfo = StaticManager<Type>.GetItem("TMain").GetField("mapBG7Texture", BindingFlags.Instance | BindingFlags.NonPublic);
             Texture2D mapBG7Texture = (Texture2D)mapDeathTextureInfo.GetValue(Main.instance);
 
-            FieldInfo mapBG8TextureInfo = typeof(Main).GetField("mapBG8Texture", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo mapBG8TextureInfo = StaticManager<Type>.GetItem("TMain").GetField("mapBG8Texture", BindingFlags.Instance | BindingFlags.NonPublic);
             Texture2D mapBG8Texture = (Texture2D)mapDeathTextureInfo.GetValue(Main.instance);
 
-            FieldInfo mapBG9TextureInfo = typeof(Main).GetField("mapBG9Texture", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo mapBG9TextureInfo = StaticManager<Type>.GetItem("TMain").GetField("mapBG9Texture", BindingFlags.Instance | BindingFlags.NonPublic);
             Texture2D mapBG9Texture = (Texture2D)mapDeathTextureInfo.GetValue(Main.instance);
 
-            FieldInfo mapBG10TextureInfo = typeof(Main).GetField("mapBG10Texture", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo mapBG10TextureInfo = StaticManager<Type>.GetItem("TMain").GetField("mapBG10Texture", BindingFlags.Instance | BindingFlags.NonPublic);
             Texture2D mapBG10Texture = (Texture2D)mapDeathTextureInfo.GetValue(Main.instance);
 
-            FieldInfo mapBG11TextureInfo = typeof(Main).GetField("mapBG11Texture", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo mapBG11TextureInfo = StaticManager<Type>.GetItem("TMain").GetField("mapBG11Texture", BindingFlags.Instance | BindingFlags.NonPublic);
             Texture2D mapBG11Texture = (Texture2D)mapDeathTextureInfo.GetValue(Main.instance);
 
-            FieldInfo mapBG12TextureInfo = typeof(Main).GetField("mapBG12Texture", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo mapBG12TextureInfo = StaticManager<Type>.GetItem("TMain").GetField("mapBG12Texture", BindingFlags.Instance | BindingFlags.NonPublic);
             Texture2D mapBG12Texture = (Texture2D)mapDeathTextureInfo.GetValue(Main.instance);
 
-            FieldInfo mapBG13TextureInfo = typeof(Main).GetField("mapBG13Texture", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo mapBG13TextureInfo = StaticManager<Type>.GetItem("TMain").GetField("mapBG13Texture", BindingFlags.Instance | BindingFlags.NonPublic);
             Texture2D mapBG13Texture = (Texture2D)mapDeathTextureInfo.GetValue(Main.instance);
 
-            FieldInfo mapBG14TextureInfo = typeof(Main).GetField("mapBG14Texture", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo mapBG14TextureInfo = StaticManager<Type>.GetItem("TMain").GetField("mapBG14Texture", BindingFlags.Instance | BindingFlags.NonPublic);
             Texture2D mapBG14Texture = (Texture2D)mapDeathTextureInfo.GetValue(Main.instance);
 
-            FieldInfo mapBG15TextureInfo = typeof(Main).GetField("mapBG15Texture", BindingFlags.Instance | BindingFlags.NonPublic);
+            FieldInfo mapBG15TextureInfo = StaticManager<Type>.GetItem("TMain").GetField("mapBG15Texture", BindingFlags.Instance | BindingFlags.NonPublic);
             Texture2D mapBG15Texture = (Texture2D)mapDeathTextureInfo.GetValue(Main.instance);
 
             string text = "";

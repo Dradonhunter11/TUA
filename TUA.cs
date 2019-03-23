@@ -35,17 +35,17 @@ using TUA.Raids;
 using TUA.Raids.UI;
 using TUA.UIHijack.MainMenu;
 using TUA.UIHijack.WorldSelection;
-using Mono.Cecil.Cil;
 using Terraria.Graphics.Shaders;
+using TUA.Utilities;
 
 namespace TUA
 {
     internal class TUA : Mod
     {
-        internal static string version = "0.1 dev";
-        internal static String tModLoaderVersion2 = "";
+        internal static string version;
+        internal static string tModLoaderVersion2;
         internal static Version tModLoaderVersion;
-        internal static readonly string SAVE_PATH = Main.SavePath;
+        internal static readonly string SAVE_PATH;
 
         internal static TUA instance;
 
@@ -56,25 +56,53 @@ namespace TUA
         internal static UserInterface raidsInterface;
 
         internal UIWorldSelect originalWorldSelect;
-        internal readonly MainMenuUI newMainMenu = new MainMenuUI();
-        internal static RaidsUI raidsUI = new RaidsUI();
+        internal readonly MainMenuUI newMainMenu;
+        internal static RaidsUI raidsUI;
 
         internal static CustomTitleMenuConfig custom;
 
-        internal static bool devMode = true;
+        internal static bool devMode;
 
-        private static List<string> quote = new List<string>();
-        private static string animate = GetAnimatedTitle();
+        private static List<string> quote;
+        private static string animate;
 
         private int animationTimer = 25;
 
         private int titleTimer = 0;
         private Title currentTitle;
 
-        internal static GameTime gameTime = new GameTime();
+        internal static GameTime gameTime;
+
+        static TUA()
+        {
+            version = "0.1 dev"; ;
+            tModLoaderVersion2 = "";
+            SAVE_PATH = Main.SavePath;
+
+            raidsUI = new RaidsUI();
+
+#if DEBUG
+            devMode = true;
+#else
+            devMode = false;
+#endif
+
+            quote = new List<string>();
+            animate = GetAnimatedTitle();
+
+            gameTime = new GameTime();
+
+            StaticManager<Type>.AddItem("TMain", typeof(Main));
+        }
 
         public TUA()
         {
+            newMainMenu = new MainMenuUI();
+
+            animationTimer = 25;
+
+            titleTimer = 0;
+
             Properties = new ModProperties()
             {
                 Autoload = true,
@@ -92,10 +120,10 @@ namespace TUA
             newMainMenu.Load();
 
             UpdateBiomesInjection.inject();
-            Console.Write("AM I NULL? " + typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
-            //MethodInfo attempt = typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
+            Console.Write("AM I NULL? " + StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
+            //MethodInfo attempt = StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
             //    .GetMethod("PopulateModBrowser", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
-            //ReflectionUtils.MethodSwap(typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
+            //ReflectionUtils.MethodSwap(StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
             MonoModExtraHook.populatebrowser_Hook += ModBrowserInjection.PopulateModBrowser;
             On.Terraria.Cinematics.CinematicManager.Update += GetGameTime;
 
@@ -106,7 +134,7 @@ namespace TUA
             if (!Main.dedServ)
             {
                 FieldInfo UIWorldSelectInfo =
-                    typeof(Main).GetField("_worldSelectMenu", BindingFlags.Static | BindingFlags.NonPublic);
+                    StaticManager<Type>.GetItem("TMain").GetField("_worldSelectMenu", BindingFlags.Static | BindingFlags.NonPublic);
                 originalWorldSelect = (UIWorldSelect)UIWorldSelectInfo.GetValue(null);
                 UIWorldSelectInfo.SetValue(null, new NewUIWorldSelect());
 
@@ -124,8 +152,6 @@ namespace TUA
 
                 AddFilter();
                 AddHotWTranslations();
-
-
             }
 
             HookGenLoader();
@@ -167,10 +193,11 @@ namespace TUA
             {
 
                 DRPSystem.Kill();
-                Main.OnTick -= DRPSystem.ReloadLogger;
                 Main.OnTick -= DRPSystem.Update;
-
             }
+
+            StaticManager<Type>.Clear();
+            StaticManager<DRPBossMessage>.Clear();
         }
 
         private static void HookGenLoader()
@@ -321,7 +348,8 @@ namespace TUA
 
             RecipeUtils.setAllFurnaceRecipeSystem();
 
-
+            StaticManager<Type>.RemoveItem("TMain");
+            StaticManager<Type>.AddItem("TMain", typeof(Main));
         }
 
         public override void UpdateUI(GameTime gameTime)
