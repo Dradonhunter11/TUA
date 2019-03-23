@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TUA.Utilities
 {
+    /// <summary>
+    /// When using new types, remember to add a flush command to TUA.Unload
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
 	public static class StaticManager<T>
 	{
 		private static readonly Dictionary<string, T> ITEMS;
@@ -21,6 +23,12 @@ namespace TUA.Utilities
 			ITEM_ID_TO_NAME_MAP = new Dictionary<string, string>();
 			DEFAULT = default(T);
 		}
+
+        public static void Clear()
+        {
+            ITEMS.Clear();
+            ITEM_ID_TO_NAME_MAP.Clear();
+        }
 
 		public static void AddItem(string idname, T item)
 		{

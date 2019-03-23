@@ -21,29 +21,29 @@ namespace TUA.API.Injection
     {
         public static void PopulateModBrowser(MonoModExtraHook.orig_populatebrowser orig, object instance)
         {
-            Object modBrowserInstance = typeof(Main).Assembly.GetType("Terraria.ModLoader.Interface")
+            Object modBrowserInstance = StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.Interface")
                 .GetField("modBrowser", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
             ErrorLogger.Log(modBrowserInstance);
-            typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser").GetField("loading").SetValue(modBrowserInstance, true);
-            typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser").GetField("_specialModPackFilterTitle", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(modBrowserInstance, "");
-            //typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser").GetField("_specialModPackFilterTitle", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(modBrowserInstance, null );
-            UITextPanel<String> reloadButton = (UITextPanel<String>) typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
+            StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser").GetField("loading").SetValue(modBrowserInstance, true);
+            StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser").GetField("_specialModPackFilterTitle", BindingFlags.Instance | BindingFlags.NonPublic).SetValue(modBrowserInstance, "");
+            //StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser").GetField("_specialModPackFilterTitle", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(modBrowserInstance, null );
+            UITextPanel<String> reloadButton = (UITextPanel<String>) StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
                 .GetField("reloadButton", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(modBrowserInstance);
             reloadButton.SetText(Language.GetTextValue("tModLoader.MBGettingData"));
 
-            MethodInfo SetHeading = typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
+            MethodInfo SetHeading = StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
                 .GetMethod("SetHeading", BindingFlags.Instance | BindingFlags.NonPublic);
 
             SetHeading.Invoke(modBrowserInstance, new object[] {Language.GetTextValue("tModLoader.MenuModBrowser")});
-            UIPanel uiPanel = (UIPanel) typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
+            UIPanel uiPanel = (UIPanel) StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
                 .GetField("uIPanel", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(modBrowserInstance);
-            uiPanel.Append((UIElement)typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
+            uiPanel.Append((UIElement)StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
                 .GetField("uILoader", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(modBrowserInstance));
             /*uIPanel.Append(uILoader);*/
 
-            UIList modList = (UIList) typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
+            UIList modList = (UIList) StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
                 .GetField("modList").GetValue(modBrowserInstance);
-            IList items = (IList) typeof(Main).Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
+            IList items = (IList) StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
                 .GetField("items", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.DeclaredOnly).GetValue(modBrowserInstance);
             items.Clear();
             modList.Deactivate();
@@ -63,7 +63,7 @@ namespace TUA.API.Injection
                     EventInfo UploadCompleteValue = eventType.GetEvent("UploadValuesCompleted");
                     Type eventHandler = UploadCompleteValue.EventHandlerType;
 
-                    MethodInfo methodToMakeDelegate = typeof(Main).Assembly
+                    MethodInfo methodToMakeDelegate = StaticManager<Type>.GetItem("TMain").Assembly
                         .GetType("Terraria.ModLoader.UI.UIModBrowser").GetMethod("UploadComplete",
                             BindingFlags.Public | BindingFlags.Instance);
                     ErrorLogger.Log("EventHandler : " + UploadCompleteValue);
