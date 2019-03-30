@@ -10,7 +10,6 @@ using System.Linq;
 using System.Reflection;
 using Mono.Cecil;
 using Terraria;
-using Terraria.Cinematics;
 using Terraria.GameContent.UI.States;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
@@ -44,7 +43,7 @@ namespace TUA
     {
         internal static string version;
         internal static string tModLoaderVersion2;
-        internal static Version tModLoaderVersion;
+        internal static Version tModLoaderVersionBak;
         internal static readonly string SAVE_PATH;
 
         internal static TUA instance;
@@ -119,13 +118,17 @@ namespace TUA
 
             newMainMenu.Load();
 
-            UpdateBiomesInjection.inject();
+            UpdateBiomesInjection.InjectMe();
             Console.Write("AM I NULL? " + StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
             //MethodInfo attempt = StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
             //    .GetMethod("PopulateModBrowser", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
             //ReflectionUtils.MethodSwap(StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
-            MonoModExtraHook.populatebrowser_Hook += ModBrowserInjection.PopulateModBrowser;
-            On.Terraria.Cinematics.CinematicManager.Update += GetGameTime;
+            CustomMMHooker.Populatebrowser_Hook += ModBrowserInjection.PopulateModBrowser;
+            On.Terraria.Cinematics.CinematicManager.Update += (orig, inst, time) =>
+            {
+                gameTime = time;
+                orig.Invoke(inst, gameTime);
+            };
 
             Main.SavePath += "/Tapocalypse";
             Main.PlayerPath = Main.SavePath + "/Player";
@@ -140,11 +143,8 @@ namespace TUA
 
                 SolarFog = GetTexture("CustomScreenShader/HeavyMist");
 
-
                 Main.OnTick += DRPSystem.Update;
                 DRPSystem.Boot();
-
-
 
                 machineInterface = new UserInterface();
                 CapacitorInterface = new UserInterface();
@@ -157,25 +157,12 @@ namespace TUA
             HookGenLoader();
         }
 
-        public static void GetGameTime(On.Terraria.Cinematics.CinematicManager.orig_Update orig,
-            CinematicManager instance, GameTime time)
-        {
-            TUA.gameTime = time;
-            orig.Invoke(instance, gameTime);
-        }
-
-        public void CheckUpdateOnBrowser()
-        {
-
-        }
-
         public override void Unload()
         {
             //DrawMapInjection.revert();
-            UpdateBiomesInjection.inject();
+            UpdateBiomesInjection.InjectMe();
 
             Main.SavePath = SAVE_PATH;
-
             Main.PlayerPath = Main.SavePath + "/Player";
             Main.WorldPath = Main.SavePath + "/World";
 
@@ -191,7 +178,6 @@ namespace TUA
 
             if (!Main.dedServ)
             {
-
                 DRPSystem.Kill();
                 Main.OnTick -= DRPSystem.Update;
             }
@@ -203,7 +189,6 @@ namespace TUA
         private static void HookGenLoader()
         {
             
-
             HookILCursor c;
             IL.Terraria.Main.GUIChatDrawInner += il =>
             {
@@ -216,9 +201,8 @@ namespace TUA
                 if (c.TryGotoNext(i => i.MatchCall(typeof(NPCLoader), "SetChatButtons")))
                 {
 
-                    // Let's replace the call with our custom C# code. It's the easiest method right now.
-                    c.Remove();
-                    c.EmitDelegate<RaidsGlobalNPC.SetChatButtonsReplacementDelegate>(RaidsGlobalNPC.SetChatButtonsReplacement);
+                    c.Index++;
+                    c.EmitDelegate<RaidsGlobalNPC.SetChatButtonsCustomDelegate>(RaidsGlobalNPC.SetChatButtonsCustom);
                 }
             };
 
@@ -285,7 +269,7 @@ namespace TUA
             InitializeQuoteList();
 
             tModLoaderVersion2 = "tModLoader v" + ModLoader.version;
-            tModLoaderVersion = ModLoader.version;
+            tModLoaderVersionBak = ModLoader.version;
 
             return $"{tModLoaderVersion2} - TUA v{version} - {quote[r.Next(quote.Count)]}";
         }

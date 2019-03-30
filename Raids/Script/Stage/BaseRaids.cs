@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+/*using System.Collections.Generic;
 
 namespace TerrariaUltraApocalypse.Raids.Script.Stage
 {
@@ -10,9 +7,10 @@ namespace TerrariaUltraApocalypse.Raids.Script.Stage
     {
         public List<BaseStage> stageList = new List<BaseStage>();
 
-        public async virtual void dialog(int stage = 0)
+        public async virtual void DialogAsync(int stage = 0)
         {
 
         }
     }
 }
+*/

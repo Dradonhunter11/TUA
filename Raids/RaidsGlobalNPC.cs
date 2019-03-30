@@ -29,10 +29,10 @@ namespace TUA.Raids
             }
         }
 
-        public delegate void SetChatButtonsReplacementDelegate(ref string focusText, ref string focusText2);
-        public static void SetChatButtonsReplacement(ref string focusText, ref string focusText2)
+        public delegate void SetChatButtonsCustomDelegate(ref string focusText, ref string focusText2);
+        public static void SetChatButtonsCustom(ref string focusText, ref string focusText2)
         {
-            NPCLoader.SetChatButtons(ref focusText, ref focusText2);
+            // NPCLoader.SetChatButtons(ref focusText, ref focusText2);
             var npc = Main.npc[Main.LocalPlayer.talkNPC];
             if (npc.type == NPCID.Guide)
             {

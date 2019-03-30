@@ -19,7 +19,7 @@ namespace TUA.API.Injection
 {
     class ModBrowserInjection
     {
-        public static void PopulateModBrowser(MonoModExtraHook.orig_populatebrowser orig, object instance)
+        public static void PopulateModBrowser(CustomMMHooker.orig_populatebrowser orig, object instance)
         {
             Object modBrowserInstance = StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.Interface")
                 .GetField("modBrowser", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
