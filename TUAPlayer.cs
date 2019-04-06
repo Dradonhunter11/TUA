@@ -26,6 +26,10 @@ namespace TUA
 
         private static int splashTimer = 0;
 
+        public static Vector2 initialPoint = Vector2.Zero;
+        public static Vector2 endPoint = Vector2.Zero;
+
+
         public override void Initialize()
         {
             ID = new Guid().ToString();

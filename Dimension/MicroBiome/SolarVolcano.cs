@@ -125,6 +125,13 @@ namespace TUA.Dimension.MicroBiome
                     highestPoint = new Point(x, y);
                 }
 
+                int nextY = origin.Y + 1;
+                while (!Main.tile[origin.X + x, nextY].active())
+                {
+                    WorldGen.PlaceTile(origin.X + x, nextY, TUA.instance.TileID("SolarRock"));
+                    nextY++;
+                }
+
                 for (int tileY = origin.Y; tileY > origin.Y - y; tileY--)
                 {
                     if (WorldGen.InWorld(origin.X + x, tileY))
@@ -132,6 +139,11 @@ namespace TUA.Dimension.MicroBiome
                         if (Main.tile[origin.X + x, tileY] == null)
                         {
                             Main.tile[origin.X + x, tileY] = new Tile();
+                        }
+
+                        if (tileY == origin.Y - y + 1 && WorldGen.genRand.NextBool())
+                        {
+                            continue;
                         }
 
                         WorldGen.PlaceTile(origin.X + x, tileY, mod.TileID("SolarRock"), false, true);
@@ -155,7 +167,7 @@ namespace TUA.Dimension.MicroBiome
 
                 if (WorldGen.genRand.Next(10) == 0)
                 {
-                    GenerateBranch(new VolcanoBranch(volcanoBranchOrigin, WorldGen.genRand.Next(localY / 20), WorldGen.genRand.Next(10, 15), WorldGen.genRand.NextBool(), WorldGen.genRand.NextBool()));
+                    GenerateBranch(new VolcanoBranch(volcanoBranchOrigin, WorldGen.genRand.Next(localY / 10), WorldGen.genRand.Next(10, 15), WorldGen.genRand.NextBool(), WorldGen.genRand.NextBool()));
                     numberOFBranch++;
                 }
 
@@ -203,7 +215,16 @@ namespace TUA.Dimension.MicroBiome
         {
             for (int y = branch.currentPoint.Y - 2; y < branch.currentPoint.Y + 3; y++)
             {
-                Main.tile[x, y].type = mod.TileID("SolarDirt");
+                if (WorldGen.genRand.Next(4) == 0)
+                {
+                    Main.tile[x, y].type = mod.TileID("SolarMineralObsidian");
+                }
+                else
+                {
+                    Main.tile[x, y].type = mod.TileID("SolarDirt");
+                }
+
+                
                 if (y == branch.currentPoint.Y && Main.tile[x, y].active())
                 {
 
@@ -240,13 +261,14 @@ namespace TUA.Dimension.MicroBiome
 
         private void GenerateTheDeepTunnel(Point highestPoint, int depth)
         {
+            ILog log = LogManager.GetLogger("Volcano deep tunnel");
             for (int i = highestPoint.Y; i < highestPoint.Y + depth; i++)
             {
-                
                 int tunnelModifer = WorldGen.genRand.Next(6, 10);
                 for (int j = highestPoint.X - tunnelModifer; j < highestPoint.X + tunnelModifer; j++)
                 {
-                    if (j < highestPoint.X - 2 || j > highestPoint.X + 2 && !Main.tile[i, j].lava())
+                    log.Info($"X : {j} , Y : {i} ");
+                    if (j < highestPoint.X - WorldGen.genRand.Next(1,3) || j > highestPoint.X + WorldGen.genRand.Next(1, 3) && Main.tile[j, i].liquid < 1)
                     {
                         WorldGen.PlaceTile(j, i, mod.TileID("SolarDirt"));
                         if (Main.tile[j, i].type != mod.TileID("SolarDirt"))
@@ -265,3 +287,4 @@ namespace TUA.Dimension.MicroBiome
         }
     }
 }
+

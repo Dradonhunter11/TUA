@@ -58,12 +58,12 @@ namespace TUA.Dimension.Solar
                     break;
                 case 2:
                     MeteorRain = true;
-                    BaseUtility.Chat("A meteor rain is happening!");
+                    BaseUtility.Chat("Meteor are falling from the sky");
                     MeteorRainInitialize();
                     break;
                 case 3:
                     SolarFog = true;
-                    BaseUtility.Chat("A massive fog is happening!");
+                    BaseUtility.Chat("A massive fog is surrounding the surface");
                     FogInitialize();
                     break;
             }

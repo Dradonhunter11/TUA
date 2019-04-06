@@ -31,7 +31,7 @@ namespace TUA
             AddGenerationPass("Reset", delegate (GenerationProgress progress)
             {
                 int maxtilesX = 8400;
-                int maxtilesY = 1800;
+                int maxtilesY = 3000;
 
                 FieldInfo info = typeof(WorldFileData).GetField("WorldSizeX", BindingFlags.Instance | BindingFlags.Public);
                 int get = (int)info.GetValue(Main.ActiveWorldFileData);

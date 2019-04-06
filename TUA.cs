@@ -376,7 +376,7 @@ namespace TUA
                 UpdateInGameMusic(ref music, ref musicPriority);
             }
 
-            if (Main.menuMode == 0 && custom.customMenu)
+            if (Main.menuMode == 0 && custom.CustomMenu)
             {
                 Main.menuMode = 888;
                 Main.MenuUI.SetState(newMainMenu);
@@ -384,7 +384,7 @@ namespace TUA
             AnimateVersion();
             if (Main.gameMenu && Main.menuMode == 0)
             {
-                if ((Main.menuMode == 888 && custom.customMenu))
+                if ((Main.menuMode == 888 && custom.CustomMenu))
                 {
                     SetTheme();
                 }
@@ -582,7 +582,7 @@ namespace TUA
             for (int i = 0; i < allKey.Count; i++)
             {
                 string key = allKey[i];
-                if (key != custom.newMainMenuTheme)
+                if (key != custom.NewMainMenuTheme)
                 {
                     Filters.Scene[key].Deactivate();
                 }
@@ -593,33 +593,33 @@ namespace TUA
             for (int i = 0; i < allKey.Count; i++)
             {
                 string key = allKey[i];
-                if (key != TUA.custom.newMainMenuTheme)
+                if (key != TUA.custom.NewMainMenuTheme)
                 {
                     SkyManager.Instance.Deactivate(key);
                 }
             }
 
             Main.worldSurface = 565;
-            if (TUA.custom.newMainMenuTheme != "Vanilla" && !SkyManager.Instance[TUA.custom.newMainMenuTheme].IsActive())
+            if (TUA.custom.NewMainMenuTheme != "Vanilla" && !SkyManager.Instance[TUA.custom.NewMainMenuTheme].IsActive())
             {
-                switch (TUA.custom.newMainMenuTheme)
+                switch (TUA.custom.NewMainMenuTheme)
                 {
                     case "Vanilla":
                         return;
                     default:
-                        if (Filters.Scene[TUA.custom.newMainMenuTheme] != null)
+                        if (Filters.Scene[TUA.custom.NewMainMenuTheme] != null)
                         {
-                            Filters.Scene.Activate(TUA.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
+                            Filters.Scene.Activate(TUA.custom.NewMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
                         }
 
-                        if (SkyManager.Instance[TUA.custom.newMainMenuTheme] != null)
+                        if (SkyManager.Instance[TUA.custom.NewMainMenuTheme] != null)
                         {
-                            SkyManager.Instance.Activate(TUA.custom.newMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
+                            SkyManager.Instance.Activate(TUA.custom.NewMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
                         }
 
-                        if (Overlays.Scene[TUA.custom.newMainMenuTheme] != null)
+                        if (Overlays.Scene[TUA.custom.NewMainMenuTheme] != null)
                         {
-                            Overlays.Scene.Activate(TUA.custom.newMainMenuTheme,
+                            Overlays.Scene.Activate(TUA.custom.NewMainMenuTheme,
                                 Vector2.Zero - new Vector2(0f, 10f), new object[0]);
                         }
 

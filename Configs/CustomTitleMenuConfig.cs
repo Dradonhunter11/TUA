@@ -7,23 +7,24 @@ namespace TUA.Configs
     [Label("Main menu config")]
     class CustomTitleMenuConfig : ModConfig
     {
-        public override MultiplayerSyncMode Mode => MultiplayerSyncMode.UniquePerPlayer;
 
         private readonly StringOptionElementSettable something;
 
         [DefaultValue(false)]
         [Label("Custom Main Menu")]
         [Tooltip("Allow you to enable TUA custom main menu")]
-        public bool customMenu;
+        public bool CustomMenu;
 
         [OptionStrings(new string[] { "Vanilla", "Stardust", "Solar", "Nebula", "Vortex"})]
         [DefaultValue("Vanilla" )]
         [Label("Main menu theme")]
         [CustomModConfigItem(typeof(OptionStringCustomSky))]
-        public string newMainMenuTheme;
+        public string NewMainMenuTheme;
 
-        public override void PostAutoLoad()
-        {        
+        public override ConfigScope Mode => ConfigScope.ClientSide;
+
+        public override void OnLoaded()
+        {
             TUA.custom = this;
         }
     }
