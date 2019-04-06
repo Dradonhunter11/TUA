@@ -4,20 +4,20 @@ using Terraria.ModLoader;
 
 namespace TUA.Items.Wasteland.Tools
 {
-    class WastestoneWaraxe : ModItem
+    class ToxicPick : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eradiated Waraxe");
-            Tooltip.SetDefault("Holds the power of 100 fragmented souls");
+            DisplayName.SetDefault("Toxic Pick");
+            Tooltip.SetDefault("A pickaxe created from the most malignant of materials, " +
+                "\nto mine the most malignant of tiles");
         }
 
         public override void SetDefaults()
         {
-            item.width = 44;
-            item.height = 38;
-            item.axe = 12;
-            item.hammer = 125;
+            item.width = 32;
+            item.height = 32;
+            item.pick = 100;
             item.melee = true;
             item.value = Item.sellPrice(0, 0, 50, 0);
             item.damage = 35;
@@ -27,6 +27,7 @@ namespace TUA.Items.Wasteland.Tools
             item.useAnimation = 15;
             item.knockBack = 0.7f;
             item.autoReuse = true;
+            item.useTurn = true;
         }
 
         // TODO: debuff

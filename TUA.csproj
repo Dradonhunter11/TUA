@@ -244,6 +244,7 @@
     <Compile Include="Items\TUAGlobalItem.cs" />
     <Compile Include="Items\Walls\Hell\AshWall.cs" />
     <Compile Include="Items\Walls\Wasteland\WastestoneBrickWall.cs" />
+    <Compile Include="Items\Wasteland\Tools\ToxicPick.cs" />
     <Compile Include="Items\Wasteland\Tools\WastestoneWaraxe.cs" />
     <Compile Include="Items\Wasteland\Weapons\VenomousGreatBlade.cs" />
     <Compile Include="Items\Weapons\Electrics\Optimor.cs" />
@@ -402,7 +403,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Achievement\" />
     <Folder Include="API\FurnaceRework\Upgrade\" />
     <Folder Include="API\TerraEnergy\Texture\" />
     <Folder Include="Items\Fishing\" />

@@ -19,11 +19,11 @@ namespace TUA.Structure.hellalt
         {
             Rectangle structureBound = new Rectangle(origin.X - WIDTH / 2, origin.Y - HEIGHT / 2, WIDTH, HEIGHT);
             structures.AddStructure(structureBound);
-            generateArena(origin);
+            GenArena(origin);
             return true;
         }
 
-        public void generateArena(Point origin)
+        public void GenArena(Point origin)
         {
             WorldUtils.Gen(origin, new Shapes.Circle(77, 77), Actions.Chain(new GenAction[]
             {

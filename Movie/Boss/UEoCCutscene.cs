@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Cinematics;
 using TUA.NPCs.Gods.EoA;
@@ -13,7 +8,7 @@ namespace TUA.Movie.Boss
     class UEoCCutscene : Film
     {
         private NPC _UEoC;
-        private Eye_of_Apocalypse _MysteriousGod;
+        private EyeOApocalypse _MysteriousGod;
         private Vector2 EoCDeathPoint;
         private Vector2 _CameraTarget;
         private float _speed;
@@ -78,7 +73,7 @@ namespace TUA.Movie.Boss
         private void SpawnMysteriousGod(FrameEventData evt)
         {
             _MysteriousGod =
-                Main.npc[NPC.NewNPC((int)EoCDeathPoint.X + 1000, (int)EoCDeathPoint.Y, TUA.instance.NPCType("Eye_of_Apocalypse"))].modNPC as Eye_of_Apocalypse;
+                Main.npc[NPC.NewNPC((int)EoCDeathPoint.X + 1000, (int)EoCDeathPoint.Y, TUA.instance.NPCType("Eye_of_Apocalypse"))].modNPC as EyeOApocalypse;
             _MysteriousGod.npc.color = Color.Black;
             _MysteriousGod.npc.GivenName = "???";
             _MysteriousGod.npc.immortal = true;

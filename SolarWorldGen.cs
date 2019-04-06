@@ -83,7 +83,7 @@ namespace TUA
                 Main.initMap = new bool[mapSizeX, mapSizeY];
                 Main.mapWasContentLost = new bool[mapSizeX, mapSizeY];
 
-                MethodInfo methodInfo = typeof(Main).GetMethod("InitMap", BindingFlags.NonPublic | BindingFlags.Instance);
+                MethodInfo methodInfo = StaticManager<Type>.GetItem("TMain").GetMethod("InitMap", BindingFlags.NonPublic | BindingFlags.Instance);
                 methodInfo.Invoke(Main.instance, null);
 
                 WorldGen.clearWorld();

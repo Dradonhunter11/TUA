@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Text;
 using Terraria;
@@ -43,7 +42,8 @@ namespace TUA.Raids.UI
             xButton.Top.Set(Main.screenHeight /2f - 125f, 0f);
             xButton.OnClick += Close;
 
-            selectTextPanel = new UITextPanel<TranslationWrapper>(LocalizationManager.instance.GetRawTranslation("TUA.UI.Select"), 0.5f, true)
+            selectTextPanel = new UITextPanel<TranslationWrapper>
+                (LocalizationManager.instance.GetRawTranslation("TUA.UI.Select"), 0.5f, true)
             {
                 DrawPanel = true,
                 TextScale = 0.5f

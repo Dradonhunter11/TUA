@@ -1,25 +1,21 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using DiscordRPC;
 using Terraria;
-using Terraria.ID;
 using Terraria.Utilities;
 using TUA.API.Dev;
-using TUA.API.EventManager;
 using TUA.Utilities;
 
 namespace TUA.Discord
 {
     public static class DRPSystem
     {
-        private const string ClientID = "528086919670792233";
+        private static RichPresence _presence;
 
-        private static RichPresence presence;
+        private static DiscordRpcClient _client;
 
-        private static DiscordRpcClient client;
+        // public static DiscordRpcClient Client => _client;
 
-        private static string currentState;
+        private static string _currentState;
 
         static DRPSystem()
         {
@@ -28,25 +24,29 @@ namespace TUA.Discord
 
         private static void InitMessages()
         {
-			StaticManager<DRPMessage>.AddItem("msgEye", new DRPMessage(
-				"The death of a god",
-				"has beaten the eye of apocalypse",
-				() => !Main.npc.Any(i => i.boss) && !MoonEventManagerWorld.moonEventList.Any(i => i.Value.IsActive) && TUAWorld.EoADowned
+			StaticManager<DRPBossMessage>.AddItem("EoA", new DRPBossMessage(
+				"The Death of a God",
+				"has beaten the Eye of Apocalypse",
+				delegate { return TUAWorld.EoADowned; }
 			));
+            StaticManager<DRPBossMessage>.AddItem("ApoMoon", new DRPBossMessage(
+                "The Destruction of the Moon",
+                "skygazed beneath the Apocalypse Moon",
+                delegate { return TUAWorld.ApoMoonDowned; }));
         }
 
         public static void Boot()
         {
 	        UnifiedRandom rand = new UnifiedRandom();
-            currentState = Main.netMode == 0
+            _currentState = Main.netMode == 0
                 ? rand.Next(new string[] { "Playing Alone", "Lone Samurai", "Singleplayer" })
                 : rand.Next(new string[] { "Playing With Friends", "Multiplayer" });
 
-            presence = new RichPresence()
+            _presence = new RichPresence()
             {
                 Details = $"In Main Menu ({(Environment.Is64BitProcess ? "64" : "32")}bit)",
                 State = (SteamID64Checker.Instance.VerifyDevID() && TUA.devMode)
-                    ? "Debugging/Developing" : currentState,
+                    ? "Debugging/Developing" : _currentState,
                 Assets = new Assets()
                 {
                     LargeImageKey = "logo",
@@ -55,61 +55,59 @@ namespace TUA.Discord
             };
             if (Main.netMode != 0)
             {
-                presence.Party = new Party()
+                _presence.Party = new Party()
                 {
                     Size = Main.ActivePlayersCount,
                     Max = Main.maxNetPlayers
                 };
             }
-            client = new DiscordRpcClient(ClientID, SteamID64Checker.CurrentSteamID64, true, -1);
-            // client.OnReady += (sender, args) => { TUA.instance.Logger.Info("Rich Presence is ready for connection!"); };
-            // client.OnClose += (sender, args) => { TUA.instance.Logger.Info("Rich Presense closed."); };
-            // client.OnError += (sender, args) => { TUA.instance.Logger.ErrorFormat("Rich Presence failed. Code {1}, {0}", args.Message, args.Code); };
-            presence.Timestamps = new Timestamps()
+            _client = new DiscordRpcClient("528086919670792233", SteamID64Checker.CurrentSteamID64, true, -1);
+            // _client.OnError += (sender, args) => { TUA.instance.Logger.ErrorFormat("Rich Presence failed. Code {1}, {0}", args.Message, args.Code); };
+            _presence.Timestamps = new Timestamps()
             {
                 Start = DateTime.UtcNow,
             };
-            client.Initialize();
-            client.SetPresence(presence);
+            _client.Initialize();
+            _client.SetPresence(_presence);
         }
 
         // We should get some images pertaining to each boss
         // client.UpdateLargeAsset("EoC logo", Main.rand.NextBool() ? "Playing TUA" : "The start of a new day");
         public static void Update()
         {
-	        if (client == null)
+	        if (_client == null)
 		        return;
 
             // Runs through all of discord-rpc's logging stuff, basically
-            client.Invoke();
+            _client.Invoke();
 
 
-            presence.Assets.LargeImageKey = "logo";
+            _presence.Assets.LargeImageKey = "logo";
             if (!Main.gameMenu)
             {
-                presence.Details = "Playing Terraria";
+                _presence.Details = "Playing Terraria";
                 /*if (Main.LocalPlayer.GetModPlayer<DimPlayer>().getCurrentDimension() == "Solar")
                 {
                     presence.Assets.LargeImageText = Main.rand.NextBool() ? "Playing TUA" : "Exploring solar";
                     presence.Details = Main.LocalPlayer.name + " is exploring the solar dimension";
                 }*/
 
-                List<DRPMessage> validMessages = new List<DRPMessage>();
-
-                foreach (var msg in StaticManager<DRPMessage>.GetItems())
+                DRPBossMessage validMessage = null;
+		        var list = StaticManager<DRPBossMessage>.GetItems();
+                for (int k = 0; k < list.Length; k++)
                 {
-	                if (!msg.Item3.CanCall())
-		                continue;
-
-	                validMessages.Add(msg.Item3);
+			        var msg = list[k];
+	                if (msg.Item3.CanCall())
+                    {
+                        validMessage = msg.Item3;
+                        goto FoundValidMessage;
+                    }
 				}
-
-                if (validMessages.Count <= 0)
-	                return;
-                DRPMessage selectedMsg = validMessages[Main.rand.Next(0, validMessages.Count)];
-
-                client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : selectedMsg.Header);
-                client.UpdateDetails(Main.LocalPlayer.name + " " + selectedMsg.Message);
+                FoundValidMessage:
+                {
+                    _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : validMessage.Header);
+                    _client.UpdateDetails(Main.LocalPlayer.name + " " + validMessage.Message);
+                }
 				
 				/*if (!Main.npc.Any(i => i.boss) && !MoonEventManagerWorld.moonEventList.Any(i => i.Value.IsActive))
                 {
@@ -272,20 +270,20 @@ namespace TUA.Discord
             }
             else
             {
-                presence.Details = $"In Main Menu ({(Environment.Is64BitProcess ? "64" : "32")}bit)";
-                presence.State = (SteamID64Checker.Instance.VerifyDevID() && TUA.devMode)
+                _presence.Details = $"In Main Menu ({(Environment.Is64BitProcess ? "64" : "32")}bit)";
+                _presence.State = (SteamID64Checker.Instance.VerifyDevID() && TUA.devMode)
                     ? "Debugging/Developing" : "Doing nothing";
 
-                presence.Assets.LargeImageText = "Doing nothing";
-                client.SetPresence(presence);
+                _presence.Assets.LargeImageText = "Doing nothing";
+                _client.SetPresence(_presence);
             }
 
         }
 
         public static void Kill()
         {
-            client.UpdateEndTime(DateTime.UtcNow);
-            client.Dispose();
+            _client.UpdateEndTime(DateTime.UtcNow);
+            _client.Dispose();
         }
     }
 }

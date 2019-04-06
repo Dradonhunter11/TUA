@@ -13,8 +13,8 @@ namespace TUA.Tiles.Furniture.Ingots
     abstract class TUAIngot : ModTile
     {
         public abstract Color MapEntryColor { get; }
-        public abstract String MapNameLegend { get; }
-        public abstract int ingotDropName { get; }
+        public abstract string MapNameLegend { get; }
+        public abstract int IngotDropName { get; }
 
         public sealed override void SetDefaults()
         {
@@ -37,7 +37,7 @@ namespace TUA.Tiles.Furniture.Ingots
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 48, 48, ingotDropName);
+            Item.NewItem(i * 16, j * 16, 48, 48, IngotDropName);
         }
     }
 }

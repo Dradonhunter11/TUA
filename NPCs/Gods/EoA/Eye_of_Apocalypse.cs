@@ -1,36 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
-using TUA;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using TUA.NPCs.Gods.EoA;
+using System.Linq;
 
 namespace TUA.NPCs.Gods.EoA
 {
-    public class Eye_of_Apocalypse : ModNPC
+    public class EyeOApocalypse : ModNPC
     {
-        private Player target => Main.player[npc.target];
-        
+        private Player Target => Main.player[npc.target];
+        private int[] playersHit;
 
         public override bool CloneNewInstances => false;
 
-        private int cutscenetimer = 1;
-        private int cutscenePhase = 0;
-        private float opacity = 0f;
-        private float previousMusicVolume = -1f;
-        
+        private int cutscenetimer;
+        private int cutscenePhase;
+        private float opacity;
+        private float previousMusicVolume;
+
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Eye of the Apocalypse - God of destruction");
+            DisplayName.SetDefault("Eye of the Apocalypse - God of Destruction");
             DisplayName.AddTranslation(GameCulture.French, "Oeil de l'apocalypse - Dieu de la destruction");
             Main.npcFrameCount[npc.type] = 5;
         }
@@ -57,15 +50,21 @@ namespace TUA.NPCs.Gods.EoA
             {
                 npc.buffImmune[i] = true;
             }
+
+            cutscenetimer = 1;
+            cutscenePhase = 0;
+            opacity = 0;
+            previousMusicVolume = -1;
+            playersHit = new int[0];
         }
 
         public override void AI()
         {
             if (npc.localAI[0] != 1f)
             {
-                rotateToPlayer();
+                RotateToPlayer();
 
-                if (cutscenePhase != 6)
+                if (cutscenePhase != 7)
                 {
                     if (cutscenePhase >= 1)
                     {
@@ -84,12 +83,11 @@ namespace TUA.NPCs.Gods.EoA
             }
         }
 
-        public void rotateToPlayer()
+        public void RotateToPlayer()
         {
             npc.TargetClosest();
-            Player p = target;
             float subit = (float)Math.PI / 2f;
-            Vector2 distance = p.Center - npc.Center;
+            Vector2 distance = Target.Center - npc.Center;
             npc.rotation = (float)Math.Atan2(distance.Y, distance.X) - subit;
         }
 
@@ -110,26 +108,39 @@ namespace TUA.NPCs.Gods.EoA
                 switch (cutscenePhase)
                 {
                     case 0:
-                        BaseUtility.Chat("<???> Who summoned this to this world again? It will be a pleasure to destroy them, like I did a long time ago.", Color.Black);
+                        TUA.instance.SetTitle("Eye of Azathoth", "The god of destruction", Color.Red, Color.Black, Main.fontDeathText, 300, 1, true);
+                        BaseUtility.Chat("<???> Who hath summoned this to this wretched world? " +
+                            "It will be a pleasure to destroy them, like I did a years ago.", Color.Black);
                         npc.GivenName = "???";
                         break;
                     case 1:
-                        BaseUtility.Chat("<???> Human have sealed me a long time ago, but now I'm finally free and I'll bring this world back to what it was, the destruction era.");
+                        BaseUtility.Chat("<???> Humans sealed me eons ago, but now I'm finally free " +
+                            "and I'll bring this world back to its most glorious stage, the era of destruction!");
                         break;
                     case 2:
-                        BaseUtility.Chat("<Eye of Azathoth - God of destruction> I, the Eye of Azathoth, the god of destruction will bring the world once again to the state of when it was created.");
                         npc.GivenName = "Eye of Azathoth";
+                        BaseUtility.Chat($"<{npc.GivenName}> I, the Eye of Azathoth, the divine incarnation of destruction, " +
+                            "will bring the world back to the times when humanity was nothing more than a speck on the earth.");
                         break;
                     case 3:
-                        BaseUtility.Chat("<Eye of Azathoth - God of destruction> Once I was the main god of this world, but an old man completly crushed me and other god friend and trapped us into another dimension.");
+                        BaseUtility.Chat($"<{npc.GivenName}> Once I reigned supreme over all other gods of this world , " +
+                            "but that despicable man completely defeated me, impossibly, " +
+                            "and somehow me and my brotherhood was rendered powerless and trapped in another dimension.");
                         break;
                     case 4:
-                        BaseUtility.Chat("<Eye of Azathoth - God of destruction> But now I am back to seek revenge on the human, their spell and technology won't be able to stop me this time and everyone should perish under the plagues!");
+                        BaseUtility.Chat($"<{npc.GivenName}> I'll never forgive that human, never.");
                         break;
                     case 5:
+                        BaseUtility.Chat($"<{npc.GivenName}> But now I am back to seek revenge on the humans, " +
+                            "their worthless spells and so-called \"technology\" won't be able to stop me this time " +
+                            "and everyone will perish under the plagues! I will allow all of humanity to be crushed by " +
+                            "our divine power!");
+                        break;
+                    case 6:
                         TUA.instance.SetTitle("Eye of Azathoth", "The god of destruction", Color.Red, Color.Black, Main.fontDeathText, 300, 1, true);
-                        BaseUtility.Chat("<Eye of Azathoth - God of destruction> We are taking our right back and we will conquer the world like we did a 1000 years ago, be ready to fight. ");
-                        
+                        BaseUtility.Chat($"<{npc.GivenName}> We are taking our throne back " +
+                            "and we will conquer the world like we did a millenia ago, I hope you're ready to fight Terraria, " +
+                            "otherwise it would be boring for me.");
                         break;
                 }
                 cutscenePhase++;
@@ -142,7 +153,38 @@ namespace TUA.NPCs.Gods.EoA
                 Color.White * opacity, 1f);
         }
 
-        
+        public override void OnHitPlayer(Player target, int damage, bool crit)
+        {
+            if (Main.myPlayer == target.whoAmI && !playersHit.Contains(target.whoAmI) && target.statLife < target.statLife * .2)
+            {
+                switch (Main.rand.Next(5))
+                {
+                    case 0:
+                        Main.NewText($"<{npc.GivenName}> No offense {target.name}, but you're struggling to keep up. " +
+                            "Don't tell me you're out already!?");
+                        break;
+                    case 1:
+                        Main.NewText($"<{npc.GivenName}> Come on, do better than that {target.name}!");
+                        break;
+                    case 2:
+                        Main.NewText($"<{npc.GivenName}> How does it feel to know your place in this world?");
+                        break;
+                    case 3:
+                        Main.NewText($"<{npc.GivenName}> Chide yourself in the afterlife for being so weak!");
+                        break;
+                    case 4:
+                        Main.NewText($"<{npc.GivenName}> Tell me, how does it feel to be so close to death? I'm curious to know how " +
+                            "absolutely terrifying to have your heart be beating so fast.");
+                        break;
+                    default:
+                        Main.NewText($"<{npc.GivenName}> Tell me, you poor human, how does it feel to know " +
+                            "that you'll never reach my caliber of power?");
+                        break;
+                }
+                Array.Resize(ref playersHit, playersHit.Length + 1);
+                playersHit[playersHit.Length - 1] = target.whoAmI;
+            }
+        }
 
         private void SpawnCircleDust(int radius, int dustType)
         {
@@ -150,8 +192,8 @@ namespace TUA.NPCs.Gods.EoA
             float y = 0;
             for (double circle = 0.0; circle < 360.0; circle += 2.0)
             {
-                x = (float) (npc.Center.X + Math.Cos(circle) * radius);
-                y = (float) (npc.Center.Y + Math.Sin(circle) * radius);
+                x = (float)(npc.Center.X + Math.Cos(circle) * radius);
+                y = (float)(npc.Center.Y + Math.Sin(circle) * radius);
 
                 Dust dust = Main.dust[Dust.NewDust(new Vector2(x, y), 2, 2, dustType, 0, 0, 0, Color.Black, 0.5f)];
                 dust.noGravity = true;

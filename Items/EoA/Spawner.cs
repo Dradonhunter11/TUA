@@ -55,7 +55,7 @@ namespace TUA.Items.EoA
             if (TUAWorld.ApoMoonDowned)
             {
                 Main.PlaySound(SoundID.Roar, player.position, 0);
-                NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - (76 * 16), mod.NPCType<Eye_of_Apocalypse>());
+                NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - (76 * 16), mod.NPCType<EyeOApocalypse>());
             }
             else
             {
@@ -71,7 +71,7 @@ namespace TUA.Items.EoA
                 NetMessage.BroadcastChatMessage(NetworkText.FromLiteral("The apocalypse is coming, be aware..."), Color.DarkGoldenrod);
             }
             Main.PlaySound(SoundID.MoonLord, player.position, 0);
-            NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - (76*16), mod.NPCType<Eye_of_Apocalypse>());
+            NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - (76*16), mod.NPCType<EyeOApocalypse>());
             Main.spriteBatch.Draw(ModContent.GetTexture("Projectile_490"), new Vector2(player.Center.X, player.Center.Y), Color.DarkRed);
             return true;
         }

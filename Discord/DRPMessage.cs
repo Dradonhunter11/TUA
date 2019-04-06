@@ -1,30 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Terraria;
+using System;
+using TUA.API.EventManager;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TUA.Discord
 {
-	public class DRPMessage
+    public class DRPBossMessage
 	{
-		public readonly string Header;
-		public readonly string Message;
-		private readonly Func<bool> CanCallFunc;
+        public readonly string Header;
+        public readonly string Message;
+        private readonly Func<bool> CanCallFunc;
 
-		public DRPMessage(string header, string message, Func<bool> canCallFunc = null)
-		{
-			Header = header;
-			Message = message;
-			CanCallFunc = canCallFunc;
-		}
+        public DRPBossMessage(string header, string message, Func<bool> ccf = null)
+        {
+            Header = header;
+            Message = message;
+            CanCallFunc = ccf ?? 
+                delegate { return !Main.npc.Any(i => i.boss) 
+                            && !MoonEventManagerWorld.moonEventList.Any(i => i.Value.IsActive); };
+        }
 
-		public bool CanCall()
-		{
-			if (CanCallFunc == null)
-				return true;
-
-			return CanCallFunc();
-		}
-	}
+        public bool CanCall() => CanCallFunc();
+    }
 }

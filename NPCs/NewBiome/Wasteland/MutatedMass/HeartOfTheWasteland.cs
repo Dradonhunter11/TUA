@@ -11,22 +11,22 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
     [AutoloadBossHead]
     class HeartOfTheWasteland : TUAModNPC
     {
-        public bool SleepState { private get; set; }
+        public bool IsSleeping { private get; set; }
 
         private static readonly string HEAD_PATH = "TUA/NPCs/NewBiome/Wasteland/MutatedMass/HeartOfTheWasteland_head";
 
-        private Texture2D tentacle;
+        private static Texture2D tentacle;
 
         private Vector2 topBlock;
 
-        public override string BossHeadTexture {
-            get { return "TUA/NPCs/NewBiome/Wasteland/MutatedMass/HeartOfTheWasteland_head0"; }
-        }
+        public override string BossHeadTexture => "TUA/NPCs/NewBiome/Wasteland/MutatedMass/HeartOfTheWasteland_head0";
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Heart of the wasteland");
+            DisplayName.SetDefault("Heart of the Wasteland");
             Main.npcFrameCount[npc.type] = 2;
+
+            tentacle = mod.GetTexture("Texture/NPCs/Heart_Tentacle");
         }
 
 
@@ -48,30 +48,20 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
             npc.aiStyle = -1;
             npc.scale = 2f;
             NPCID.Sets.MustAlwaysDraw[npc.type] = true;
-            SleepState = true;
+            IsSleeping = true;
 
             for (int i = 0; i < npc.buffImmune.Length; i++)
             {
                 npc.buffImmune[i] = true;
             }
-
-            tentacle = mod.GetTexture("Texture/NPCs/Heart_Tentacle");
         }
 
         public override void AI()
         {
             SearchTopBlock();
-            if (SleepState)
-            {
-                npc.dontTakeDamage = true;
-                return;
-            }
+            npc.boss = !IsSleeping;
+            npc.dontTakeDamage = IsSleeping;
 
-            /*
-             * Can someone explain what this is for - Agrair
-            npc.boss = true;
-            npc.immortal = false;
-            */
             for (int i = 0; i < Main.player.Length; i++)
             {
                 Player player = Main.player[i];
@@ -83,7 +73,7 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
                         new Vector2(Main.rand.Next(-15, 15), Main.rand.Next(-15, 15));
                     var point = player.position.ToTileCoordinates();
                     if (!Main.dedServ && Main.tile[point.X, point.Y].nactive())
-                        Main.NewText(Language.GetTextValue($"Mods.{mod.Name}.HotWFarAwayStuck", npc.GivenName),
+                        Main.NewText(Language.GetTextValue($"Mods.{mod.Name}.HotWFarAway{Main.rand.Next(4)}", npc.GivenName),
                             new Color(66, 244, 116));
                     // Item6 is magic mirror
                     if (!Main.dedServ) Main.PlaySound(SoundID.Item6, npc.position);
@@ -111,23 +101,12 @@ namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
 
         public override void BossHeadSlot(ref int index)
         {
-            if (SleepState)
-            {
-                index = NPCHeadLoader.GetBossHeadSlot(HEAD_PATH + "0");
-            }
-            else
-            {
-                index = NPCHeadLoader.GetBossHeadSlot(HEAD_PATH + "1");
-            }
+            index = NPCHeadLoader.GetBossHeadSlot(HEAD_PATH + (IsSleeping ? 0 : 1));
         }
 
         public override void FindFrame(int frameHeight)
         {
-            if (SleepState)
-            {
-                npc.frame.Y = frameHeight;
-                return;
-            } 
+            npc.frame.Y = IsSleeping ? frameHeight : 0;
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)

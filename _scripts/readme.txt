@@ -1,1 +1,3 @@
-Create a file called tmlpath.user containing one line that is the path to tModLoaderServer.exe
+Batch scripts used by VS to help ease compile
+
+MUST CREATE A FILE CALLED "tmlpath.user" CONTAINING PATH TO tModLoaderServer.exe WITHOUT QUOTE MARKS

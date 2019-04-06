@@ -11,6 +11,6 @@ namespace TUA.Tiles.Furniture.Ingots
     {
         public override Color MapEntryColor => Color.BlanchedAlmond;
         public override string MapNameLegend => "Meteoride Bar";
-        public override int ingotDropName => mod.ItemType("MeteoridonBar");
+        public override int IngotDropName => mod.ItemType("MeteoridonBar");
     }
 }
