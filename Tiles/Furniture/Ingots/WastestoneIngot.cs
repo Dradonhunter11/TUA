@@ -11,6 +11,6 @@ namespace TUA.Tiles.Furniture.Ingots
     {
         public override Color MapEntryColor => new Color(68, 74, 100);
         public override String MapNameLegend => "Wastestone ingot";
-        public override int ingotDropName => mod.ItemType("WastestoneIngot");
+        public override int IngotDropName => mod.ItemType("WastestoneIngot");
     }
 }
