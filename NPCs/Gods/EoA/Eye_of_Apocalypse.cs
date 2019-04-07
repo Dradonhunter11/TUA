@@ -20,12 +20,15 @@ namespace TUA.NPCs.Gods.EoA
         private float opacity;
         private float previousMusicVolume;
 
+        private int animationTimer = 20;
+        private int animationFrame = 0;
+
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Eye of the Apocalypse - God of Destruction");
             DisplayName.AddTranslation(GameCulture.French, "Oeil de l'apocalypse - Dieu de la destruction");
-            Main.npcFrameCount[npc.type] = 5;
+            Main.npcFrameCount[npc.type] = 4;
         }
 
         public override void SetDefaults()
@@ -36,8 +39,8 @@ namespace TUA.NPCs.Gods.EoA
             npc.defense = 55;
             npc.dontTakeDamage = true;
             npc.knockBackResist = 0f;
-            npc.width = 132;
-            npc.height = 166;
+            npc.width = 124;
+            npc.height = 154;
             npc.value = Item.buyPrice(20, 0, 0, 0);
             npc.npcSlots = 15f;
             npc.boss = true;
@@ -198,6 +201,22 @@ namespace TUA.NPCs.Gods.EoA
                 Dust dust = Main.dust[Dust.NewDust(new Vector2(x, y), 2, 2, dustType, 0, 0, 0, Color.Black, 0.5f)];
                 dust.noGravity = true;
                 dust.fadeIn = 0f;
+            }
+        }
+
+        public override void FindFrame(int frameHeight)
+        {
+            animationTimer--;
+            if (animationTimer == 0)
+            {
+                animationTimer = 20;
+                animationFrame++;
+                if (animationFrame == 4)
+                {
+                    animationFrame = 0;
+                }
+
+                npc.frame.Y = frameHeight * animationFrame;
             }
         }
     }

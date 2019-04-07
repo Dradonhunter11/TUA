@@ -12,6 +12,7 @@ using Terraria.IO;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 using Terraria.World.Generation;
+using TUA.Utilities;
 
 namespace TUA
 {

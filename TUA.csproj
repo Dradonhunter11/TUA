@@ -252,6 +252,8 @@
     <Compile Include="Items\Weapons\MechanicalSniper.cs" />
     <Compile Include="Items\Weapons\Misc\FishronEater.cs" />
     <Compile Include="Localization\LocalizationManager.cs" />
+    <Compile Include="LoreBook\LorePlayer.cs" />
+    <Compile Include="LoreBook\UI\LoreUI.cs" />
     <Compile Include="MoonEvent\ApocalypseMoon.cs" />
     <Compile Include="Movie\Boss\UEoCCutscene.cs" />
     <Compile Include="NPCs\AI\Worm.cs" />
@@ -409,6 +411,7 @@
     <Folder Include="Items\Meteoridon\Walls\" />
     <Folder Include="Items\Weapons\EoA\" />
     <Folder Include="Liquid\" />
+    <Folder Include="LoreBook\Items\" />
     <Folder Include="NPCs\Dimension\Solar\" />
     <Folder Include="Projectiles\EoA\" />
     <Folder Include="Tiles\Furniture\Demon\" />

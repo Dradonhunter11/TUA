@@ -219,7 +219,7 @@ namespace TUA
                 {
                     c.Index += 5;
                     c.EmitDelegate<Action>(() =>
-                    { if (Main.gameMenu) Main.curMusic = instance.GetSoundSlot(SoundType.Music, "Sounds/Music/Exclusion_Zone"); });
+                    { if (Main.gameMenu) Main.curMusic = instance.GetSoundSlot(SoundType.Music, "Sounds/Music/ArmageddonsAnthem"); });
                 }
             };
         }

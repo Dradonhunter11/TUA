@@ -17,6 +17,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Gamepad;
 using TUA.API;
+using TUA.Utilities;
 
 namespace TUA.UIHijack.InGameUI.NPCDialog
 {

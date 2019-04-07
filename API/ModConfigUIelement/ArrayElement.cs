@@ -18,6 +18,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 using Terraria.ModLoader.Config.UI;
 using Terraria.UI;
+using TUA.Utilities;
 
 namespace TUA.API.ModConfigUIelement
 {

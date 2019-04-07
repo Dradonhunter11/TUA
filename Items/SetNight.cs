@@ -103,4 +103,3 @@ namespace TUA.Items
     }
 }
 
-e.StackTrace = "   at TUA.Dimension.MicroBiome.SolarVolcano.GenerateTheDeepTunnel(Point highestPoint, Int32 depth)"

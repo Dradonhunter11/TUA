@@ -10,6 +10,9 @@ using Terraria.World.Generation;
 
 namespace TUA.Structure.hellalt
 {
+    /// <summary>
+    /// To expand later on
+    /// </summary>
     class TheHeartArena : MicroBiome
     {
         private readonly int WIDTH = 100;

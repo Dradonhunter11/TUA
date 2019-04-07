@@ -8,6 +8,7 @@ using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.ModLoader;
 using TUA.API.Dev;
+using TUA.Utilities;
 
 namespace TUA.Commands
 {

@@ -14,6 +14,7 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
+using TUA.Utilities;
 
 namespace TUA.API.Injection
 {

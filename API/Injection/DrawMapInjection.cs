@@ -16,6 +16,7 @@ using Terraria.Graphics.Capture;
 using Terraria.Localization;
 using Terraria.Map;
 using Terraria.ModLoader;
+using TUA.Utilities;
 
 namespace TUA.API.Injection
 {
