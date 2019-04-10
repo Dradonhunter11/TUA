@@ -17,7 +17,7 @@ namespace TUA.API.UI
         private static int BAR_SIZE = 4;
         private static Texture2D _backgroundTexture;
 
-        public bool isVisible;
+        public bool isVisible = true;
         public CustomizableUIPanel(Texture2D texture)
         {
             if (_backgroundTexture == null)

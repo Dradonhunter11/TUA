@@ -1,8 +1,11 @@
 using System;
+using System.Linq;
 using DiscordRPC;
 using Terraria;
+using Terraria.ID;
 using Terraria.Utilities;
 using TUA.API.Dev;
+using TUA.API.EventManager;
 using TUA.Utilities;
 
 namespace TUA.Discord
@@ -13,7 +16,7 @@ namespace TUA.Discord
 
         private static DiscordRpcClient _client;
 
-        // public static DiscordRpcClient Client => _client;
+        // public static DiscordRpcClient_client => _client;
 
         private static string _currentState;
 
@@ -72,7 +75,7 @@ namespace TUA.Discord
         }
 
         // We should get some images pertaining to each boss
-        // client.UpdateLargeAsset("EoC logo", Main.rand.NextBool() ? "Playing TUA" : "The start of a new day");
+        //_client.UpdateLargeAsset("EoC logo", Main.rand.NextBool() ? "Playing TUA" : "The start of a new day");
         public static void Update()
         {
 	        if (_client == null)
@@ -91,7 +94,7 @@ namespace TUA.Discord
                     presence.Assets.LargeImageText = Main.rand.NextBool() ? "Playing TUA" : "Exploring solar";
                     presence.Details = Main.LocalPlayer.name + " is exploring the solar dimension";
                 }*/
-
+                /*
                 DRPBossMessage validMessage = null;
 		        var list = StaticManager<DRPBossMessage>.GetItems();
                 for (int k = 0; k < list.Length; k++)
@@ -107,166 +110,166 @@ namespace TUA.Discord
                 {
                     _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : validMessage.Header);
                     _client.UpdateDetails(Main.LocalPlayer.name + " " + validMessage.Message);
-                }
+                }*/
 				
-				/*if (!Main.npc.Any(i => i.boss) && !MoonEventManagerWorld.moonEventList.Any(i => i.Value.IsActive))
+				if (!Main.npc.Any(i => i.boss) && !MoonEventManagerWorld.moonEventList.Any(i => i.Value.IsActive))
                 {
                     if (TUAWorld.EoADowned)
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The death of a god");
-                        client.UpdateDetails(Main.LocalPlayer.name + " has beaten the eye of apocalypse");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The death of a god");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " has beaten the eye of apocalypse");
                     }
                     else if (TUAWorld.ApoMoonDowned)
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The destruction of the moon");
-                        client.UpdateDetails(Main.LocalPlayer.name + " has beaten the apocalypse moon");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The destruction of the moon");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " has beaten the apocalypse moon");
                     }
                     else if (TUAWorld.EoCPostMLDowned)
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The revenge of the eye");
-                        client.UpdateDetails(Main.LocalPlayer.name + " has beaten the ultra eye of cthulhu");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The revenge of the eye");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " has beaten the ultra eye of cthulhu");
                     }
                     else if (NPC.downedMoonlord)
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "Before the lord, there were the god");
-                        client.UpdateDetails(Main.LocalPlayer.name + " has beaten the moon lord");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "Before the lord, there were the god");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " has beaten the moon lord");
                     }
                     else if (NPC.downedGolemBoss)
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The ancient cult of the moon");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is before the cultist");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The ancient cult of the moon");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is before the cultist");
                     }
                     else if (NPC.downedPlantBoss)
                     {
-                        client.UpdateLargeAsset(Main.rand.NextBool() ? "Playing TUA" : "The legends of a lizhard divinity");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is before the golem");
+                       _client.UpdateLargeAsset(Main.rand.NextBool() ? "Playing TUA" : "The legends of a lizhard divinity");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is before the golem");
                     }
                     else if (NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The jungle arise");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is before plantera");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The jungle arise");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is before plantera");
                     }
                     else if (NPC.downedMechBossAny && !(NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3))
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The mechanical arise");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is after the death of a mechanical boss");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The mechanical arise");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is after the death of a mechanical boss");
                     }
                     else if (Main.hardMode)
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "A new era of challenge");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is in hardmode");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "A new era of challenge");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is in hardmode");
                     }
                     else if (!Main.hardMode)
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "Preparing for the initial raids");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is close to hardmode");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "Preparing for the initial raids");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is close to hardmode");
                     }
                     else if (!NPC.downedBoss3)
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "Trying to help the old man");
-                        client.UpdateDetails(Main.LocalPlayer.name + " hasn't entered the Dungeon");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "Trying to help the old man");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " hasn't entered the Dungeon");
                     }
                     else if (!NPC.downedBoss2)
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "Preparing to fight the evil");
-                        client.UpdateDetails(Main.LocalPlayer.name + " hasn't purged their world");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "Preparing to fight the evil");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " hasn't purged their world");
                     }
                     else if (!NPC.downedBoss1)
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The start of a new day");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is preparing for EoC");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The start of a new day");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is preparing for EoC");
                     }
                 }
                 else
                 {
                     if (Main.npc.Any(i => i.type == TUA.instance.NPCType("Eye_of_Apocalypse")))
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The incarnated destruction");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is fighting the eye of azathoth - god of destruction");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The incarnated destruction");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is fighting the eye of azathoth - god of destruction");
                     }
                     else if (Main.npc.Any(i => i.type == TUA.instance.NPCType("UEoC")))
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The fallen eyes");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Ultra Eye of Cthulhu");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The fallen eyes");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Ultra Eye of Cthulhu");
                     }
                     else if (NPC.LunarApocalypseIsUp)
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The dimension started to clash");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is fighting the lunar apocalypse");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The dimension started to clash");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is fighting the lunar apocalypse");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.MoonLordCore))
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The lord of the final frontier");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Moon Lord");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The lord of the final frontier");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Moon Lord");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.CultistBoss))
                     {
-                        client.UpdateLargeAsset(null, "The psychotic ritual");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Lunatic Cultist");
+                       _client.UpdateLargeAsset(null, "The psychotic ritual");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Lunatic Cultist");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.Golem))
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The lizhard divinity");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Golem");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The lizhard divinity");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Golem");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.Plantera))
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The jungle terror");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is fighting Plantera");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The jungle terror");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is fighting Plantera");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.TheDestroyer))
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The mechanical worm");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is fighting the destroyer");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The mechanical worm");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is fighting the destroyer");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.Retinazer) || (Main.npc.Any(i => i.type == NPCID.Spazmatism)))
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The mechanical eyes");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Twins");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The mechanical eyes");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Twins");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.SkeletronPrime))
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The mechanical skeleton");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is fighting Skeletron Prime");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The mechanical skeleton");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is fighting Skeletron Prime");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.WallofFlesh))
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The great wall made of flesh!");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Wall of Flesh");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The great wall made of flesh!");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Wall of Flesh");
                     }
                     else if (Main.npc.Any(i => i.type == TUA.instance.NPCType("HeartOfTheWasteland") && i.boss)
                     ) //There is a chance the the heart will be asleep, so making sure
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The ruined amalgamate");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Heart of the Wasteland");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The ruined amalgamate");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Heart of the Wasteland");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.SkeletronHead))
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The cursed man");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is fighting Skeletron");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The cursed man");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is fighting Skeletron");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.QueenBee))
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "NOT THE BEES");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Queen Bee");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "NOT THE BEES");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Queen Bee");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.EaterofWorldsHead))
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The corrupted abomination");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Eater of the World");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The corrupted abomination");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Eater of the World");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.BrainofCthulhu))
                     {
-                        client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The bloody brain");
-                        client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Brain of Cthulhu");
+                       _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : "The bloody brain");
+                       _client.UpdateDetails(Main.LocalPlayer.name + " is fighting the Brain of Cthulhu");
                     }
-                }*/
+                }
                 
 
 
                 // presence.Assets.LargeImageText = Main.rand.NextBool() ? "Playing TUA" : "exploring the wasteland";
                 // presence.Details = Main.LocalPlayer.name + " is currently in the wasteland";
-                // client.SetPresence(presence);
+                //_client.SetPresence(presence);
             }
             else
             {

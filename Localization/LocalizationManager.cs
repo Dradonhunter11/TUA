@@ -66,6 +66,7 @@ namespace TUA.Localization
             AddTranslation(GameCulture.French, "TUA.UI.RaidsSelect", "Sélection des raids");
             AddNewTranslationToManager("TUA.UI.Select", "Select");
             AddTranslation(GameCulture.French, "TUA.UI.Select", "Sélectionner");
+            AddNewTranslationToManager("TUA.UI.LoreTitle", "Lore book");
         }
     }
 }

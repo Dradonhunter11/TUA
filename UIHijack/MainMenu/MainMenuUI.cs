@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
+using MonoMod.RuntimeDetour;
 using MonoMod.RuntimeDetour.HookGen;
 using ReLogic.Graphics;
 using Terraria;
@@ -91,24 +92,45 @@ namespace TUA.UIHijack.MainMenu
 
         private void HookMenu(HookIL il)
         {
-            ILog logger = LogManager.GetLogger("Injection logger");
+            ILog logger = LogManager.GetLogger("Main menu injector");
 
-            Instruction ins;
+            HookILCursor c = il.At(0);
+
+            int value = 0;
+            int value1 = 0;
+            int value2 = 0;
+            string strvalue = "";
+            HookILLabel forloop = null;
+            HookILLabel[] switchstatement = null;
+
+            if (c.TryGotoNext(i => i.MatchLdcI4(out value),
+                i=>i.MatchStloc(out value1),
+                i=>i.MatchBr(out forloop),
+                i=>i.MatchLdstr(out strvalue),
+                i=>i.MatchStloc(out value2),
+                i=>i.MatchLdloc(out value1),
+                i=>i.MatchSwitch(out switchstatement)))
+            {
+                logger.Info("Injecting the theme menu enabler code");
+                Instruction ins2 = il.Body.Instructions.Single(i => i.OpCode.Code == Code.Callvirt && i.ToString().Contains("Terraria.Graphics.Effects.SkyManager::DeactivateAll()"));
+                c.Emit(OpCodes.Br, ins2.Next);
+            }
+            //Instruction ins;
             //We opened terraria with dnSpy to find the IL code offset and the type of call, then we get the instruction from it
-            if(IntPtr.Size != 8)
-                ins = il.Body.Instructions.Single(i => i.OpCode.Code == Code.Stsfld && i.ToString().Contains("IL_1754"));
-            else
-                ins = il.Body.Instructions.Single(i => i.OpCode.Code == Code.Stsfld && i.ToString().Contains("IL_178f"));
-
-            logger.Info("Found the first instruction");
+            //if(IntPtr.Size != 8)
+            //    ins = il.Body.Instructions.Single(i => i.OpCode.Code == Code.Stsfld && i.ToString().Contains("IL_1754"));
+            //else
+            //    ins = il.Body.Instructions.Single(i => i.OpCode.Code == Code.Stsfld && i.ToString().Contains("IL_178f"));
+            //
+            //logger.Info("Found the first instruction");
             //Same thing as above, with a little bit of research we found out that Terraria.Graphics.Effects.SkyManager.DeactivateAll() was only called once, which mean we can easily use it's compiled counter like this Terraria.Graphics.Effects.SkyManager::DeactivateAll() 
-            Instruction ins2 = il.Body.Instructions.Single(i => i.OpCode.Code == Code.Callvirt && i.ToString().Contains("Terraria.Graphics.Effects.SkyManager::DeactivateAll()"));
-            logger.Info("Found the second instruction");
+            //Instruction ins2 = il.Body.Instructions.Single(i => i.OpCode.Code == Code.Callvirt && i.ToString().Contains("Terraria.Graphics.Effects.SkyManager::DeactivateAll()"));
+            //logger.Info("Found the second instruction");
             //Then we get the Il processor of the method we are changing, this will allow us to write in the method on runtime
-            var processor = il.Body.GetILProcessor();
+            //var processor = il.Body.GetILProcessor();
             //Finally we write after the instruction after the first we found a br (which is a jump) to the the second instruction that we found.
-            processor.InsertBefore(ins.Next, processor.Create(OpCodes.Br, ins2.Next));
-            logger.Info("Wrote the assembly");
+            //processor.InsertBefore(ins.Next, processor.Create(OpCodes.Br, ins2.Next));
+            //logger.Info("Wrote the assembly");
             //In here, all we did is skipping the whole deactivation phase in the game menu for screen shader and custom pillar background  
         }
     }

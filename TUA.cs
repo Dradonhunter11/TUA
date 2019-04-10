@@ -2,16 +2,17 @@ using BiomeLibrary.API;
 using Dimlibs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Mono.Cecil;
 using MonoMod.RuntimeDetour.HookGen;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Mono.Cecil;
 using Terraria;
 using Terraria.GameContent.UI.States;
 using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -30,11 +31,9 @@ using TUA.Discord;
 using TUA.Items.EoA;
 using TUA.Items.Meteoridon.Materials;
 using TUA.NPCs;
-using TUA.Raids;
 using TUA.Raids.UI;
 using TUA.UIHijack.MainMenu;
 using TUA.UIHijack.WorldSelection;
-using Terraria.Graphics.Shaders;
 using TUA.Utilities;
 
 namespace TUA
@@ -53,6 +52,7 @@ namespace TUA
         internal static UserInterface machineInterface;
         internal static UserInterface CapacitorInterface;
         internal static UserInterface raidsInterface;
+        internal static UserInterface loreInterface;
 
         internal UIWorldSelect originalWorldSelect;
         internal readonly MainMenuUI newMainMenu;
@@ -116,6 +116,9 @@ namespace TUA
         {
             instance = this;
 
+            Environment.SetEnvironmentVariable("MONOMOD_DMD_TYPE", "MethodBuilder");
+            Environment.SetEnvironmentVariable("MONOMOD_DMD_DUMP", "dmddump");
+
             newMainMenu.Load();
 
             UpdateBiomesInjection.InjectMe();
@@ -149,11 +152,11 @@ namespace TUA
                 machineInterface = new UserInterface();
                 CapacitorInterface = new UserInterface();
                 raidsInterface = new UserInterface();
+                loreInterface = new UserInterface();
 
                 AddFilter();
                 AddHotWTranslations();
             }
-
             HookGenLoader();
         }
 
@@ -188,9 +191,9 @@ namespace TUA
 
         private static void HookGenLoader()
         {
-            
+
             HookILCursor c;
-            IL.Terraria.Main.GUIChatDrawInner += il =>
+            /*IL.Terraria.Main.GUIChatDrawInner += il =>
             {
                 
                 c = il.At(0);
@@ -204,7 +207,7 @@ namespace TUA
                     c.Index++;
                     c.EmitDelegate<RaidsGlobalNPC.SetChatButtonsCustomDelegate>(RaidsGlobalNPC.SetChatButtonsCustom);
                 }
-            };
+            };*/
 
             IL.Terraria.Main.UpdateAudio += il =>
             {
@@ -219,7 +222,12 @@ namespace TUA
                 {
                     c.Index += 5;
                     c.EmitDelegate<Action>(() =>
-                    { if (Main.gameMenu) Main.curMusic = instance.GetSoundSlot(SoundType.Music, "Sounds/Music/ArmageddonsAnthem"); });
+                    {
+                        if (Main.gameMenu)
+                        {
+                            Main.curMusic = instance.GetSoundSlot(SoundType.Music, "Sounds/Music/ArmageddonsAnthem");
+                        }
+                    });
                 }
             };
         }
@@ -347,6 +355,11 @@ namespace TUA
             {
                 raidsInterface.Update(gameTime);
             }
+
+            if (loreInterface != null && loreInterface.IsVisible)
+            {
+                loreInterface.Update(gameTime);
+            }
         }
 
         public override void UpdateMusic(ref int music, ref MusicPriority musicPriority)
@@ -381,12 +394,10 @@ namespace TUA
                 Main.MenuUI.SetState(newMainMenu);
             }
             AnimateVersion();
-            if (Main.gameMenu && Main.menuMode == 0)
+            if (Main.gameMenu)
             {
-                if ((Main.menuMode == 888 && custom.CustomMenu))
-                {
-                    SetTheme();
-                }
+                SetTheme();
+
             }
         }
 
@@ -452,6 +463,17 @@ namespace TUA
                     },
                     InterfaceScaleType.UI)
                 );
+                layers.Insert(MouseTextIndex, new LegacyGameInterfaceLayer(
+                    "TUA : LORE IN CAPS", delegate
+                    {
+                        if (loreInterface.IsVisible)
+                        {
+                            loreInterface.CurrentState.Draw(Main.spriteBatch);
+                        }
+
+                        return true;
+                    }, InterfaceScaleType.UI)
+                );
             }
         }
 
@@ -466,7 +488,7 @@ namespace TUA
             if (command == "CurrentDimension")
             {
                 string DimensionName = (string)args[1];
-                
+
             }
 
             return base.Call(args);
