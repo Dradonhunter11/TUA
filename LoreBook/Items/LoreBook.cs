@@ -14,7 +14,7 @@ namespace TUA.LoreBook.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The lore book");
-            Tooltip.SetDefault("Should guide you during your adventure in the terraria land.");
+            Tooltip.SetDefault("Serves to guide you during your adventure in the wild lands of Terraria.");
         }
 
         public override void SetDefaults()
