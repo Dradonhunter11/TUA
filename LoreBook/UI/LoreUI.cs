@@ -109,7 +109,6 @@ namespace TUA.LoreBook.UI
         }
 
         
-
         protected override void DrawChildren(SpriteBatch spriteBatch)
         {
             
@@ -131,12 +130,18 @@ namespace TUA.LoreBook.UI
         public UIText Content;
         public string Title;
         public UIScrollbar scrollbar;
+        
 
         public Func<bool> unlocked = () => true;
         public string Name => (unlocked.Invoke()) ? Title : "???";
+        public Texture2D topPicture = null;
+
+        public Dictionary<int, LorePage> pages;
 
         public LoreEntry(UIElement backPanel, CustomizableUIPanel source, string title, string content, Func<bool> condition = null)
         {
+            pages = new Dictionary<int, LorePage>();
+
             Panel = new CustomizableUIPanel(TUA.instance.GetTexture("Texture/UI/panel"));
             Panel.Width.Set(400, 0);
             Panel.Height.Set(600, 0);
@@ -146,9 +151,9 @@ namespace TUA.LoreBook.UI
             Content = new UIText(content); 
 
             Initialize();
-        }
 
-        
+            
+        }
 
         private void Initialize()
         {
@@ -165,7 +170,17 @@ namespace TUA.LoreBook.UI
         public int lineNumber;
         public string text;
 
-        public LorePage(string text, Texture2D texture = null)
+        public int pageID;
+        public const int WIDTH = 350;
+        public const int HEIGHT = 550;
+        public Vector2 position;
+
+        public LorePage(int pageID, string[] text, Vector2 position, Texture2D texture = null)
+        {
+
+        }
+
+        public void Draw(SpriteBatch sb)
         {
 
         }
