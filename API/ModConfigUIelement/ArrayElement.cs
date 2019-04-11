@@ -109,7 +109,7 @@ namespace TUA.API.ModConfigUIelement
 
     abstract class RangeElement : ConfigElement
     {
-        internal bool drawTicks;
+        public bool drawTicks;
         public abstract int NumberTicks { get; }
         public abstract float TickIncrement { get; }
         protected Func<float> _GetProportion;
@@ -261,7 +261,7 @@ namespace TUA.API.ModConfigUIelement
         }
     }
 
-    internal class OptionStringCustomSky : StringOptionElementSettable
+    public class OptionStringCustomSky : StringOptionElementSettable
     {
         public OptionStringCustomSky(PropertyFieldWrapper memberInfo, object item, int orderIgnore, IList array = null, int index = -1) : base(memberInfo, item, orderIgnore, array)
         {

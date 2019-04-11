@@ -34,7 +34,7 @@ namespace TUA.API.TerraEnergy.MachineRecipe.Furnace
             return newRecipe;
         }
 
-        internal static void addRecipe(FurnaceRecipe recipe)
+        public static void addRecipe(FurnaceRecipe recipe)
         {
 
             furnaceRecipeList.Add(recipe);

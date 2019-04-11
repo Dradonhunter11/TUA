@@ -6,7 +6,7 @@ using TUA.Tiles.NewBiome.Meteoridon;
 
 namespace TUA.Projectiles.Solutions
 {
-    internal class MeteoridonSolution : TUASolution
+    public class MeteoridonSolution : TUASolution
     {
         public override string name => "Meteoridon Solution";
         public override int dust => DustID.Sandstorm;

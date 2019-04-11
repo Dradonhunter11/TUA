@@ -6,7 +6,7 @@ using TUA.API;
 
 namespace TUA.Items.Spells.BiomeSpell
 {
-    internal class DesertSpell : BaseBiomeSpell
+    public class DesertSpell : BaseBiomeSpell
     {
         public override void SetStaticDefaults()
         {
@@ -48,7 +48,7 @@ namespace TUA.Items.Spells.BiomeSpell
         }
     }
 
-    internal class DesertSpellProjectile : BaseBiomeSpellProjectile
+    public class DesertSpellProjectile : BaseBiomeSpellProjectile
     {
         public override void Convert(int x, int y)
         {

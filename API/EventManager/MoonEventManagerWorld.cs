@@ -11,7 +11,7 @@ namespace TUA.API.EventManager
 {
     class MoonEventManagerWorld : ModWorld
     {
-	    internal static Dictionary<string, MoonEvent> moonEventList = new Dictionary<string, MoonEvent>();
+	    public static Dictionary<string, MoonEvent> moonEventList = new Dictionary<string, MoonEvent>();
 
         public override TagCompound Save()
         {

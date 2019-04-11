@@ -15,7 +15,7 @@ namespace TUA.Items.Spells.BiomeSpell
 
         public abstract void Convert(int x, int y);
 
-        internal Color color = Color.White;
+        public Color color = Color.White;
 
         public override void SetDefaults()
         {

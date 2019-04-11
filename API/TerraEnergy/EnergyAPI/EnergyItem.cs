@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Deployment.Internal;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Terraria;
+﻿using System.Collections.Generic;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 

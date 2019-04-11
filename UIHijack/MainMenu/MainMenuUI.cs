@@ -1,33 +1,22 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using log4net;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Mono.Cecil;
 using Mono.Cecil.Cil;
-using MonoMod.RuntimeDetour;
 using MonoMod.RuntimeDetour.HookGen;
-using ReLogic.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
-using TUA.UIHijack.MainMenu.MainMenuButton;
-using Terraria.Graphics.Effects;
-using Terraria.Graphics.Shaders;
-using Terraria.ModLoader;
 
 namespace TUA.UIHijack.MainMenu
 {
-    class MainMenuUI : UIState
+    public class MainMenuUI : UIState
     {
         private MethodInfo _AddMenuButton;
         private List<MenuButton> _menuButtonsList;
-        internal Vector2 currentWindowsSize;
+        public Vector2 currentWindowsSize;
 
         private UIPanel panel;
         public override void OnInitialize()

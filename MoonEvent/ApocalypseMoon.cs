@@ -6,7 +6,7 @@ using Terraria.ID;
 
 namespace TUA.MoonEvent
 {
-    internal class ApocalypseMoon : API.EventManager.MoonEvent
+    public class ApocalypseMoon : API.EventManager.MoonEvent
     {
         public override List<int> scoreThresholdLimitPerWave => new List<int>()
         {

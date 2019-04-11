@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -45,10 +40,10 @@ namespace TUA.Items.Wasteland.Weapons
             target.StrikeNPCNoInteraction(1, 0, 0);
         }
 
+        // TODO
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType<VenomousGreatBlade>(), 25);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

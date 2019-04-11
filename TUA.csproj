@@ -197,7 +197,6 @@
     <Compile Include="Dimension\Solar\SolarNPC.cs" />
     <Compile Include="Dimension\Solar\SolarWorld.cs" />
     <Compile Include="Dimension\Sky\StardustCustomSky.cs" />
-    <Compile Include="Discord\DRPMessage.cs" />
     <Compile Include="Discord\DRPSystem.cs" />
     <Compile Include="Dusts\EotW\ArrowDust.cs" />
     <Compile Include="Dusts\EotW\BulletDust.cs" />
@@ -345,6 +344,7 @@
     <Compile Include="UIHijack\WorldSelection\NewUIWorldListItem.cs" />
     <Compile Include="UIHijack\WorldSelection\WorldPreLoader.cs" />
     <Compile Include="UI\Cobblegen\CobbleGenUI.cs" />
+    <Compile Include="UI\UIManager.cs" />
     <Compile Include="Utilities\StaticManager.cs" />
     <Compile Include="Walls\Hell\AshWall.cs" />
     <Compile Include="Walls\Wasteland\WastestoneBrickWall.cs" />
@@ -352,11 +352,11 @@
   <ItemGroup>
     <Reference Include="BiomeLibrary, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\BiomeLibrary\bin\Debug\BiomeLibrary.dll</HintPath>
+      <HintPath>..\..\BiomeLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Dimlibs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dimlibs\bin\Debug\Dimlibs.dll</HintPath>
+      <HintPath>..\..\Dimlibs.dll</HintPath>
     </Reference>
     <Reference Include="DiscordRPC">
       <HintPath>lib\DiscordRPC.dll</HintPath>

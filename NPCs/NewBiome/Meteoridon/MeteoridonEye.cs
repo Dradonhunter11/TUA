@@ -8,7 +8,7 @@ using TUA.API;
 
 namespace TUA.NPCs.NewBiome.Meteoridon
 {
-    internal class MeteoridonEye : TUAModNPC
+    public class MeteoridonEye : TUAModNPC
     {
         private static Texture2D infernoRing;
         private bool isCharging = false;

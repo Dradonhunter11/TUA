@@ -16,7 +16,7 @@ namespace TUA.API.TerraEnergy.EnergyAPI
 {
     abstract class StorageEntity : ModTileEntity
     {
-        internal Core energy;
+        public Core energy;
         public int maxEnergy;
 
         public virtual List<ExtraSlot> getSlot()

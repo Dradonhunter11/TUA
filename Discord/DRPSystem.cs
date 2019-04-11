@@ -6,7 +6,6 @@ using Terraria.ID;
 using Terraria.Utilities;
 using TUA.API.Dev;
 using TUA.API.EventManager;
-using TUA.Utilities;
 
 namespace TUA.Discord
 {
@@ -19,24 +18,6 @@ namespace TUA.Discord
         // public static DiscordRpcClient_client => _client;
 
         private static string _currentState;
-
-        static DRPSystem()
-        {
-	        InitMessages();
-        }
-
-        private static void InitMessages()
-        {
-			StaticManager<DRPBossMessage>.AddItem("EoA", new DRPBossMessage(
-				"The Death of a God",
-				"has beaten the Eye of Apocalypse",
-				delegate { return TUAWorld.EoADowned; }
-			));
-            StaticManager<DRPBossMessage>.AddItem("ApoMoon", new DRPBossMessage(
-                "The Destruction of the Moon",
-                "skygazed beneath the Apocalypse Moon",
-                delegate { return TUAWorld.ApoMoonDowned; }));
-        }
 
         public static void Boot()
         {
@@ -89,28 +70,6 @@ namespace TUA.Discord
             if (!Main.gameMenu)
             {
                 _presence.Details = "Playing Terraria";
-                /*if (Main.LocalPlayer.GetModPlayer<DimPlayer>().getCurrentDimension() == "Solar")
-                {
-                    presence.Assets.LargeImageText = Main.rand.NextBool() ? "Playing TUA" : "Exploring solar";
-                    presence.Details = Main.LocalPlayer.name + " is exploring the solar dimension";
-                }*/
-                /*
-                DRPBossMessage validMessage = null;
-		        var list = StaticManager<DRPBossMessage>.GetItems();
-                for (int k = 0; k < list.Length; k++)
-                {
-			        var msg = list[k];
-	                if (msg.Item3.CanCall())
-                    {
-                        validMessage = msg.Item3;
-                        goto FoundValidMessage;
-                    }
-				}
-                FoundValidMessage:
-                {
-                    _client.UpdateLargeAsset(null, Main.rand.NextBool() ? "Playing TUA" : validMessage.Header);
-                    _client.UpdateDetails(Main.LocalPlayer.name + " " + validMessage.Message);
-                }*/
 				
 				if (!Main.npc.Any(i => i.boss) && !MoonEventManagerWorld.moonEventList.Any(i => i.Value.IsActive))
                 {

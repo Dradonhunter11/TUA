@@ -45,12 +45,12 @@ namespace TUA.API.TerraEnergy.MachineRecipe.Furnace
 
         public void AddRecipe() => FurnaceRecipeManager.addRecipe(this);
 
-        internal bool CheckQuantity(int i) => i >= ingredient.stack;
+        public bool CheckQuantity(int i) => i >= ingredient.stack;
 
-        internal bool CheckItem(Item item) => ingredient.type == item.type;
+        public bool CheckItem(Item item) => ingredient.type == item.type;
 
-        internal Item GetResult() => result.Clone();
+        public Item GetResult() => result.Clone();
 
-        internal int GetIngredientStack() => ingredient.stack;
+        public int GetIngredientStack() => ingredient.stack;
     }
 }

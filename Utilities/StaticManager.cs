@@ -11,7 +11,7 @@ namespace TUA.Utilities
 	public static class StaticManager<T>
 	{
 		private static readonly Dictionary<string, T> ITEMS;
-		private static Dictionary<string, string> ITEM_ID_TO_NAME_MAP;
+		private static readonly Dictionary<string, string> ITEM_ID_TO_NAME_MAP;
 
 		private static readonly T DEFAULT;
 
@@ -21,7 +21,7 @@ namespace TUA.Utilities
 		{
 			ITEMS = new Dictionary<string, T>();
 			ITEM_ID_TO_NAME_MAP = new Dictionary<string, string>();
-			DEFAULT = default(T);
+			DEFAULT = default;
 		}
 
         public static void Clear()
@@ -83,12 +83,12 @@ namespace TUA.Utilities
 			return GetItem(GetItemID(index));
 		}
 
-		public static Tuple<string, string, T>[] GetItems()
+		public static (string ID, string Name, T Item)[] GetItems()
 		{
-			List<Tuple<string, string, T>> result = new List<Tuple<string, string, T>>();
+            List<(string Header, string Message, T Item)> result = new List<(string Header, string Message, T Item)>();
 			foreach (var key in ITEMS.Keys)
 			{
-				result.Add(new Tuple<string, string, T>(key, ITEM_ID_TO_NAME_MAP[key], ITEMS[key]));
+				result.Add((key, ITEM_ID_TO_NAME_MAP[key], ITEMS[key]));
 			}
 
 			return result.ToArray();

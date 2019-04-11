@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace TUA.API.Default
 {
-    internal abstract class TUAFallingBlock : ModTile
+    public abstract class TUAFallingBlock : ModTile
     {
         public abstract int ItemDropID { get; }
         public abstract int ItemProjectileID { get; }

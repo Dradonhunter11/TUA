@@ -2,7 +2,7 @@
 
 namespace TUA.Raids.Script.WrathOfTheWasteland.NPC
 {
-    internal abstract class Overgrowth : TUAModNPC
+    public abstract class Overgrowth : TUAModNPC
     {
         public override bool CloneNewInstances => false;
 

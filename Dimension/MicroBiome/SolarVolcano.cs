@@ -9,18 +9,18 @@ using TUA.API;
 
 namespace TUA.Dimension.MicroBiome
 {
-    internal class SolarVolcano : Terraria.World.Generation.MicroBiome
+    public class SolarVolcano : Terraria.World.Generation.MicroBiome
     {
-        internal class VolcanoBranch
+        public class VolcanoBranch
         {
-            internal Point currentPoint;
-            internal Point originPoint;
-            internal int maxStep;
-            internal int currentStep;
-            internal int length;
-            internal bool left;
-            internal bool horizontal;
-            internal int loop;
+            public Point currentPoint;
+            public Point originPoint;
+            public int maxStep;
+            public int currentStep;
+            public int length;
+            public bool left;
+            public bool horizontal;
+            public int loop;
 
             public VolcanoBranch(Point point, int maxStep, int length, bool left, bool horizontal)
             {
@@ -56,7 +56,7 @@ namespace TUA.Dimension.MicroBiome
         private const int WIDTH = 200;
         private const int HEIGHT = 150;
 
-        internal Mod mod = TUA.instance;
+        public Mod mod = TUA.instance;
 
         public override bool Place(Point origin, StructureMap structures)
         {
@@ -100,7 +100,7 @@ namespace TUA.Dimension.MicroBiome
             ShapeTheTop(highestPoint);
         }
 
-        internal void GenerateMountainShape(Point origin, out Point highestPoint, Mod mod)
+        public void GenerateMountainShape(Point origin, out Point highestPoint, Mod mod)
         {
             highestPoint = new Point(0, 0);
 
@@ -156,7 +156,7 @@ namespace TUA.Dimension.MicroBiome
             highestPoint.X += 7;
         }
 
-        internal void GenerateBranch(Point origin, out int depth)
+        public void GenerateBranch(Point origin, out int depth)
         {
             Point volcanoBranchOrigin = origin;
             depth = WorldGen.genRand.Next(100, 200) * 2;
@@ -176,7 +176,7 @@ namespace TUA.Dimension.MicroBiome
             }
         }
 
-        internal void GenerateBranch(VolcanoBranch branch)
+        public void GenerateBranch(VolcanoBranch branch)
         {
             ILog log = LogManager.GetLogger("Volcano Gen");
             int lastX = branch.originPoint.X + ((branch.left) ? -branch.length : branch.length);

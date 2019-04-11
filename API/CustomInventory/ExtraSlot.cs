@@ -8,7 +8,7 @@ using Terraria.UI;
 namespace TUA.API.CustomInventory
 {
 
-    internal class ExtraSlot : UIElement
+    public class ExtraSlot : UIElement
     {
         public Item Item;
         public int ItemStack => Item.stack;

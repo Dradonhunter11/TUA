@@ -12,7 +12,7 @@ namespace TUA.API
     {
         private ModTranslation translation;
 
-        internal TranslationWrapper(ModTranslation translation)
+        public TranslationWrapper(ModTranslation translation)
         {
             this.translation = translation;
         }

@@ -476,7 +476,7 @@ namespace TUA
 		 * Custom AI that will cause the npc to rotate around a point in a fixed circle.
 		 * 
 		 * rotation : The codable's rotation.
-		 * moveRot : A value storing the internal rotation of the codable.
+		 * moveRot : A value storing the public rotation of the codable.
 		 * rotateCenter : The center to be rotating around.
 		 * absolute : If true, moves it by position instead of by velocity.
 		 * rotDistance : How far from the rotateCenter to rotate.

@@ -5,7 +5,7 @@ using Terraria.Graphics.Effects;
 
 namespace TUA.CustomSkies
 {
-    internal class HeavyMistSky : CustomSky
+    public class HeavyMistSky : CustomSky
     {
         private bool _isLeaving = false;
         private bool _isActive = false;

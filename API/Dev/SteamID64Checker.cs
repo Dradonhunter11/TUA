@@ -21,7 +21,7 @@ namespace TUA.API.Dev
         };
 
         private static SteamID64Checker instance;
-        internal static string CurrentSteamID64;
+        public static string CurrentSteamID64;
 
         public static SteamID64Checker Instance
         {

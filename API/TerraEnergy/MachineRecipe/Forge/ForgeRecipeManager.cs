@@ -52,7 +52,7 @@ namespace TUA.API.TerraEnergy.MachineRecipe.Forge
 
         
 
-        internal void AddRecipe(ForgeRecipe r)
+        public void AddRecipe(ForgeRecipe r)
         {
             forgeRecipeList.Add(r);
         }

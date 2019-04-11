@@ -5,7 +5,7 @@ using TUA.API.ModConfigUIelement;
 namespace TUA.Configs
 {
     [Label("Main menu config")]
-    class CustomTitleMenuConfig : ModConfig
+    public class CustomTitleMenuConfig : ModConfig
     {
 
         private readonly StringOptionElementSettable something;
