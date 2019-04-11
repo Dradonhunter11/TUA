@@ -10,7 +10,7 @@ using Terraria.UI;
 
 namespace TUA.UIHijack.MainMenu
 {
-    internal class MenuButton : UIElement
+    public class MenuButton : UIElement
     {
         private readonly string buttonName;
         private readonly UITextPanel<LocalizedText> textPanel;

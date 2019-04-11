@@ -13,7 +13,7 @@ namespace TUA.API.VoidClass
     {
         private static Color VoidDamageColor = new Color(186, 85, 211);
 
-        internal static double StrikeNPCVoid(NPC npc, int Damage, float knockBack, int hitDirection, bool crit = false, bool noEffect = false, bool fromNet = false)
+        public static double StrikeNPCVoid(NPC npc, int Damage, float knockBack, int hitDirection, bool crit = false, bool noEffect = false, bool fromNet = false)
         {
             bool flag = Main.netMode == 0;
 

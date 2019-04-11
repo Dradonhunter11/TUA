@@ -39,12 +39,12 @@ namespace TUA.Items.Misc.Spawner
             return mobID;
         }
 
-        internal void setID(int mobID)
+        public void setID(int mobID)
         {
             this.mobID = mobID;
         }
 
-        internal void setMaxCap(int maxCap)
+        public void setMaxCap(int maxCap)
         {
             this.maxSoul = maxCap;
         }

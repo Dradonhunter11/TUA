@@ -11,5 +11,9 @@ namespace TUA.Dimension
         public static readonly int[] NebulaEnemy = new int[] { NPCID.NebulaBeast, NPCID.NebulaBrain, NPCID.NebulaHeadcrab, NPCID.NebulaSoldier };
 
         public static bool PlayerInSolar => Dimlibs.Dimlibs.getPlayerDim() == "Solar";
+
+        public static string CurDim => Dimlibs.Dimlibs.getPlayerDim();
+
+        public static bool PlayerInDim(string dim) => Dimlibs.Dimlibs.getPlayerDim() == dim;
     }
 }

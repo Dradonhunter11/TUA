@@ -8,7 +8,7 @@ using TUA.UIHijack.MainMenu.MainMenuButton;
 
 namespace TUA.UIHijack.MainMenu
 {
-    internal class UITUACredit : UIState
+    public class UITUACredit : UIState
     {
         private UIList list;
         private UIScrollbar scrollbar;

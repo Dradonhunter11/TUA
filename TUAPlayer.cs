@@ -116,7 +116,7 @@ namespace TUA
             }
         }
 
-        internal static void LockPlayerCamera(Vector2? position, bool lockCamera)
+        public static void LockPlayerCamera(Vector2? position, bool lockCamera)
         {
             TUAPlayer player = Main.LocalPlayer.GetModPlayer<TUAPlayer>();
 

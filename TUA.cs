@@ -32,35 +32,31 @@ using TUA.Items.EoA;
 using TUA.Items.Meteoridon.Materials;
 using TUA.NPCs;
 using TUA.Raids.UI;
+using TUA.UI;
 using TUA.UIHijack.MainMenu;
 using TUA.UIHijack.WorldSelection;
 using TUA.Utilities;
 
 namespace TUA
 {
-    internal class TUA : Mod
+    public class TUA : Mod
     {
-        internal static string version;
-        internal static string tModLoaderVersion2;
-        internal static Version tModLoaderVersionBak;
-        internal static readonly string SAVE_PATH;
+        public static string version;
+        public static string tModLoaderVersion2;
+        public static Version tModLoaderVersionBak;
+        public static readonly string SAVE_PATH;
 
-        internal static TUA instance;
+        public static TUA instance;
 
-        internal static Texture2D SolarFog;
+        public static Texture2D SolarFog;
 
-        internal static UserInterface machineInterface;
-        internal static UserInterface CapacitorInterface;
-        internal static UserInterface raidsInterface;
-        internal static UserInterface loreInterface;
+        public UIWorldSelect originalWorldSelect;
+        public readonly MainMenuUI newMainMenu;
+        public static RaidsUI raidsUI;
 
-        internal UIWorldSelect originalWorldSelect;
-        internal readonly MainMenuUI newMainMenu;
-        internal static RaidsUI raidsUI;
+        public static CustomTitleMenuConfig custom;
 
-        internal static CustomTitleMenuConfig custom;
-
-        internal static bool devMode;
+        public static bool devMode;
 
         private static List<string> quote;
         private static string animate;
@@ -70,7 +66,7 @@ namespace TUA
         private int titleTimer = 0;
         private Title currentTitle;
 
-        internal static GameTime gameTime;
+        public static GameTime gameTime;
 
         static TUA()
         {
@@ -149,10 +145,7 @@ namespace TUA
                 Main.OnTick += DRPSystem.Update;
                 DRPSystem.Boot();
 
-                machineInterface = new UserInterface();
-                CapacitorInterface = new UserInterface();
-                raidsInterface = new UserInterface();
-                loreInterface = new UserInterface();
+                UIManager.InitAll();
 
                 AddFilter();
                 AddHotWTranslations();
@@ -186,7 +179,7 @@ namespace TUA
             }
 
             StaticManager<Type>.Clear();
-            StaticManager<DRPBossMessage>.Clear();
+            StaticManager<RaidsPanel>.Clear();
         }
 
         private static void HookGenLoader()
@@ -282,14 +275,11 @@ namespace TUA
             return $"{tModLoaderVersion2} - TUA v{version} - {quote[r.Next(quote.Count)]}";
         }
 
-
-
-
         public override void AddRecipes()
         {
             AddAllPreHardmodeRecipeFurnace();
             AddAllHardmodeRecipeFurnace();
-            addFurnaceRecipe(ItemID.SandBlock, ItemID.Glass, 20);
+            AddFurnaceRecipe(ItemID.SandBlock, ItemID.Glass, 20);
 
             //Smetler recipe recipe
             AddInductionSmelterRecipe(ItemID.Hellstone, ItemID.Obsidian, ItemID.HellstoneBar, 1, 2, 1, 90);
@@ -299,7 +289,7 @@ namespace TUA
             RecipeUtils.GetAllRecipeByIngredientAndReplace(ItemID.PixieDust, ItemType<MeteorideScale>());
         }
 
-        public void addFurnaceRecipe(int itemID, int itemResult, int timer = 20)
+        public void AddFurnaceRecipe(int itemID, int itemResult, int timer = 20)
         {
             FurnaceRecipe r1 = FurnaceRecipeManager.CreateRecipe(this);
             r1.AddIngredient(itemID, 1);
@@ -344,23 +334,7 @@ namespace TUA
             StaticManager<Type>.AddItem("TMain", typeof(Main));
         }
 
-        public override void UpdateUI(GameTime gameTime)
-        {
-            if (machineInterface != null && machineInterface.IsVisible)
-            {
-                machineInterface.Update(gameTime);
-            }
-
-            if (raidsInterface != null && raidsInterface.IsVisible)
-            {
-                raidsInterface.Update(gameTime);
-            }
-
-            if (loreInterface != null && loreInterface.IsVisible)
-            {
-                loreInterface.Update(gameTime);
-            }
-        }
+        public override void UpdateUI(GameTime gameTime) => UIManager.UpdateUI(gameTime);
 
         public override void UpdateMusic(ref int music, ref MusicPriority musicPriority)
         {
@@ -372,16 +346,14 @@ namespace TUA
                 music = MusicID.Dungeon;
             }
 
-
-
             if (Main.myPlayer != -1 && Main.gameMenu && Main.LocalPlayer.name != "")
             {
-                DimPlayer p = Main.player[Main.myPlayer].GetModPlayer<DimPlayer>();
+                // DimPlayer p = Main.player[Main.myPlayer].GetModPlayer<DimPlayer>();
                 FieldInfo info = typeof(LanguageManager).GetField("_localizedTexts", BindingFlags.Instance | BindingFlags.NonPublic);
                 Dictionary<string, LocalizedText> dictionary = info.GetValue(LanguageManager.Instance) as Dictionary<string, LocalizedText>;
 
                 FieldInfo textInfo = typeof(LocalizedText).GetField("value", BindingFlags.Instance | BindingFlags.NonPublic);
-                resetMenu(dictionary, textInfo);
+                ResetMenu(dictionary, textInfo);
             }
             if (Main.myPlayer != -1 && !Main.gameMenu && Main.LocalPlayer.active)
             {
@@ -397,7 +369,6 @@ namespace TUA
             if (Main.gameMenu)
             {
                 SetTheme();
-
             }
         }
 
@@ -443,10 +414,7 @@ namespace TUA
                     "TUA : Furnace GUI",
                     delegate
                     {
-                        if (machineInterface.IsVisible && Main.playerInventory)
-                        {
-                            machineInterface.CurrentState.Draw(Main.spriteBatch); ;
-                        }
+                        UIManager.DrawFurnace();
                         return true;
                     },
                     InterfaceScaleType.UI)
@@ -454,11 +422,7 @@ namespace TUA
                 layers.Insert(MouseTextIndex, new LegacyGameInterfaceLayer(
                     "TUA : Raids GUI", delegate
                     {
-                        if (raidsInterface.IsVisible)
-                        {
-                            raidsInterface.CurrentState.Draw(Main.spriteBatch);
-                        }
-
+                        UIManager.DrawRaids();
                         return true;
                     },
                     InterfaceScaleType.UI)
@@ -466,11 +430,7 @@ namespace TUA
                 layers.Insert(MouseTextIndex, new LegacyGameInterfaceLayer(
                     "TUA : LORE IN CAPS", delegate
                     {
-                        if (loreInterface.IsVisible)
-                        {
-                            loreInterface.CurrentState.Draw(Main.spriteBatch);
-                        }
-
+                        UIManager.DrawLore();
                         return true;
                     }, InterfaceScaleType.UI)
                 );
@@ -479,48 +439,60 @@ namespace TUA
 
         public override object Call(params object[] args)
         {
-            string command = args[0] as string;
-            if (command == "UltraMode")
+            string result = "";
+            int argPos = 0;
+            while (argPos != args.Length)
             {
-                return TUAWorld.UltraMode;
+                try
+                {
+                    if ((string)args[argPos++] == "RequestUltraMode")
+                    {
+                        result += $"UltraMode={TUAWorld.UltraMode};";
+                    }
+
+                    if ((string)args[argPos++] == "IsPlrInDim")
+                    {
+                        result += $"IsPlrInDim-{(string)args[argPos]}={Dimension.DimensionUtil.PlayerInDim((string)args[argPos++])}";
+                    }
+
+                    if ((string)args[argPos++] == "CurDim")
+                    {
+                        result += $"CurDim={Dimension.DimensionUtil.CurDim};";
+                    }
+                }
+                catch (Exception e)
+                {
+                    result += e.ToString() + ';';
+                }
             }
-
-            if (command == "CurrentDimension")
-            {
-                string DimensionName = (string)args[1];
-
-            }
-
-            return base.Call(args);
+            return result;
         }
-
-
 
         private void AddAllPreHardmodeRecipeFurnace()
         {
-            addFurnaceRecipe(ItemID.CopperOre, ItemID.CopperBar);
-            addFurnaceRecipe(ItemID.TinOre, ItemID.TinBar, 10);
-            addFurnaceRecipe(ItemID.IronOre, ItemID.IronBar, 30);
-            addFurnaceRecipe(ItemID.LeadOre, ItemID.LeadBar);
-            addFurnaceRecipe(ItemID.SilverOre, ItemID.SilverBar);
-            addFurnaceRecipe(ItemID.TungstenOre, ItemID.TungstenBar);
-            addFurnaceRecipe(ItemID.GoldOre, ItemID.GoldBar, 30);
-            addFurnaceRecipe(ItemID.PlatinumOre, ItemID.PlatinumBar, 40);
-            addFurnaceRecipe(ItemID.CrimtaneOre, ItemID.CrimtaneBar);
-            addFurnaceRecipe(ItemID.DemoniteOre, ItemID.DemoniteBar);
-            addFurnaceRecipe(ItemID.Meteorite, ItemID.MeteoriteBar, 30);
+            AddFurnaceRecipe(ItemID.CopperOre, ItemID.CopperBar);
+            AddFurnaceRecipe(ItemID.TinOre, ItemID.TinBar, 10);
+            AddFurnaceRecipe(ItemID.IronOre, ItemID.IronBar, 30);
+            AddFurnaceRecipe(ItemID.LeadOre, ItemID.LeadBar);
+            AddFurnaceRecipe(ItemID.SilverOre, ItemID.SilverBar);
+            AddFurnaceRecipe(ItemID.TungstenOre, ItemID.TungstenBar);
+            AddFurnaceRecipe(ItemID.GoldOre, ItemID.GoldBar, 30);
+            AddFurnaceRecipe(ItemID.PlatinumOre, ItemID.PlatinumBar, 40);
+            AddFurnaceRecipe(ItemID.CrimtaneOre, ItemID.CrimtaneBar);
+            AddFurnaceRecipe(ItemID.DemoniteOre, ItemID.DemoniteBar);
+            AddFurnaceRecipe(ItemID.Meteorite, ItemID.MeteoriteBar, 30);
         }
 
         private void AddAllHardmodeRecipeFurnace()
         {
-            addFurnaceRecipe(ItemID.CobaltOre, ItemID.CobaltBar, 25);
-            addFurnaceRecipe(ItemID.PalladiumOre, ItemID.PalladiumBar, 25);
-            addFurnaceRecipe(ItemID.MythrilOre, ItemID.MythrilBar, 40);
-            addFurnaceRecipe(ItemID.OrichalcumOre, ItemID.OrichalcumBar, 50);
-            addFurnaceRecipe(ItemID.AdamantiteOre, ItemID.AdamantiteBar, 70);
-            addFurnaceRecipe(ItemID.TitaniumOre, ItemID.TitaniumBar, 80);
-            addFurnaceRecipe(ItemID.ChlorophyteOre, ItemID.ChlorophyteBar, 120);
-            addFurnaceRecipe(ItemID.LunarOre, ItemID.LunarBar, 240);
+            AddFurnaceRecipe(ItemID.CobaltOre, ItemID.CobaltBar, 25);
+            AddFurnaceRecipe(ItemID.PalladiumOre, ItemID.PalladiumBar, 25);
+            AddFurnaceRecipe(ItemID.MythrilOre, ItemID.MythrilBar, 40);
+            AddFurnaceRecipe(ItemID.OrichalcumOre, ItemID.OrichalcumBar, 50);
+            AddFurnaceRecipe(ItemID.AdamantiteOre, ItemID.AdamantiteBar, 70);
+            AddFurnaceRecipe(ItemID.TitaniumOre, ItemID.TitaniumBar, 80);
+            AddFurnaceRecipe(ItemID.ChlorophyteOre, ItemID.ChlorophyteBar, 120);
+            AddFurnaceRecipe(ItemID.LunarOre, ItemID.LunarBar, 240);
         }
 
         private static void InitializeQuoteList()
@@ -530,11 +502,11 @@ namespace TUA
                 "Now with 100% less life insurance! ",
                 "Make sure to give EoA my best . . . or my worst depending on how you look at it ",
                 "I failed to help Heather with a door edition ",
-                "You only have 3 dimensions? Pffft ",
+                "You have only been to 3 dimensions? Pffft ",
                 "You want me to die? Not if I kill myself first! ",
                 "The nurse may need a few more doctorate degrees . . . and a better hairdo ",
                 "Our mod will create an exodus from the others! ",
-                "Build a wall? Pffft, we have more important things to do ",
+                "Build a wall? Hah, we have more important things to do ",
                 "Old age should burn and rave at the close of day . . . yes, that means you, Jof ",
                 "Now with a bunch of stupid title version like this one! ",
                 "I dont feel so good... ",
@@ -555,8 +527,8 @@ namespace TUA
                 "Dimension is a very simple thing, it's basically a bunch of non-sense my child ",
                 "Terraria is not a game, it's a mess! ",
                 "It's not a mess, it's red code",
-                "Somebody touch my spaghet code - Red ",
-                "This is minecraft, wait no it's evil ",
+                "WHERE IS MAH SPAGHET CODE - Red ",
+                "This is Minecraft, wait no it's evil ",
                 "The fairy land, it's great... and evil... but great! ",
                 "Lots of spaghetti! ",
                 "Terraria: A game you're currently playing ",
@@ -569,9 +541,13 @@ namespace TUA
                 "Ya know, Ningishu just released a 45 minute Moon Lord speedrun ",
                 "Nvidia Turing was a complete disappointment "
             };
+            if (IntPtr.Size == 8)
+            {
+                quote.Add("HAH, YOU GOT 64BIT? JUST DOWNLOAD MORE RAM, NOOB (that was a joke btw)");
+            }
         }
 
-        private void resetMenu(Dictionary<string, LocalizedText> dictionary, FieldInfo textInfo)
+        private void ResetMenu(Dictionary<string, LocalizedText> dictionary, FieldInfo textInfo)
         {
             if (Main.menuMode == 1)
             {
@@ -678,16 +654,16 @@ namespace TUA
 
         protected struct Title
         {
-            internal string text;
-            internal string subText;
-            internal Color textColor;
-            internal Color subTextColor;
-            internal DynamicSpriteFont font;
-            internal float baseOpacity;
-            internal float currentOpacity;
-            internal bool fadeEffect;
-            internal int maxTimer;
-            internal bool active;
+            public string text;
+            public string subText;
+            public Color textColor;
+            public Color subTextColor;
+            public DynamicSpriteFont font;
+            public float baseOpacity;
+            public float currentOpacity;
+            public bool fadeEffect;
+            public int maxTimer;
+            public bool active;
 
 
             public Title(string text, string subText, Color textColor, Color subTextColor, DynamicSpriteFont font, int maxTimer = 30, float baseOpacity = 1, bool fadeEffect = true)

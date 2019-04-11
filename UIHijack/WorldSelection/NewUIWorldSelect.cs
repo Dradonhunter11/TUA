@@ -32,7 +32,7 @@ namespace TUA.UIHijack.WorldSelection
         private List<Tuple<string, bool>> favoritesCache = new List<Tuple<string, bool>>();
         private bool skipDraw;
 
-        internal static Dictionary<string, object> currentDictionary;
+        public static Dictionary<string, object> currentDictionary;
 
         public override void OnInitialize()
         {

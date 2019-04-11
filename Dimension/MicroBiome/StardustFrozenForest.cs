@@ -58,7 +58,7 @@ namespace TUA.Dimension.MicroBiome
             return true;
         }
 
-        internal void generateForest(Point start)
+        public void generateForest(Point start)
         {
 
             int circleHorizontal = HEIGHT - WorldGen.genRand.Next(20);
@@ -139,7 +139,7 @@ namespace TUA.Dimension.MicroBiome
             generateRuin(start, 50, 35, 50, true);
         }
 
-        internal void generateRuin(Point origin, int width, int height, int integretyPercent, bool chest = false)
+        public void generateRuin(Point origin, int width, int height, int integretyPercent, bool chest = false)
         {
             ShapeData data = new ShapeData();
 

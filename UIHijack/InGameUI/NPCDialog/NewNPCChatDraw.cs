@@ -21,7 +21,7 @@ using TUA.Utilities;
 
 namespace TUA.UIHijack.InGameUI.NPCDialog
 {
-    internal static class NewNPCChatDraw
+    public static class NewNPCChatDraw
     {
         public static void GUIChatDraw()
         {

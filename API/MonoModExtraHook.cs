@@ -5,7 +5,7 @@ using TUA.Utilities;
 
 namespace TUA.API
 {
-    internal class CustomMMHooker
+    public class CustomMMHooker
     {
         public delegate void orig_populatebrowser(object instance);
         public delegate void hook_populatebrowser(orig_populatebrowser orig, object threadContext);

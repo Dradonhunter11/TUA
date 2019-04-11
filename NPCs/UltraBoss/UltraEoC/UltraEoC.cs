@@ -9,7 +9,7 @@ using TUA.API;
 
 namespace TUA.NPCs.UltraBoss.UltraEoC
 {
-    internal class UltraEoC : TUAModNPC
+    public class UltraEoC : TUAModNPC
     {
         public override string Texture { get { return "Terraria/NPC_" + NPCID.EyeofCthulhu; } }
 

@@ -152,7 +152,7 @@ namespace TUA
             WorldGen.EveryTileFrame();
         }
 
-        internal void initialShaping(GenerationProgress progress)
+        public void initialShaping(GenerationProgress progress)
         {
             progress.Message = "Stardust world Gen : Shaping the land";
             int curveInfluence = 0;
@@ -270,7 +270,7 @@ namespace TUA
         }
 
 
-        internal void Shaping(GenerationProgress progress)
+        public void Shaping(GenerationProgress progress)
         {
             progress.Message = "Stardust world Gen : Carving the ocean";
             int yLevel = (int)(Main.maxTilesY * 0.14);
@@ -362,7 +362,7 @@ namespace TUA
             }
         }
 
-        internal void shapeSpawn(GenerationProgress progress)
+        public void shapeSpawn(GenerationProgress progress)
         {
             progress.Message = "Stardust world Gen : Shaping the spawn point";
             //start at 3888 and end at 3312
@@ -455,7 +455,7 @@ namespace TUA
             }
         }
 
-        internal void shapingTheFloor(GenerationProgress progress)
+        public void shapingTheFloor(GenerationProgress progress)
         {
             progress.Message = "Stardust world Gen : Shaping the ocean floor";
             double currentLevel = Main.maxTilesY * 0.4;
@@ -496,13 +496,13 @@ namespace TUA
         }
 
 
-        internal void freezingTheSpawn(GenerationProgress progress)
+        public void freezingTheSpawn(GenerationProgress progress)
         {
             
 
         }
 
-        internal void generateSea(GenerationProgress progress)
+        public void generateSea(GenerationProgress progress)
         {
             progress.Message = "Stardust world Gen : Flooding the world!";
             for (int currentX = 0; currentX < Main.maxTilesX; currentX++)
@@ -518,7 +518,7 @@ namespace TUA
             }
         }
 
-        internal void settleLiquid (GenerationProgress progress)
+        public void settleLiquid (GenerationProgress progress)
         {
             progress.Message = Lang.gen[27].Value;
             Liquid.QuickWater(3, -1, -1);

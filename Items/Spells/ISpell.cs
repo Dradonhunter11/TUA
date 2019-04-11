@@ -7,13 +7,13 @@ using Terraria.ModLoader;
 
 namespace TUA.Items.Spells
 {
-    internal interface ISpell
+    public interface ISpell
     {
         bool GetColor(out Color color);
         bool Cast(Player player);
     }
 
-    internal abstract class Spell : ModItem, ISpell
+    public abstract class Spell : ModItem, ISpell
     {
         private int texStyle;
 
@@ -84,7 +84,7 @@ namespace TUA.Items.Spells
         public sealed override bool UseItem(Player player) => Cast(player);
     }
 
-    internal abstract class Godspell : Spell
+    public abstract class Godspell : Spell
     {
         public override bool GetColor(out Color color)
         {

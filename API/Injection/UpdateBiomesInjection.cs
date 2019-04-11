@@ -45,9 +45,9 @@ namespace TUA.API.Injection
                 BindingFlags.Static | BindingFlags.NonPublic);
             float _blizzardSoundVolume = (float)_blizzardSoundVolumeInfo.GetValue(null);
 
-            FieldInfo _shaderObstructionInternalValueInfo = typeof(Player).GetField("_shaderObstructionInternalValue",
+            FieldInfo _shaderObstructionpublicValueInfo = typeof(Player).GetField("_shaderObstructionpublicValue",
                 BindingFlags.Instance | BindingFlags.NonPublic);
-            float _shaderObstructionInternalValue = (float)_shaderObstructionInternalValueInfo.GetValue(self);
+            float _shaderObstructionpublicValue = (float)_shaderObstructionpublicValueInfo.GetValue(self);
 
             FieldInfo _stormShaderObstructionInfo = typeof(Player).GetField("_stormShaderObstruction",
                 BindingFlags.Instance | BindingFlags.NonPublic);
@@ -214,10 +214,10 @@ namespace TUA.API.Injection
 
             
 
-            _shaderObstructionInternalValue = Utils.Clamp<float>(_shaderObstructionInternalValue + (float)self.behindBackWall.ToDirectionInt() * -0.005f, -0.1f, 1.1f);
-            _stormShaderObstruction = Utils.Clamp<float>(_shaderObstructionInternalValue, 0f, 1f);
+            _shaderObstructionpublicValue = Utils.Clamp<float>(_shaderObstructionpublicValue + (float)self.behindBackWall.ToDirectionInt() * -0.005f, -0.1f, 1.1f);
+            _stormShaderObstruction = Utils.Clamp<float>(_shaderObstructionpublicValue, 0f, 1f);
 
-            _shaderObstructionInternalValueInfo.SetValue(self, _shaderObstructionInternalValue);
+            _shaderObstructionpublicValueInfo.SetValue(self, _shaderObstructionpublicValue);
             _stormShaderObstructionInfo.SetValue(self, _stormShaderObstruction);
 
             if (Filters.Scene["Sandstorm"].IsActive())

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 using TUA.LoreBook.UI;
+using TUA.UI;
 
 namespace TUA.LoreBook.Items
 {
@@ -14,7 +10,7 @@ namespace TUA.LoreBook.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The lore book");
-            Tooltip.SetDefault("Should guide you during your adventure in the terraria land.");
+            Tooltip.SetDefault("Serves to guide you during your adventure in the wild lands of Terraria.");
         }
 
         public override void SetDefaults()
@@ -31,9 +27,12 @@ namespace TUA.LoreBook.Items
 
         public override bool UseItem(Player player)
         {
-            TUA.loreInterface.SetState(new LoreUI(Main.LocalPlayer.GetModPlayer<LorePlayer>()));
-            TUA.loreInterface.IsVisible = true;
-            return false;
+            if (Main.myPlayer == player.whoAmI)
+            {
+                UIManager.OpenLoreUI(player);
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace TUA.NPCs
 {
-    internal class TUACustomSky : CustomSky
+    public class TUACustomSky : CustomSky
     {
         private bool EoCUp;
         private bool EoAUp;

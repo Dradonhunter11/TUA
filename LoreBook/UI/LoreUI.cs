@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -12,27 +10,28 @@ using Terraria.UI;
 using Terraria.UI.Chat;
 using TUA.API.UI;
 using TUA.Localization;
+using TUA.UI;
 
 namespace TUA.LoreBook.UI
 {
     class LoreUI : UIState
     {
-        internal LorePlayer instance;
-        internal CustomizableUIPanel mainPanel;
+        private LorePlayer instance;
+        private CustomizableUIPanel mainPanel;
 
-        internal CustomizableUIPanel selectionPanel;
+        private CustomizableUIPanel selectionPanel;
 
-        internal UIList entryList;
-        internal UIScrollbar scrollbar;
-        internal UIElement xButton = new UIElement();
+        private UIList entryList;
+        private UIScrollbar scrollbar;
+        private readonly UIElement xButton = new UIElement();
 
-        internal Texture2D xButtonTexture;
+        private Texture2D xButtonTexture;
 
-        internal bool InLoreEntry = false;
+        private bool InLoreEntry = false;
 
-        internal List<LoreEntry> entriesList;
+        private List<LoreEntry> entriesList;
 
-        public LoreUI(LorePlayer instance)
+        public void InitLoreUI(LorePlayer instance)
         {
             this.instance = instance;
             entriesList = new List<LoreEntry>();
@@ -46,7 +45,7 @@ namespace TUA.LoreBook.UI
             xButton.Height.Set(22f, 0f);
             xButton.Left.Set(Main.screenWidth / 2f + 220f, 0f);
             xButton.Top.Set(Main.screenHeight / 2f - 330f, 0f);
-            xButton.OnClick += CloseButtonClicked;
+            xButton.OnClick += (evt, listElem) => UIManager.CloseLoreUI();
 
             mainPanel = new CustomizableUIPanel(TUA.instance.GetTexture("Texture/UI/panel"));
             mainPanel.Width.Set(400, 0);
@@ -92,12 +91,6 @@ namespace TUA.LoreBook.UI
             typeof(UIList).GetField("_innerList", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(entryList, _innerList);
         }
 
-        public void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
-        {
-            TUA.loreInterface.IsVisible = false;
-            TUA.loreInterface.SetState(null);
-        }
-
         public void SwitchToEntry(UIMouseEvent evt, UIElement listeningElement)
         {
             mainPanel.RemoveAllChildren();
@@ -133,7 +126,9 @@ namespace TUA.LoreBook.UI
         
 
         public Func<bool> unlocked = () => true;
-        public string Name => (unlocked.Invoke()) ? Title : "???";
+        public string Name => unlocked.Invoke() ? Title : 
+            Main.rand.NextBool(100000) ? "Go Away" : 
+            Main.rand.NextBool(100000) ? "Ur mum gey" : "???";
         public Texture2D topPicture = null;
 
         public Dictionary<int, LorePage> pages;
@@ -159,14 +154,11 @@ namespace TUA.LoreBook.UI
         {
 
         }
-
-
-
     }
 
     class LorePage
     {
-        public Texture2D texture = null;
+        public Texture2D texture;
         public int lineNumber;
         public string text;
 
@@ -177,7 +169,8 @@ namespace TUA.LoreBook.UI
 
         public LorePage(int pageID, string[] text, Vector2 position, Texture2D texture = null)
         {
-
+            this.text = text;
+            this.texture = texture;
         }
 
         public void Draw(SpriteBatch sb)

@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI.Gamepad;
+using TUA.UI;
 using TUA.Utilities;
 
 namespace TUA.Raids
 {
 
-    internal class RaidsGlobalNPC : GlobalNPC
+    public class RaidsGlobalNPC : GlobalNPC
     {
         public override bool InstancePerEntity => true;
         public bool giveRaidsDialog = false;
@@ -97,8 +97,7 @@ namespace TUA.Raids
                         switch (guideFocusText)
                         {
                             case 2:
-                                TUA.raidsInterface.SetState(new UI.RaidsUI());
-                                TUA.raidsInterface.IsVisible = !TUA.raidsInterface.IsVisible;
+                                UIManager.OpenRaidsUI();
                                 giveRaidsDialog = true;
                                 break;
                             case 1:
@@ -188,7 +187,7 @@ namespace TUA.Raids
                 case 9:
                     RaidsWorld.hasTalkedToGuide.Add(Main.player[Main.myPlayer].GetModPlayer<TUAPlayer>().ID);
                     return "I believe that that descendant stands before me now. " +
-                        $"{(Main.rand.NextBool() ? "" : "YES YOU IDIOT WHO ELSE.")}";
+                        $"{(Main.rand.NextBool(100) ? "" : "YES YOU IDIOT WHO ELSE.")}";
                 default:
                     return "Damn, looks like something went wrong. Report this to the Terraria Ultra Apocalypse developers.";
             }

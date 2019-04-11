@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -33,28 +32,19 @@ namespace TUA.Raids
         }
     }
 
-    public enum RaidsType : byte
-    {
-        None = 0,
-        theGreatHellRide = 1,
-        theWrathOfTheWasteland = 2,
-        theEyeOfDestruction = 3,
-        DryadsRequest
-    }
-
     public static class RaidsID
     {
         public const byte None = 0;
         public const byte TheGreatHellRide = 1;
         public const byte TheWrathOfTheWasteland = 2;
         public const byte TheEyeOfDestruction = 3;
-        public const byte DryadsRequest = 4;
-        public static Dictionary<byte, string> raidsName = new Dictionary<byte, string>
+        // public const byte DryadsRequest = 4;
+        public static string[] raidsName = new string[]
             {
-                { None, "No active raids" },
-                { TheGreatHellRide, "The Great Hell Ride!" },
-                { TheWrathOfTheWasteland, "The Wrath of the Wasteland!" },
-                { TheEyeOfDestruction, "The God of Destruction" }
+                "No active raids",
+                "The Great Hell Ride!",
+                "The Wrath of the Wasteland!",
+                "The God of Destruction"
             };
     }
 }

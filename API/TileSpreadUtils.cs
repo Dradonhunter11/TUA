@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace TUA.API
 {
-    internal static class TileSpreadUtils
+    public static class TileSpreadUtils
     {
         public static void MeteoridonSpread(Mod mod, int x, int y)
         {

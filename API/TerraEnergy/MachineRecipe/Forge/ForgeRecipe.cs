@@ -49,7 +49,7 @@ namespace TUA.API.TerraEnergy.MachineRecipe.Forge
             resultName = result.Name;
         }
 
-        internal bool checkItem(Item[] ingredients)
+        public bool checkItem(Item[] ingredients)
         {
             string ingredientList = "";
             for (int i1 = 0; i1 < ingredients.Length; i1++)
@@ -63,7 +63,7 @@ namespace TUA.API.TerraEnergy.MachineRecipe.Forge
             return ingredientList.Contains(ingredient.Name) && ingredientList.Contains(ingredient2.Name);
         }
 
-        internal bool checkQuantity(Item[] ingredients)
+        public bool checkQuantity(Item[] ingredients)
         {
             bool ingredientFlag = false;
             bool catalyserFlag = false;

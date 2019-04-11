@@ -9,7 +9,7 @@ using Terraria.ModLoader.IO;
 namespace TUA.API.EventManager
 {
 
-    internal abstract class MoonEvent : GlobalNPC
+    public abstract class MoonEvent : GlobalNPC
     {
         public override bool InstancePerEntity => true;
         public override bool CloneNewInstances => true;
