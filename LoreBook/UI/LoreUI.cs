@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,6 +9,7 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 using Terraria.UI.Chat;
+using TUA.API;
 using TUA.API.UI;
 using TUA.Localization;
 using TUA.UI;
@@ -75,7 +77,6 @@ namespace TUA.LoreBook.UI
             entryList.SetScrollbar(scrollbar);
 
             selectionPanel.Append(entryList);
-            //mainPanel.Append(selectionPanel);
             mainPanel.Append(selectionPanel);
             Append(xButton);
             Append(mainPanel);
@@ -114,26 +115,30 @@ namespace TUA.LoreBook.UI
             base.DrawChildren(spriteBatch);
         }
 
-
+        internal void SetMainPanel(CustomizableUIPanel panel = null)
+        {
+            mainPanel.RemoveAllChildren();
+            mainPanel.Append(panel ?? selectionPanel);
+        }
     }
 
     class LoreEntry
     {
         public CustomizableUIPanel Panel;
         public UIText Content;
-        public string Title;
-        public UIScrollbar scrollbar;
-        
+        public string Title;        
 
         public Func<bool> unlocked = () => true;
-        public string Name => unlocked.Invoke() ? Title : 
-            Main.rand.NextBool(100000) ? "Go Away" : 
-            Main.rand.NextBool(100000) ? "Ur mum gey" : "???";
-        public Texture2D topPicture = null;
+        public string Name => unlocked.Invoke() ? Title : "???";
 
         public Dictionary<int, LorePage> pages;
 
-        public LoreEntry(UIElement backPanel, CustomizableUIPanel source, string title, string content, Func<bool> condition = null)
+        public int currentPageIndex = 0;
+
+        public UIElement back;
+        public UIElement next;
+
+        public LoreEntry(UIElement backPanel, CustomizableUIPanel source, string title, string content, Texture2D texture = null, bool TextureOnAllPage = false, Func<bool> condition = null)
         {
             pages = new Dictionary<int, LorePage>();
 
@@ -145,14 +150,53 @@ namespace TUA.LoreBook.UI
 
             Content = new UIText(content); 
 
-            Initialize();
-
-            
+            Initialize(content, texture, TextureOnAllPage);
         }
 
-        private void Initialize()
+        private void Initialize(string content, Texture2D texture, bool TextureOnAllPage)
         {
+            int lineAmount = 0;
+            List<string> contentPerLine = Utils.WordwrapString(content, Main.fontDeathText, 400, 999, out lineAmount).ToList();
+            string[] pageContent = new string[(texture != null) ? 10 : 15];
+            int pageID = 0;
+            for (int i = 0; i < contentPerLine.Count; i++)
+            {
+                pageContent[i % pageContent.Length] = contentPerLine[i];
+                if (pageContent.IsFull())
+                {
+                    pages.Add(pageID, new LorePage(pageID, pageContent, (TextureOnAllPage || pageID == 0 && texture != null) ? texture : null));
+                    pageID++;
+                    pageContent = (TextureOnAllPage) ? new string[10] : new string[15];
+                }
+            }
+        }
 
+        public void NextPage(UIMouseEvent evt, UIElement targetElement)
+        {
+            int tempPageIndex = currentPageIndex + 1;
+            if (!pages.ContainsKey(tempPageIndex))
+            {
+                return;
+            }
+
+            currentPageIndex++;
+        }
+
+        public void PreviousPage(UIMouseEvent evt, UIElement targetElement)
+        {
+            if (currentPageIndex == 0)
+            {
+                UIManager.GetLoreInstance().SetMainPanel();
+            }
+            else
+            {
+                currentPageIndex--;
+            }
+        }
+
+        private void Draw(SpriteBatch sb)
+        {
+            pages[currentPageIndex].Draw(sb, UIManager.GetLoreInstance().GetInnerDimensions().Position());
         }
     }
 
@@ -160,22 +204,41 @@ namespace TUA.LoreBook.UI
     {
         public Texture2D texture;
         public int lineNumber;
-        public string text;
+        public string[] text;
 
         public int pageID;
         public const int WIDTH = 350;
         public const int HEIGHT = 550;
-        public Vector2 position;
 
-        public LorePage(int pageID, string[] text, Vector2 position, Texture2D texture = null)
+        public LorePage(int pageID, string[] text, Texture2D texture = null)
         {
             this.text = text;
             this.texture = texture;
         }
 
-        public void Draw(SpriteBatch sb)
-        {
 
+        // TODO : PICTURE WILL BE RESIZED TO 128x128, done
+        public void Draw(SpriteBatch sb, Vector2 drawingPosition)
+        {
+            if (texture != null)
+            {
+                Vector2 scale = Vector2.One;
+                if (texture.Width > 128 || texture.Height > 128)
+                {
+                    scale = new Vector2(128 / texture.Width, 128 / texture.Height);
+                }
+
+                Vector2 texturePosition = new Vector2(128 / 2 - texture.Width * scale.X / 2,
+                    128 / 2 - texture.Height * scale.Y / 2);
+                sb.Draw(texture, drawingPosition + texturePosition, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 1f);
+            }
+
+            int stringY = (texture != null) ? 128 + 15 : 15;
+            foreach (string str in text)
+            {
+                Utils.DrawBorderStringFourWay(sb, Main.fontDeathText, str, drawingPosition.X, stringY, Color.White, Color.Black, Vector2.Zero, 0.5f);
+                stringY += 12;
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace TUA.Items.Spells.BiomeSpell
 {
-    abstract class BaseBiomeSpellProjectile : ModProjectile
+    public abstract class BaseBiomeSpellProjectile : ModProjectile
     {
         public override string Texture => "TUA/Texture/Projectiles/DefaultProjectile";
 

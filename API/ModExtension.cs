@@ -84,7 +84,7 @@ namespace TUA.API
 
         
 
-        public static bool IsFull(this Object[,] self)
+        public static bool IsFull(this object[,] self)
         {
             int rowCount = self.GetLength(0);
             int columnCount = self.GetLength(1);
@@ -100,6 +100,17 @@ namespace TUA.API
                 }
             }
             return validCase == rowCount * columnCount;
+        }
+
+        public static bool IsFull(this object[] self)
+        {
+            foreach(object obj in self) {
+                if (obj == null)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public static ushort TileID(this Mod mod, string tileName)

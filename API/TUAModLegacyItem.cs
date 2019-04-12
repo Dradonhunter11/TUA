@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace TUA.API
 {
-    class TUAModLegacyItem : TUAModItem
+    public class TUAModLegacyItem : TUAModItem
     {
         public override bool Autoload(ref string name)
         {

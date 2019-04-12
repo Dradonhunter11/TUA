@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace TUA.Utilities
 {
-    /// <summary>
-    /// When using new types, remember to add a flush command to TUA.Unload
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
+	/// <summary>
+	/// When using new types, remember to add a flush command to TUA.Unload
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	public static class StaticManager<T>
 	{
 		private static readonly Dictionary<string, T> ITEMS;
@@ -24,11 +24,11 @@ namespace TUA.Utilities
 			DEFAULT = default;
 		}
 
-        public static void Clear()
-        {
-            ITEMS.Clear();
-            ITEM_ID_TO_NAME_MAP.Clear();
-        }
+		public static void Clear()
+		{
+			ITEMS.Clear();
+			ITEM_ID_TO_NAME_MAP.Clear();
+		}
 
 		public static void AddItem(string idname, T item)
 		{
@@ -85,7 +85,7 @@ namespace TUA.Utilities
 
 		public static (string ID, string Name, T Item)[] GetItems()
 		{
-            List<(string Header, string Message, T Item)> result = new List<(string Header, string Message, T Item)>();
+			List<(string Header, string Message, T Item)> result = new List<(string Header, string Message, T Item)>();
 			foreach (var key in ITEMS.Keys)
 			{
 				result.Add((key, ITEM_ID_TO_NAME_MAP[key], ITEMS[key]));

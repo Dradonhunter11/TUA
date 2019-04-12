@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace TUA.API.Default
 {
-    abstract class TUASolution : ModProjectile
+    public abstract class TUASolution : ModProjectile
     {
 
         public virtual int size => 4;

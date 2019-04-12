@@ -22,7 +22,7 @@ using TUA.Utilities;
 
 namespace TUA.API.ModConfigUIelement
 {
-    abstract class StringOptionElementSettable : RangeElement
+    public abstract class StringOptionElementSettable : RangeElement
     {
         //private Func<string> _TextDisplayFunction;
 
@@ -107,7 +107,7 @@ namespace TUA.API.ModConfigUIelement
         }
     }
 
-    abstract class RangeElement : ConfigElement
+    public abstract class RangeElement : ConfigElement
     {
         public bool drawTicks;
         public abstract int NumberTicks { get; }

@@ -16,6 +16,7 @@ using TUA.API.CustomInventory.UI;
 using TUA.API.FurnaceRework;
 using TUA.API.TerraEnergy.Block.FunctionnalBlock;
 using TUA.API.UI;
+using TUA.UI;
 
 namespace TUA.API.TerraEnergy.UI
 {
@@ -121,7 +122,7 @@ namespace TUA.API.TerraEnergy.UI
 
         private void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
-            TUA.machineInterface.IsVisible = false;
+            UIManager.CloseMachineUI();
             Main.playerInventory = false;
         }
 

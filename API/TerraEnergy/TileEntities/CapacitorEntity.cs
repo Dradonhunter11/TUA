@@ -11,6 +11,7 @@ using TUA.API.TerraEnergy.Block.FunctionnalBlock;
 using TUA.API.TerraEnergy.EnergyAPI;
 using TUA.API.TerraEnergy.Items.Block;
 using TUA.API.TerraEnergy.UI;
+using TUA.UI;
 
 namespace TUA.API.TerraEnergy.TileEntities
 {
@@ -26,8 +27,7 @@ namespace TUA.API.TerraEnergy.TileEntities
             InitializeItemSlot();
             CapacitorUi = new CapacitorUI(slot, this);
             Main.playerInventory = true;
-            TUA.machineInterface.SetState(CapacitorUi);
-            TUA.machineInterface.IsVisible = true;
+            UIManager.OpenMachineUI(CapacitorUi);
         }
 
         public override void SaveEntity(TagCompound tag)

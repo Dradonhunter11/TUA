@@ -129,7 +129,7 @@ namespace TUA.Raids.UI
 
             // Type no longer matters, the order of which panels are added here does
             StaticManager<RaidsPanel>.AddItem(PTI("None"),
-                new RaidsPanel(RaidsID.None, () => RaidsWorld.currentRaid == RaidsID.None))
+                new RaidsPanel(RaidsID.None, () => RaidsWorld.currentRaid == RaidsID.None));
             StaticManager<RaidsPanel>.AddItem(PTI("WoF"),
                 new RaidsPanel(RaidsID.TheGreatHellRide, () => !Main.hardMode && TUAWorld.Wasteland));
             StaticManager<RaidsPanel>.AddItem(PTI("HotW"),
