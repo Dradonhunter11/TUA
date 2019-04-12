@@ -21,7 +21,7 @@ namespace TUA.Items.Spells
 
         public virtual bool GetColor(out Color color)
         {
-            color = default(Color);
+            color = default;
             return false;
         }
 

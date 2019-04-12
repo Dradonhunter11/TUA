@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using TUA.API;
-using TUA.Items.Spells;
 
 namespace TUA.Items.Spells.BiomeSpell
 {
@@ -16,7 +10,7 @@ namespace TUA.Items.Spells.BiomeSpell
 
         public virtual bool GetColor(out Color color)
         {
-            color = default(Color);
+            color = default;
             return false;
         }
 

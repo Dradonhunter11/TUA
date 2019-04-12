@@ -54,24 +54,11 @@ namespace TUA.Items.Spells.BiomeSpell
 
     class SnowSpellProjectile : BaseBiomeSpellProjectile
     {
-        public override void Convert(int x, int y)
+        public override void ConversionTypes(out byte wall, out ushort dirt, out ushort stone)
         {
-            Tile tile = Main.tile[x, y];
-            if (tile.wall == WallID.Dirt || WallID.Sets.Corrupt[tile.wall] || WallID.Sets.Crimson[tile.wall])
-            {
-                TileSpreadUtils.ChangeWall(x, y, WallID.SnowWallUnsafe);
-            }
-
-            if (tile.type == TileID.Dirt || TileID.Sets.Conversion.Grass[tile.type] || TileID.Sets.Conversion.Sand[tile.type])
-            {
-                TileSpreadUtils.ChangeTile(x, y, TileID.SnowBlock);
-            }
-
-            if (TileID.Sets.Conversion.Stone[tile.type] || TileID.Sets.Conversion.Sandstone[tile.type] || TileID.Sets.Conversion.HardenedSand[tile.type])
-            {
-                TileSpreadUtils.ChangeTile(x, y, TileID.IceBlock);
-            }
-
+            wall = WallID.SnowWallUnsafe;
+            dirt = TileID.SnowBlock;
+            stone = TileID.IceBlock;
         }
     }
 }

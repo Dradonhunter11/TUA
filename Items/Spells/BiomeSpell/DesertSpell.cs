@@ -11,7 +11,8 @@ namespace TUA.Items.Spells.BiomeSpell
         {
             DisplayName.SetDefault("Desert Desolation");
             Tooltip.SetDefault("A spell created by the humans a long time ago.");
-            Tooltip.AddLine("The legends say that any land touching it get scorched");
+            Tooltip.AddLine("Legend says it wields a flame so great, it " +
+                "\ncan purge the land it scorches.");
         }
 
         public override void SetDefaults()
@@ -32,7 +33,6 @@ namespace TUA.Items.Spells.BiomeSpell
             item.mana = 20;
             item.shootSpeed = 13;
             item.shoot = mod.ProjectileType("DesertSpellProjectile");
-            
         }
 
         public override bool Cast(Player player)
@@ -49,29 +49,21 @@ namespace TUA.Items.Spells.BiomeSpell
 
     public class DesertSpellProjectile : BaseBiomeSpellProjectile
     {
+        public override void ConversionTypes(out byte wall, out ushort dirt, out ushort stone)
+        {
+            wall = WallID.Sandstone;
+            dirt = TileID.Sand;
+            stone = TileID.Sandstone;
+        }
+
         public override void Convert(int x, int y)
         {
-            Tile tile = Main.tile[x, y];
-            if (tile.wall == WallID.Dirt || WallID.Sets.Corrupt[tile.wall] || WallID.Sets.Crimson[tile.wall])
-            {
-                TileSpreadUtils.ChangeWall(x, y, WallID.Sandstone);
-            }
+            base.Convert(x, y);
 
-            if (tile.type == TileID.Dirt || TileID.Sets.Conversion.Grass[tile.type] || tile.type == TileID.SnowBlock)
-            {
-                TileSpreadUtils.ChangeTile(x, y, TileID.Sand);
-            }
-
-            if (TileID.Sets.Conversion.Stone[tile.type])
-            {
-                TileSpreadUtils.ChangeTile(x, y, TileID.Sandstone);
-            }
-
-            if (TileID.Sets.Conversion.Ice[tile.type])
+            if (TileID.Sets.Conversion.Ice[Main.tile[x, y].type])
             {
                 TileSpreadUtils.ChangeTile(x, y, TileID.HardenedSand);
             }
-
         }
     }
 }
