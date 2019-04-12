@@ -158,22 +158,17 @@ namespace TUA.Raids.UI
         private void AddRaids()
         {
             raidsList.Clear();
-            foreach (var raid in StaticManager<RaidsPanel>.GetItems())
+            foreach (var raid in RaidsManager.Panels)
             {
-                if (raid.Item.Eligible())
+                if (raid.Eligible())
                 {
-                    NewRaids(raid.Item);
+                    raid.Height.Set(30f, 0);
+                    raid.Width.Set(240, 0f);
+                    raid.Top.Set(5f, 0f);
+                    raid.Left.Set(5f, 0f);
+                    raidsList.Add(raid);
                 }
             }
-        }
-
-        private void NewRaids(RaidsPanel rp)
-        {
-            rp.Height.Set(30f, 0);
-            rp.Width.Set(240, 0f);
-            rp.Top.Set(5f, 0f);
-            rp.Left.Set(5f, 0f);
-            raidsList.Add(rp);
         }
 
         public override void Update(GameTime gameTime)

@@ -8,7 +8,7 @@ using Terraria.UI.Chat;
 
 namespace TUA.Raids.UI
 {
-    class RaidsPanel : UIPanel
+    public class RaidsPanel : UIPanel
     {
         public byte RaidsType { get; }
         public Func<bool> Eligible { get; }
@@ -20,7 +20,7 @@ namespace TUA.Raids.UI
             Eligible = eligible;
         }
 
-        public String GetRaidsName()
+        public string GetRaidsName()
         {
             return RaidsID.raidsName[RaidsType];
         }

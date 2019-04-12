@@ -49,9 +49,9 @@ namespace TUA.UIHijack.InGameUI.NPCDialog
 
         private static void GUIChatDrawInner()
         {
-            MethodInfo HelpText = StaticManager<Type>.GetItem("TMain").GetMethod("HelpText", BindingFlags.NonPublic | BindingFlags.Static);
+            MethodInfo HelpText = ReflManager<Type>.GetItem("TMain").GetMethod("HelpText", BindingFlags.NonPublic | BindingFlags.Static);
             MethodInfo DrawNPCChatButtons =
-                StaticManager<Type>.GetItem("TMain").GetMethod("DrawNPCChatButtons", BindingFlags.Static | BindingFlags.NonPublic);
+                ReflManager<Type>.GetItem("TMain").GetMethod("DrawNPCChatButtons", BindingFlags.Static | BindingFlags.NonPublic);
             if (Main.player[Main.myPlayer].talkNPC < 0 && Main.player[Main.myPlayer].sign == -1)
             {
                 Main.npcChatText = "";

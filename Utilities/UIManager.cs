@@ -2,12 +2,12 @@
 using Terraria;
 using Terraria.UI;
 
-namespace TUA.UI
+namespace TUA.Utilities
 {
     public static class UIManager
     {
         private static UserInterface machineInterface;
-        private static UserInterface CapacitorInterface;
+        // private static UserInterface CapacitorInterface;
         private static UserInterface raidsInterface;
         private static UserInterface loreInterface;
 
@@ -19,7 +19,7 @@ namespace TUA.UI
         public static void InitAll()
         {
             machineInterface = new UserInterface();
-            CapacitorInterface = new UserInterface();
+            // CapacitorInterface = new UserInterface();
             raidsInterface = new UserInterface();
             loreInterface = new UserInterface();
 

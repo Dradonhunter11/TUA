@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -11,16 +6,15 @@ namespace TUA.API.Default
 {
     public abstract class TUASolution : ModProjectile
     {
-
-        public virtual int size => 4;
-        public abstract String name { get; }
-        public abstract int dust { get; }
+        public virtual int Size => 4;
+        public abstract string SolutionName { get; }
+        public abstract int Dust { get; }
 
         public abstract void Convert(int i, int j);
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault(name);
+            DisplayName.SetDefault(SolutionName);
         }
 
         public override void SetDefaults()
@@ -37,10 +31,10 @@ namespace TUA.API.Default
 
         public override void AI()
         {
-            int dustType = mod.DustType("ExampleSolution");
             if (projectile.owner == Main.myPlayer)
             {
-                Convert((int)(projectile.position.X + (float)(projectile.width / 2)) / 16, (int)(projectile.position.Y + (float)(projectile.height / 2)) / 16);
+                Convert((int)(projectile.position.X + projectile.width / 2) 
+                    / 16, (int)(projectile.position.Y + projectile.height / 2) / 16);
             }
             if (projectile.timeLeft > 133)
             {
@@ -68,12 +62,12 @@ namespace TUA.API.Default
                 projectile.ai[0] += 1f;
                 for (int i = 0; i < 1; i++)
                 {
-                    int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, dustType, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 100, default(Color), 1f);
+                    int dustIndex = Terraria.Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, Dust, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 100, default, 1f);
                     Dust dust = Main.dust[dustIndex];
                     dust.noGravity = true;
                     dust.scale *= 1.75f;
-                    dust.velocity.X = dust.velocity.X * 2f;
-                    dust.velocity.Y = dust.velocity.Y * 2f;
+                    dust.velocity.X *= 2f;
+                    dust.velocity.Y *= 2f;
                     dust.scale *= dustScale;
                 }
             }

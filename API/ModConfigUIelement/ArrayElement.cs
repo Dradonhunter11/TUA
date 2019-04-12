@@ -123,10 +123,10 @@ namespace TUA.API.ModConfigUIelement
             ILog logger = LogManager.GetLogger("I exist");
             try
             {
-                UIModConfigInstance = StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.Interface")
+                UIModConfigInstance = ReflManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.Interface")
                     .GetField("modConfig", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
                 
-                UIModConfigUIType = StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.Config.UI.UIModConfig");
+                UIModConfigUIType = ReflManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.Config.UI.UIModConfig");
             }
             catch (Exception e)
             {

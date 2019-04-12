@@ -110,7 +110,7 @@ namespace TUA.Raids
                             default:
                                 Main.PlaySound(12, -1, -1, 1, 1f, 0f);
                                 // If someone can find a better way to do this, do it immediately
-                                StaticManager<Type>.GetItem("TMain").GetMethod("HelpText", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, null);
+                                ReflManager<Type>.GetItem("TMain").GetMethod("HelpText", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, null);
                                 break;
                         }
                     }

@@ -44,7 +44,7 @@ namespace TUA.NPCs.Memefest
             npc.lifeMax = (int)(npc.lifeMax * 0.65 * bossLifeScale);
         }
 
-        public override void ultraScaleDifficylty(NPC npc)
+        public override void UltraScaleDifficulty(NPC npc)
         {
             npc.lifeMax = (int)(npc.lifeMax * 5 * (TUAWorld.EoCDeath + 1));
         }

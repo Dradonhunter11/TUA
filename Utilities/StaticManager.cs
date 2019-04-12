@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace TUA.Utilities
@@ -8,20 +7,15 @@ namespace TUA.Utilities
 	/// When using new types, remember to add a flush command to TUA.Unload
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public static class StaticManager<T>
+	public static class ReflManager<T>
 	{
 		private static readonly Dictionary<string, T> ITEMS;
-		private static readonly Dictionary<string, string> ITEM_ID_TO_NAME_MAP;
-
-		private static readonly T DEFAULT;
 
 		public static int Count => ITEMS.Count;
 
-		static StaticManager()
+		static ReflManager()
 		{
 			ITEMS = new Dictionary<string, T>();
-			ITEM_ID_TO_NAME_MAP = new Dictionary<string, string>();
-			DEFAULT = default;
 		}
 
 		public static void Clear()
@@ -30,55 +24,30 @@ namespace TUA.Utilities
 			ITEM_ID_TO_NAME_MAP.Clear();
 		}
 
-		public static void AddItem(string idname, T item)
+		public static void AddItem(string id, T item)
 		{
-			AddItem(idname, idname, item);
-		}
+            if (ContainsItem(id))
+                throw new System.Exception("ReflManager already contains value of same name");
 
-		public static void AddItem(string id, string name, T item)
-		{
-			if (ContainsItem(id))
-				return;
-
-			ITEM_ID_TO_NAME_MAP.Add(id, name);
 			ITEMS.Add(id, item);
 		}
 
-		public static void RemoveItem(string id)
+		public static bool RemoveItem(string id)
 		{
-			if (ContainsItem(id))
-			{
-				ITEMS.Remove(id);
-				ITEM_ID_TO_NAME_MAP.Remove(id);
-			}
+		    return ITEMS.Remove(id);
 		}
 
 		public static bool ContainsItem(string id)
 		{
-			return ITEMS.ContainsKey(id) && ITEM_ID_TO_NAME_MAP.ContainsKey(id);
-		}
-
-		public static string GetItemID(int index)
-		{
-			return ITEMS.Keys.ToArray()[index];
-		}
-
-		public static string GetItemName(string id)
-		{
-			return ContainsItem(id) ? ITEM_ID_TO_NAME_MAP[id] : null;
-		}
-
-		public static string GetItemName(int index)
-		{
-			return GetItemName(GetItemID(index));
+			return ITEMS.ContainsKey(id);
 		}
 
 		public static T GetItem(string id)
 		{
-			return ContainsItem(id) ? ITEMS[id] : DEFAULT;
+			return ContainsItem(id) ? ITEMS[id] : default;
 		}
 
-		public static T GetItem(int index)
+		public static (string Name, T Item)[] GetItems()
 		{
 			return GetItem(GetItemID(index));
 		}
@@ -88,7 +57,7 @@ namespace TUA.Utilities
 			List<(string Header, string Message, T Item)> result = new List<(string Header, string Message, T Item)>();
 			foreach (var key in ITEMS.Keys)
 			{
-				result.Add((key, ITEM_ID_TO_NAME_MAP[key], ITEMS[key]));
+				result.Add((key, ITEMS[key]));
 			}
 
 			return result.ToArray();

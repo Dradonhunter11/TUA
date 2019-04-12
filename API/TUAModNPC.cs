@@ -1,10 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using BiomeLibrary.API;
+﻿using BiomeLibrary.API;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,9 +10,7 @@ namespace TUA.API
 {
     public class TUAModNPC : ModNPC
     {
-        public override bool CloneNewInstances { get { return false; } }
-        
-
+        public override bool CloneNewInstances => false;
 
         public override bool Autoload(ref string name)
         {
@@ -33,15 +25,15 @@ namespace TUA.API
         {
             if (TUAWorld.UltraMode)
             {
-                ultraScaleDifficylty(npcClone);
+                UltraScaleDifficulty(npcClone);
             }
             return base.NewInstance(npcClone);
         }
 
         //This method is used to do NPC scaling in Ultra mode
-        public virtual void ultraScaleDifficylty(NPC npc) { }
+        public virtual void UltraScaleDifficulty(NPC npc) { }
 
-        public static void SpawnHotW()
+        public static void Awaken()
         {
             for (int i = 0; i < Main.npc.Length; i++) {
                 NPC npc = Main.npc[i];
@@ -49,7 +41,6 @@ namespace TUA.API
                 {
                     HeartOfTheWasteland boss = npc.modNPC as HeartOfTheWasteland;
                     boss.IsSleeping = false;
-
                 }
             }
         }

@@ -69,7 +69,7 @@ namespace TUA.NPCs.NewBiome.Meteoridon
             npc.defense = (int)(npc.defense * 1.2);
         }
 
-        public override void ultraScaleDifficylty(NPC npc)
+        public override void UltraScaleDifficulty(NPC npc)
         {
             npc.damage = (npc.damage * 2);
             npc.lifeMax = (npc.lifeMax * 5);
