@@ -3,10 +3,10 @@ using System.Linq;
 
 namespace TUA.Utilities
 {
-    /// <summary>
-    /// When using new types, remember to add a flush command to TUA.Unload
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
+	/// <summary>
+	/// When using new types, remember to add a flush command to TUA.Unload
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	public static class ReflManager<T>
 	{
 		private static readonly Dictionary<string, T> ITEMS;
@@ -18,10 +18,11 @@ namespace TUA.Utilities
 			ITEMS = new Dictionary<string, T>();
 		}
 
-        public static void Clear()
-        {
-            ITEMS.Clear();
-        }
+		public static void Clear()
+		{
+			ITEMS.Clear();
+			ITEM_ID_TO_NAME_MAP.Clear();
+		}
 
 		public static void AddItem(string id, T item)
 		{
@@ -48,7 +49,12 @@ namespace TUA.Utilities
 
 		public static (string Name, T Item)[] GetItems()
 		{
-            List<(string Name, T Item)> result = new List<(string Name, T Item)>();
+			return GetItem(GetItemID(index));
+		}
+
+		public static (string ID, string Name, T Item)[] GetItems()
+		{
+			List<(string Header, string Message, T Item)> result = new List<(string Header, string Message, T Item)>();
 			foreach (var key in ITEMS.Keys)
 			{
 				result.Add((key, ITEMS[key]));

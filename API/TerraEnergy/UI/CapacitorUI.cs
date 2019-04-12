@@ -13,6 +13,7 @@ using Terraria.UI.Chat;
 using TUA.API.CustomInventory;
 using TUA.API.CustomInventory.UI;
 using TUA.API.TerraEnergy.TileEntities;
+using TUA.UI;
 
 namespace TUA.API.TerraEnergy.UI
 {
@@ -81,8 +82,7 @@ namespace TUA.API.TerraEnergy.UI
 
         private void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
-            
-            TUA.machineInterface.IsVisible = false;
+            UIManager.CloseMachineUI();
             Main.playerInventory = false;
         }
     }

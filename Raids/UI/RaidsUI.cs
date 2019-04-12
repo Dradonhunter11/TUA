@@ -126,6 +126,19 @@ namespace TUA.Raids.UI
             }
             raidsDescription.SetText(builder.ToString());
             #endregion
+
+            // Type no longer matters, the order of which panels are added here does
+            StaticManager<RaidsPanel>.AddItem(PTI("None"),
+                new RaidsPanel(RaidsID.None, () => RaidsWorld.currentRaid == RaidsID.None));
+            StaticManager<RaidsPanel>.AddItem(PTI("WoF"),
+                new RaidsPanel(RaidsID.TheGreatHellRide, () => !Main.hardMode && TUAWorld.Wasteland));
+            StaticManager<RaidsPanel>.AddItem(PTI("HotW"),
+                                   // since ^^ will be checked first, there is no need to check !TUAWorld.Wasteland
+                new RaidsPanel(RaidsID.TheWrathOfTheWasteland, () => !Main.hardMode));
+            StaticManager<RaidsPanel>.AddItem(PTI("EoA"),
+                new RaidsPanel(RaidsID.TheEyeOfDestruction, () => TUAWorld.ApoMoonDowned && !TUAWorld.EoADowned));
+
+            string PTI(string name) => "RaidsPanel_" + name;
         }
 
 

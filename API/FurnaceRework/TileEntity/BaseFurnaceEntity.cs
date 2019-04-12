@@ -5,6 +5,7 @@ using Terraria.ModLoader.IO;
 using TUA.API.CustomInventory;
 using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 using TUA.API.TerraEnergy.UI;
+using TUA.UI;
 
 namespace TUA.API.FurnaceRework.TileEntity
 {
@@ -56,8 +57,7 @@ namespace TUA.API.FurnaceRework.TileEntity
             }
 
             Main.playerInventory = true;
-            TUA.machineInterface.SetState(furnaceUi);
-            TUA.machineInterface.IsVisible = true;
+            UIManager.OpenMachineUI(furnaceUi);
         }
 
         public sealed override void Load(TagCompound tag)

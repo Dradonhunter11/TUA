@@ -14,6 +14,8 @@ namespace TUA.Utilities
         private static LoreBook.UI.LoreUI loreUI;
         private static Raids.UI.RaidsUI raidsUI;
 
+        internal static LoreBook.UI.LoreUI GetLoreInstance() => loreUI;
+
         public static void InitAll()
         {
             machineInterface = new UserInterface();
@@ -83,7 +85,7 @@ namespace TUA.Utilities
         public static void OpenRaidsUI()
         {
             raidsInterface.SetState(raidsUI);
-            raidsInterface.IsVisible = !raidsInterface.IsVisible;
+            raidsInterface.IsVisible = true;
         }
 
         public static void CloseRaidsUI()
@@ -91,6 +93,18 @@ namespace TUA.Utilities
             raidsInterface.IsVisible = false;
             Main.npcChatText = "I'll be able to help you in your future raids! After all, I'm the guide."
                 + (Main.rand.NextBool() ? " :smile:" : "");
+        }
+
+        public static void OpenMachineUI(UIState state)
+        {
+            machineInterface.SetState(state);
+            machineInterface.IsVisible = true;
+        }
+
+        public static void CloseMachineUI()
+        {
+            machineInterface.SetState(null);
+            machineInterface.IsVisible = false;
         }
     }
 }
