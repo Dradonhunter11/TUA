@@ -87,7 +87,8 @@ namespace TUA
 
             gameTime = new GameTime();
 
-            StaticManager<Type>.AddItem("TMain", typeof(Main));
+            ReflManager<Type>.AddItem("TMain", typeof(Main));
+            RaidsManager.Fill();
         }
 
         public TUA()
@@ -118,7 +119,7 @@ namespace TUA
             newMainMenu.Load();
 
             UpdateBiomesInjection.InjectMe();
-            Console.Write("AM I NULL? " + StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
+            Console.Write("AM I NULL? " + ReflManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
             //MethodInfo attempt = StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
             //    .GetMethod("PopulateModBrowser", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
             //ReflectionUtils.MethodSwap(StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
@@ -136,7 +137,7 @@ namespace TUA
             if (!Main.dedServ)
             {
                 FieldInfo UIWorldSelectInfo =
-                    StaticManager<Type>.GetItem("TMain").GetField("_worldSelectMenu", BindingFlags.Static | BindingFlags.NonPublic);
+                    ReflManager<Type>.GetItem("TMain").GetField("_worldSelectMenu", BindingFlags.Static | BindingFlags.NonPublic);
                 originalWorldSelect = (UIWorldSelect)UIWorldSelectInfo.GetValue(null);
                 UIWorldSelectInfo.SetValue(null, new NewUIWorldSelect());
 
@@ -178,8 +179,8 @@ namespace TUA
                 Main.OnTick -= DRPSystem.Update;
             }
 
-            StaticManager<Type>.Clear();
-            StaticManager<RaidsPanel>.Clear();
+            ReflManager<Type>.Clear();
+            RaidsManager.Clear();
         }
 
         private static void HookGenLoader()
@@ -330,8 +331,8 @@ namespace TUA
 
             RecipeUtils.setAllFurnaceRecipeSystem();
 
-            StaticManager<Type>.RemoveItem("TMain");
-            StaticManager<Type>.AddItem("TMain", typeof(Main));
+            ReflManager<Type>.RemoveItem("TMain");
+            ReflManager<Type>.AddItem("TMain", typeof(Main));
         }
 
         public override void UpdateUI(GameTime gameTime) => UIManager.UpdateUI(gameTime);

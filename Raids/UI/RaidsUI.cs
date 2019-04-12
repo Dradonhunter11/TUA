@@ -126,19 +126,6 @@ namespace TUA.Raids.UI
             }
             raidsDescription.SetText(builder.ToString());
             #endregion
-
-            // Type no longer matters, the order of which panels are added here does
-            StaticManager<RaidsPanel>.AddItem(PTI("None"),
-                new RaidsPanel(RaidsID.None, () => RaidsWorld.currentRaid == RaidsID.None))
-            StaticManager<RaidsPanel>.AddItem(PTI("WoF"),
-                new RaidsPanel(RaidsID.TheGreatHellRide, () => !Main.hardMode && TUAWorld.Wasteland));
-            StaticManager<RaidsPanel>.AddItem(PTI("HotW"),
-                                   // since ^^ will be checked first, there is no need to check !TUAWorld.Wasteland
-                new RaidsPanel(RaidsID.TheWrathOfTheWasteland, () => !Main.hardMode));
-            StaticManager<RaidsPanel>.AddItem(PTI("EoA"),
-                new RaidsPanel(RaidsID.TheEyeOfDestruction, () => TUAWorld.ApoMoonDowned && !TUAWorld.EoADowned));
-
-            string PTI(string name) => "RaidsPanel_" + name;
         }
 
 
@@ -158,22 +145,17 @@ namespace TUA.Raids.UI
         private void AddRaids()
         {
             raidsList.Clear();
-            foreach (var raid in StaticManager<RaidsPanel>.GetItems())
+            foreach (var raid in RaidsManager.Panels)
             {
-                if (raid.Item.Eligible())
+                if (raid.Eligible())
                 {
-                    NewRaids(raid.Item);
+                    raid.Height.Set(30f, 0);
+                    raid.Width.Set(240, 0f);
+                    raid.Top.Set(5f, 0f);
+                    raid.Left.Set(5f, 0f);
+                    raidsList.Add(raid);
                 }
             }
-        }
-
-        private void NewRaids(RaidsPanel rp)
-        {
-            rp.Height.Set(30f, 0);
-            rp.Width.Set(240, 0f);
-            rp.Top.Set(5f, 0f);
-            rp.Left.Set(5f, 0f);
-            raidsList.Add(rp);
         }
 
         public override void Update(GameTime gameTime)

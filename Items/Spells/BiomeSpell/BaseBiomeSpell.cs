@@ -10,7 +10,7 @@ using TUA.Items.Spells;
 
 namespace TUA.Items.Spells.BiomeSpell
 {
-    abstract class BaseBiomeSpell : TUAModLegacyItem, ISpell
+    public abstract class BaseBiomeSpell : TUAModLegacyItem, ISpell
     {
         public abstract bool Cast(Player player);
 

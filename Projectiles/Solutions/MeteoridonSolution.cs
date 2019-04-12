@@ -8,17 +8,17 @@ namespace TUA.Projectiles.Solutions
 {
     public class MeteoridonSolution : TUASolution
     {
-        public override string name => "Meteoridon Solution";
-        public override int dust => DustID.Sandstorm;
-        public override int size => 2;
+        public override string SolutionName => "Meteoridon Solution";
+        public override int Dust => DustID.Sandstorm;
+        public override int Size => 2;
 
         public override void Convert(int i, int j)
         {
-            for (int k = i - size; k <= i + size; k++)
+            for (int k = i - Size; k <= i + Size; k++)
             {
-                for (int l = j - size; l <= j + size; l++)
+                for (int l = j - Size; l <= j + Size; l++)
                 {
-                    if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt(size * size + size * size))
+                    if (WorldGen.InWorld(k, l, 1) && Math.Abs(k - i) + Math.Abs(l - j) < Math.Sqrt(Size * Size + Size * Size))
                     {
                         int type = (int)Main.tile[k, l].type;
                         if (TileID.Sets.Conversion.Stone[type])

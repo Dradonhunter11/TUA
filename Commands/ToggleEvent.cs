@@ -33,12 +33,12 @@ namespace TUA.Commands
                     case "Sandstorm":
                         if (Sandstorm.Happening)
                         {
-                            StaticManager<Type>.GetItem("TMain").GetMethod("StopSandstorm", BindingFlags.NonPublic | BindingFlags.Static)
+                            ReflManager<Type>.GetItem("TMain").GetMethod("StopSandstorm", BindingFlags.NonPublic | BindingFlags.Static)
                                 .Invoke(null, new object[] { });
                         }
                         else
                         {
-                            StaticManager<Type>.GetItem("TMain").GetMethod("StartSandstorm", BindingFlags.NonPublic | BindingFlags.Static)
+                            ReflManager<Type>.GetItem("TMain").GetMethod("StartSandstorm", BindingFlags.NonPublic | BindingFlags.Static)
                                 .Invoke(null, new object[] { });
                         }
                         Sandstorm.Happening = !Sandstorm.Happening;
@@ -47,12 +47,12 @@ namespace TUA.Commands
                     case "Rain":
                         if (Main.raining)
                         {
-                            StaticManager<Type>.GetItem("TMain").GetMethod("StopRain", BindingFlags.NonPublic | BindingFlags.Static)
+                            ReflManager<Type>.GetItem("TMain").GetMethod("StopRain", BindingFlags.NonPublic | BindingFlags.Static)
                                 .Invoke(null, new object[] { });
                         }
                         else
                         {
-                            StaticManager<Type>.GetItem("TMain").GetMethod("StartRain", BindingFlags.NonPublic | BindingFlags.Static)
+                            ReflManager<Type>.GetItem("TMain").GetMethod("StartRain", BindingFlags.NonPublic | BindingFlags.Static)
                                 .Invoke(null, new object[] { });
                         }
 
