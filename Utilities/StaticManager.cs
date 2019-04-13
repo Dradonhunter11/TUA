@@ -21,7 +21,6 @@ namespace TUA.Utilities
 		public static void Clear()
 		{
 			ITEMS.Clear();
-			ITEM_ID_TO_NAME_MAP.Clear();
 		}
 
 		public static void AddItem(string id, T item)
@@ -49,18 +48,12 @@ namespace TUA.Utilities
 
 		public static (string Name, T Item)[] GetItems()
 		{
-			return GetItem(GetItemID(index));
-		}
-
-		public static (string ID, string Name, T Item)[] GetItems()
-		{
-			List<(string Header, string Message, T Item)> result = new List<(string Header, string Message, T Item)>();
-			foreach (var key in ITEMS.Keys)
-			{
-				result.Add((key, ITEMS[key]));
-			}
-
-			return result.ToArray();
+            List<(string Name, T Item)> result = new List<(string Name, T Item)>();
+            foreach (var pair in ITEMS)
+            {
+                result.Add((pair.Key, pair.Value));
+            }
+            return result.ToArray();
 		}
 	}
 }

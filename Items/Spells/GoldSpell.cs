@@ -20,8 +20,7 @@ namespace TUA.Items.Spells
                 Item.NewItem((int)player.position.X,
                     (int)player.position.Y - Main.rand.Next(5),
                     player.width, player.height, Main.rand.Next(ItemID.SilverCoin,
-                                                                ItemID.PlatinumCoin + 1)
-                                                                );
+                                                                ItemID.PlatinumCoin + 1));
             }
             return true;
         }

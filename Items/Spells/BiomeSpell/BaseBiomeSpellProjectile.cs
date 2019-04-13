@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -13,7 +8,11 @@ namespace TUA.Items.Spells.BiomeSpell
     {
         public override string Texture => "TUA/Texture/Projectiles/DefaultProjectile";
 
-        public abstract void Convert(int x, int y);
+        public virtual void Convert(int x, int y)
+        {
+            ConversionTypes(out byte wall, out ushort dirt, out ushort stone);
+            Terraformer.Terraform(x, y, wall, dirt, stone);
+        }
 
         public Color color = Color.White;
 
@@ -68,5 +67,7 @@ namespace TUA.Items.Spells.BiomeSpell
 
             for (int k = 0; k < 2; k++) Dust.NewDust(projectile.position, 1, 1, 54, 0, 0, 0, color, 1f);
         }
+
+        public abstract void ConversionTypes(out byte wall, out ushort dirt, out ushort stone);
     }
 }

@@ -61,7 +61,7 @@ namespace TUA
         }
 
 
-        public static void setAllFurnaceRecipeSystem()
+        public static void SetAllFurnaceRecipeSystem()
         {
             RecipeFinder rf = new RecipeFinder();
             rf.AddTile(TileID.Furnaces);

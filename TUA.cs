@@ -1,5 +1,4 @@
 using BiomeLibrary.API;
-using Dimlibs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Mono.Cecil;
@@ -7,8 +6,13 @@ using MonoMod.RuntimeDetour.HookGen;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Net;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent.UI.States;
 using Terraria.Graphics.Effects;
@@ -32,7 +36,6 @@ using TUA.Items.EoA;
 using TUA.Items.Meteoridon.Materials;
 using TUA.NPCs;
 using TUA.Raids.UI;
-using TUA.UI;
 using TUA.UIHijack.MainMenu;
 using TUA.UIHijack.WorldSelection;
 using TUA.Utilities;
@@ -105,8 +108,60 @@ namespace TUA
                 AutoloadGores = true,
                 AutoloadSounds = true,
                 AutoloadBackgrounds = true
-
             };
+
+            AutoloadDependancies();
+        }
+
+        private void AutoloadDependancies()
+        {
+            Lazy<WebClient> client = new Lazy<WebClient>();
+
+            try
+            {
+                if (DepMissing("BiomeLibrary"))
+                {
+                    DownloadDep("BiomeLibrary");
+                }
+                if (DepMissing("Dimlibs"))
+                {
+                    DownloadDep("Dimlibs");
+                }
+                if (DepMissing("LiquidAPI"))
+                {
+                    DownloadDep("LiquidAPI");
+                }
+                if (client.IsValueCreated) client.Value.Dispose();
+
+            }
+            catch (Exception e)
+            {
+                Logger.Info(e.ToString());
+                Logger.InfoFormat("TUA unable to download dependancies");
+            }
+
+            void DownloadDep(string dep)
+            {
+                client.Value.DownloadFile("https://github.com/Dradonhunter11/TerrariaUltraApocalypse/" +
+                    $"files/3075678/{dep}.zip", $".\\TUACache\\Temp\\{dep}.zip");
+
+                ZipFile.ExtractToDirectory($".\\TUACache\\Temp\\{dep}.zip", ".\\TUACache\\");
+
+                AutoloadDep(dep);
+            }
+
+            bool DepMissing(string dep)
+            {
+                return !System.IO.File.Exists($".\\TUACache\\{dep}.dll");
+            }
+
+            void AutoloadDep(string dep)
+            {
+                var mod = Assembly.LoadFile($".\\TUACache\\{dep}.dll");
+
+                // ReflManager<Type>.GetItem("TMain").Assembly.GetType("AssemblyManager")
+                //     .GetMethod("Instantiate");
+            }
         }
 
         public override void Load()
@@ -299,13 +354,15 @@ namespace TUA
             r1.AddRecipe();
         }
 
-        public void AddInductionSmelterRecipe(int itemID1, int itemID2, int itemResult, int quantityItem1 = 1, int quantityItem2 = 1, int resultQuantity = 1, int timer = 120)
+        public void AddInductionSmelterRecipe(int catalyst, int reactant, 
+            int product, int catalystQuantity = 1, int reactantQuantity = 1, 
+            int productQuantity = 1, int timer = 120)
         {
             ForgeRecipe fr1 = ForgeRecipeManager.CreateRecipe(this);
-            fr1.addCatalyserIngredient(itemID1, quantityItem1);
-            fr1.addIngredient(itemID2, quantityItem2);
-            fr1.setResult(itemResult, resultQuantity);
-            fr1.addRecipe();
+            fr1.AddCatalyst(catalyst, catalystQuantity);
+            fr1.AddIngredient(reactant, reactantQuantity);
+            fr1.SetResult(product, productQuantity);
+            fr1.AddRecipe();
         }
 
         public override void PostSetupContent()
@@ -313,8 +370,8 @@ namespace TUA
             Mod bossChecklist = ModLoader.GetMod("BossChecklist");
             if (bossChecklist != null)
             {
-                bossChecklist.Call("AddBossWithInfo", "Eye of cthulhu (Ultra Version)", 16.0f, (Func<bool>)(() => TUAWorld.EoCDeath >= 1), "Use a [i:" + ItemID.SuspiciousLookingEye + "] at night after Moon lord has been defeated");
-                bossChecklist.Call("AddBossWithInfo", "Eye of EoADowned - God of destruction", 16.1f, (Func<bool>)(() => TUAWorld.UltraMode), "Use a [i:" + ItemType("Spawner") + "] after --1sing Ay. 0F C1^lh> in ^1tra and murder it, if you can...");
+                bossChecklist.Call("AddBossWithInfo", "Ultra Eye of Cthulhu", 16.0f, (Func<bool>)(() => TUAWorld.EoCDeath >= 1), "Use a [i:" + ItemID.SuspiciousLookingEye + "] at night after Moon lord has been defeated");
+                bossChecklist.Call("AddBossWithInfo", "Eye of EoADowned - God of Destruction", 16.1f, (Func<bool>)(() => TUAWorld.UltraMode), "Use a [i:" + ItemType("Spawner") + "] after --1sing Ay. 0F C1^lh> in ^1tra and murder it, if you can...");
             }
 
             Mod achievementLibs = ModLoader.GetMod("AchievementLibs");
@@ -329,7 +386,7 @@ namespace TUA
                     (Func<bool>)(() => TUAWorld.EoCDeath >= 1));
             }
 
-            RecipeUtils.setAllFurnaceRecipeSystem();
+            RecipeUtils.SetAllFurnaceRecipeSystem();
 
             ReflManager<Type>.RemoveItem("TMain");
             ReflManager<Type>.AddItem("TMain", typeof(Main));

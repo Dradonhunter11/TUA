@@ -24,7 +24,7 @@ namespace TUA.API.TerraEnergy.MachineRecipe.Forge
             this.mod = mod;
         }
 
-        public void addIngredient(int itemID, int quantity = 1)
+        public void AddIngredient(int itemID, int quantity = 1)
         {
             ingredient = new Item();
             ingredient.type = itemID;
@@ -32,7 +32,7 @@ namespace TUA.API.TerraEnergy.MachineRecipe.Forge
             ingredientName = ingredient.Name;
         }
 
-        public void addCatalyserIngredient(int itemID, int quantity = 1)
+        public void AddCatalyst(int itemID, int quantity = 1)
         {
             ingredient2 = new Item();
             ingredient2.type = itemID;
@@ -40,7 +40,7 @@ namespace TUA.API.TerraEnergy.MachineRecipe.Forge
             catalyserName = ingredient2.Name;
         }
 
-        public void setResult(int itemID, int quantity = 1)
+        public void SetResult(int itemID, int quantity = 1)
         {
 
             result = new Item();
@@ -82,7 +82,7 @@ namespace TUA.API.TerraEnergy.MachineRecipe.Forge
             return ingredientFlag && catalyserFlag;
         }
 
-        public void addRecipe()
+        public void AddRecipe()
         {
             ForgeRecipeManager.getInstance().AddRecipe(this);
         }
