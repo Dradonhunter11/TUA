@@ -1,5 +1,5 @@
 author = Apocalypse Mod Team
-version = 0.0.1
+version = 0.1
 displayName = TUA
 hideCode = true
 hideResources = true

@@ -6,8 +6,13 @@ using MonoMod.RuntimeDetour.HookGen;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Net;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent.UI.States;
 using Terraria.Graphics.Effects;
@@ -103,8 +108,60 @@ namespace TUA
                 AutoloadGores = true,
                 AutoloadSounds = true,
                 AutoloadBackgrounds = true
-
             };
+
+            AutoloadDependancies();
+        }
+
+        private void AutoloadDependancies()
+        {
+            Lazy<WebClient> client = new Lazy<WebClient>();
+
+            try
+            {
+                if (DepMissing("BiomeLibrary"))
+                {
+                    DownloadDep("BiomeLibrary");
+                }
+                if (DepMissing("Dimlibs"))
+                {
+                    DownloadDep("Dimlibs");
+                }
+                if (DepMissing("LiquidAPI"))
+                {
+                    DownloadDep("LiquidAPI");
+                }
+                if (client.IsValueCreated) client.Value.Dispose();
+
+            }
+            catch (Exception e)
+            {
+                Logger.Info(e.ToString());
+                Logger.InfoFormat("TUA unable to download dependancies");
+            }
+
+            void DownloadDep(string dep)
+            {
+                client.Value.DownloadFile("https://github.com/Dradonhunter11/TerrariaUltraApocalypse/" +
+                    $"files/3075678/{dep}.zip", $".\\TUACache\\Temp\\{dep}.zip");
+
+                ZipFile.ExtractToDirectory($".\\TUACache\\Temp\\{dep}.zip", ".\\TUACache\\");
+
+                AutoloadDep(dep);
+            }
+
+            bool DepMissing(string dep)
+            {
+                return !System.IO.File.Exists($".\\TUACache\\{dep}.dll");
+            }
+
+            void AutoloadDep(string dep)
+            {
+                var mod = Assembly.LoadFile($".\\TUACache\\{dep}.dll");
+
+                // ReflManager<Type>.GetItem("TMain").Assembly.GetType("AssemblyManager")
+                //     .GetMethod("Instantiate");
+            }
         }
 
         public override void Load()
