@@ -16,7 +16,7 @@ using TUA.API.CustomInventory.UI;
 using TUA.API.FurnaceRework;
 using TUA.API.TerraEnergy.Block.FunctionnalBlock;
 using TUA.API.UI;
-using TUA.UI;
+using TUA.Utilities;
 
 namespace TUA.API.TerraEnergy.UI
 {
