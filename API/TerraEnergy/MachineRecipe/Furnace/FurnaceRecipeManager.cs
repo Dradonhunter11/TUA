@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -10,53 +7,35 @@ namespace TUA.API.TerraEnergy.MachineRecipe.Furnace
 {
     class FurnaceRecipeManager
     {
-        private static List<FurnaceRecipe> furnaceRecipeList = new List<FurnaceRecipe>();
-        private static FurnaceRecipeManager instance;
-        private FurnaceRecipe currentRecipe;
+        private static readonly List<FurnaceRecipe> furnaceRecipeList = new List<FurnaceRecipe>();
+        private static readonly Lazy<FurnaceRecipeManager> instance = new Lazy<FurnaceRecipeManager>();
 
-        public static FurnaceRecipeManager getInstance()
-        {
-            if (instance == null)
-            {
-                instance = new FurnaceRecipeManager();
-            }
-            return instance;
-        }
-
-        private FurnaceRecipeManager()
-        {
-
-        }
+        public static FurnaceRecipeManager Instance => instance.Value;
 
         public static FurnaceRecipe CreateRecipe(Mod mod)
         {
-            FurnaceRecipe newRecipe = new FurnaceRecipe(mod);
-            return newRecipe;
+            return new FurnaceRecipe(mod); ;
         }
 
-        public static void addRecipe(FurnaceRecipe recipe)
+        public static void AddRecipe(FurnaceRecipe recipe)
         {
-
             furnaceRecipeList.Add(recipe);
         }
 
-        public bool validRecipe(Item ingredient)
+        public bool IsValid(Item ingredient)
         {
-            for (int i1 = 0; i1 < furnaceRecipeList.Count; i1++)
+            for (int k = 0; k < furnaceRecipeList.Count; k++)
             {
-                FurnaceRecipe i = furnaceRecipeList[i1];
+                FurnaceRecipe i = furnaceRecipeList[k];
                 if (i.CheckItem(ingredient) && i.CheckQuantity(ingredient.stack))
                 {
-                    currentRecipe = i;
+                    Recipe = i;
                     return true;
                 }
             }
             return false;
         }
 
-        public FurnaceRecipe GetRecipe()
-        {
-            return currentRecipe;
-        }
+        public FurnaceRecipe Recipe { get; private set; }
     }
 }

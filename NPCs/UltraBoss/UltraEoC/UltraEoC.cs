@@ -33,9 +33,9 @@ namespace TUA.NPCs.UltraBoss.UltraEoC
         {
             npc.CloneDefaults(NPCID.EyeofCthulhu);
             npc.aiStyle = -1;
-            npc.damage = 80 * (int)(1 + TUAWorld.EoCDeath * 1.5);
-            npc.defense = 100 * (int)(1 + TUAWorld.EoCDeath * 1.05);
-            npc.lifeMax = 12500 * (1 + TUAWorld.EoCDeath * 2);
+            npc.damage = 80 * (int)(1 + TUAWorld.EoCDeathCount * 1.5);
+            npc.defense = 100 * (int)(1 + TUAWorld.EoCDeathCount * 1.05);
+            npc.lifeMax = 12500 * (1 + TUAWorld.EoCDeathCount * 2);
         }
 
         public override bool PreAI()

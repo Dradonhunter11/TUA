@@ -47,13 +47,31 @@ namespace TUA.API
             }
         }
 
-        /*
-        public override void AddRecipes()
+        public sealed override void AddRecipes()
         {
-            if (Furnace) {
-
+            ModRecipe recipe = new ModRecipe(mod);
+            if (CraftingMaterials(out int[] items))
+            {
+                for (int i = 0; i < items.Length; i++)
+                {
+                    int item = items[i];
+                    recipe.AddIngredient(item);
+                }
             }
+            CraftingConditions(recipe);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
-        */
+
+        protected virtual bool CraftingMaterials(out int[] items)
+        {
+            items = new int[] { };
+            return false;
+        }
+
+        protected virtual void CraftingConditions(ModRecipe recipe)
+        {
+
+        }
     }
 }

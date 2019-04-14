@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
-using Terraria.ID;
+﻿using Terraria;
 using Terraria.ModLoader;
 using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 
@@ -26,7 +20,7 @@ namespace TUA.Items.Materials.Wasteland
         public override void AddRecipes()
         {
             FurnaceRecipe furnace = new FurnaceRecipe(mod);
-            furnace.AddIngredient(mod.ItemType("WastelandOre"), 10);
+            furnace.AddIngredient(mod.ItemType("WastelandOre"), 3);
             furnace.SetCostAndCookTime(500);
             furnace.SetResult(mod.ItemType<WastestoneIngot>());
             furnace.AddRecipe();

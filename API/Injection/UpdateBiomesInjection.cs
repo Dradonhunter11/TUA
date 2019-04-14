@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using Dimlibs;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Utilities;
 using Terraria;
 using Terraria.Audio;
@@ -47,7 +43,7 @@ namespace TUA.API.Injection
 
             FieldInfo _shaderObstructionpublicValueInfo = typeof(Player).GetField("_shaderObstructionpublicValue",
                 BindingFlags.Instance | BindingFlags.NonPublic);
-            float _shaderObstructionpublicValue = (float)_shaderObstructionpublicValueInfo.GetValue(self);
+            float _shaderObstructionInternalValue = (float)_shaderObstructionpublicValueInfo.GetValue(self);
 
             FieldInfo _stormShaderObstructionInfo = typeof(Player).GetField("_stormShaderObstruction",
                 BindingFlags.Instance | BindingFlags.NonPublic);
@@ -122,7 +118,6 @@ namespace TUA.API.Injection
             Vector2 value2 = Vector2.Zero;
             Vector2 value3 = Vector2.Zero;
             Vector2 value4 = Vector2.Zero;
-            Vector2 arg_32B_0 = Vector2.Zero;
             for (int i = 0; i < 200; i++)
             {
                 if (Main.npc[i].active)
@@ -175,13 +170,13 @@ namespace TUA.API.Injection
             self.ManageSpecialBiomeVisuals("Nebula", self.ZoneTowerNebula, value3 - new Vector2(0f, 10f));
             self.ManageSpecialBiomeVisuals("Vortex", self.ZoneTowerVortex, value2 - new Vector2(0f, 10f));
             self.ManageSpecialBiomeVisuals("Solar", self.ZoneTowerSolar, value - new Vector2(0f, 10f));
-            self.ManageSpecialBiomeVisuals("MoonLord", NPC.AnyNPCs(398), default(Vector2));
-            self.ManageSpecialBiomeVisuals("BloodMoon", Main.bloodMoon, default(Vector2));
-            self.ManageSpecialBiomeVisuals("Blizzard", Main.UseStormEffects && flag, default(Vector2));
-            self.ManageSpecialBiomeVisuals("HeatDistortion", Main.UseHeatDistortion && (flag2 || ((double)point.Y < Main.worldSurface && self.ZoneDesert && !flag3 && !Main.raining && !Filters.Scene["Sandstorm"].IsActive())), default(Vector2));
+            self.ManageSpecialBiomeVisuals("MoonLord", NPC.AnyNPCs(398), default);
+            self.ManageSpecialBiomeVisuals("BloodMoon", Main.bloodMoon, default);
+            self.ManageSpecialBiomeVisuals("Blizzard", Main.UseStormEffects && flag, default);
+            self.ManageSpecialBiomeVisuals("HeatDistortion", Main.UseHeatDistortion && (flag2 || (point.Y < Main.worldSurface && self.ZoneDesert && !flag3 && !Main.raining && !Filters.Scene["Sandstorm"].IsActive())), default(Vector2));
             if (!Filters.Scene["WaterDistortion"].IsActive() && Main.WaveQuality > 0)
             {
-                Filters.Scene.Activate("WaterDistortion", default(Vector2), new object[0]);
+                Filters.Scene.Activate("WaterDistortion", default, new object[0]);
             }
             else if (Filters.Scene["WaterDistortion"].IsActive() && Main.WaveQuality == 0)
             {
@@ -189,7 +184,7 @@ namespace TUA.API.Injection
             }
             if (Filters.Scene["WaterDistortion"].IsActive())
             {
-                float num3 = (float)Main.maxTilesX * 0.5f - Math.Abs((float)point.X - (float)Main.maxTilesX * 0.5f);
+                float num3 = (float)Main.maxTilesX * 0.5f - Math.Abs(point.X - (float)Main.maxTilesX * 0.5f);
                 float num4 = 1f;
                 float num5 = Math.Abs(Main.windSpeed);
                 num4 += num5 * 1f;
@@ -212,12 +207,10 @@ namespace TUA.API.Injection
                 Filters.Scene["HeatDistortion"].GetShader().UseIntensity(num10);
             }
 
-            
+            _shaderObstructionInternalValue = Utils.Clamp<float>(_shaderObstructionInternalValue + (float)self.behindBackWall.ToDirectionInt() * -0.005f, -0.1f, 1.1f);
+            _stormShaderObstruction = Utils.Clamp<float>(_shaderObstructionInternalValue, 0f, 1f);
 
-            _shaderObstructionpublicValue = Utils.Clamp<float>(_shaderObstructionpublicValue + (float)self.behindBackWall.ToDirectionInt() * -0.005f, -0.1f, 1.1f);
-            _stormShaderObstruction = Utils.Clamp<float>(_shaderObstructionpublicValue, 0f, 1f);
-
-            _shaderObstructionpublicValueInfo.SetValue(self, _shaderObstructionpublicValue);
+            _shaderObstructionpublicValueInfo.SetValue(self, _shaderObstructionInternalValue);
             _stormShaderObstructionInfo.SetValue(self, _stormShaderObstruction);
 
             if (Filters.Scene["Sandstorm"].IsActive())
@@ -232,21 +225,12 @@ namespace TUA.API.Injection
                 float num11 = (vector.X + vector.Y + vector.Z) / 3f;
                 float num12 = _stormShaderObstruction * 4f * Math.Max(0f, 0.5f - Main.cloudAlpha) * num11;
                 Filters.Scene["HeatDistortion"].GetShader().UseIntensity(num12);
-                if (num12 <= 0f)
-                {
-                    Filters.Scene["HeatDistortion"].IsHidden = true;
-                }
-                else
-                {
-                    Filters.Scene["HeatDistortion"].IsHidden = false;
-                }
+                Filters.Scene["HeatDistortion"].IsHidden = num12 <= 0f;
             }
             
 
             if (flag)
             {
-                
-
 
                 ActiveSound activeSound = Main.GetActiveSound(_strongBlizzardSound);
                 ActiveSound activeSound2 = Main.GetActiveSound(_insideBlizzardSound);

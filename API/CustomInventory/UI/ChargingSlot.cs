@@ -26,7 +26,7 @@ namespace TUA.API.CustomInventory.UI
             {
                 if (!energyItem.isFull())
                 {
-                    energyItem.AddEnergy(storageEntity.energy.consumeEnergy(maxTransferRate));
+                    energyItem.AddEnergy(storageEntity.energy.ConsumeEnergy(maxTransferRate));
                 }
             }
         }

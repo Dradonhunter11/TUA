@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TerrariaUltraApocalypse.Raids.Script.Stage
+namespace TUA.Raids.Script.Stage
 {
     public abstract class BaseStage
     {

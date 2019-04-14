@@ -114,9 +114,8 @@ namespace TUA.API.FurnaceRework.TileEntity
             if (currentRecipe == null && checkTimer <= 0)
             {
                 FurnaceRecipe recipe = InputSlot.IsEmpty ? null
-                    : FurnaceRecipeManager.getInstance().validRecipe(InputSlot.GetItem()) 
-                        ? FurnaceRecipeManager.getInstance().GetRecipe() 
-                        : null;
+                    : FurnaceRecipeManager.Instance.IsValid(InputSlot.GetItem()) 
+                        ? FurnaceRecipeManager.Instance.Recipe : null;
                 if (recipe != null &&
                     (OutputSlot.IsEmpty || OutputSlot.GetItem().type == recipe.GetResult().type))
                 {
@@ -170,7 +169,7 @@ namespace TUA.API.FurnaceRework.TileEntity
                     OutputSlot.ManipulateCurrentStack(1);
                 }
 
-                fuel.consumeEnergy(1);
+                fuel.ConsumeEnergy(1);
                 currentRecipe = null;
                 progression = 0;
             }

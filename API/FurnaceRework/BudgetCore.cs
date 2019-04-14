@@ -13,7 +13,7 @@ namespace TUA.API.FurnaceRework
         {
         }
 
-        public override int consumeEnergy(int energyToRemove)
+        public override int ConsumeEnergy(int energyToRemove)
         {
             if (currentEnergy < 0)
             {

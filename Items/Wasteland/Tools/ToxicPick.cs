@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 
 namespace TUA.Items.Wasteland.Tools
 {
@@ -9,8 +10,8 @@ namespace TUA.Items.Wasteland.Tools
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Toxic Pick");
-            Tooltip.SetDefault("A pickaxe created from the most malignant of materials, " +
-                "\nto mine the most malignant of tiles");
+            Tooltip.SetDefault("A pickaxe created from the most malignant of materials " +
+                "\nto mine the most malignant of metals");
         }
 
         public override void SetDefaults()
@@ -28,6 +29,15 @@ namespace TUA.Items.Wasteland.Tools
             item.knockBack = 0.7f;
             item.autoReuse = true;
             item.useTurn = true;
+        }
+
+        public override void AddRecipes()
+        {
+            FurnaceRecipe furnace = new FurnaceRecipe(mod);
+            furnace.AddIngredient(mod.ItemType<Materials.Wasteland.WastestoneIngot>(), 20);
+            furnace.SetCostAndCookTime(500);
+            furnace.SetResult(mod.ItemType<ToxicPick>());
+            furnace.AddRecipe();
         }
 
         // TODO: debuff

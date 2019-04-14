@@ -208,7 +208,7 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 
             if (boundCapacitor != null)
             {
-                energy.addEnergy(boundCapacitor.energy.consumeEnergy(boundCapacitor.maxTransferRate));
+                energy.addEnergy(boundCapacitor.energy.ConsumeEnergy(boundCapacitor.maxTransferRate));
             }
             checkTimer--;
 
@@ -238,9 +238,9 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
         {
             if (!InputSlot.IsEmpty)
             {
-                if (FurnaceRecipeManager.getInstance().validRecipe(InputSlot.GetItem()))
+                if (FurnaceRecipeManager.Instance.IsValid(InputSlot.GetItem()))
                 {
-                    return FurnaceRecipeManager.getInstance().GetRecipe();
+                    return FurnaceRecipeManager.Instance.Recipe;
                 }
             }
             return null;
@@ -248,7 +248,7 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 
         private void updateItem()
         {
-            if (progression >= currentRecipe.GetCookTime() && energy.consumeEnergy(50) == 50)
+            if (progression >= currentRecipe.GetCookTime() && energy.ConsumeEnergy(50) == 50)
             {
                 InputSlot.ManipulateCurrentStack(-currentRecipe.GetIngredientStack());
 

@@ -6,12 +6,9 @@ using MonoMod.RuntimeDetour.HookGen;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using Ionic.Zip;
 using log4net;
 using Terraria;
@@ -35,6 +32,7 @@ using TUA.Dimension.Sky;
 using TUA.Discord;
 using TUA.Items.EoA;
 using TUA.Items.Meteoridon.Materials;
+using TUA.Items.Wasteland.Weapons;
 using TUA.NPCs;
 using TUA.Raids.UI;
 using TUA.UIHijack.MainMenu;
@@ -133,13 +131,14 @@ namespace TUA
                     DownloadDep("LiquidAPI");
                 }
                 if (client.IsValueCreated) client.Value.Dispose();
-
             }
             catch (Exception e)
             {
                 ILog dep = LogManager.GetLogger("Dependancy manager");
                 dep.Info(e.ToString());
                 dep.InfoFormat("TUA unable to download dependancies");
+
+                throw new Exception("TUA unable to download dependancies");
             }
 
             void DownloadDep(string dep)
@@ -345,6 +344,22 @@ namespace TUA
             AddInductionSmelterRecipe(ItemID.ChlorophyteBar, ItemID.GlowingMushroom, ItemID.ShroomiteBar, 1, 5, 1, 180);
 
             RecipeUtils.GetAllRecipeByIngredientAndReplace(ItemID.PixieDust, ItemType<MeteorideScale>());
+
+            var recipe = new ModRecipe(this);
+            recipe.AddIngredient(ItemID.LightsBane);
+            recipe.AddIngredient(ItemID.BladeofGrass);
+            recipe.AddIngredient(ItemID.Muramasa);
+            recipe.AddIngredient(ItemType<VenomousGreatBlade>());
+            recipe.SetResult(ItemID.NightsEdge);
+            recipe.AddRecipe();
+
+            recipe = new ModRecipe(this);
+            recipe.AddIngredient(ItemID.BloodButcherer);
+            recipe.AddIngredient(ItemID.BladeofGrass);
+            recipe.AddIngredient(ItemID.Muramasa);
+            recipe.AddIngredient(ItemType<VenomousGreatBlade>());
+            recipe.SetResult(ItemID.NightsEdge);
+            recipe.AddRecipe();
         }
 
         public void AddFurnaceRecipe(int itemID, int itemResult, int timer = 20)
@@ -372,7 +387,7 @@ namespace TUA
             Mod bossChecklist = ModLoader.GetMod("BossChecklist");
             if (bossChecklist != null)
             {
-                bossChecklist.Call("AddBossWithInfo", "Ultra Eye of Cthulhu", 16.0f, (Func<bool>)(() => TUAWorld.EoCDeath >= 1), "Use a [i:" + ItemID.SuspiciousLookingEye + "] at night after Moon lord has been defeated");
+                bossChecklist.Call("AddBossWithInfo", "Ultra Eye of Cthulhu", 16.0f, (Func<bool>)(() => TUAWorld.EoCDeathCount >= 1), "Use a [i:" + ItemID.SuspiciousLookingEye + "] at night after Moon lord has been defeated");
                 bossChecklist.Call("AddBossWithInfo", "Eye of EoADowned - God of Destruction", 16.1f, (Func<bool>)(() => TUAWorld.UltraMode), "Use a [i:" + ItemType("Spawner") + "] after --1sing Ay. 0F C1^lh> in ^1tra and murder it, if you can...");
             }
 
@@ -385,7 +400,7 @@ namespace TUA
                 achievementLibs.Call("AddAchievementWithoutAction", this,
                     "Once there was the Eye of Cthulhu... the ultra one", "Kill the Ultra EoC succesfully.",
                     "Achievement/UltraEoC", new int[] { ItemType<Spawner>() }, new int[] { 1 },
-                    (Func<bool>)(() => TUAWorld.EoCDeath >= 1));
+                    (Func<bool>)(() => TUAWorld.EoCDeathCount >= 1));
             }
 
             RecipeUtils.SetAllFurnaceRecipeSystem();

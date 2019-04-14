@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
+using TUA.API;
 using TUA.API.Dev;
 
 namespace TUA.Items.Armor
 {
-    abstract class ArmorBase : ModItem
+    abstract class ArmorBase : TUAModItem
     {
         public override void SetDefaults()
         {
@@ -28,33 +29,6 @@ namespace TUA.Items.Armor
             value = 0;
             rare = 0;
             return false;
-        }
-
-        public sealed override void AddRecipes()
-        {
-            if (CraftingMaterials(out int[] items))
-            {
-                ModRecipe recipe = new ModRecipe(mod);
-                for (int i = 0; i < items.Length; i++)
-                {
-                    int item = items[i];
-                    recipe.AddIngredient(item);
-                }
-                CraftingConditions(recipe);
-                recipe.SetResult(this);
-                recipe.AddRecipe();
-            }
-        }
-
-        protected virtual bool CraftingMaterials(out int[] items)
-        {
-            items = new int[] { };
-            return false;
-        }
-
-        protected virtual void CraftingConditions(ModRecipe recipe)
-        {
-
         }
 
         public override void UpdateEquip(Player player)

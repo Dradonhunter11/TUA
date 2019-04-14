@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Terraria;
 
-namespace TerrariaUltraApocalypse.Raids.Script.Stage
+namespace TUA.Raids.Script.Stage
 {
     public abstract class ItemPickupStage : BaseStage
     {
