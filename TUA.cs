@@ -31,6 +31,7 @@ using TUA.Dimension.Sky;
 using TUA.Discord;
 using TUA.Items.EoA;
 using TUA.Items.Meteoridon.Materials;
+using TUA.Items.Wasteland.Weapons;
 using TUA.NPCs;
 using TUA.Raids.UI;
 using TUA.UIHijack.MainMenu;
@@ -134,6 +135,8 @@ namespace TUA
             {
                 Logger.Info(e.ToString());
                 Logger.InfoFormat("TUA unable to download dependancies");
+
+                throw new Exception("TUA unable to download dependancies");
             }
 
             void DownloadDep(string dep)
@@ -339,6 +342,22 @@ namespace TUA
             AddInductionSmelterRecipe(ItemID.ChlorophyteBar, ItemID.GlowingMushroom, ItemID.ShroomiteBar, 1, 5, 1, 180);
 
             RecipeUtils.GetAllRecipeByIngredientAndReplace(ItemID.PixieDust, ItemType<MeteorideScale>());
+
+            var recipe = new ModRecipe(this);
+            recipe.AddIngredient(ItemID.LightsBane);
+            recipe.AddIngredient(ItemID.BladeofGrass);
+            recipe.AddIngredient(ItemID.Muramasa);
+            recipe.AddIngredient(ItemType<VenomousGreatBlade>());
+            recipe.SetResult(ItemID.NightsEdge);
+            recipe.AddRecipe();
+
+            recipe = new ModRecipe(this);
+            recipe.AddIngredient(ItemID.BloodButcherer);
+            recipe.AddIngredient(ItemID.BladeofGrass);
+            recipe.AddIngredient(ItemID.Muramasa);
+            recipe.AddIngredient(ItemType<VenomousGreatBlade>());
+            recipe.SetResult(ItemID.NightsEdge);
+            recipe.AddRecipe();
         }
 
         public void AddFurnaceRecipe(int itemID, int itemResult, int timer = 20)

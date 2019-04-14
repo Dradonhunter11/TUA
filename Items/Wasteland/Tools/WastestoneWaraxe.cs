@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 
 namespace TUA.Items.Wasteland.Tools
 {
@@ -27,6 +28,15 @@ namespace TUA.Items.Wasteland.Tools
             item.useAnimation = 15;
             item.knockBack = 0.7f;
             item.autoReuse = true;
+        }
+
+        public override void AddRecipes()
+        {
+            FurnaceRecipe furnace = new FurnaceRecipe(mod);
+            furnace.AddIngredient(mod.ItemType<Materials.Wasteland.WastestoneIngot>(), 15);
+            furnace.SetCostAndCookTime(500);
+            furnace.SetResult(mod.ItemType<WastestoneWaraxe>());
+            furnace.AddRecipe();
         }
 
         // TODO: debuff

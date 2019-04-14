@@ -43,7 +43,7 @@ namespace TUA.API.TerraEnergy.MachineRecipe.Furnace
             resultName = result.Name;
         }
 
-        public void AddRecipe() => FurnaceRecipeManager.addRecipe(this);
+        public void AddRecipe() => FurnaceRecipeManager.AddRecipe(this);
 
         public bool CheckQuantity(int i) => i >= ingredient.stack;
 

@@ -40,12 +40,15 @@ namespace TUA.Items.Wasteland.Weapons
             target.StrikeNPCNoInteraction(1, 0, 0);
         }
 
-        // TODO
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(mod.ItemType("WastestoneIngot"), 20);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
+
+            // Link to TUA.AddRecipes
         }
     }
 }

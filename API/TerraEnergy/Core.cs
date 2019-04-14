@@ -25,7 +25,7 @@ namespace TUA.API.TerraEnergy
             }
         }
 
-        public virtual int consumeEnergy(int energyToRemove)
+        public virtual int ConsumeEnergy(int energyToRemove)
         {
             if (currentEnergy - energyToRemove < 0)
             {

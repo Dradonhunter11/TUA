@@ -39,7 +39,7 @@ namespace TUA.API.TerraEnergy.TileEntities
 
             if (boundCapacitor != null)
             {
-                boundCapacitor.energy.addEnergy(energy.consumeEnergy(boundCapacitor.maxTransferRate));
+                boundCapacitor.energy.addEnergy(energy.ConsumeEnergy(boundCapacitor.maxTransferRate));
             }
 
             if (tile != null && tile.type != mod.TileType("EnergyCollector") || tile.type != mod.TileType("BasicTECapacitor") || tile.type != mod.TileType("TerraWaste") || tile.type != mod.TileType("TerraFurnace") && !energy.isFull())

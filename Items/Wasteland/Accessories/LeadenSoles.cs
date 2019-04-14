@@ -1,11 +1,10 @@
 ﻿using Terraria.ID;
-using System.Collections.Generic;
 using Terraria.ModLoader;
-using TUA.API;
+using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 
 namespace TUA.Items.Wasteland.Accessories
 {
-    public abstract class LeadenSoles : TUAModItem
+    public abstract class LeadenSoles : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -30,20 +29,19 @@ namespace TUA.Items.Wasteland.Accessories
             item.value = 4000;
         }
 
-        protected override bool CraftingMaterials(out int[] items)
+        public override void AddRecipes()
         {
-            items = new List<int>
-            {
+            FurnaceRecipe furnace = new FurnaceRecipe(mod);
+            furnace.AddIngredient(ItemID.LeadOre, 25);
+            furnace.SetCostAndCookTime(500);
+            furnace.SetResult(mod.ItemType<LeadenSoles>());
+            furnace.AddRecipe();
 
-            }.ToArray();
-            return true;
-        }
-
-        protected override void CraftingConditions(ModRecipe recipe)
-        {
-            recipe.AddRecipeGroup("IronOre", 15);
-            // TODO: Wasteland furnace
-            recipe.AddTile(TileID.Anvils);
+            furnace = new FurnaceRecipe(mod);
+            furnace.AddIngredient(ItemID.IronOre, 26);
+            furnace.SetCostAndCookTime(500);
+            furnace.SetResult(mod.ItemType<LeadenSoles>());
+            furnace.AddRecipe();
         }
     }
 }

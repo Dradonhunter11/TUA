@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Generation;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.World.Generation;
@@ -98,8 +99,29 @@ namespace TUA
             int hellIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Underworld"));
             int hellForgeIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Hellforge"));
             int guideIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Guide"));
-            tasks[hellIndex] = new PassLegacy("Underworld", newUnderWorldGen);
-            tasks[hellForgeIndex] = new PassLegacy("Hellforge", newForgeGen);
+            tasks[hellIndex] = new PassLegacy("Underworld",
+                progress =>
+                {
+                    if (WorldGen.crimson)
+                    {
+                        Wasteland = true;
+                        WastelandGeneration(progress);
+                        NPC.NewNPC((Main.maxTilesX / 2) * 16, (Main.maxTilesY - 100) * 16 - 444, mod.NPCType("HeartOfTheWasteland"), 0, 0f, 0f, 0f, 0f, 255);
+                    }
+                    else
+                    {
+                        Wasteland = false;
+                        VanillaHell(progress);
+                    }
+                });
+            tasks[hellForgeIndex] = new PassLegacy("Hellforge",
+                progress => 
+                {
+                    if (!Wasteland)
+                    {
+                        AddForges(progress);
+                    }
+                });
         }
 
         public override void PreUpdate()
@@ -147,34 +169,9 @@ namespace TUA
             Main.bottomWorld = Main.maxTilesY - 10;
         }
 
-
-        public void newUnderWorldGen(GenerationProgress progress)
-        {
-            
-            if (WorldGen.crimson)
-            {
-                Wasteland = true;
-                WastelandGeneration(progress);
-                NPC.NewNPC((Main.maxTilesX / 2) * 16, (Main.maxTilesY - 100) * 16 - 444, mod.NPCType("HeartOfTheWasteland"), 0, 0f, 0f, 0f, 0f, 255);
-            }
-            else
-            {
-                Wasteland = false;
-                VanillaHell(progress);
-            }
-        }
-
-        public void newForgeGen(GenerationProgress progress)
-        {
-            if (!Wasteland)
-            {
-                AddForges(progress);
-            }
-        }
-
         public void AddForges(GenerationProgress progress)
         {
-            progress.Message = Lang.gen[36].Value;
+            progress.Message = Language.GetTextValue("LegacyGen.36");
             for (int k = 0; k < Main.maxTilesX / 200; k++)
             {
                 float value = (float)(k / (Main.maxTilesX / 200));
@@ -222,7 +219,7 @@ namespace TUA
 
         public void WastelandGeneration(GenerationProgress progress)
         {
-            progress.Message = "Eradiate the underworld";
+            progress.Message = "Eradiating the underworld";
             progress.Set(0f);
 
             int maxAmplitude = 15;
@@ -235,7 +232,6 @@ namespace TUA
             {
                 for (int y = Main.maxTilesY - 200; y < Main.maxTilesY; y++)
                 {
-                    
                     Main.tile[x, y].type = (ushort)mod.TileType("WastelandRock");
                     Main.tile[x, y].liquid = 0;
                     Main.tile[x, y].active(true);
@@ -306,7 +302,7 @@ namespace TUA
 
         public void VanillaHell(GenerationProgress progress)
         {
-            progress.Message = Lang.gen[18].Value;
+            progress.Message = Language.GetTextValue("LegacyGen.18");
             progress.Set(0f);
             int num = Main.maxTilesY - WorldGen.genRand.Next(150, 190);
             for (int k = 0; k < Main.maxTilesX; k++)
