@@ -23,7 +23,7 @@ namespace TUA
         public static bool ApoMoonDowned;
         public static bool UltraMode;
         public static bool EoCPostMLDowned;
-        public static int EoCDeath = 0;
+        public static int EoCDeathCount = 0;
         public static bool EoCCutsceneFirstTimePlayed;
 
         /// <summary>
@@ -63,26 +63,29 @@ namespace TUA
 
         public override TagCompound Save()
         {
+            BitsByte bits = new BitsByte();
+            bits[0] = UltraMode;
+            bits[1] = EoADowned;
+            bits[2] = Wasteland;
+            bits[3] = EoCCutsceneFirstTimePlayed;
+            bits[4] = RealisticTimeMode;
             return new TagCompound
             {
-                { "UltraMode", UltraMode },
-                { "EoADowned", EoADowned },
-                { "UltraEoCDowned", EoCDeath },
-                { "hellAlt", Wasteland },
-                { "EoCCutscene", EoCCutsceneFirstTimePlayed },
-                { "RealisticTimeMode", RealisticTimeMode }
+                ["Flags"] = bits,
+                ["EoCCutscene"] = EoCDeathCount
             };
             //tc.Add("apocalypseMoon", apocalypseMoon);
         }
 
         public override void Load(TagCompound tag)
         {
-            UltraMode = tag.GetBool("UltraMode");
-            EoADowned = tag.GetBool("EoADowned");
-            EoCDeath = tag.GetInt("UltraEoCDowned");
-            Wasteland = tag.GetBool("hellAlt");
-            RealisticTimeMode = tag.GetBool("RealisticTimeMode");
-            EoCCutsceneFirstTimePlayed = tag.GetBool("EoCCutscene");
+            var bits = (BitsByte)tag.GetByte("Flags");
+            UltraMode = bits[0];
+            EoADowned = bits[1];
+            EoCDeathCount = tag.GetInt("UltraEoCDowned");
+            Wasteland = bits[2];
+            RealisticTimeMode = bits[3];
+            EoCCutsceneFirstTimePlayed = bits[4];
 
             if (!Main.ActiveWorldFileData.HasCorruption)
             {
@@ -151,13 +154,13 @@ namespace TUA
             if (WorldGen.crimson)
             {
                 Wasteland = true;
-                wastelandGeneration(progress);
+                WastelandGeneration(progress);
                 NPC.NewNPC((Main.maxTilesX / 2) * 16, (Main.maxTilesY - 100) * 16 - 444, mod.NPCType("HeartOfTheWasteland"), 0, 0f, 0f, 0f, 0f, 255);
             }
             else
             {
                 Wasteland = false;
-                originalHell(progress);
+                VanillaHell(progress);
             }
         }
 
@@ -165,11 +168,11 @@ namespace TUA
         {
             if (!Wasteland)
             {
-                hellForge(progress);
+                AddForges(progress);
             }
         }
 
-        public void hellForge(GenerationProgress progress)
+        public void AddForges(GenerationProgress progress)
         {
             progress.Message = Lang.gen[36].Value;
             for (int k = 0; k < Main.maxTilesX / 200; k++)
@@ -215,10 +218,9 @@ namespace TUA
                     }
                 }
             }
-
         }
 
-        public void wastelandGeneration(GenerationProgress progress)
+        public void WastelandGeneration(GenerationProgress progress)
         {
             progress.Message = "Eradiate the underworld";
             progress.Set(0f);
@@ -228,7 +230,7 @@ namespace TUA
             int originY = 100;
             bool inverted = false;
             int startingY = 175;
-            bool generateLiquid = false;
+            // bool generateLiquid = false;
             for (int x = 0; x < Main.maxTilesX; x++)
             {
                 for (int y = Main.maxTilesY - 200; y < Main.maxTilesY; y++)
@@ -299,10 +301,10 @@ namespace TUA
                     WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(Main.maxTilesY - 140, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 7), WorldGen.genRand.Next(3, 7), mod.TileType("WastelandOre"), false, 0f, 0f, false, true);
                 }
             }
-            Biomes<TheHeartArena>.Place((int)Main.maxTilesX / 2, (int)Main.maxTilesY - 100, WorldGen.structures);
+            Biomes<HotWArena>.Place((int)Main.maxTilesX / 2, (int)Main.maxTilesY - 100, WorldGen.structures);
         }
 
-        public void originalHell(GenerationProgress progress)
+        public void VanillaHell(GenerationProgress progress)
         {
             progress.Message = Lang.gen[18].Value;
             progress.Set(0f);

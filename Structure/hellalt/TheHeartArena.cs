@@ -13,7 +13,7 @@ namespace TUA.Structure.hellalt
     /// <summary>
     /// To expand later on
     /// </summary>
-    class TheHeartArena : MicroBiome
+    class HotWArena : MicroBiome
     {
         private readonly int WIDTH = 100;
         private readonly int HEIGHT = 100;

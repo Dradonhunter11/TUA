@@ -6,13 +6,10 @@ using MonoMod.RuntimeDetour.HookGen;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent.UI.States;
 using Terraria.Graphics.Effects;
@@ -132,7 +129,6 @@ namespace TUA
                     DownloadDep("LiquidAPI");
                 }
                 if (client.IsValueCreated) client.Value.Dispose();
-
             }
             catch (Exception e)
             {
@@ -370,7 +366,7 @@ namespace TUA
             Mod bossChecklist = ModLoader.GetMod("BossChecklist");
             if (bossChecklist != null)
             {
-                bossChecklist.Call("AddBossWithInfo", "Ultra Eye of Cthulhu", 16.0f, (Func<bool>)(() => TUAWorld.EoCDeath >= 1), "Use a [i:" + ItemID.SuspiciousLookingEye + "] at night after Moon lord has been defeated");
+                bossChecklist.Call("AddBossWithInfo", "Ultra Eye of Cthulhu", 16.0f, (Func<bool>)(() => TUAWorld.EoCDeathCount >= 1), "Use a [i:" + ItemID.SuspiciousLookingEye + "] at night after Moon lord has been defeated");
                 bossChecklist.Call("AddBossWithInfo", "Eye of EoADowned - God of Destruction", 16.1f, (Func<bool>)(() => TUAWorld.UltraMode), "Use a [i:" + ItemType("Spawner") + "] after --1sing Ay. 0F C1^lh> in ^1tra and murder it, if you can...");
             }
 
@@ -383,7 +379,7 @@ namespace TUA
                 achievementLibs.Call("AddAchievementWithoutAction", this,
                     "Once there was the Eye of Cthulhu... the ultra one", "Kill the Ultra EoC succesfully.",
                     "Achievement/UltraEoC", new int[] { ItemType<Spawner>() }, new int[] { 1 },
-                    (Func<bool>)(() => TUAWorld.EoCDeath >= 1));
+                    (Func<bool>)(() => TUAWorld.EoCDeathCount >= 1));
             }
 
             RecipeUtils.SetAllFurnaceRecipeSystem();

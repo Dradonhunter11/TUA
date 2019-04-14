@@ -19,6 +19,13 @@ namespace TUA.Items.Armor
         }
     }
 
+    [AutoloadEquip(EquipType.Head)]
+    abstract class DruidicHelmet : DruidicArmor { }
+    [AutoloadEquip(EquipType.Body)]
+    abstract class DruidicBreastplate : DruidicArmor { }
+    [AutoloadEquip(EquipType.Legs)]
+    abstract class DruidicLeggings : DruidicArmor { }
+
     class DruidicArmorPlayer : ModPlayer
     {
         public bool equipped;
@@ -41,11 +48,4 @@ namespace TUA.Items.Armor
             if (equipped) knockback *= 1.2f;
         }
     }
-
-    [AutoloadEquip(EquipType.Head)]
-    abstract class DruidicHelmet : DruidicArmor { }
-    [AutoloadEquip(EquipType.Body)]
-    abstract class DruidicBreastplate : DruidicArmor { }
-    [AutoloadEquip(EquipType.Legs)]
-    abstract class DruidicLeggings : DruidicArmor { }
 }
