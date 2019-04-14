@@ -15,7 +15,7 @@ namespace TUA.Items.Spells.BiomeSpell
             }
 
             if (tile.type == TileID.Dirt || TileID.Sets.Conversion.Grass[tile.type] 
-                || tile.type == TileID.SnowBlock, || TileID.Sets.Conversion.Sand[tile.type])
+                || tile.type == TileID.SnowBlock || TileID.Sets.Conversion.Sand[tile.type])
             {
                 TileSpreadUtils.ChangeTile(x, y, dirt);
             }

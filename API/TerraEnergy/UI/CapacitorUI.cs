@@ -13,7 +13,7 @@ using Terraria.UI.Chat;
 using TUA.API.CustomInventory;
 using TUA.API.CustomInventory.UI;
 using TUA.API.TerraEnergy.TileEntities;
-using TUA.UI;
+using TUA.Utilities;
 
 namespace TUA.API.TerraEnergy.UI
 {

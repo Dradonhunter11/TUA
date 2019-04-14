@@ -5,7 +5,7 @@ using Terraria.ModLoader.IO;
 using TUA.API.CustomInventory;
 using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 using TUA.API.TerraEnergy.UI;
-using TUA.UI;
+using TUA.Utilities;
 
 namespace TUA.API.FurnaceRework.TileEntity
 {

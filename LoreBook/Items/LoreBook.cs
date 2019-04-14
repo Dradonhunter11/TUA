@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using TUA.LoreBook.UI;
-using TUA.UI;
+using TUA.Utilities;
 
 namespace TUA.LoreBook.Items
 {

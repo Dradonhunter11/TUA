@@ -7,12 +7,13 @@ using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Ionic.Zip;
+using log4net;
 using Terraria;
 using Terraria.GameContent.UI.States;
 using Terraria.Graphics.Effects;
@@ -136,8 +137,9 @@ namespace TUA
             }
             catch (Exception e)
             {
-                Logger.Info(e.ToString());
-                Logger.InfoFormat("TUA unable to download dependancies");
+                ILog dep = LogManager.GetLogger("Dependancy manager");
+                dep.Info(e.ToString());
+                dep.InfoFormat("TUA unable to download dependancies");
             }
 
             void DownloadDep(string dep)
@@ -145,7 +147,7 @@ namespace TUA
                 client.Value.DownloadFile("https://github.com/Dradonhunter11/TerrariaUltraApocalypse/" +
                     $"files/3075678/{dep}.zip", $".\\TUACache\\Temp\\{dep}.zip");
 
-                ZipFile.ExtractToDirectory($".\\TUACache\\Temp\\{dep}.zip", ".\\TUACache\\");
+                ZipFile.Read($".\\TUACache\\Temp\\{dep}.zip").ExtractAll(".\\TUACache\\");
 
                 AutoloadDep(dep);
             }

@@ -5,7 +5,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI.Gamepad;
-using TUA.UI;
 using TUA.Utilities;
 
 namespace TUA.Raids

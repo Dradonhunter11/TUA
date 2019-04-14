@@ -11,7 +11,7 @@ using TUA.API.TerraEnergy.Block.FunctionnalBlock;
 using TUA.API.TerraEnergy.EnergyAPI;
 using TUA.API.TerraEnergy.Items.Block;
 using TUA.API.TerraEnergy.UI;
-using TUA.UI;
+using TUA.Utilities;
 
 namespace TUA.API.TerraEnergy.TileEntities
 {

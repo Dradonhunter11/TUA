@@ -14,7 +14,7 @@ using TUA.API.TerraEnergy.Items;
 using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 using TUA.API.TerraEnergy.TileEntities;
 using TUA.API.TerraEnergy.UI;
-using TUA.UI;
+using TUA.Utilities;
 
 namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 {

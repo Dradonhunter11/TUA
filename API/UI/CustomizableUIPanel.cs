@@ -18,6 +18,11 @@ namespace TUA.API.UI
         private static Texture2D _backgroundTexture;
 
         public bool isVisible = true;
+
+        public List<UIElement> Children{
+            get => this.Elements;
+        }
+
         public CustomizableUIPanel(Texture2D texture)
         {
             if (_backgroundTexture == null)
