@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace TUA.LoreBook
 {
-    class LorePlayer : ModPlayer
+    public partial class TUAPlayer : ModPlayer
     {
         public bool UnlockedHell;
         public bool UnlockedWasteland;
@@ -15,6 +10,5 @@ namespace TUA.LoreBook
         public bool UnlockedTraveller;
         public bool UnlockedWoF;
         public bool UnlockedHotW;
-
     }
 }

@@ -365,8 +365,8 @@
     <Reference Include="DiscordRPC">
       <HintPath>lib\DiscordRPC.dll</HintPath>
     </Reference>
-    <Reference Include="Ionic.Zip">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\Ionic.Zip.dll</HintPath>
+    <Reference Include="Ionic.Zip.Reduced">
+      <HintPath>..\..\references\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="LiquidAPI">
       <HintPath>..\LiquidAPI\bin\Debug\LiquidAPI.dll</HintPath>

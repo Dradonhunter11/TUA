@@ -1,51 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace TUA.API.VoidClass
 {
-    class VoidDamagePlayer : ModPlayer
+    public partial class TUAPlayer : ModPlayer
     {
-        public float VoidDamage = 1f;
-        public float VoidKnockback = 0f;
-        public int VoidCrit = 100;
+        public float voidDmg = 1f;
+        public float voidKb = 0f;
+        public int voidCrit = 100;
 
-        public int voidCatalyst = 0; 
+        public int voidCatalyst = 0;
 
-        public static VoidDamagePlayer GetVoidPlayer(Player p)
+        public override void Initialize()
         {
-            return p.GetModPlayer<VoidDamagePlayer>();
+            voidDmg = 1f;
+            voidKb = 0f;
+            voidCrit = 100;
         }
 
         public override void ResetEffects()
         {
-            ResetVariables();
+            Initialize();
         }
 
         public override void UpdateDead()
         {
-            ResetVariables();
+            Initialize();
         }
 
-        private void ResetVariables()
-        {
-            VoidDamage = 1f;
-            VoidKnockback = 0f;
-            VoidCrit = 100;
-        }
-
+        /*
         public override void ModifyHitNPC(Item item, NPC target, ref int damage, ref float knockback, ref bool crit)
         {
-            if(item.modItem is VoidDamageItem)
+            if (item.modItem is VoidDamageItem)
             {
                 VoidDamageItem voidItem = item.modItem as VoidDamageItem;
-                
-
             }
         }
+        */
     }
 }

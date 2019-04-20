@@ -56,9 +56,9 @@ namespace TUA.API.VoidClass
 
         public void GetVoidWeaponDamage(Player player, ref int VoidDamage, ref int NonVoidDamage)
         {
-            VoidDamagePlayer p = player.GetModPlayer<VoidDamagePlayer>();
+            TUAPlayer p = player.GetModPlayer<TUAPlayer>();
             VoidDamage += (int)(VoidDamage * VoidDamageMultplier);
-            VoidDamage *= (int)p.VoidDamage;
+            VoidDamage *= (int)p.voidDmg;
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)

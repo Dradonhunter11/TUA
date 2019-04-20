@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -10,9 +9,8 @@ using TUA.API.Dev;
 
 namespace TUA
 {
-    class TUAPlayer : ModPlayer
+    public partial class TUAPlayer : ModPlayer
     {
-
         public static bool AugmendVortex = false;
 
         public static bool arenaActive = false;

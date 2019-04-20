@@ -61,7 +61,7 @@ namespace TUA.Items.Misc
         }
     }
 
-    class MimicPlayer : ModPlayer
+    public partial class TUAPlayer : ModPlayer
     {
         public override bool CanSellItem(NPC vendor, Item[] shopInventory, Item item)
         {

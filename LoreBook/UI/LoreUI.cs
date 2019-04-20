@@ -19,7 +19,7 @@ namespace TUA.LoreBook.UI
 {
     class LoreUI : UIState
     {
-        private LorePlayer instance;
+        private TUAPlayer instance;
         private CustomizableUIPanel mainPanel;
 
         private CustomizableUIPanel selectionPanel;
@@ -40,7 +40,7 @@ namespace TUA.LoreBook.UI
             entriesList = new List<LoreEntry>();
         }
 
-        public void InitLoreUI(LorePlayer instance)
+        public void InitLoreUI(TUAPlayer instance)
         {
             this.instance = instance;
         }

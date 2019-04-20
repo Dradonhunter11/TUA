@@ -5,7 +5,7 @@ using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 
 namespace TUA.Items.Wasteland.Tools
 {
-    class ToxicPick : ModItem
+    public class ToxicPick : ModItem
     {
         public override void SetStaticDefaults()
         {

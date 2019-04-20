@@ -1,15 +1,11 @@
-using System;
-using Microsoft.Xna.Framework;
 
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TUA;
 
 namespace TUA
 {
-	public class BasePlayer
+    public class BasePlayer
 	{
 		//------------------------------------------------------//
 		//------------------BASE PLAYER CLASS-------------------//

@@ -71,7 +71,7 @@ namespace TUA.Utilities
 
         public static void OpenLoreUI(Player plr)
         {
-            loreUI.InitLoreUI(plr.GetModPlayer<LoreBook.LorePlayer>());
+            loreUI.InitLoreUI(plr.GetModPlayer<LoreBook.TUAPlayer>());
             loreInterface.SetState(loreUI);
             loreInterface.IsVisible = true;
         }
