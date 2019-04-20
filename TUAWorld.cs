@@ -13,7 +13,7 @@ using TUA.Structure.hellalt;
 
 namespace TUA
 {
-    class TUAWorld : ModWorld
+    public class TUAWorld : ModWorld
     {
         //Non ultra mode stuff
         public static bool Wasteland;
@@ -27,19 +27,15 @@ namespace TUA
         public static int EoCDeathCount = 0;
         public static bool EoCCutsceneFirstTimePlayed;
 
-        /// <summary>
-        /// Expected to have an electricity system, as this phase will require some of the new crafting mechanic
-        /// Expected to have visited the solar dimension at least, to obtain the sun core modifier
-        /// </summary>
+        // Expected to have an electricity system, as this phase will require some of the new crafting mechanic
+        // Expected to have visited the solar dimension at least, to obtain the sun core modifier
         //Ultra mode phase 2 - 1.1 : TUA - The one that made the world
         public static bool EvilPostMLDowned;
         public static bool CotWDowned; //Creator of the world - God of balance
         public static int EvilDeath = 0;
 
-        /// <summary>
-        /// Expected to have visited the stardust dimension, to get the stardust heart
-        /// </summary>
-        //Ultra mode phase 3 - 1.2 : Bringing of the plagues
+        // Expected to have visited the stardust dimension, to get the stardust heart
+        // Ultra mode phase 3 - 1.2 : Bringing of the plagues
         public static bool KingSlimePostMLDowned;
         public static bool SlimeMoonDowned;
         public static int SlimeKingDeath = 0;
@@ -60,7 +56,16 @@ namespace TUA
         public static bool HellBossPostMLDowned;
         public static int HellBossKingDeath = 0;
         public static bool wallOfTerrapocalypse;
-       
+
+        private static ushort _nextSnowflakeIncrement;
+        public static ushort NextSnowflakeIncrement
+        {
+            get
+            {
+                if (++_nextSnowflakeIncrement == ushort.MaxValue) _nextSnowflakeIncrement = 0;
+                return _nextSnowflakeIncrement;
+            }
+        }
 
         public override TagCompound Save()
         {
@@ -73,7 +78,8 @@ namespace TUA
             return new TagCompound
             {
                 ["Flags"] = bits,
-                ["EoCCutscene"] = EoCDeathCount
+                ["EoCCutscene"] = EoCDeathCount,
+                ["_nextSnowflakeIncrement"] = _nextSnowflakeIncrement
             };
             //tc.Add("apocalypseMoon", apocalypseMoon);
         }
@@ -87,6 +93,8 @@ namespace TUA
             Wasteland = bits[2];
             RealisticTimeMode = bits[3];
             EoCCutsceneFirstTimePlayed = bits[4];
+
+            _nextSnowflakeIncrement = tag.Get<ushort>("_nextSnowflakeIncrement");
 
             if (!Main.ActiveWorldFileData.HasCorruption)
             {
@@ -174,7 +182,7 @@ namespace TUA
             progress.Message = Language.GetTextValue("LegacyGen.36");
             for (int k = 0; k < Main.maxTilesX / 200; k++)
             {
-                float value = (float)(k / (Main.maxTilesX / 200));
+                float value = k / (Main.maxTilesX / 200);
                 progress.Set(value);
                 bool flag2 = false;
                 int num = 0;

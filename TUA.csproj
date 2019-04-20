@@ -348,6 +348,7 @@
     <Compile Include="UIHijack\WorldSelection\WorldPreLoader.cs" />
     <Compile Include="UI\Cobblegen\CobbleGenUI.cs" />
     <Compile Include="Utilities\RaidsManager.cs" />
+    <Compile Include="Utilities\Snowflake.cs" />
     <Compile Include="Utilities\UIManager.cs" />
     <Compile Include="Utilities\StaticManager.cs" />
     <Compile Include="Walls\Hell\AshWall.cs" />
