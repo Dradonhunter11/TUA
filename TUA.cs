@@ -38,6 +38,7 @@ using TUA.Raids.UI;
 using TUA.UIHijack.MainMenu;
 using TUA.UIHijack.WorldSelection;
 using TUA.Utilities;
+using TUA.Void;
 
 namespace TUA
 {
@@ -109,7 +110,7 @@ namespace TUA
                 AutoloadBackgrounds = true
             };
 
-            AutoloadDependancies();
+            //AutoloadDependancies();
         }
 
         private void AutoloadDependancies()
@@ -360,6 +361,8 @@ namespace TUA
             recipe.AddIngredient(ItemType<VenomousGreatBlade>());
             recipe.SetResult(ItemID.NightsEdge);
             recipe.AddRecipe();
+
+            var voidrecipe = new VoidRecipe(this);
         }
 
         public void AddFurnaceRecipe(int itemID, int itemResult, int timer = 20)
@@ -725,6 +728,8 @@ namespace TUA
         {
             titleTimer = timer;
             currentTitle = new Title(text, subText, textColor, subTextColor, font, timer, baseOpacity, fadeEffect);
+
+
         }
 
         protected struct Title

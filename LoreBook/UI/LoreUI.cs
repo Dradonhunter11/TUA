@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using IL.Terraria.Achievements;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -51,20 +52,22 @@ namespace TUA.LoreBook.UI
 
             xButton.Width.Set(20f, 0f);
             xButton.Height.Set(22f, 0f);
-            xButton.Left.Set(Main.screenWidth / 2f + 220f, 0f);
-            xButton.Top.Set(Main.screenHeight / 2f - 330f, 0f);
+            xButton.Left.Set(220f, 0f);
+            xButton.Top.Set(-280f, 0f);
+            xButton.HAlign = 0.5f;
+            xButton.VAlign = 0.5f;
             xButton.OnClick += (evt, listElem) => UIManager.CloseLoreUI();
 
             mainPanel = new CustomizableUIPanel(TUA.instance.GetTexture("Texture/UI/panel"));
             mainPanel.Width.Set(400, 0);
-            mainPanel.Height.Set(600, 0);
-            mainPanel.Left.Set(Main.screenWidth / 2 - 200, 0);
-            mainPanel.Top.Set(Main.screenHeight / 2 - 300, 0);
+            mainPanel.Height.Set(500, 0);
+            mainPanel.HAlign = 0.5f;
+            mainPanel.VAlign = 0.5f;
             mainPanel.SetPadding(0);
 
             selectionPanel = new CustomizableUIPanel(TUA.instance.GetTexture("Texture/UI/panel"));
             selectionPanel.Width.Set(400, 0);
-            selectionPanel.Height.Set(600, 0);
+            selectionPanel.Height.Set(500, 0);
             selectionPanel.Left.Set(0, 0);
             selectionPanel.Top.Set(0, 0);
             selectionPanel.SetPadding(0);
@@ -120,7 +123,7 @@ namespace TUA.LoreBook.UI
             CalculatedStyle style = mainPanel.GetInnerDimensions();
             Vector2 textSize = ChatManager.GetStringSize(Main.fontDeathText, LocalizationManager.instance.GetTranslation("TUA.UI.LoreTitle"), new Vector2(1f, 1f));
             Utils.DrawBorderStringFourWay(spriteBatch, Main.fontDeathText, LocalizationManager.instance.GetTranslation("TUA.UI.LoreTitle"),
-                Main.screenWidth / 2 - textSize.X / 2, Main.screenHeight / 2 - 350, Color.LightGray,
+                style.X - textSize.X / 2, style.Y - 350, Color.LightGray,
                 Color.Black, Vector2.Zero, 1f);
             spriteBatch.Draw(xButtonTexture, xButton.GetInnerDimensions().Position(), Color.White);
             if (InLoreEntry)
@@ -128,6 +131,25 @@ namespace TUA.LoreBook.UI
                 entriesList.Single(i => i.Title == CurrentEntryName).Draw(spriteBatch, mainPanel.GetInnerDimensions().Position());
             }
 
+            float percent = 0.95f;
+
+            spriteBatch.Draw(DrawCircle(104, 66, 1f), new Vector2(3, 78), Color.Black);
+            spriteBatch.Draw(DrawCircle(100, 70, 1f), new Vector2(5, 80), Color.White);
+            spriteBatch.Draw(DrawCircle(100, 70, percent), new Vector2(5, 80), Color.Purple);
+            Utils.DrawBorderStringFourWay(spriteBatch, Main.fontDeathText, $"{percent * 100}%", 34f, 117f, Color.MediumPurple, Color.Black, Vector2.Zero, 0.5f);
+            
+            Rectangle rec = new Rectangle(3, 78, 104, 104);
+            bool isMouseInRec = rec.Contains(Main.MouseScreen.ToPoint());
+            Vector2 fontSize = (isMouseInRec) ? Main.fontDeathText.MeasureString("95/100") * 0.5f : Main.fontDeathText.MeasureString("Void affinity") * 0.4f;
+
+            if (isMouseInRec)
+            {
+                Utils.DrawBorderStringFourWay(spriteBatch, Main.fontDeathText, $"95/100", (104f / 2f - fontSize.X / 2f), 78f + 104f + fontSize.Y / 2, Color.MediumPurple, Color.Black, Vector2.Zero, 0.5f);
+            }
+            else
+            {
+                Utils.DrawBorderStringFourWay(spriteBatch, Main.fontDeathText, $"Void affinity", 104f / 2f - fontSize.X / 2f, 78f + 104f + fontSize.Y / 2, Color.MediumPurple, Color.Black, Vector2.Zero, 0.4f);
+            }
         }
 
         internal void SetMainPanel(CustomizableUIPanel panel = null)
@@ -148,6 +170,50 @@ namespace TUA.LoreBook.UI
             UIText text = new UIText(entry.Title);
             text.OnClick += SwitchToEntry;
             Add(text);
+        }
+
+        public override void Update(GameTime gameTime)
+        {            
+            Recalculate();
+            RecalculateChildren();
+            base.Update(gameTime);
+        }
+
+        public Texture2D DrawCircle(int diameter, int diameterInterior, float percent)
+        {
+            Texture2D texture = new Texture2D(Main.graphics.GraphicsDevice, diameter, diameter);
+            Color[] colorData = new Color[diameter * diameter];
+
+            float radius = diameter / 2f;
+            float radiusInterior = diameterInterior / 2f;
+            float radiusSquared = radius * radius;
+            float radiusSquaredInterior = radiusInterior * radiusInterior;
+
+            Vector2 initialPercentPoint = new Vector2(0, 50);
+
+            for (int x = 0; x < diameter; x++)
+            {
+                for (int y = 0; y < diameter; y++)
+                {
+                    
+                    int index = x * diameter + y;
+                    Vector2 pos = new Vector2(x - radius, y - radius);
+                    float anglePercent = (percent * MathHelper.TwoPi) - MathHelper.Pi;
+                    float angle = (float)Math.Atan2(pos.Y, pos.X);
+
+                    if (anglePercent > angle && pos.LengthSquared() < radiusSquared && pos.LengthSquared() > radiusSquaredInterior)
+                    {
+                        colorData[index] = Color.White;
+                    }
+                    else
+                    {
+                        colorData[index] = Color.Transparent;
+                    }
+                }
+            }
+
+            texture.SetData(colorData);
+            return texture;
         }
     }
 

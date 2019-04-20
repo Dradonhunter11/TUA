@@ -47,7 +47,8 @@ namespace TUA.API
             }
         }
 
-        public sealed override void AddRecipes()
+        // TODO: Agrair, this block possibility of custom recipe system
+        /*public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             if (CraftingMaterials(out int[] items))
@@ -72,6 +73,6 @@ namespace TUA.API
         protected virtual void CraftingConditions(ModRecipe recipe)
         {
 
-        }
+        }*/
     }
 }

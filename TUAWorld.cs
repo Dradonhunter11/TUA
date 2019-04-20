@@ -73,7 +73,7 @@ namespace TUA
             return new TagCompound
             {
                 ["Flags"] = bits,
-                ["EoCCutscene"] = EoCDeathCount
+                ["UltraEoCDowned"] = EoCDeathCount
             };
             //tc.Add("apocalypseMoon", apocalypseMoon);
         }
@@ -83,10 +83,11 @@ namespace TUA
             var bits = (BitsByte)tag.GetByte("Flags");
             UltraMode = bits[0];
             EoADowned = bits[1];
-            EoCDeathCount = tag.GetInt("UltraEoCDowned");
             Wasteland = bits[2];
-            RealisticTimeMode = bits[3];
-            EoCCutsceneFirstTimePlayed = bits[4];
+            EoCCutsceneFirstTimePlayed = bits[3];
+            RealisticTimeMode = bits[4];
+
+            EoCDeathCount = tag.GetInt("UltraEoCDowned");
 
             if (!Main.ActiveWorldFileData.HasCorruption)
             {

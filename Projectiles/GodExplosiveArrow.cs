@@ -8,12 +8,10 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
-using TUA.API.VoidClass;
-
 
 namespace TUA.Projectiles
 {
-    class GodExplosiveArrow : VoidDamageProjectile
+    class GodExplosiveArrow : ModProjectile
     {
 
         private int timer = 0;
@@ -35,8 +33,6 @@ namespace TUA.Projectiles
             projectile.penetrate = 1;
             projectile.tileCollide = true;
             projectile.timeLeft = 76;
-            Void = true;
-            VoidDamage = 50;
             aiType = ProjectileID.HolyArrow;
         }
 

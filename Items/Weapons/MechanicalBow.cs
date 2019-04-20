@@ -11,11 +11,10 @@ using Terraria.Localization;
 using Terraria.ModLoader.IO;
 using System.IO;
 using TUA.API;
-using TUA.API.VoidClass;
 
 namespace TUA.Items.Weapons
 {
-    class MechanicalBow : VoidDamageItem
+    class MechanicalBow : TUAModItem
     {
         public override void SetStaticDefaults()
         {
@@ -30,7 +29,7 @@ namespace TUA.Items.Weapons
 
         
 
-        public override void safeSetDefaults()
+        public override void SetDefaults()
         {
             item.width = 32;
             item.height = 50;
@@ -47,9 +46,6 @@ namespace TUA.Items.Weapons
             item.useTime = 20;
             item.useAmmo = AmmoID.Arrow;
             item.crit = 50;
-            setVoidDamage(50);
-            VoidDamage = 50;
-            haveNormalDamage = true;
         }
 
         public override void AddRecipes()
