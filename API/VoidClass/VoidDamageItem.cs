@@ -1,9 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -22,7 +18,6 @@ namespace TUA.API.VoidClass
 
         public void setVoidDamage(int VoidDamage) {
             TrueVoidDamage = VoidDamage;
-            
         }
 
         public abstract void safeSetDefaults();
@@ -56,7 +51,7 @@ namespace TUA.API.VoidClass
 
         public void GetVoidWeaponDamage(Player player, ref int VoidDamage, ref int NonVoidDamage)
         {
-            TUAPlayer p = player.GetModPlayer<TUAPlayer>();
+            VoidDamagePlayer p = player.GetModPlayer<VoidDamagePlayer>();
             VoidDamage += (int)(VoidDamage * VoidDamageMultplier);
             VoidDamage *= (int)p.voidDmg;
         }

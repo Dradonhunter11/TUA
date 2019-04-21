@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
-using Terraria.ID;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using TUA.API;
@@ -19,7 +17,7 @@ namespace TUA.LoreBook.UI
 {
     class LoreUI : UIState
     {
-        private TUAPlayer instance;
+        private LorePlayer instance;
         private CustomizableUIPanel mainPanel;
 
         private CustomizableUIPanel selectionPanel;
@@ -40,7 +38,7 @@ namespace TUA.LoreBook.UI
             entriesList = new List<LoreEntry>();
         }
 
-        public void InitLoreUI(TUAPlayer instance)
+        public void InitLoreUI(LorePlayer instance)
         {
             this.instance = instance;
         }

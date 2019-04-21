@@ -2,7 +2,7 @@
 
 namespace TUA.LoreBook
 {
-    public partial class TUAPlayer : ModPlayer
+    public class LorePlayer : ModPlayer
     {
         public bool UnlockedHell;
         public bool UnlockedWasteland;

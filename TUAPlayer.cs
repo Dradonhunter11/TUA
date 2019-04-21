@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -6,16 +6,15 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using TUA.API.Dev;
-using TUA.Utilities;
 
 namespace TUA
 {
-    public partial class TUAPlayer : ModPlayer
+    public class TUAPlayer : ModPlayer
     {
         public static bool augmentVortex = false;
         public static bool arenaActive = false;
         public bool noImmunityDebuff;
-        public Snowflake ID;
+        public Guid ID;
         public bool IsScreenLocked = false;
         public Vector2 PositionLock = Vector2.Zero;
         // private static int splashTimer = 0;
@@ -32,15 +31,14 @@ namespace TUA
             // splashTimer = 0;
             initialPoint = Vector2.Zero;
             endPoint = Vector2.Zero;
-            ID = new Snowflake(Main.rand.Next(255), Process.GetCurrentProcess().Id);
+            ID = new Guid();
         }
 
         public override void Load(TagCompound tag)
         {
-            var id = tag.Get<ulong>("GUID");
-            if (id != default)
+            if (tag.GetString("GUID") is string str && !string.IsNullOrWhiteSpace(str))
             {
-                ID = new Snowflake(id);
+                ID = Guid.Parse(str);
             }
         }
 
@@ -48,7 +46,7 @@ namespace TUA
         {
             return new TagCompound
             {
-                ["GUID"] = ID.Raw
+                ["GUID"] = ID.ToString()
             };
         }
 

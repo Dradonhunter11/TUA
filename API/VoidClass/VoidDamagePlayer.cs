@@ -2,7 +2,7 @@
 
 namespace TUA.API.VoidClass
 {
-    public partial class TUAPlayer : ModPlayer
+    public class VoidDamagePlayer : ModPlayer
     {
         public float voidDmg = 1f;
         public float voidKb = 0f;
