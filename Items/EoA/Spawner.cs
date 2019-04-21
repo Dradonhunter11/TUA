@@ -5,21 +5,18 @@ using Terraria.Localization;
 using TUA.API;
 using TUA.NPCs.Gods.EoA;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.DataStructures;
 using TUA.API.EventManager;
 
 namespace TUA.Items.EoA
 {
-    class Spawner : TUAModLegacyItem
+    public class Spawner : TUAModItem
     {
         public override bool CloneNewInstances => false;
-        
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Apoclypsio");
-            Tooltip.SetDefault("Look in the sky! The moon have changed...\nSummon the god of destruction");
+            Tooltip.SetDefault("Look in the sky! The moon has changed...\nSummon the god of destruction");
             DisplayName.AddTranslation(GameCulture.French, "Apoclypsio");
             Tooltip.AddTranslation(GameCulture.French, "Invoque le premier des anciens dieux\nUne fois vaincu, votre monde sera en mode Ultra");
         }
@@ -74,18 +71,6 @@ namespace TUA.Items.EoA
             NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - (76*16), mod.NPCType<EyeOApocalypse>());
             Main.spriteBatch.Draw(ModContent.GetTexture("Projectile_490"), new Vector2(player.Center.X, player.Center.Y), Color.DarkRed);
             return true;
-        }
-
-        public override void AddRecipes()
-        {
-            ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.LunarBar, 10);
-            recipe.AddIngredient(ItemID.SuspiciousLookingEye, 5);
-            recipe.AddIngredient(ItemID.MechanicalEye, 1);
-            recipe.AddIngredient(null, "SuspiciousBurnedEye", 2);
-            recipe.AddTile(TileID.MythrilAnvil);
-            recipe.SetResult(this);
-            recipe.AddRecipe();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace TUA.LoreBook.UI
 {
     class LoreUI : UIState
     {
-        private LorePlayer instance;
+        private TUAPlayer instance;
         private CustomizableUIPanel mainPanel;
 
         private CustomizableUIPanel selectionPanel;
@@ -41,7 +41,7 @@ namespace TUA.LoreBook.UI
             entriesList = new List<LoreEntry>();
         }
 
-        public void InitLoreUI(LorePlayer instance)
+        public void InitLoreUI(TUAPlayer instance)
         {
             this.instance = instance;
         }
@@ -131,25 +131,7 @@ namespace TUA.LoreBook.UI
                 entriesList.Single(i => i.Title == CurrentEntryName).Draw(spriteBatch, mainPanel.GetInnerDimensions().Position());
             }
 
-            float percent = 0.95f;
-
-            spriteBatch.Draw(DrawCircle(104, 66, 1f), new Vector2(3, 78), Color.Black);
-            spriteBatch.Draw(DrawCircle(100, 70, 1f), new Vector2(5, 80), Color.White);
-            spriteBatch.Draw(DrawCircle(100, 70, percent), new Vector2(5, 80), Color.Purple);
-            Utils.DrawBorderStringFourWay(spriteBatch, Main.fontDeathText, $"{percent * 100}%", 34f, 117f, Color.MediumPurple, Color.Black, Vector2.Zero, 0.5f);
             
-            Rectangle rec = new Rectangle(3, 78, 104, 104);
-            bool isMouseInRec = rec.Contains(Main.MouseScreen.ToPoint());
-            Vector2 fontSize = (isMouseInRec) ? Main.fontDeathText.MeasureString("95/100") * 0.5f : Main.fontDeathText.MeasureString("Void affinity") * 0.4f;
-
-            if (isMouseInRec)
-            {
-                Utils.DrawBorderStringFourWay(spriteBatch, Main.fontDeathText, $"95/100", (104f / 2f - fontSize.X / 2f), 78f + 104f + fontSize.Y / 2, Color.MediumPurple, Color.Black, Vector2.Zero, 0.5f);
-            }
-            else
-            {
-                Utils.DrawBorderStringFourWay(spriteBatch, Main.fontDeathText, $"Void affinity", 104f / 2f - fontSize.X / 2f, 78f + 104f + fontSize.Y / 2, Color.MediumPurple, Color.Black, Vector2.Zero, 0.4f);
-            }
         }
 
         internal void SetMainPanel(CustomizableUIPanel panel = null)

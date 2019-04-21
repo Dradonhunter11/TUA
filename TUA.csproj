@@ -199,6 +199,7 @@
     <Compile Include="Dusts\EotW\MeleeDust.cs" />
     <Compile Include="Dusts\FireDust.cs" />
     <Compile Include="Dusts\TUAGlobalDust.cs" />
+    <Compile Include="Enum\TUANetMessage.cs" />
     <Compile Include="Items\Armor\SpectralCloth.cs" />
     <Compile Include="Items\Block\PillarBiomeBlock\Solar\SolarMineralObsidian.cs" />
     <Compile Include="Items\Armor\ArmorBase.cs" />
@@ -340,11 +341,13 @@
     <Compile Include="UIHijack\WorldSelection\WorldPreLoader.cs" />
     <Compile Include="UI\Cobblegen\CobbleGenUI.cs" />
     <Compile Include="Utilities\RaidsManager.cs" />
+    <Compile Include="Utilities\Snowflake.cs" />
     <Compile Include="Utilities\UIManager.cs" />
     <Compile Include="Utilities\StaticManager.cs" />
+    <Compile Include="Void\VoidGlobal\VoidGlobalNPC.cs" />
     <Compile Include="Void\VoidPlayer.cs" />
     <Compile Include="Void\VoidRecipe.cs" />
-    <Compile Include="Void\VoidUI\VoidUIState.cs" />
+    <Compile Include="UI\VoidUI\VoidUIState.cs" />
     <Compile Include="Walls\Hell\AshWall.cs" />
     <Compile Include="Walls\Wasteland\WastestoneBrickWall.cs" />
   </ItemGroup>
@@ -360,8 +363,8 @@
     <Reference Include="DiscordRPC">
       <HintPath>lib\DiscordRPC.dll</HintPath>
     </Reference>
-    <Reference Include="Ionic.Zip">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\Ionic.Zip.dll</HintPath>
+    <Reference Include="Ionic.Zip.Reduced">
+      <HintPath>..\..\references\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="LiquidAPI">
       <HintPath>..\LiquidAPI\bin\Debug\LiquidAPI.dll</HintPath>
@@ -421,6 +424,7 @@
     <Folder Include="NPCs\Dimension\Solar\" />
     <Folder Include="Projectiles\EoA\" />
     <Folder Include="Tiles\Furniture\Demon\" />
+    <Folder Include="Void\VoidEffect\" />
     <Folder Include="Void\VoidItem\" />
     <Folder Include="Walls\PillarBiome\Solar\" />
   </ItemGroup>

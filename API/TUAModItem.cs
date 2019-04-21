@@ -51,12 +51,12 @@ namespace TUA.API
         /*public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            if (CraftingMaterials(out int[] items))
+            if (CraftingMaterials(out (int item, int stack)[] items))
             {
                 for (int i = 0; i < items.Length; i++)
                 {
-                    int item = items[i];
-                    recipe.AddIngredient(item);
+                    var item = items[i];
+                    recipe.AddIngredient(item.item, item.stack);
                 }
             }
             CraftingConditions(recipe);
@@ -64,9 +64,9 @@ namespace TUA.API
             recipe.AddRecipe();
         }
 
-        protected virtual bool CraftingMaterials(out int[] items)
+        protected virtual bool CraftingMaterials(out (int type, int stack)[] items)
         {
-            items = new int[] { };
+            items = new (int, int)[0];
             return false;
         }
 
