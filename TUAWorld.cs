@@ -1,12 +1,14 @@
 ﻿using BiomeLibrary.API;
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.Generation;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.World.Generation;
+using TUA.API;
 using TUA.CustomScreenShader;
 using TUA.NPCs.NewBiome.Wasteland.MutatedMass;
 using TUA.Structure.hellalt;
@@ -304,7 +306,28 @@ namespace TUA
                     WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(Main.maxTilesY - 140, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 7), WorldGen.genRand.Next(3, 7), mod.TileType("WastelandOre"), false, 0f, 0f, false, true);
                 }
             }
+            GenerateSpikeTop();
             Biomes<HotWArena>.Place((int)Main.maxTilesX / 2, (int)Main.maxTilesY - 100, WorldGen.structures);
+        }
+
+        public void GenerateSpikeTop()
+        {
+            for (int x = 0; x < Main.maxTilesX; x++)
+            {
+                if (WorldGen.genRand.Next(150) == 0)
+                {
+                    int yModifier = Main.maxTilesY - 150;
+                    while (!Main.tile[x, yModifier].active())
+                    {
+                        yModifier--;
+                    }
+
+                    yModifier -= 5;
+                    WorldUtils.Gen(new Point(x, yModifier),
+                        new Shapes.Tail(WorldGen.genRand.Next(5, 7),
+                            new Vector2(x, yModifier + WorldGen.genRand.Next(10, 12))), new Actions.PlaceTile(mod.TileID("WastelandRock")));
+                }
+            }
         }
 
         public void VanillaHell(GenerationProgress progress)

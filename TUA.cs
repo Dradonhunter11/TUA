@@ -363,12 +363,6 @@ namespace TUA
             recipe.AddIngredient(ItemType<VenomousGreatBlade>());
             recipe.SetResult(ItemID.NightsEdge);
             recipe.AddRecipe();
-
-            var voidrecipe = new VoidRecipe(this);
-            voidrecipe.AddIngredient(ItemID.DirtBlock, 1);
-            voidrecipe.SetAmountOfRequiredVoidAffinity(5);
-            voidrecipe.SetResult(ItemID.TerraBlade);
-            voidrecipe.AddRecipe();
         }
 
         public void AddFurnaceRecipe(int itemID, int itemResult, int timer = 20)
@@ -503,6 +497,7 @@ namespace TUA
                     },
                     InterfaceScaleType.UI)
                 );
+                //TODO 1.1 : Anvil interface
                 layers.Insert(MouseTextIndex, new LegacyGameInterfaceLayer(
                     "TUA : Raids GUI", delegate
                     {

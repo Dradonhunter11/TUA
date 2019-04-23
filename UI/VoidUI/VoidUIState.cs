@@ -16,7 +16,7 @@ namespace UI.VoidUI
         public override void Draw(SpriteBatch spriteBatch)
         {
             VoidPlayer player = Main.LocalPlayer.GetModPlayer<VoidPlayer>();
-            float percent = (player.voidAffinity * 100f / player.maxVoidAffinity) / 100f;
+            float percent = (player.voidAffinity * 100f / player.maxVoidAffinity);
 
             spriteBatch.Draw(DrawCircle(104, 66, 1f), new Vector2(3, 78), Color.Black);
             spriteBatch.Draw(DrawCircle(100, 70, 1f), new Vector2(5, 80), Color.White);

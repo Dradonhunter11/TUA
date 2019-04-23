@@ -217,6 +217,7 @@
     <Compile Include="Items\Dimension\StardustCrystal.cs" />
     <Compile Include="Items\EoA\SuspiciousBurnedEye.cs" />
     <Compile Include="Items\Food\Poutine.cs" />
+    <Compile Include="Items\Materials\VoidArtefact\VoidArtefact.cs" />
     <Compile Include="Items\Meteoridon\BrownSolution.cs" />
     <Compile Include="Items\Meteoridon\Materials\MeteorideScale.cs" />
     <Compile Include="Items\Materials\Wasteland\WastestoneIngot.cs" />
@@ -425,7 +426,6 @@
     <Folder Include="Projectiles\EoA\" />
     <Folder Include="Tiles\Furniture\Demon\" />
     <Folder Include="Void\VoidEffect\" />
-    <Folder Include="Void\VoidItem\" />
     <Folder Include="Walls\PillarBiome\Solar\" />
   </ItemGroup>
   <ItemGroup>
