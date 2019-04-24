@@ -20,7 +20,7 @@ namespace UI.VoidUI
 
             spriteBatch.Draw(DrawCircle(104, 66, 1f), new Vector2(3, 78), Color.Black);
             spriteBatch.Draw(DrawCircle(100, 70, 1f), new Vector2(5, 80), Color.White);
-            spriteBatch.Draw(DrawCircle(100, 70, percent), new Vector2(5, 80), Color.Purple);
+            spriteBatch.Draw(DrawCircle(100, 70, percent / 100), new Vector2(5, 80), Color.Purple);
             Utils.DrawBorderStringFourWay(spriteBatch, Main.fontDeathText, $"{percent}%", 34f, 117f, Color.MediumPurple, Color.Black, Vector2.Zero, 0.5f);
 
             Rectangle rec = new Rectangle(3, 78, 104, 104);

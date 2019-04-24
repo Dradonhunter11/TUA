@@ -52,7 +52,7 @@ namespace TUA.Items.Materials.VoidArtefact
 
     internal class VoidArtefactT1 : VoidArtefact
     {
-        public override string Name => "Void artefact alpha";
+        public override string Name => "Void Artefact Alpha";
         public override int Tier => 1;
 
         public override void SetDimension(ref int width, ref int height)
@@ -70,7 +70,7 @@ namespace TUA.Items.Materials.VoidArtefact
 
     internal class VoidArtefactT2 : VoidArtefact
     {
-        public override string Name => "Void artefact beta";
+        public override string Name => "Void Artefact Beta";
         public override int Tier => 2;
 
         public override void SetDimension(ref int width, ref int height)
@@ -88,7 +88,7 @@ namespace TUA.Items.Materials.VoidArtefact
 
     internal class VoidArtefactT3 : VoidArtefact
     {
-        public override string Name => "Void artefact gamma";
+        public override string Name => "Void Artefact Gamma";
         public override int Tier => 3;
 
         public override void SetDimension(ref int width, ref int height)

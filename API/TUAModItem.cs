@@ -4,8 +4,7 @@ using Terraria;
 using Terraria.ModLoader;
 
 namespace TUA.API
-{
-    
+{    
     public class TUAModItem : ModItem
     {
         public virtual bool Ultra { get; set; }
