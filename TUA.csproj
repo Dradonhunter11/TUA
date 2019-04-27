@@ -144,12 +144,6 @@
     <Compile Include="API\UI\LiquidTank.cs" />
     <Compile Include="API\UI\UIPanelTrigger.cs" />
     <Compile Include="API\UI\UIScrollingText.cs" />
-    <Compile Include="API\VoidClass\VoidDamageGlobalNPC.cs" />
-    <Compile Include="API\VoidClass\VoidDamageItem.cs" />
-    <Compile Include="API\VoidClass\VoidDamageNPC.cs" />
-    <Compile Include="API\VoidClass\VoidDamagePlayer.cs" />
-    <Compile Include="API\VoidClass\VoidDamageProjectile.cs" />
-    <Compile Include="API\VoidClass\VoidUtils.cs" />
     <Compile Include="API\Wrapper\SpriteSheet.cs" />
     <Compile Include="Backgrounds\Meteoridon\MeteoridonBG.cs" />
     <Compile Include="Backgrounds\Solar\SolarUnderBG.cs" />
@@ -205,6 +199,7 @@
     <Compile Include="Dusts\EotW\MeleeDust.cs" />
     <Compile Include="Dusts\FireDust.cs" />
     <Compile Include="Dusts\TUAGlobalDust.cs" />
+    <Compile Include="Enum\TUANetMessage.cs" />
     <Compile Include="Items\Armor\SpectralCloth.cs" />
     <Compile Include="Items\Block\PillarBiomeBlock\Solar\SolarMineralObsidian.cs" />
     <Compile Include="Items\Armor\ArmorBase.cs" />
@@ -222,6 +217,7 @@
     <Compile Include="Items\Dimension\StardustCrystal.cs" />
     <Compile Include="Items\EoA\SuspiciousBurnedEye.cs" />
     <Compile Include="Items\Food\Poutine.cs" />
+    <Compile Include="Items\Materials\VoidArtefact\VoidArtefact.cs" />
     <Compile Include="Items\Meteoridon\BrownSolution.cs" />
     <Compile Include="Items\Meteoridon\Materials\MeteorideScale.cs" />
     <Compile Include="Items\Materials\Wasteland\WastestoneIngot.cs" />
@@ -272,11 +268,9 @@
     <Compile Include="NPCs\NewBiome\Meteoridon\Meteoride.cs" />
     <Compile Include="NPCs\NewBiome\Meteoridon\MeteoridonEye.cs" />
     <Compile Include="NPCs\UltraEoC.cs" />
-    <Compile Include="API\VoidClass\VoidItemPrefix.cs" />
     <Compile Include="NPCs\UltraBoss\UltraDestroyer\UltraDestroyerWorm.cs" />
     <Compile Include="NPCs\UltraBoss\UltraEoC\UltraEoC.cs" />
     <Compile Include="Prefixes\Multishot.cs" />
-    <Compile Include="Prefixes\VoidItem\Collapsing.cs" />
     <Compile Include="Projectiles\FallingProjectile\DiamondCoinProjectile.cs" />
     <Compile Include="Projectiles\FallingProjectile\MeteoridonSandProjectile.cs" />
     <Compile Include="Projectiles\FallingProjectile\TUAFallingProjectile.cs" />
@@ -350,6 +344,10 @@
     <Compile Include="Utilities\RaidsManager.cs" />
     <Compile Include="Utilities\UIManager.cs" />
     <Compile Include="Utilities\StaticManager.cs" />
+    <Compile Include="Void\VoidGlobal\VoidGlobalNPC.cs" />
+    <Compile Include="Void\VoidPlayer.cs" />
+    <Compile Include="Void\VoidRecipe.cs" />
+    <Compile Include="UI\VoidUI\VoidUIState.cs" />
     <Compile Include="Walls\Hell\AshWall.cs" />
     <Compile Include="Walls\Wasteland\WastestoneBrickWall.cs" />
   </ItemGroup>
@@ -405,6 +403,9 @@
     <Reference Include="System" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="TerraEnergyLibrary">
+      <HintPath>..\TerraEnergyLibrary\bin\Debug\TerraEnergyLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Terraria, Version=1.3.5.1, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\Terraria.exe</HintPath>
@@ -423,6 +424,7 @@
     <Folder Include="NPCs\Dimension\Solar\" />
     <Folder Include="Projectiles\EoA\" />
     <Folder Include="Tiles\Furniture\Demon\" />
+    <Folder Include="Void\VoidEffect\" />
     <Folder Include="Walls\PillarBiome\Solar\" />
   </ItemGroup>
   <ItemGroup>

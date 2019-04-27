@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.UI;
+using UI.VoidUI;
 
 namespace TUA.Utilities
 {
@@ -10,9 +11,11 @@ namespace TUA.Utilities
         // private static UserInterface CapacitorInterface;
         private static UserInterface raidsInterface;
         private static UserInterface loreInterface;
+        private static UserInterface voidInterface;
 
         private static LoreBook.UI.LoreUI loreUI;
         private static Raids.UI.RaidsUI raidsUI;
+        private static UI.VoidUI.VoidUIState voidUI;
 
         internal static LoreBook.UI.LoreUI GetLoreInstance() => loreUI;
 
@@ -22,9 +25,13 @@ namespace TUA.Utilities
             // CapacitorInterface = new UserInterface();
             raidsInterface = new UserInterface();
             loreInterface = new UserInterface();
+            voidInterface = new UserInterface();
 
             loreUI = new LoreBook.UI.LoreUI();
             raidsUI = new Raids.UI.RaidsUI();
+
+            voidUI = new VoidUIState();
+            voidInterface.SetState(voidUI);
         }
 
         public static void UpdateUI(GameTime gameTime)
@@ -69,6 +76,14 @@ namespace TUA.Utilities
             }
         }
 
+        public static void DrawVoid()
+        {
+            if (voidInterface.IsVisible && !Main.playerInventory)
+            {
+                voidUI.Draw(Main.spriteBatch);
+            }
+        }
+
         public static void OpenLoreUI(Player plr)
         {
             loreUI.InitLoreUI(plr.GetModPlayer<LoreBook.LorePlayer>());
@@ -101,10 +116,20 @@ namespace TUA.Utilities
             machineInterface.IsVisible = true;
         }
 
-        public static void CloseMachineUI()
+        public static void CloseMachineUI() 
         {
             machineInterface.SetState(null);
             machineInterface.IsVisible = false;
+        }
+
+        public static void OpenVoidUI()
+        {
+            voidInterface.IsVisible = true;
+        }
+
+        public static void CloseVoidUI()
+        {
+            voidInterface.IsVisible = false;
         }
     }
 }

@@ -6,6 +6,7 @@ using MonoMod.RuntimeDetour.HookGen;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -30,6 +31,7 @@ using TUA.CustomScreenShader;
 using TUA.CustomSkies;
 using TUA.Dimension.Sky;
 using TUA.Discord;
+using TUA.Enum;
 using TUA.Items.EoA;
 using TUA.Items.Meteoridon.Materials;
 using TUA.Items.Wasteland.Weapons;
@@ -38,6 +40,7 @@ using TUA.Raids.UI;
 using TUA.UIHijack.MainMenu;
 using TUA.UIHijack.WorldSelection;
 using TUA.Utilities;
+using TUA.Void;
 
 namespace TUA
 {
@@ -109,7 +112,7 @@ namespace TUA
                 AutoloadBackgrounds = true
             };
 
-            AutoloadDependancies();
+            //AutoloadDependancies();
         }
 
         private void AutoloadDependancies()
@@ -494,6 +497,7 @@ namespace TUA
                     },
                     InterfaceScaleType.UI)
                 );
+                //TODO 1.1 : Anvil interface
                 layers.Insert(MouseTextIndex, new LegacyGameInterfaceLayer(
                     "TUA : Raids GUI", delegate
                     {
@@ -506,6 +510,14 @@ namespace TUA
                     "TUA : LORE IN CAPS", delegate
                     {
                         UIManager.DrawLore();
+                        return true;
+                    }, InterfaceScaleType.UI)
+                );
+                layers.Insert(MouseTextIndex, new LegacyGameInterfaceLayer(
+                    "TUA : Void GUI", delegate
+                    {
+                        UIManager.OpenVoidUI();
+                        UIManager.DrawVoid();
                         return true;
                     }, InterfaceScaleType.UI)
                 );
@@ -700,16 +712,20 @@ namespace TUA
             }
         }
 
-        /// <summary>
-        /// Move to dimlibs or implement trough the new Save File API
-        /// </summary>
-        private void AllowGignaticWorld()
+        public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
-            /*
-            Main.chest = new Chest[10000];
-            Main.tile = new Tile[25200, 9600];
-            Main.maxTilesX = 25200;
-            Main.maxTilesY = 9600;*/
+            TUANetMessage message = (TUANetMessage)reader.ReadByte();
+            switch (message)
+            {
+                case TUANetMessage.VoidPlayerSync:
+                    VoidPlayer player = Main.player[reader.ReadByte()].GetModPlayer<VoidPlayer>();
+                    player.voidAffinity = reader.ReadInt32();
+                    player.maxVoidAffinity = reader.ReadInt32();
+                    player.voidTier2Unlocked = reader.ReadBoolean();
+                    player.voidTier3Unlocked = reader.ReadBoolean();
+                    player.voidTier4Unlocked = reader.ReadBoolean();
+                    break;
+            }
         }
 
         public override void PostDrawInterface(SpriteBatch spriteBatch)
@@ -725,6 +741,8 @@ namespace TUA
         {
             titleTimer = timer;
             currentTitle = new Title(text, subText, textColor, subTextColor, font, timer, baseOpacity, fadeEffect);
+
+
         }
 
         protected struct Title

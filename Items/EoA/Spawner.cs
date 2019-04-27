@@ -72,22 +72,5 @@ namespace TUA.Items.EoA
             Main.spriteBatch.Draw(ModContent.GetTexture("Projectile_490"), new Vector2(player.Center.X, player.Center.Y), Color.DarkRed);
             return true;
         }
-
-        protected override bool CraftingMaterials(out (int type, int stack)[] items)
-        {
-            items = new (int, int)[]
-            {
-                (ItemID.LunarBar, 10),
-                (ItemID.SuspiciousLookingEye, 5),
-                (ItemID.MechanicalEye, 1),
-                (mod.ItemType("SuspiciousBurnedEye"), 2)
-            };
-            return true;
-        }
-
-        protected override void CraftingConditions(ModRecipe recipe)
-        {
-            recipe.AddTile(TileID.MythrilAnvil);
-        }
     }
 }

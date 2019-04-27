@@ -1,5 +1,4 @@
-﻿using LiquidAPI.LiquidMod;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria.World.Generation;
 
 namespace TUA.API.GenActionModifiers
