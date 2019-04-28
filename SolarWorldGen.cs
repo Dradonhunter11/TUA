@@ -1,24 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.GameContent.Generation;
 using Terraria.ID;
 using Terraria.IO;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 using Terraria.World.Generation;
 using TUA.Utilities;
 
 namespace TUA
 {
-	public class SolarWorldGen : Dimlibs.API.ModDimension
+    public class SolarWorldGen : Dimlibs.API.ModDimension
 	{
-
         public static bool GetMudwall()
 		{
 			FieldInfo info = typeof(WorldGen).GetField("mudWall", BindingFlags.Static | BindingFlags.NonPublic);
@@ -27,8 +20,6 @@ namespace TUA
 
 		public override void ModifyGenerationPass(int seed, GenerationProgress customProgressObject)
         {
-            
-
             AddGenerationPass("Reset", delegate (GenerationProgress progress)
             {
                 int maxtilesX = 8400;
