@@ -10,12 +10,12 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
-using TerrariaUltraApocalypse.API;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
-using TerrariaUltraApocalypse.Items.Misc.Spawner;
+using TUA.API;
+using TUA.API.TerraEnergy.Block;
+using TUA.API.TerraEnergy.Block.FunctionnalBlock;
+using TUA.Items.Misc.Spawner;
 
-namespace TerrariaUltraApocalypse.Dimension.Block
+namespace TUA.Dimension.Block
 {
     class MobSpawner : TUABlock
     {
@@ -157,9 +157,9 @@ namespace TerrariaUltraApocalypse.Dimension.Block
         public bool checkValidPosition(int x, int y)
         {
             bool playerDistance = false;
-            foreach (Player p in Main.player)
+            for (int i = 0; i < Main.player.Length; i++)
             {
-                
+                Player p = Main.player[i];
                 if (Vector2.Distance(p.Center / 16, Position.ToVector2()) < 40)
                 {
                     playerDistance = true;
@@ -173,8 +173,9 @@ namespace TerrariaUltraApocalypse.Dimension.Block
 
         public void spawnMob(List<Point16> list)
         {
-            foreach (Point16 point in list)
+            for (int i1 = 0; i1 < list.Count; i1++)
             {
+                Point16 point = list[i1];
                 Player p = Main.LocalPlayer;
                 Point16 i = new Point16((int)p.Center.X / 16, (int)p.Center.Y / 16);
 

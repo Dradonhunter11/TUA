@@ -2,15 +2,16 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Tiles.NewBiome.Meteoridon
+namespace TUA.Tiles.NewBiome.Meteoridon
 {
-    class MeteoridonStone : ModTile
+    class MeteoridonStone : BaseMeteoridonTile
     {
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
+            TileID.Sets.Conversion.Stone[Type] = true; 
             drop = ItemID.DirtBlock;
             AddMapEntry(new Microsoft.Xna.Framework.Color(255, 120, 55));
         }

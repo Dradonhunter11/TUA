@@ -10,13 +10,13 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using TerrariaUltraApocalypse.API.CustomInventory;
+using TUA.API.CustomInventory;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI
+namespace TUA.API.TerraEnergy.EnergyAPI
 {
     abstract class StorageEntity : ModTileEntity
     {
-        internal Core energy;
+        public Core energy;
         public int maxEnergy;
 
         public virtual List<ExtraSlot> getSlot()
@@ -104,7 +104,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI
             return energy.getMaxEnergyLevel();
         }
 
-        public int Place(int i, int j)
+        public new int Place(int i, int j)
         {
             ModTileEntity modTileEntity = ModTileEntity.ConstructFromBase(this);
             modTileEntity.Position = new Point16(i, j);

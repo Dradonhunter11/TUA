@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TerrariaUltraApocalypse.API.TerraEnergy;
+using TUA.API.TerraEnergy;
 
-namespace TerrariaUltraApocalypse.API.FurnaceRework
+namespace TUA.API.FurnaceRework
 {
     class BudgetCore : Core
     {
@@ -13,7 +13,7 @@ namespace TerrariaUltraApocalypse.API.FurnaceRework
         {
         }
 
-        public override int consumeEnergy(int energyToRemove)
+        public override int ConsumeEnergy(int energyToRemove)
         {
             if (currentEnergy < 0)
             {

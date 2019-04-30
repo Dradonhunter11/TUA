@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Projectiles.Misc.FishronEater
+namespace TUA.Projectiles.Misc.FishronEater
 {
     public class FishronBolt : ModProjectile
     {

@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using TerrariaUltraApocalypse.API.CustomInventory;
-using TerrariaUltraApocalypse.API.TerraEnergy;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
-using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
-using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
-using TerrariaUltraApocalypse.API.TerraEnergy.UI;
+using TUA.API.CustomInventory;
+using TUA.API.TerraEnergy.MachineRecipe.Furnace;
+using TUA.API.TerraEnergy.UI;
+using TUA.Utilities;
 
-namespace TerrariaUltraApocalypse.API.FurnaceRework.TileEntity
+namespace TUA.API.FurnaceRework.TileEntity
 {
     abstract class BaseFurnaceEntity : ModTileEntity
     {
@@ -64,8 +57,7 @@ namespace TerrariaUltraApocalypse.API.FurnaceRework.TileEntity
             }
 
             Main.playerInventory = true;
-            TerrariaUltraApocalypse.machineInterface.SetState(furnaceUi);
-            TerrariaUltraApocalypse.machineInterface.IsVisible = true;
+            UIManager.OpenMachineUI(furnaceUi);
         }
 
         public sealed override void Load(TagCompound tag)
@@ -83,11 +75,9 @@ namespace TerrariaUltraApocalypse.API.FurnaceRework.TileEntity
             SetAir(ref temp);
             SetAir(ref temp2);
 
-            InputSlot.setItem(ref temp);
-            OutputSlot.setItem(ref temp2);
+            InputSlot.SetItem(ref temp);
+            OutputSlot.SetItem(ref temp2);
         }
-
-        
 
         public void SetAir(ref Item item)
         {
@@ -104,19 +94,14 @@ namespace TerrariaUltraApocalypse.API.FurnaceRework.TileEntity
             OutputSlot = new ExtraSlot();
         }
 
-        public void setItem(Item i)
-        {
-            InputSlot.setItem(ref i);
-        }
-
-
         public override TagCompound Save()
         {
-            TagCompound tag = new TagCompound();
-            tag.Add("inputSlot", InputSlot.getItem(true));
-            tag.Add("outputSlot", OutputSlot.getItem(true));
-            tag.Add("fuelLevel", fuel.getCurrentEnergyLevel());
-            return tag;
+            return new TagCompound
+            {
+                ["inputSlot"] = InputSlot.GetItem(),
+                ["outputSlot"] = OutputSlot.GetItem(),
+                ["fuelLevel"] = fuel.getCurrentEnergyLevel()
+            };
         }
 
         public override void Update()
@@ -128,9 +113,11 @@ namespace TerrariaUltraApocalypse.API.FurnaceRework.TileEntity
 
             if (currentRecipe == null && checkTimer <= 0)
             {
-                FurnaceRecipe recipe = getRecipe();
+                FurnaceRecipe recipe = InputSlot.IsEmpty ? null
+                    : FurnaceRecipeManager.Instance.IsValid(InputSlot.GetItem()) 
+                        ? FurnaceRecipeManager.Instance.Recipe : null;
                 if (recipe != null &&
-                    (OutputSlot.isEmpty() || OutputSlot.getItem(false).type == recipe.getResult().type))
+                    (OutputSlot.IsEmpty || OutputSlot.GetItem().type == recipe.GetResult().type))
                 {
                     currentRecipe = recipe;
                 }
@@ -140,7 +127,7 @@ namespace TerrariaUltraApocalypse.API.FurnaceRework.TileEntity
 
             if (currentRecipe != null)
             {
-                updateItem();
+                UpdateItem();
                 progression++;
             }
             checkTimer--;
@@ -165,36 +152,24 @@ namespace TerrariaUltraApocalypse.API.FurnaceRework.TileEntity
         /*                         TIME FOR FUN :D                       */
         /*****************************************************************/
 
-        private FurnaceRecipe getRecipe()
-        {
-            if (!InputSlot.isEmpty())
-            {
-                if (FurnaceRecipeManager.getInstance().validRecipe(InputSlot.getItem(true)))
-                {
-                    return FurnaceRecipeManager.getInstance().GetRecipe();
-                }
-            }
-            return null;
-        }
-
-        private void updateItem()
+        private void UpdateItem()
         {
             if (progression >= cookTimer)
             {
-                InputSlot.manipulateCurrentStack(-currentRecipe.getIngredientStack());
+                InputSlot.ManipulateCurrentStack(currentRecipe.GetIngredientStack());
 
-                Item result = currentRecipe.getResult().Clone();
+                Item result = currentRecipe.GetResult().Clone();
 
-                if (OutputSlot.isEmpty())
+                if (OutputSlot.IsEmpty)
                 {
-                    OutputSlot.setItem(ref result);
+                    OutputSlot.SetItem(ref result);
                 }
                 else
                 {
-                    OutputSlot.manipulateCurrentStack(1);
+                    OutputSlot.ManipulateCurrentStack(1);
                 }
 
-                fuel.consumeEnergy(1);
+                fuel.ConsumeEnergy(1);
                 currentRecipe = null;
                 progression = 0;
             }

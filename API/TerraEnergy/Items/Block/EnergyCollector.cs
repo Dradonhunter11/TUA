@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.Items.Block
+namespace TUA.API.TerraEnergy.Items.Block
 {
     class EnergyCollector : ModItem
     {

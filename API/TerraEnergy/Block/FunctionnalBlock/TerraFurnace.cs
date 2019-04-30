@@ -8,14 +8,15 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
-using TerrariaUltraApocalypse.API.CustomInventory;
-using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
-using TerrariaUltraApocalypse.API.TerraEnergy.Items;
-using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
-using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
-using TerrariaUltraApocalypse.API.TerraEnergy.UI;
+using TUA.API.CustomInventory;
+using TUA.API.TerraEnergy.EnergyAPI;
+using TUA.API.TerraEnergy.Items;
+using TUA.API.TerraEnergy.MachineRecipe.Furnace;
+using TUA.API.TerraEnergy.TileEntities;
+using TUA.API.TerraEnergy.UI;
+using TUA.Utilities;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
+namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 {
     class TerraFurnace : TUABlock
     {
@@ -123,8 +124,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
             }
 
             Main.playerInventory = true;
-            TerrariaUltraApocalypse.machineInterface.SetState(furnaceUi);
-            TerrariaUltraApocalypse.machineInterface.IsVisible = true;
+            UIManager.OpenMachineUI(furnaceUi);
         }
 
         public override void LoadEntity(TagCompound tag)
@@ -141,8 +141,8 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
             SetAir(ref temp);
             SetAir(ref temp2);
 
-            InputSlot.setItem(ref temp);
-            OutputSlot.setItem(ref temp2);
+            InputSlot.SetItem(ref temp);
+            OutputSlot.SetItem(ref temp2);
         }
 
         public void SetAir(ref Item item)
@@ -167,15 +167,15 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
         public void setItem(Item i)
         {
-            InputSlot.setItem(ref i);
+            InputSlot.SetItem(ref i);
         }
 
 
 
         public override void SaveEntity(TagCompound tag)
         {
-            tag.Add("inputSlot", InputSlot.getItem(true));
-            tag.Add("outputSlot", OutputSlot.getItem(true));
+            tag.Add("inputSlot", InputSlot.GetItem());
+            tag.Add("outputSlot", OutputSlot.GetItem());
         }
 
         public override void Update()
@@ -189,9 +189,9 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
             if (currentRecipe == null && checkTimer <= 0)
             {
-                FurnaceRecipe recipe = getRecipe();
+                FurnaceRecipe recipe = GetRecipe();
                 if (recipe != null &&
-                    (OutputSlot.isEmpty() || OutputSlot.getItem(false).type == recipe.getResult().type))
+                    (OutputSlot.IsEmpty || OutputSlot.GetItem().type == recipe.GetResult().type))
                 {
                     currentRecipe = recipe;
                 }
@@ -208,7 +208,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
             if (boundCapacitor != null)
             {
-                energy.addEnergy(boundCapacitor.energy.consumeEnergy(boundCapacitor.maxTransferRate));
+                energy.addEnergy(boundCapacitor.energy.ConsumeEnergy(boundCapacitor.maxTransferRate));
             }
             checkTimer--;
 
@@ -234,13 +234,13 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
         /*                         TIME FOR FUN :D                       */
         /*****************************************************************/
 
-        private FurnaceRecipe getRecipe()
+        private FurnaceRecipe GetRecipe()
         {
-            if (!InputSlot.isEmpty())
+            if (!InputSlot.IsEmpty)
             {
-                if (FurnaceRecipeManager.getInstance().validRecipe(InputSlot.getItem(true)))
+                if (FurnaceRecipeManager.Instance.IsValid(InputSlot.GetItem()))
                 {
-                    return FurnaceRecipeManager.getInstance().GetRecipe();
+                    return FurnaceRecipeManager.Instance.Recipe;
                 }
             }
             return null;
@@ -248,19 +248,19 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock
 
         private void updateItem()
         {
-            if (progression >= currentRecipe.getCookTime() && energy.consumeEnergy(50) == 50)
+            if (progression >= currentRecipe.GetCookTime() && energy.ConsumeEnergy(50) == 50)
             {
-                InputSlot.manipulateCurrentStack(-currentRecipe.getIngredientStack());
+                InputSlot.ManipulateCurrentStack(-currentRecipe.GetIngredientStack());
 
-                Item result = currentRecipe.getResult().Clone();
+                Item result = currentRecipe.GetResult().Clone();
 
-                if (OutputSlot.isEmpty())
+                if (OutputSlot.IsEmpty)
                 {
-                    OutputSlot.setItem(ref result);
+                    OutputSlot.SetItem(ref result);
                 }
                 else
                 {
-                    OutputSlot.manipulateCurrentStack(1);
+                    OutputSlot.ManipulateCurrentStack(1);
                 }
 
                 currentRecipe = null;

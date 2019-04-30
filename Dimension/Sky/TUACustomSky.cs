@@ -1,29 +1,27 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ID;
 using Terraria.Graphics.Effects;
+using Terraria.ID;
 using Terraria.ModLoader;
-using Dimlibs;
 
-namespace TerrariaUltraApocalypse.NPCs
+namespace TUA.NPCs
 {
-    class TUACustomSky : CustomSky
+    public class TUACustomSky : CustomSky
     {
         private bool EoCUp;
         private bool EoAUp;
 
         private bool isActive;
         private int pillarVelocity = 0;
-        private float scale = 0.8f;
-        private Texture2D pillarS = Main.npcTexture[NPCID.LunarTowerSolar];
+        private readonly float scale = 0.8f;
+        private readonly Texture2D pillarS = Main.npcTexture[NPCID.LunarTowerSolar];
         private bool pillarDirection = true;
 
-        private int maxSpawns = 50;
-        private float[] zDistance = new float[50];
-        private float[] xPos = new float[50];
-        private float[] yPos = new float[50];
+        private readonly int maxSpawns = 50;
+        private readonly float[] zDistance = new float[50];
+        private readonly float[] xPos = new float[50];
+        private readonly float[] yPos = new float[50];
 
 
         public override void Activate(Vector2 position, params object[] args)
@@ -63,9 +61,9 @@ namespace TerrariaUltraApocalypse.NPCs
 
             for (int i = 0; i < 50; i++)
             {
-                spriteBatch.Draw(ModLoader.GetTexture("Terraria/npc_517"),
+                spriteBatch.Draw(ModContent.GetTexture("Terraria/npc_517"),
                 new Vector2(Main.screenPosition.X / 2f - xPos[i], (yPos[i] + pillarVelocity / 5)),
-                ModLoader.GetTexture("Terraria/npc_517").Bounds,
+                    ModContent.GetTexture("Terraria/npc_517").Bounds,
                 Color.White * zDistance[i],
                 0,
                 new Vector2(0, 0),

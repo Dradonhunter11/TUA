@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Items.Walls.Hell
+namespace TUA.Items.Walls.Hell
 {
     class AshWall : ModItem
     {

@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.UI.Elements;
 
-namespace TerrariaUltraApocalypse.API.UI
+namespace TUA.API.UI
 {
-    class UIPanelTrigger : UIPanel
+    class UIPanelTrigger : CustomizableUIPanel
     {
         public bool isVisible;
+
+        public UIPanelTrigger(Texture2D texture) : base(texture)
+        {
+        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -19,5 +23,7 @@ namespace TerrariaUltraApocalypse.API.UI
                 base.Draw(spriteBatch);
             }
         }
+
+        
     }
 }

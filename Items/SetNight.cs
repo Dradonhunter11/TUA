@@ -1,29 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.World;
-using Microsoft.Xna.Framework;
 using Terraria.World.Generation;
-using TerrariaUltraApocalypse.API.Injection;
-using TerrariaUltraApocalypse.API.LiquidAPI.LiquidMod;
-using TerrariaUltraApocalypse.API.LiquidAPI.Swap;
-using TerrariaUltraApocalypse.Dimension.MicroBiome;
+using TUA.API.Dev;
+using TUA.Dimension.MicroBiome;
+using Terraria.Cinematics;
+using TUA.Movie.Boss;
+using TUA.Structure.DungeonLike;
 
-namespace TerrariaUltraApocalypse.Items
+namespace TUA.Items
 {
     class SetNight : ModItem
     {
-        private int timer = 0;
+
+        public override bool Autoload(ref string name) => SteamID64Checker.Instance.VerifyDevID() && TUA.devMode;
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Set Night");
-            Tooltip.SetDefault("Set the time to night, just because you can\nUltra mode");
+            DisplayName.SetDefault("Dev Null\\");
+            Tooltip.SetDefault("Dev item");
         }
 
         public override void SetDefaults()
@@ -31,9 +28,10 @@ namespace TerrariaUltraApocalypse.Items
             item.width = 38;
             item.height = 40;
             item.useStyle = 4;
-            item.useTime = 20;
-            item.useAnimation = 20;
+            item.useTime = 5;
+            item.useAnimation = 5;
             item.rare = 9;
+            item.autoReuse = false;
             item.lavaWet = true;
         }
 
@@ -41,20 +39,46 @@ namespace TerrariaUltraApocalypse.Items
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.DirtBlock, 1);
-            recipe.AddTile(TileID.Grass);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }
 
         public override bool UseItem(Player player)
         {
+            /*for (int i = 0; i < Main.maxTilesX; i++)
+            {
+                for (int j = 0; j < Main.maxTilesY; j++)
+                {
+                    Main.tile[i, j].liquid = 0;
+                }
+            }*/
+
+            TUAPlayer.initialPoint = Main.MouseWorld / 16;
+
+            //CinematicManager.Instance.PlayFilm(new UEoCCutscene(new Vector2(player.position.X + 7000, player.position.Y + 6500)));
             //Main.time = 0;
             //Main.dayTime = false;
             //TUAWorld.apocalypseMoon = true;
             //Biomes<StardustFrozenForest>.Place((int)player.Center.X / 16, (int)player.Center.Y / 16, new StructureMap());
-            LiquidRef liquid = LiquidCore.grid[Player.tileTargetX, Player.tileTargetY];
-            Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 240;
-            liquid.setLiquidsState(3, true);
+            //Main.PlaySound(19, (int)Main.LocalPlayer.position.X, (int)Main.LocalPlayer.position.Y, 1, 1f, 0f);
+            //LiquidRef liquid = LiquidCore.grid[Player.tileTargetX, Player.tileTargetY];
+            //Main.tile[Player.tileTargetX, Player.tileTargetY].liquid = 255;
+            //liquid.SetLiquidsState(3, true);
+            //WorldGen.SquareTileFrame(Player.tileTargetX, Player.tileTargetY, true);
+            //TUA.instance.SetTitle("Hello world", "Yup an hello world message as title", Color.Green, Color.Pink, Main.fontDeathText, 30, 1f, true);
+            //Biomes<SolarVolcano>.Place((int) player.Center.X / 16, (int) player.Center.Y / 16 - 4, new StructureMap());
+            return true;
+        }
+
+        public override bool AltFunctionUse(Player player)
+        {
+            TUAPlayer.endPoint = Main.MouseWorld / 16;
+            Biomes<SolarVolcano>.Place((int)player.Center.X / 16, (int)player.Center.Y / 16 - 4, new StructureMap());
+            //SolarDungeon.PlaceALine(TUAPlayer.initialPoint, TUAPlayer.endPoint);
+            //SolarDungeon.PlaceRoomBox((int)(TUAPlayer.endPoint.X - 75 / 2), (int)(TUAPlayer.endPoint.Y - 15), 75, 30, 5);
+            /*SolarDungeon.GenerateSpike(TUAPlayer.initialPoint);
+            TUAPlayer.initialPoint = TUAPlayer.endPoint;
+            Main.NewText("Line placed");*/
             return true;
         }
 
@@ -77,3 +101,4 @@ namespace TerrariaUltraApocalypse.Items
         }
     }
 }
+

@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API
+namespace TUA.API
 {
+    [Obsolete("From Dimlibs@1.0")]
     class TUADimItem : Dimlibs.API.DimItem
     {
-        public virtual bool ultra { get; set; }
+        public virtual bool Ultra { get; set; }
 
         public override bool Autoload(ref string name)
         {
@@ -21,22 +19,6 @@ namespace TerrariaUltraApocalypse.API
             return base.Autoload(ref name);
         }
 
-
-        protected void manipulateUltraProperty(bool isExpert)
-        {
-            item.rare = -12;
-            if (isExpert)
-            {
-                item.expert = false;
-                return;
-            }
-            else
-            {
-                item.expert = true;
-                return;
-            }
-        }
-
         public override bool NewPreReforge()
         {
             item.rare = -12;
@@ -45,7 +27,8 @@ namespace TerrariaUltraApocalypse.API
 
         public override void UpdateInventory(Player player)
         {
-            manipulateUltraProperty(true);
+            item.rare = -12;
+            item.expert = false;
         }
 
         protected string AddUltraTooltip(string tooltip)
@@ -55,7 +38,7 @@ namespace TerrariaUltraApocalypse.API
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            if (ultra)
+            if (Ultra)
             {
                 TooltipLine ultraline = new TooltipLine(mod, "ultra", "Ultra");
                 tooltips.Add(ultraline);

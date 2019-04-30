@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
-namespace TerrariaUltraApocalypse.NPCs.NewBiome.Meteoridon.EvolvedMeteorideWorm
+namespace TUA.NPCs.NewBiome.Meteoridon.EvolvedMeteorideWorm
 {
     class EvolvedMeteorideWormHead : EvolvedMeteorideWorm
     {

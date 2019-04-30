@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using Terraria;
+﻿using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
-using TerrariaUltraApocalypse.API.Dev;
-using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
-using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
-using TerrariaUltraApocalypse.Items.Misc.Debug;
+using TUA.API.TerraEnergy.EnergyAPI;
+using TUA.Items.Misc.Debug;
 
-namespace TerrariaUltraApocalypse.API
+namespace TUA.API
 {
     class TUABlock : ModTile
     {

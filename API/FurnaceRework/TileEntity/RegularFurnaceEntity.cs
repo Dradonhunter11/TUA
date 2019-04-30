@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TerrariaUltraApocalypse.API.FurnaceRework.TileEntity
+namespace TUA.API.FurnaceRework.TileEntity
 {
     class RegularFurnaceEntity : BaseFurnaceEntity
     {

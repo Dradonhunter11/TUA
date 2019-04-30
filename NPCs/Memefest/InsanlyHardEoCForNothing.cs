@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.NPCs.Memefest
+namespace TUA.NPCs.Memefest
 {
     class InsanlyHardEoCForNothing : TUAModNPC
     {
@@ -44,9 +44,9 @@ namespace TerrariaUltraApocalypse.NPCs.Memefest
             npc.lifeMax = (int)(npc.lifeMax * 0.65 * bossLifeScale);
         }
 
-        public override void ultraScaleDifficylty(NPC npc)
+        public override void UltraScaleDifficulty(NPC npc)
         {
-            npc.lifeMax = (int)(npc.lifeMax * 5 * (TUAWorld.EoCDeath + 1));
+            npc.lifeMax = (int)(npc.lifeMax * 5 * (TUAWorld.EoCDeathCount + 1));
         }
 
         public override void NPCLoot()

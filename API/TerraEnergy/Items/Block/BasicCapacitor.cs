@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.Items.Block
+namespace TUA.API.TerraEnergy.Items.Block
 {
     class BasicCapacitor : ModItem
     {

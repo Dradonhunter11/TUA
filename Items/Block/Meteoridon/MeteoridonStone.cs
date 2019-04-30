@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Items.Block.Meteoridon
+namespace TUA.Items.Block.Meteoridon
 {
     class MeteoridonStone : ModItem
     {

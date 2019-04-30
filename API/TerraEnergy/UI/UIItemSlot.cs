@@ -9,11 +9,11 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
+namespace TUA.API.TerraEnergy.UI
 {
     abstract class UIItemSlot : UIElement
     {
-        internal float scale = .95f;
+        public float scale = .95f;
 
         protected Item currentItemInSlot = new Item();
         protected bool update = false;

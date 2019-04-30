@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TerrariaUltraApocalypse.API.Experimental
+namespace TUA.API.Experimental
 {
     class Vector2Int
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
+using TUA.API.TerraEnergy.EnergyAPI;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.Items
+namespace TUA.API.TerraEnergy.Items
 {
     class TerraMeter : EnergyItem
     {

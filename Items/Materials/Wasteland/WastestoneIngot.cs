@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
-using Terraria.ID;
+﻿using Terraria;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
+using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 
-namespace TerrariaUltraApocalypse.Items.Materials.Wasteland
+namespace TUA.Items.Materials.Wasteland
 {
     class WastestoneIngot : ModItem
     {
@@ -19,13 +13,17 @@ namespace TerrariaUltraApocalypse.Items.Materials.Wasteland
             item.useStyle = 1;
             item.value = Item.sellPrice(0, 0, 99, 0);
             item.maxStack = 999;
+            item.createTile = mod.TileType("WastestoneIngot");
+            item.consumable = true;
         }
 
         public override void AddRecipes()
         {
-            ModRecipe recipe = new ModRecipe(mod);
             FurnaceRecipe furnace = new FurnaceRecipe(mod);
-            
+            furnace.AddIngredient(mod.ItemType("WastelandOre"), 3);
+            furnace.SetCostAndCookTime(500);
+            furnace.SetResult(mod.ItemType<WastestoneIngot>());
+            furnace.AddRecipe();
         }
     }
 }

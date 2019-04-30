@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 
-namespace TerrariaUltraApocalypse.Items.Wasteland.Tools
+namespace TUA.Items.Wasteland.Tools
 {
     class WastestoneWaraxe : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Eradiated Waraxe");
-            Tooltip.SetDefault("Hold the power of 100 eradiated soul");
+            Tooltip.SetDefault("Holds the power of 100 fragmented souls");
         }
 
         public override void SetDefaults()
@@ -33,5 +29,16 @@ namespace TerrariaUltraApocalypse.Items.Wasteland.Tools
             item.knockBack = 0.7f;
             item.autoReuse = true;
         }
+
+        public override void AddRecipes()
+        {
+            FurnaceRecipe furnace = new FurnaceRecipe(mod);
+            furnace.AddIngredient(mod.ItemType<Materials.Wasteland.WastestoneIngot>(), 15);
+            furnace.SetCostAndCookTime(500);
+            furnace.SetResult(mod.ItemType<WastestoneWaraxe>());
+            furnace.AddRecipe();
+        }
+
+        // TODO: debuff
     }
 }

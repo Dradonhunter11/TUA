@@ -9,7 +9,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace TerrariaUltraApocalypse.Items
+namespace TUA.Items
 {
     class TUAGlobalItem : GlobalItem
     {
@@ -23,6 +23,8 @@ namespace TerrariaUltraApocalypse.Items
         {
             get { return true; }
         }
+
+
 
         public override void SetDefaults(Item item)
         {
@@ -46,7 +48,6 @@ namespace TerrariaUltraApocalypse.Items
             }
             base.SetDefaults(item);
         }
-
 
 
         public override bool UseItem(Item item, Player player)
@@ -118,6 +119,7 @@ namespace TerrariaUltraApocalypse.Items
                 TooltipLine line = new TooltipLine(mod, "multishot", "Your weapon have an extra chance to shoot bullet for free!");
                 tooltips.Add(line);
             }
+            
         }
 
 
@@ -163,6 +165,5 @@ namespace TerrariaUltraApocalypse.Items
 
             multishot = false;
         }
-        
     }
 }

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Items.Wasteland.Weapons
+namespace TUA.Items.Wasteland.Weapons
 {
     class VenomousGreatBlade : ModItem
     {
@@ -48,9 +43,12 @@ namespace TerrariaUltraApocalypse.Items.Wasteland.Weapons
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType<VenomousGreatBlade>(), 25);
+            recipe.AddIngredient(mod.ItemType("WastestoneIngot"), 20);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
+
+            // Link to TUA.AddRecipes
         }
     }
 }

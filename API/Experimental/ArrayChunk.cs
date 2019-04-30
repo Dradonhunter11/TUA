@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Terraria;
 
-namespace TerrariaUltraApocalypse.API.Experimental
+namespace TUA.API.Experimental
 {
     class ArrayChunk<T> : IEnumerable
     {

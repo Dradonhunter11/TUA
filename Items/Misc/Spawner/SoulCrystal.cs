@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.Items.Misc.Spawner
+namespace TUA.Items.Misc.Spawner
 {
     class SoulCrystal : TUAModItem
     {
@@ -39,12 +39,12 @@ namespace TerrariaUltraApocalypse.Items.Misc.Spawner
             return mobID;
         }
 
-        internal void setID(int mobID)
+        public void setID(int mobID)
         {
             this.mobID = mobID;
         }
 
-        internal void setMaxCap(int maxCap)
+        public void setMaxCap(int maxCap)
         {
             this.maxSoul = maxCap;
         }
@@ -96,8 +96,9 @@ namespace TerrariaUltraApocalypse.Items.Misc.Spawner
 
         public override bool OnPickup(Player player)
         {
-            foreach (var items in player.inventory)
+            for (int i = 0; i < player.inventory.Length; i++)
             {
+                Item items = player.inventory[i];
                 if (items.modItem is SoulCrystal)
                 {
                     SoulCrystal sc = items.modItem as SoulCrystal;

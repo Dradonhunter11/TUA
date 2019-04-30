@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.Items.Weapons
+namespace TUA.Items.Weapons
 {
     class MechanicalSniper : TUAModItem
     {
@@ -23,7 +23,7 @@ namespace TerrariaUltraApocalypse.Items.Weapons
 
         public override void SetDefaults()
         {
-            this.ultra = true;
+            this.Ultra = true;
             item.width = 74;
             item.height = 24;
             item.ranged = true;

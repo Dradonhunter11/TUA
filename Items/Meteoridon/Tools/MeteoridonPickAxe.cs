@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Items.Meteoridon.Tools
+namespace TUA.Items.Meteoridon.Tools
 {
     class MeteoridonPickAxe : ModItem
     {

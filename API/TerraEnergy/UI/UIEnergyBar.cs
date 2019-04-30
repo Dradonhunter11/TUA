@@ -10,10 +10,10 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.UI;
-using TerrariaUltraApocalypse.API.FurnaceRework;
-using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
+using TUA.API.FurnaceRework;
+using TUA.API.TerraEnergy.TileEntities;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
+namespace TUA.API.TerraEnergy.UI
 {
     class UIEnergyBar : UIElement
     {
@@ -32,8 +32,8 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
 
         public override void OnInitialize()
         {
-            energyBar = TerrariaUltraApocalypse.instance.GetTexture("API/TerraEnergy/Texture/TerraEnergyBar");
-            fullEnergyBar = TerrariaUltraApocalypse.instance.GetTexture("API/TerraEnergy/Texture/TerraEnergyBarFilled");
+            energyBar = TUA.instance.GetTexture("API/TerraEnergy/Texture/TerraEnergyBar");
+            fullEnergyBar = TUA.instance.GetTexture("API/TerraEnergy/Texture/TerraEnergyBarFilled");
 
         }
 

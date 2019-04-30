@@ -4,11 +4,11 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.Localization;
 using Terraria.UI;
-using TerrariaUltraApocalypse.UIHijack.MainMenu.MainMenuButton;
+using TUA.UIHijack.MainMenu.MainMenuButton;
 
-namespace TerrariaUltraApocalypse.UIHijack.MainMenu
+namespace TUA.UIHijack.MainMenu
 {
-    internal class UITUACredit : UIState
+    public class UITUACredit : UIState
     {
         private UIList list;
         private UIScrollbar scrollbar;
@@ -40,7 +40,7 @@ namespace TerrariaUltraApocalypse.UIHijack.MainMenu
 
         public void backButtonEvent(UIMouseEvent MouseEvent, UIElement element)
         {
-            Main.MenuUI.SetState(TUAOptionMenuButton.settingUI);
+            Main.MenuUI.SetState(TUA.instance.newMainMenu);
             Main.PlaySound(10, -1, -1, 1, 1f, 0f);
         }
 

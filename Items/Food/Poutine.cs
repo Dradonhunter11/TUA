@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.Items.Food
+namespace TUA.Items.Food
 {
     class Poutine : TUAModItem
     {
@@ -17,7 +12,6 @@ namespace TerrariaUltraApocalypse.Items.Food
             Tooltip.AddLine("A purely awesome meal from the Canadians");
             Tooltip.AddLine("Heal 500 HP");
             Tooltip.AddLine("Give potion sickness for 30 second");
-            
         }
 
         public override void SetDefaults()

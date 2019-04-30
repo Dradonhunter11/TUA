@@ -1,115 +1,105 @@
-﻿using System;
+﻿using BiomeLibrary.API;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using BiomeLibrary;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent.Generation;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.ID;
-using Dimlibs;
-using Terraria.DataStructures;
-using Terraria.GameContent.Generation;
 using Terraria.World.Generation;
-using TerrariaUltraApocalypse.API;
-using TerrariaUltraApocalypse.Dimension.MicroBiome;
-using TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass;
-using TerrariaUltraApocalypse.Structure.hellalt;
+using TUA.API;
+using TUA.CustomScreenShader;
+using TUA.NPCs.NewBiome.Wasteland.MutatedMass;
+using TUA.Structure.hellalt;
 
-namespace TerrariaUltraApocalypse
+namespace TUA
 {
-    class TUAWorld : ModWorld
+    public class TUAWorld : ModWorld
     {
-        public static bool apocalypseMoon = false;
+        //Non ultra mode stuff
+        public static bool Wasteland;
+        public static bool RealisticTimeMode = false;
+
+        //Ultra mode phase 1 - Release : TUA - The start of a new era
         public static bool EoADowned;
         public static bool ApoMoonDowned;
         public static bool UltraMode;
-        public static bool HallowAlt;
-        public static bool Wasteland;
-        public static bool EoCPostML;
+        public static bool EoCPostMLDowned;
+        public static int EoCDeathCount = 0;
+        public static bool EoCCutsceneFirstTimePlayed;
 
-        public static int heartX = (Main.maxTilesX / 2) * 16;
-        public static int heartY = (Main.maxTilesY - 100) * 16;
-        public static int apocalypseMoonPoint = 0;
-        public static int EoCDeath = 0;
+        // Expected to have an electricity system, as this phase will require some of the new crafting mechanic
+        // Expected to have visited the solar dimension at least, to obtain the sun core modifier
+        //Ultra mode phase 2 - 1.1 : TUA - The one that made the world
+        public static bool EvilPostMLDowned;
+        public static bool CotWDowned; //Creator of the world - God of balance
+        public static int EvilDeath = 0;
 
-        public static bool RealisticTimeMode = false;
+        // Expected to have visited the stardust dimension, to get the stardust heart
+        // Ultra mode phase 3 - 1.2 : Bringing of the plagues
+        public static bool KingSlimePostMLDowned;
+        public static bool SlimeMoonDowned;
+        public static int SlimeKingDeath = 0;
+        public static bool AtomicSludgeDowned; //Atomic Sludge - God of disease
 
 
-        public override void Initialize()
+        //Ultra mode phase 4 
+        public static bool SkeletronPostMLDowned;
+        public static bool UndeadInvasionDowned;
+        public static int SkeletronDeath = 0;
+        public static bool SkeletronPrimal;
+
+        //Ultra mode phase 5
+        public static bool QueenBeePostMLDowned;
+        public static int QueenBeeDeath = 0;
+
+        //Ultra mode phase 6
+        public static bool HellBossPostMLDowned;
+        public static int HellBossKingDeath = 0;
+        public static bool wallOfTerrapocalypse;
+
+        private static ushort _nextSnowflakeIncrement;
+        public static ushort NextSnowflakeIncrement
         {
-            RegisterPlagues();
-            RegisterMeteoridon();
-            RegisterSolar();
-            RegisterStardust();
-            RegisterNebula();
-            RegisterVortex();
-        }
-
-        private void RegisterPlagues()
-        {
-            BiomeLibs.RegisterNewBiome("Plagues", 50, mod);
-            BiomeLibs.AddBlockInBiome("Plagues", new string[] { "ApocalypseDirt" });
-        }
-
-        private void RegisterMeteoridon()
-        {
-            Func<bool> c = () => Main.hardMode;
-            BiomeLibs.RegisterNewBiome("Meteoridon", 50, mod);
-            BiomeLibs.AddBlockInBiome("Meteoridon", new string[] { "MeteoridonStone", "MeteoridonGrass", "BrownIce" });
-            BiomeLibs.addHallowAltBiome("Meteoridon", "The world is getting fiery...");
-            BiomeLibs.SetCondition("Meteoridon", c);
-        }
-
-        private void RegisterSolar()
-        {
-            Func<bool> c = () => Dimlibs.Dimlibs.getPlayerDim() == "solar";
-            BiomeLibs.RegisterNewBiome("Solar", 200, mod);
-            BiomeLibs.AddBlockInBiome("Solar", new string[] { "SolarDirt", "SolarRock" });
-            BiomeLibs.SetCondition("solar", c);
-        }
-
-        private void RegisterVortex()
-        {
-            BiomeLibs.RegisterNewBiome("Vortex", 200, mod);
-        }
-
-        private void RegisterNebula()
-        {
-            BiomeLibs.RegisterNewBiome("Nebula", 200, mod);
-        }
-
-        private void RegisterStardust()
-        {
-            Func<bool> c = () => Dimlibs.Dimlibs.getPlayerDim() == "stardust";
-            BiomeLibs.RegisterNewBiome("Stardust", 200, mod);
-            BiomeLibs.AddBlockInBiome("stardust", new string[] { "StardustRock" });
-            BiomeLibs.SetCondition("stardust", c);
+            get
+            {
+                if (++_nextSnowflakeIncrement == ushort.MaxValue) _nextSnowflakeIncrement = 0;
+                return _nextSnowflakeIncrement;
+            }
         }
 
         public override TagCompound Save()
         {
-            TagCompound tc = new TagCompound();
-            tc.Add("UltraMode", UltraMode);
-            tc.Add("EoADowned", EoADowned);
-            tc.Add("UltraEoCDowned", EoCDeath);
-            tc.Add("hellAlt", Wasteland);
-            tc.Add("RealisticTimeMode", RealisticTimeMode);
+            BitsByte bits = new BitsByte();
+            bits[0] = UltraMode;
+            bits[1] = EoADowned;
+            bits[2] = Wasteland;
+            bits[3] = EoCCutsceneFirstTimePlayed;
+            bits[4] = RealisticTimeMode;
+            return new TagCompound
+            {
+                ["Flags"] = bits,
+                ["EoCCutscene"] = EoCDeathCount,
+                ["_nextSnowflakeIncrement"] = _nextSnowflakeIncrement
+            };
             //tc.Add("apocalypseMoon", apocalypseMoon);
-            return tc;
         }
 
         public override void Load(TagCompound tag)
         {
-            UltraMode = tag.GetBool("UltraMode");
-            EoADowned = tag.GetBool("EoADowned");
-            EoCDeath = tag.GetInt("UltraEoCDowned");
-            Wasteland = tag.GetBool("hellAlt");
-            RealisticTimeMode = tag.GetBool("RealisticTimeMode");
+            var bits = (BitsByte)tag.GetByte("Flags");
+            UltraMode = bits[0];
+            EoADowned = bits[1];
+            Wasteland = bits[2];
+            EoCCutsceneFirstTimePlayed = bits[3];
+            RealisticTimeMode = bits[4];
+
+            _nextSnowflakeIncrement = tag.Get<ushort>("_nextSnowflakeIncrement");
 
             if (!Main.ActiveWorldFileData.HasCorruption)
             {
-                NPC.NewNPC((Main.maxTilesX / 2) * 16, (Main.maxTilesY - 100) * 16, mod.NPCType("HeartOfTheWasteland"), 0, 0f, 0f, 0f, 0f, 255);
+                NPC.NewNPC((Main.maxTilesX / 2) * 16, (Main.maxTilesY - 100) * 16 + 444, mod.NPCType("HeartOfTheWasteland"), 0, 0f, 0f, 0f, 0f, 255);
             }
         }
 
@@ -118,134 +108,38 @@ namespace TerrariaUltraApocalypse
             int hellIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Underworld"));
             int hellForgeIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Hellforge"));
             int guideIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Guide"));
-            tasks[hellIndex] = new PassLegacy("Underworld", newUnderWorldGen);
-            tasks[hellForgeIndex] = new PassLegacy("Hellforge", newForgeGen);
+            tasks[hellIndex] = new PassLegacy("Underworld",
+                progress =>
+                {
+                    if (WorldGen.crimson)
+                    {
+                        Wasteland = true;
+                        WastelandGeneration(progress);
+                        NPC.NewNPC((Main.maxTilesX / 2) * 16, (Main.maxTilesY - 100) * 16 - 444, mod.NPCType("HeartOfTheWasteland"), 0, 0f, 0f, 0f, 0f, 255);
+                    }
+                    else
+                    {
+                        Wasteland = false;
+                        VanillaHell(progress);
+                    }
+                });
+            tasks[hellForgeIndex] = new PassLegacy("Hellforge",
+                progress => 
+                {
+                    if (!Wasteland)
+                    {
+                        AddForges(progress);
+                    }
+                });
         }
-
-
-        public override void PostUpdate()
-        {
-            
-            if (Main.netMode != 1)
-            {
-                for (int k = 0; k < Main.maxTilesX * Main.maxTilesY * 3E-05 * Main.worldRate; k++)
-                {
-                    int x = WorldGen.genRand.Next(10, Main.maxTilesX - 10);
-                    int y = WorldGen.genRand.Next(10, (int)Main.worldSurface - 1);
-                    if (Main.tile[x, y] != null && Main.tile[x, y].liquid <= 32 && Main.tile[x, y].nactive())
-                    {
-                        UpdateTile(x, y);
-                    }
-
-                }
-                for (int k = 0; k < Main.maxTilesX * Main.maxTilesY * 1.5E-05 * Main.worldRate; k++)
-                {
-                    int x = WorldGen.genRand.Next(10, Main.maxTilesX - 10);
-                    int y = WorldGen.genRand.Next((int)Main.worldSurface - 1, Main.maxTilesY - 20);
-                    if (Main.tile[x, y] != null && Main.tile[x, y].liquid <= 32 && Main.tile[x, y].nactive())
-                    {
-                        UpdateTile(x, y);
-                    }
-                }
-
-            }
-        }
-
-        private void UpdateTile(int x, int y)
-        {
-            Tile tile = Main.tile[x, y];
-
-            if (!tile.inActive() && (tile.type == (ushort)mod.TileType("ApocalypseDirt") && WorldGen.genRand.Next(4) == 0))
-            {
-                bool flag = true;
-                while (flag)
-                {
-                    flag = false;
-                    int toX = x + WorldGen.genRand.Next(-3, 4);
-                    int toY = y + WorldGen.genRand.Next(-3, 4);
-                    bool tileChanged = false;
-                    int targetType = Main.tile[toX, toY].type;
-
-                    if (targetType == 0)
-                    {
-                        Main.tile[toX, toY].type = (ushort)mod.TileType("ApocalypseDirt");
-                        tileChanged = true;
-                    }
-                    else if (targetType == 2)
-                    {
-                        Main.tile[toX, toY].type = (ushort)mod.TileType("ApocalypseDirt");
-                        tileChanged = true;
-                    }
-
-                    if (tileChanged)
-                    {
-                        if (WorldGen.genRand.Next(1000) == 0)
-                        {
-                            flag = true;
-                        }
-                        WorldGen.SquareTileFrame(toX, toY, true);
-                        NetMessage.SendTileSquare(-1, toX, toY, 1);
-                    }
-                }
-            }
-            else if (!tile.inActive() && (tile.type == (ushort)mod.TileType("MeteoridonGrass") || tile.type == (ushort)mod.TileType("MeteoridonStone") || tile.type == (ushort)mod.TileType("BrownIce") && WorldGen.genRand.Next(4) == 0))
-            {
-                bool flag = true;
-                while (flag)
-                {
-                    flag = false;
-                    int toX = x + WorldGen.genRand.Next(-3, 4);
-                    int toY = y + WorldGen.genRand.Next(-3, 4);
-                    bool tileChanged = false;
-                    int targetType = Main.tile[toX, toY].type;
-
-                    if (targetType == 1)
-                    {
-                        Main.tile[toX, toY].type = (ushort)mod.TileType("MeteoridonStone");
-                        tileChanged = true;
-                    }
-                    else if (targetType == 2)
-                    {
-                        Main.tile[toX, toY].type = (ushort)mod.TileType("MeteoridonGrass");
-                        tileChanged = true;
-                    }
-                    else if (targetType == 161)
-                    {
-                        Main.tile[toX, toY].type = (ushort)mod.TileType("BrownIce");
-                        tileChanged = true;
-                    }
-                    else if (targetType == 0 && Main.tile[toX, toY - 1] == null)
-                    {
-                        Main.tile[toX, toY].type = (ushort)mod.TileType("MeteoridonGrass");
-                        tileChanged = true;
-                    }
-
-                    if (tileChanged)
-                    {
-                        if (WorldGen.genRand.Next(1000) == 0)
-                        {
-                            flag = true;
-                        }
-                        WorldGen.SquareTileFrame(toX, toY, true);
-                        NetMessage.SendTileSquare(-1, toX, toY, 1);
-                    }
-                }
-            }
-        }
-
 
         public override void PreUpdate()
         {
-            if (!apocalypseMoon)
-            {
-                Main.moonTexture = TerrariaUltraApocalypse.originalMoon;
-            }
-
             Main.bottomWorld = Main.maxTilesY * 16 + 400;
 
-            if (NPC.CountNPCS(mod.NPCType<HeartOfTheWasteland>()) == 0)
+            if (NPC.CountNPCS(mod.NPCType<HeartOfTheWasteland>()) == 0 && Main.ActiveWorldFileData.HasCrimson)
             {
-                NPC.NewNPC((Main.maxTilesX / 2) * 16, (Main.maxTilesY - 100) * 16, mod.NPCType("HeartOfTheWasteland"), 0, 0f, 0f, 0f, 0f, 255);
+                NPC.NewNPC((Main.maxTilesX / 2) * 16, (Main.maxTilesY - 100) * 16 + 444, mod.NPCType("HeartOfTheWasteland"), 0, 0f, 0f, 0f, 0f, 255);
             }
 
             if (RealisticTimeMode)
@@ -284,171 +178,12 @@ namespace TerrariaUltraApocalypse
             Main.bottomWorld = Main.maxTilesY - 10;
         }
 
-        private static void Volcano(Mod mod, int i, int j)
+        public void AddForges(GenerationProgress progress)
         {
-            int x = i;
-            int y = j;
-
-            int volcanoBlock = mod.TileType("SolarRock");
-
-            for (int yPos = j; yPos < j + Main.maxTilesY - 200; yPos += 4)
-            {
-                Main.tile[i, j].bottomSlope();
-                WorldGen.TileRunner(x - 20, y + yPos, 35, 2, volcanoBlock, true, 5, 10, false);
-                WorldGen.TileRunner(x + 20, y + yPos, 35, 2, volcanoBlock, true, 5, 10, false);
-            }
-
-            int baseY = -16;
-
-            for (int xPos = 16; xPos < 128; xPos += 4)
-            {
-                for (int yPos = baseY; yPos < 120; yPos += 8)
-                {
-                    WorldGen.TileRunner(x - xPos, y + yPos, 30, 2, volcanoBlock, true, 5, 10, false);
-                    WorldGen.TileRunner(x + xPos, y + yPos, 30, 2, volcanoBlock, true, 5, 10, false);
-                }
-                baseY += 4;
-                if (Main.rand.NextBool())
-                {
-                    baseY += 4;
-                }
-            }
-
-
-            for (int yPos = y - 24; yPos < y + Main.maxTilesY - 400; yPos++)
-            {
-                int clear = Main.rand.Next(14, 18);
-                for (int xPos = x - clear; xPos < x + clear; xPos++)
-                {
-                    WorldGen.KillTile(xPos, yPos, false, false, true);
-
-                }
-            }
-
-
-            for (int yPos = y + 6; yPos < y + Main.maxTilesY - 400; yPos++)
-            {
-                int clear = Main.rand.Next(14, 18);
-                for (int xPos = x - clear; xPos < x + clear; xPos++)
-                {
-                    Main.tile[xPos, yPos].lava(true);
-                    Main.tile[xPos, yPos].liquid = 255;
-
-                }
-            }
-
-            for (int yPos = Main.maxTilesY - 200; yPos < Main.maxTilesY; yPos++)
-            {
-                for (int xPos = 0; xPos < Main.maxTilesX; xPos++)
-                {
-                    if (xPos > 0 && xPos < Main.maxTilesX && !Main.tile[xPos, yPos].lava())
-                    {
-                        Main.tile[xPos, yPos].lava(true);
-                        Main.tile[xPos, yPos].liquid = 255;
-
-                    }
-                }
-            }
-
-            makeCore(x, y + 70, Main.rand.Next(35, 50));
-
-        }
-
-        private static void makeCore(int i, int j, int size)
-        {
-            int baseX = size - 2;
-
-            for (int yCenter = j; yCenter < j + size; yCenter++)
-            {
-                for (int xCenter = i - baseX; xCenter <= i; xCenter++)
-                {
-
-                    if (xCenter > 0 && xCenter < Main.maxTilesX && yCenter > 0 && yCenter < Main.maxTilesY)
-                    {
-                        WorldGen.KillTile(xCenter, yCenter);
-                        Main.tile[xCenter, yCenter].lava(true);
-                        Main.tile[xCenter, yCenter].liquid = 255;
-                    }
-                }
-                for (int xCenter = i + baseX; xCenter >= i; xCenter--)
-                {
-
-                    if (xCenter > 0 && xCenter < Main.maxTilesX && yCenter > 0 && yCenter < Main.maxTilesY)
-                    {
-                        WorldGen.KillTile(xCenter, yCenter);
-                        Main.tile[xCenter, yCenter].lava(true);
-                        Main.tile[xCenter, yCenter].liquid = 255;
-                    }
-                }
-                if (Main.rand.NextBool())
-                {
-                    baseX--;
-                }
-            }
-
-            baseX = size - 2;
-
-            for (int yCenter = j; yCenter > j - size; yCenter--)
-            {
-                for (int xCenter = i - baseX; xCenter <= i; xCenter++)
-                {
-
-                    if (xCenter > 0 && xCenter < Main.maxTilesX && yCenter > 0 && yCenter < Main.maxTilesY)
-                    {
-                        WorldGen.KillTile(xCenter, yCenter);
-                        Main.tile[xCenter, yCenter].lava(true);
-                        Main.tile[xCenter, yCenter].liquid = 255;
-                    }
-                }
-                for (int xCenter = i + baseX; xCenter >= i; xCenter--)
-                {
-
-                    if (xCenter > 0 && xCenter < Main.maxTilesX && yCenter > 0 && yCenter < Main.maxTilesY)
-                    {
-                        WorldGen.KillTile(xCenter, yCenter);
-                        Main.tile[xCenter, yCenter].lava(true);
-                        Main.tile[xCenter, yCenter].liquid = 255;
-                    }
-                }
-                if (Main.rand.NextBool())
-                {
-                    baseX--;
-                }
-            }
-
-        }
-
-
-        public void newUnderWorldGen(GenerationProgress progress)
-        {
-            
-            if (WorldGen.crimson)
-            {
-                Wasteland = true;
-                wastelandGeneration(progress);
-                NPC.NewNPC((Main.maxTilesX / 2) * 16, (Main.maxTilesY - 100) * 16, mod.NPCType("HeartOfTheWasteland"), 0, 0f, 0f, 0f, 0f, 255);
-            }
-            else
-            {
-                Wasteland = false;
-                originalHell(progress);
-            }
-        }
-
-        public void newForgeGen(GenerationProgress progress)
-        {
-            if (!Wasteland)
-            {
-                hellForge(progress);
-            }
-        }
-
-        public void hellForge(GenerationProgress progress)
-        {
-            progress.Message = Lang.gen[36].Value;
+            progress.Message = Language.GetTextValue("LegacyGen.36");
             for (int k = 0; k < Main.maxTilesX / 200; k++)
             {
-                float value = (float)(k / (Main.maxTilesX / 200));
+                float value = k / (Main.maxTilesX / 200);
                 progress.Set(value);
                 bool flag2 = false;
                 int num = 0;
@@ -489,12 +224,11 @@ namespace TerrariaUltraApocalypse
                     }
                 }
             }
-
         }
 
-        public void wastelandGeneration(GenerationProgress progress)
+        public void WastelandGeneration(GenerationProgress progress)
         {
-            progress.Message = "Eradiate the underworld";
+            progress.Message = "Eradiating the underworld";
             progress.Set(0f);
 
             int maxAmplitude = 15;
@@ -502,12 +236,11 @@ namespace TerrariaUltraApocalypse
             int originY = 100;
             bool inverted = false;
             int startingY = 175;
-
+            // bool generateLiquid = false;
             for (int x = 0; x < Main.maxTilesX; x++)
             {
                 for (int y = Main.maxTilesY - 200; y < Main.maxTilesY; y++)
                 {
-                    
                     Main.tile[x, y].type = (ushort)mod.TileType("WastelandRock");
                     Main.tile[x, y].liquid = 0;
                     Main.tile[x, y].active(true);
@@ -568,14 +301,38 @@ namespace TerrariaUltraApocalypse
             }
             for (int num11 = 0; num11 < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.0008); num11++)
             {
-                WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(Main.maxTilesY - 140, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 7), WorldGen.genRand.Next(3, 7), mod.TileType("WastelandOre"), false, 0f, 0f, false, true);
+                if (WorldGen.genRand.Next(50) == 0)
+                {
+                    WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(Main.maxTilesY - 140, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 7), WorldGen.genRand.Next(3, 7), mod.TileType("WastelandOre"), false, 0f, 0f, false, true);
+                }
             }
-            Biomes<TheHeartArena>.Place((int)Main.maxTilesX / 2, (int)Main.maxTilesY - 100, WorldGen.structures);
+            GenerateSpikeTop();
+            Biomes<HotWArena>.Place((int)Main.maxTilesX / 2, (int)Main.maxTilesY - 100, WorldGen.structures);
         }
 
-        public void originalHell(GenerationProgress progress)
+        public void GenerateSpikeTop()
         {
-            progress.Message = Lang.gen[18].Value;
+            for (int x = 0; x < Main.maxTilesX; x++)
+            {
+                if (WorldGen.genRand.Next(150) == 0)
+                {
+                    int yModifier = Main.maxTilesY - 150;
+                    while (!Main.tile[x, yModifier].active())
+                    {
+                        yModifier--;
+                    }
+
+                    yModifier -= 5;
+                    WorldUtils.Gen(new Point(x, yModifier),
+                        new Shapes.Tail(WorldGen.genRand.Next(5, 7),
+                            new Vector2(x, yModifier + WorldGen.genRand.Next(10, 12))), new Actions.PlaceTile(mod.TileID("WastelandRock")));
+                }
+            }
+        }
+
+        public void VanillaHell(GenerationProgress progress)
+        {
+            progress.Message = Language.GetTextValue("LegacyGen.18");
             progress.Set(0f);
             int num = Main.maxTilesY - WorldGen.genRand.Next(150, 190);
             for (int k = 0; k < Main.maxTilesX; k++)
@@ -776,5 +533,14 @@ namespace TerrariaUltraApocalypse
         }
         */
 
+        
+
+        public override void PostDrawTiles()
+        {
+            if (mod.GetBiome("Meteoridon").InBiome() && Main.netMode == 0)
+            {
+                ScreenFog.Draw(TUA.SolarFog, 0.3f, 0.1f);
+            }
+        }
     }
 }

@@ -1,21 +1,16 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using BiomeLibrary.API;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.NPCs.NewBiome.Wasteland.MutatedMass;
+using TUA.Items.Meteoridon;
+using TUA.NPCs.NewBiome.Wasteland.MutatedMass;
 
 
-namespace TerrariaUltraApocalypse.API
+namespace TUA.API
 {
-    class TUAModNPC : ModNPC
+    public class TUAModNPC : ModNPC
     {
-        public override bool CloneNewInstances { get { return true; } }
-        
-
+        public override bool CloneNewInstances => false;
 
         public override bool Autoload(ref string name)
         {
@@ -30,22 +25,22 @@ namespace TerrariaUltraApocalypse.API
         {
             if (TUAWorld.UltraMode)
             {
-                ultraScaleDifficylty(npcClone);
+                UltraScaleDifficulty(npcClone);
             }
             return base.NewInstance(npcClone);
         }
 
         //This method is used to do NPC scaling in Ultra mode
-        public virtual void ultraScaleDifficylty(NPC npc) { }
+        public virtual void UltraScaleDifficulty(NPC npc) { }
 
-        public static void SpawnHotW()
+        public static void Awaken()
         {
-            foreach(NPC npc in Main.npc) {
+            for (int i = 0; i < Main.npc.Length; i++) {
+                NPC npc = Main.npc[i];
                 if (npc.modNPC is HeartOfTheWasteland)
                 {
                     HeartOfTheWasteland boss = npc.modNPC as HeartOfTheWasteland;
-                    boss.setSleepState(false);
-
+                    boss.IsSleeping = false;
                 }
             }
         }
@@ -55,6 +50,15 @@ namespace TerrariaUltraApocalypse.API
             if (damage >= damageCap)
             {
                 damage = damageCap;
+            }
+        }
+
+        public override void SetupShop(Chest shop, ref int nextSlot)
+        {
+            if (npc.type == NPCID.Steampunker && mod.GetBiome("Meteoridon").InBiome())
+            {
+                shop.item[nextSlot] = mod.GetItem<BrownSolution>().item;
+                nextSlot++;
             }
         }
     }

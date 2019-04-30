@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.Items.Dimension
+namespace TUA.Items.Dimension
 {
     class StardustCrystal : TUADimItem
     {
@@ -18,13 +18,12 @@ namespace TerrariaUltraApocalypse.Items.Dimension
 
         public override void SetDefaults()
         {
-            ultra = true;
+            Ultra = true;
             item.width = 32;
             item.height = 32;
             item.useStyle = 4;
             item.useTime = 5;
             item.useAnimation = 20;
-            setDimensionGenerator(new StardustWorldGen());
             dimensionName = "stardust";
             dimensionMessage = "You are entering into the cold environnement of stardust...";
             base.SetDefaults();

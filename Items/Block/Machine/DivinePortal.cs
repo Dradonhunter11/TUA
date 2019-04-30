@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
 
-namespace TerrariaUltraApocalypse.Items.Block.Machine
+namespace TUA.Items.Block.Machine
 {
     class DivinePortal : TUAModItem
     {
@@ -27,7 +27,7 @@ namespace TerrariaUltraApocalypse.Items.Block.Machine
             item.useStyle = 1;
             item.autoReuse = true;
             item.createTile = mod.TileType("DivinePortal");
-            ultra = true;
+            Ultra = true;
         }
     }
 }

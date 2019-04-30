@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TerrariaUltraApocalypse.API;
-using TerrariaUltraApocalypse.Projectiles.Misc.FishronEater;
+using TUA.API;
+using TUA.Projectiles.Misc.FishronEater;
 
-namespace TerrariaUltraApocalypse.Items.Weapons.Misc
+namespace TUA.Items.Weapons.Misc
 {
     class FishronEater : TUAModLegacyItem
     {
@@ -29,7 +29,7 @@ namespace TerrariaUltraApocalypse.Items.Weapons.Misc
             item.noMelee = true;
             item.ranged = true;
             item.shootSpeed = 12;
-            ultra = true;
+            Ultra = true;
         }
     }
 }

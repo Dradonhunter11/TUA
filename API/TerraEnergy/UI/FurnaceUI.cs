@@ -11,18 +11,19 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
-using TerrariaUltraApocalypse.API.CustomInventory;
-using TerrariaUltraApocalypse.API.CustomInventory.UI;
-using TerrariaUltraApocalypse.API.FurnaceRework;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
-using TerrariaUltraApocalypse.API.UI;
+using TUA.API.CustomInventory;
+using TUA.API.CustomInventory.UI;
+using TUA.API.FurnaceRework;
+using TUA.API.TerraEnergy.Block.FunctionnalBlock;
+using TUA.API.UI;
+using TUA.Utilities;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
+namespace TUA.API.TerraEnergy.UI
 {
     class FurnaceUI : UIState
     {
-        public UIPanel furnaceUI;
-        public UIPanelTrigger upgradeUI;
+        public CustomizableUIPanel furnaceUI;
+        public CustomizableUIPanel upgradeUI;
         public static bool visible = false;
 
         private readonly InputOutputSlot _input;
@@ -30,6 +31,9 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
         private readonly FuelSlot _fuel;
         private readonly UIEnergyBar _energyBar;
         private string _furnaceName = "";
+
+        private UIElement xButton;
+        private Texture2D xButtonTexture;
 
         public FurnaceUI(ExtraSlot input, ExtraSlot output, Core core, string furnaceName)
         {
@@ -57,14 +61,23 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
 
         public override void OnInitialize()
         {
-            furnaceUI = new UIPanel();
+            xButtonTexture = TUA.instance.GetTexture("Texture/X_ui");
+
+            xButton = new UIElement();
+            xButton.Width.Set(20f, 0f);
+            xButton.Height.Set(22f, 0f);
+            xButton.Left.Set(Main.screenWidth / 2f + 170f, 0f);
+            xButton.Top.Set(Main.screenHeight / 2f - 90f, 0f);
+            xButton.OnClick += CloseButtonClicked;
+
+            furnaceUI = new CustomizableUIPanel(TUA.instance.GetTexture("Texture/UI/panel"));
             furnaceUI.SetPadding(0);
             furnaceUI.Width.Set(400, 0f);
             furnaceUI.Height.Set(200, 0f);
             furnaceUI.Top.Set(Main.screenHeight / 2 - 100, 0f);
             furnaceUI.Left.Set(Main.screenWidth / 2 - 200, 0f);
 
-            upgradeUI = new UIPanelTrigger();
+            upgradeUI = new CustomizableUIPanel(TUA.instance.GetTexture("Texture/UI/panel"));
             upgradeUI.SetPadding(0);
             upgradeUI.Width.Set(200, 0f);
             upgradeUI.Height.Set(150, 0f);
@@ -94,15 +107,6 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
             furnaceUI.Append(_input);
             furnaceUI.Append(_output);
 
-            Texture2D buttonDeleteTexture = ModLoader.GetTexture("Terraria/UI/ButtonDelete");
-            UIImageButton closeButton = new UIImageButton(buttonDeleteTexture);
-            closeButton.Left.Set(400 - 35, 0f);
-            closeButton.Top.Set(10, 0f);
-            closeButton.Width.Set(22, 0f);
-            closeButton.Height.Set(22, 0f);
-            closeButton.OnClick += new MouseEvent(CloseButtonClicked);
-            furnaceUI.Append(closeButton);
-
             
             _energyBar.Top.Set(180f, 0);
             _energyBar.Left.Set(10f, 0);
@@ -112,12 +116,13 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
             
             Append(furnaceUI);
             Append(upgradeUI);
+            Append(xButton);
         }
 
 
         private void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
-            TerrariaUltraApocalypse.machineInterface.IsVisible = false;
+            UIManager.CloseMachineUI();
             Main.playerInventory = false;
         }
 
@@ -129,6 +134,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
                 nameDrawingPosition, Color.White, 0f, Vector2.Zero,
                 Vector2.One);
             upgradeUI.isVisible = false;
+            furnaceUI.isVisible = true;
             if (_furnaceName.Equals("Adamantite Forge") || _furnaceName.Equals("Titanium Forge"))
             {
 
@@ -138,6 +144,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
                     UpgradeDrawingPosition, Color.White, 0f, Vector2.Zero,
                     Vector2.One);
             }
+            spriteBatch.Draw(xButtonTexture, xButton.GetInnerDimensions().Position(), Color.White);
         }
     }
 }

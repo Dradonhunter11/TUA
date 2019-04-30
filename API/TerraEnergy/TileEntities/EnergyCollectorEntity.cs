@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader.IO;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
-using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
+using TUA.API.TerraEnergy.Block.FunctionnalBlock;
+using TUA.API.TerraEnergy.EnergyAPI;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
+namespace TUA.API.TerraEnergy.TileEntities
 {
 
     class EnergyCollectorEntity : StorageEntity
     {
-        private int drainRange = 50;
+        private readonly int drainRange = 50;
         private int maxEnergy = 100000;
         private CapacitorEntity boundCapacitor;
 
@@ -44,7 +39,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
 
             if (boundCapacitor != null)
             {
-                boundCapacitor.energy.addEnergy(energy.consumeEnergy(boundCapacitor.maxTransferRate));
+                boundCapacitor.energy.addEnergy(energy.ConsumeEnergy(boundCapacitor.maxTransferRate));
             }
 
             if (tile != null && tile.type != mod.TileType("EnergyCollector") || tile.type != mod.TileType("BasicTECapacitor") || tile.type != mod.TileType("TerraWaste") || tile.type != mod.TileType("TerraFurnace") && !energy.isFull())

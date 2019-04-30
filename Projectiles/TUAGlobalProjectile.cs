@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Projectiles
+namespace TUA.Projectiles
 {
     class TUAGlobalProjectile : GlobalProjectile
     {

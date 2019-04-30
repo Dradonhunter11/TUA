@@ -8,9 +8,12 @@ using Terraria.GameContent.Generation;
 using Terraria.ID;
 using Terraria.World.Generation;
 
-namespace TerrariaUltraApocalypse.Structure.hellalt
+namespace TUA.Structure.hellalt
 {
-    class TheHeartArena : MicroBiome
+    /// <summary>
+    /// To expand later on
+    /// </summary>
+    class HotWArena : MicroBiome
     {
         private readonly int WIDTH = 100;
         private readonly int HEIGHT = 100;
@@ -19,11 +22,11 @@ namespace TerrariaUltraApocalypse.Structure.hellalt
         {
             Rectangle structureBound = new Rectangle(origin.X - WIDTH / 2, origin.Y - HEIGHT / 2, WIDTH, HEIGHT);
             structures.AddStructure(structureBound);
-            generateArena(origin);
+            GenArena(origin);
             return true;
         }
 
-        public void generateArena(Point origin)
+        public void GenArena(Point origin)
         {
             WorldUtils.Gen(origin, new Shapes.Circle(77, 77), Actions.Chain(new GenAction[]
             {
@@ -34,7 +37,7 @@ namespace TerrariaUltraApocalypse.Structure.hellalt
             WorldUtils.Gen(origin, new Shapes.Circle(75, 75), Actions.Chain(new GenAction[]
             {
                 new Actions.ClearTile(true),
-                new Actions.PlaceWall((byte) TerrariaUltraApocalypse.instance.WallType("WastestoneBrickWall"), true)
+                new Actions.PlaceWall((byte) TUA.instance.WallType("WastestoneBrickWall"), true)
             }));
 
             WorldUtils.Gen(origin, new Shapes.Rectangle(144, 10), Actions.Chain(new GenAction[]

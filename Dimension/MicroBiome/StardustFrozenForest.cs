@@ -11,11 +11,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.World.Generation;
-using TerrariaUltraApocalypse.API.GenActionModifiers;
-using TerrariaUltraApocalypse.Dimension.Block;
-using TerrariaUltraApocalypse.Tiles.NewBiome.Meteoridon;
+using TUA.API.GenActionModifiers;
+using TUA.Dimension.Block;
+using TUA.Tiles.NewBiome.Meteoridon;
 
-namespace TerrariaUltraApocalypse.Dimension.MicroBiome
+namespace TUA.Dimension.MicroBiome
 {
     class StardustFrozenForest : Terraria.World.Generation.MicroBiome
     {
@@ -38,8 +38,8 @@ namespace TerrariaUltraApocalypse.Dimension.MicroBiome
             WorldUtils.Gen(structureBound.Location, new Shapes.Rectangle(WIDTH, HEIGHT), new Actions.TileScanner(
                 new ushort[]
                 {
-                    (ushort)ModLoader.GetMod("TerrariaUltraApocalypse").TileType("StardustRock"),
-                    (ushort)ModLoader.GetMod("TerrariaUltraApocalypse").TileType("StardustIce")
+                    (ushort)ModLoader.GetMod("TUA").TileType("StardustRock"),
+                    (ushort)ModLoader.GetMod("TUA").TileType("StardustIce")
                 }
             ).Output(environmentTile));
 
@@ -58,7 +58,7 @@ namespace TerrariaUltraApocalypse.Dimension.MicroBiome
             return true;
         }
 
-        internal void generateForest(Point start)
+        public void generateForest(Point start)
         {
 
             int circleHorizontal = HEIGHT - WorldGen.genRand.Next(20);
@@ -139,7 +139,7 @@ namespace TerrariaUltraApocalypse.Dimension.MicroBiome
             generateRuin(start, 50, 35, 50, true);
         }
 
-        internal void generateRuin(Point origin, int width, int height, int integretyPercent, bool chest = false)
+        public void generateRuin(Point origin, int width, int height, int integretyPercent, bool chest = false)
         {
             ShapeData data = new ShapeData();
 
@@ -165,8 +165,8 @@ namespace TerrariaUltraApocalypse.Dimension.MicroBiome
             int x = origin.X - 1 + WorldGen.genRand.Next(width - 2);
             int y = origin.Y + height - 1;
 
-            WorldGen.PlaceTile(x, y, TerrariaUltraApocalypse.instance.TileType<MobSpawner>());
-            TerrariaUltraApocalypse.instance.GetTileEntity<MobSpawnerEntity>().Place(x - 1, y - 1);
+            WorldGen.PlaceTile(x, y, TUA.instance.TileType<MobSpawner>());
+            TUA.instance.GetTileEntity<MobSpawnerEntity>().Place(x - 1, y - 1);
         }
     }
 }

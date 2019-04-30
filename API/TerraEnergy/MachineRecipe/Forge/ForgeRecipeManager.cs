@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Furnace;
+using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge
+namespace TUA.API.TerraEnergy.MachineRecipe.Forge
 {
     class ForgeRecipeManager
     {
@@ -38,8 +38,9 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge
 
         public bool validRecipe(Item[] ingredient)
         {
-            foreach (ForgeRecipe i in forgeRecipeList)
+            for (int i1 = 0; i1 < forgeRecipeList.Count; i1++)
             {
+                ForgeRecipe i = forgeRecipeList[i1];
                 if (i.checkItem(ingredient) && i.checkQuantity(ingredient))
                 {
                     currentRecipe = i;
@@ -51,7 +52,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge
 
         
 
-        internal void AddRecipe(ForgeRecipe r)
+        public void AddRecipe(ForgeRecipe r)
         {
             forgeRecipeList.Add(r);
         }

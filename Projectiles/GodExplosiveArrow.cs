@@ -8,12 +8,10 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.Localization;
-using TerrariaUltraApocalypse.API.VoidClass;
 
-
-namespace TerrariaUltraApocalypse.Projectiles
+namespace TUA.Projectiles
 {
-    class GodExplosiveArrow : VoidDamageProjectile
+    class GodExplosiveArrow : ModProjectile
     {
 
         private int timer = 0;
@@ -35,8 +33,6 @@ namespace TerrariaUltraApocalypse.Projectiles
             projectile.penetrate = 1;
             projectile.tileCollide = true;
             projectile.timeLeft = 76;
-            Void = true;
-            VoidDamage = 50;
             aiType = ProjectileID.HolyArrow;
         }
 
@@ -48,7 +44,6 @@ namespace TerrariaUltraApocalypse.Projectiles
 
         public override void AI()
         {
-            projectile.rotation /= projectile.velocity.X / projectile.velocity.Y;
             timer++;
             if (timer == 75)
             {
@@ -81,8 +76,7 @@ namespace TerrariaUltraApocalypse.Projectiles
             Color? color = Color.DarkRed;
             if (color.HasValue) {
                 int dust = Dust.NewDust(projectile.position, 16, 16, DustID.FlameBurst);
-                Main.dust[dust].velocity *= 0.2f;
-                Main.dust[dust].velocity += projectile.velocity;
+                Main.dust[dust].velocity = projectile.velocity;
             }
         }
 

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 
-namespace TerrariaUltraApocalypse.Items.Block.Meteoridon
+namespace TUA.Items.Block.Meteoridon
 {
     class MeteoridonWoodPlank : ModItem
     {

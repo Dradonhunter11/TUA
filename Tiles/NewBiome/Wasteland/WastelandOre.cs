@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Tiles.NewBiome.Wasteland
+namespace TUA.Tiles.NewBiome.Wasteland
 {
     class WastelandOre : ModTile
     {
@@ -18,9 +12,8 @@ namespace TerrariaUltraApocalypse.Tiles.NewBiome.Wasteland
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
             ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Wastestone");
+            name.SetDefault("Toxic Ore");
             AddMapEntry(Color.YellowGreen, name);
-            
         }
     }
 }

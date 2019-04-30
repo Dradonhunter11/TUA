@@ -18,7 +18,7 @@ using Terraria.Localization;
 using Terraria.UI;
 using Terraria.UI.Gamepad;
 
-namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
+namespace TUA.UIHijack.WorldSelection
 {
     public delegate void OldDraw(SpriteBatch spriteBatch);
 
@@ -32,7 +32,7 @@ namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
         private List<Tuple<string, bool>> favoritesCache = new List<Tuple<string, bool>>();
         private bool skipDraw;
 
-        internal static Dictionary<string, object> currentDictionary;
+        public static Dictionary<string, object> currentDictionary;
 
         public override void OnInitialize()
         {
@@ -191,8 +191,9 @@ namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
                 return x.GetFileName(true).CompareTo(y.GetFileName(true));
             });
             int num = 0;
-            foreach (WorldFileData current in list)
+            for (int i = 0; i < list.Count; i++)
             {
+                WorldFileData current = list[i];
                 this._worldList.Add(new NewUIWorldListItem(current, num++));
             }
 
@@ -300,8 +301,9 @@ namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
             if (flag)
             {
                 this.favoritesCache.Clear();
-                foreach (WorldFileData current in list)
+                for (int i = 0; i < list.Count; i++)
                 {
+                    WorldFileData current = list[i];
                     this.favoritesCache.Add(Tuple.Create<string, bool>(current.Name, current.IsFavorite));
                 }
 
@@ -341,37 +343,27 @@ namespace TerrariaUltraApocalypse.UIHijack.WorldSelection
             }
 
             SnapPoint[,] array = new SnapPoint[this._worldList.Count, 5];
-            foreach (SnapPoint current in from a in snapPoints
-                where a.Name == "Play"
-                select a)
+            foreach (SnapPoint current in snapPoints.Where(x => x.Name == "Play"))
             {
                 array[current.ID, 0] = current;
             }
 
-            foreach (SnapPoint current2 in from a in snapPoints
-                where a.Name == "Favorite"
-                select a)
+            foreach (SnapPoint current2 in snapPoints.Where(x => x.Name == "Favorite"))
             {
                 array[current2.ID, 1] = current2;
             }
 
-            foreach (SnapPoint current3 in from a in snapPoints
-                where a.Name == "Cloud"
-                select a)
+            foreach (SnapPoint current3 in snapPoints.Where(x => x.Name == "Cloud"))
             {
                 array[current3.ID, 2] = current3;
             }
 
-            foreach (SnapPoint current4 in from a in snapPoints
-                where a.Name == "Seed"
-                select a)
+            foreach (SnapPoint current4 in snapPoints.Where(x => x.Name == "Seed"))
             {
                 array[current4.ID, 3] = current4;
             }
 
-            foreach (SnapPoint current5 in from a in snapPoints
-                where a.Name == "Delete"
-                select a)
+            foreach (SnapPoint current5 in snapPoints.Where(x => x.Name == "Delete"))
             {
                 array[current5.ID, 4] = current5;
             }

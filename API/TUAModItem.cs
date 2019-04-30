@@ -1,50 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 
-namespace TerrariaUltraApocalypse.API
-{
-    
+namespace TUA.API
+{    
     public class TUAModItem : ModItem
     {
-        public virtual bool ultra { get; set; }
-        public virtual bool furnace { get; set; }
+        public virtual bool Ultra { get; set; }
+        public virtual bool Furnace { get; set; }
         public override bool CloneNewInstances { get { return true; } }
-
-        protected void manipulateUltraProperty(bool isExpert) {
-            
-            item.rare = -12;
-            if (isExpert)
-            {
-                item.expert = false;
-                return;
-            }
-            else
-            {
-                item.expert = true;
-                return;
-            }
-        }
 
         public override bool NewPreReforge()
         {
-            if (ultra)
-            {
-                item.rare = -12;
-            }
+            if (Ultra)  item.rare = -12;
             return true;
         }
 
         public override void UpdateInventory(Player player)
         {
-            if (ultra)
+            if (Ultra)
             {
-                manipulateUltraProperty(true);
+                item.rare = -12;
+                item.expert = false;
             }
         }
 
@@ -55,9 +33,9 @@ namespace TerrariaUltraApocalypse.API
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             TooltipLine tt = tooltips.FirstOrDefault(x => x.Name == "ItemName" && x.mod == "Terraria");
-            if (ultra)
+            if (Ultra)
             {
-                TooltipLine ultraline = new TooltipLine(mod, "ultra", "Ultra");
+                TooltipLine ultraline = new TooltipLine(mod, "IsUltraItem", "Ultra");
                 tooltips.Add(ultraline);
             }
 
@@ -68,11 +46,32 @@ namespace TerrariaUltraApocalypse.API
             }
         }
 
-        public override void AddRecipes()
+        // TODO: Agrair, this block possibility of custom recipe system
+        /*public override void AddRecipes()
         {
-            if (furnace) {
-
+            ModRecipe recipe = new ModRecipe(mod);
+            if (CraftingMaterials(out (int item, int stack)[] items))
+            {
+                for (int i = 0; i < items.Length; i++)
+                {
+                    var item = items[i];
+                    recipe.AddIngredient(item.item, item.stack);
+                }
             }
+            CraftingConditions(recipe);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
         }
+
+        protected virtual bool CraftingMaterials(out (int type, int stack)[] items)
+        {
+            items = new (int, int)[0];
+            return false;
+        }
+
+        protected virtual void CraftingConditions(ModRecipe recipe)
+        {
+
+        }*/
     }
 }

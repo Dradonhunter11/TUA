@@ -10,11 +10,12 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
-using TerrariaUltraApocalypse.API.CustomInventory;
-using TerrariaUltraApocalypse.API.CustomInventory.UI;
-using TerrariaUltraApocalypse.API.TerraEnergy.TileEntities;
+using TUA.API.CustomInventory;
+using TUA.API.CustomInventory.UI;
+using TUA.API.TerraEnergy.TileEntities;
+using TUA.Utilities;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
+namespace TUA.API.TerraEnergy.UI
 {
     class CapacitorUI : UIState
     {
@@ -28,7 +29,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
             chargingSlot = new ChargingSlot[4];
             for (int i = 0; i < chargingSlot.Length; i++)
             {
-                chargingSlot[i] = new ChargingSlot(slot[i], TerrariaUltraApocalypse.instance.GetTexture("API/TerraEnergy/Texture/ChargingSlotUI"), capacitorEntity, capacitorEntity.maxTransferRate);
+                chargingSlot[i] = new ChargingSlot(slot[i], TUA.instance.GetTexture("API/TerraEnergy/Texture/ChargingSlotUI"), capacitorEntity, capacitorEntity.maxTransferRate);
             }
 
             this.capacitorEntity = capacitorEntity;
@@ -43,8 +44,9 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
             panel.Left.Set(Main.screenWidth / 2 - 200, 0);
 
             int space = 40;
-            foreach (ChargingSlot slot in chargingSlot)
+            for (int i = 0; i < chargingSlot.Length; i++)
             {
+                ChargingSlot slot = chargingSlot[i];
                 slot.Top.Set(25, 0);
                 slot.Left.Set(space, 0);
                 slot.Width.Set(64, 0);
@@ -53,7 +55,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
                 panel.Append(slot);
             }
 
-            Texture2D buttonDeleteTexture = ModLoader.GetTexture("Terraria/UI/ButtonDelete");
+            Texture2D buttonDeleteTexture = ModContent.GetTexture("Terraria/UI/ButtonDelete");
             UIImageButton closeButton = new UIImageButton(buttonDeleteTexture);
             closeButton.Left.Set(400 - 45, 0f);
             closeButton.Width.Set(22, 0f);
@@ -80,8 +82,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.UI
 
         private void CloseButtonClicked(UIMouseEvent evt, UIElement listeningElement)
         {
-            
-            TerrariaUltraApocalypse.machineInterface.IsVisible = false;
+            UIManager.CloseMachineUI();
             Main.playerInventory = false;
         }
     }

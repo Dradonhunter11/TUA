@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader.IO;
-using TerrariaUltraApocalypse.API.CustomInventory;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block;
-using TerrariaUltraApocalypse.API.TerraEnergy.Block.FunctionnalBlock;
-using TerrariaUltraApocalypse.API.TerraEnergy.EnergyAPI;
-using TerrariaUltraApocalypse.API.TerraEnergy.Items.Block;
-using TerrariaUltraApocalypse.API.TerraEnergy.UI;
+using TUA.API.CustomInventory;
+using TUA.API.TerraEnergy.Block;
+using TUA.API.TerraEnergy.Block.FunctionnalBlock;
+using TUA.API.TerraEnergy.EnergyAPI;
+using TUA.API.TerraEnergy.Items.Block;
+using TUA.API.TerraEnergy.UI;
+using TUA.Utilities;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
+namespace TUA.API.TerraEnergy.TileEntities
 {
     class CapacitorEntity : StorageEntity
     {
@@ -26,16 +27,16 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
             InitializeItemSlot();
             CapacitorUi = new CapacitorUI(slot, this);
             Main.playerInventory = true;
-            TerrariaUltraApocalypse.machineInterface.SetState(CapacitorUi);
-            TerrariaUltraApocalypse.machineInterface.IsVisible = true;
+            UIManager.OpenMachineUI(CapacitorUi);
         }
 
         public override void SaveEntity(TagCompound tag)
         {
             int itemSlotId = 0;
-            foreach (var extraSlot in slot)
+            for (int i = 0; i < slot.Length; i++)
             {
-                tag.Add("slot" + 0, extraSlot.getItem(true));
+                ExtraSlot extraSlot = slot[i];
+                tag.Add("slot" + 0, extraSlot.GetItem());
                 itemSlotId++;
             }
         }
@@ -44,11 +45,12 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.TileEntities
         {
             InitializeItemSlot();
             int itemSlotId = 0;
-            foreach (var extraSlot in slot)
+            for (int i = 0; i < slot.Length; i++)
             {
+                ExtraSlot extraSlot = slot[i];
                 Item item = tag.Get<Item>("slot" + itemSlotId);
                 SetAir(ref item);
-                extraSlot.setItem(ref item);
+                extraSlot.SetItem(ref item);
                 itemSlotId++;
             }
         }

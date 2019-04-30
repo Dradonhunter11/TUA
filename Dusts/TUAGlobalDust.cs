@@ -7,7 +7,7 @@ using System.Text;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Dusts
+namespace TUA.Dusts
 {
     class TUAGlobalDust : ModDust
     {

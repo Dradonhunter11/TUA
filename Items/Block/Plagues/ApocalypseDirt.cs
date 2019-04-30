@@ -5,16 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
-using TerrariaUltraApocalypse.API;
+using TUA.API;
+using TUA.Tiles.Furniture.Coins;
 
 
-namespace TerrariaUltraApocalypse.Items.Block.Plagues
+namespace TUA.Items.Block.Plagues
 {
     class ApocalypseDirt : TUAModLegacyItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("EoADowned Dirt");
+            DisplayName.SetDefault("Apocalypse Dirt");
             Tooltip.SetDefault("You cheated to obtain this :P");
         }
 
@@ -29,7 +30,8 @@ namespace TerrariaUltraApocalypse.Items.Block.Plagues
             item.useTime = 10;
             item.useStyle = 1;
             item.autoReuse = true;
-            item.createTile = mod.TileType("ApocalypseDirt");
+            //item.createTile = mod.TileType("ApocalypseDirt");
+            item.createTile = mod.TileType<DiamondCoins>();
         }
     }
 }

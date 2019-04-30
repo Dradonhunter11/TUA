@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.Buff.Debuff.EotW
+namespace TUA.Buff.Debuff.EotW
 {
     class MagicDebuff : ModBuff
     {

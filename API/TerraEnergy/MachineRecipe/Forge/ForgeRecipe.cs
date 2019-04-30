@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge
+namespace TUA.API.TerraEnergy.MachineRecipe.Forge
 {
     class ForgeRecipe
     {
@@ -24,7 +24,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge
             this.mod = mod;
         }
 
-        public void addIngredient(int itemID, int quantity = 1)
+        public void AddIngredient(int itemID, int quantity = 1)
         {
             ingredient = new Item();
             ingredient.type = itemID;
@@ -32,7 +32,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge
             ingredientName = ingredient.Name;
         }
 
-        public void addCatalyserIngredient(int itemID, int quantity = 1)
+        public void AddCatalyst(int itemID, int quantity = 1)
         {
             ingredient2 = new Item();
             ingredient2.type = itemID;
@@ -40,7 +40,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge
             catalyserName = ingredient2.Name;
         }
 
-        public void setResult(int itemID, int quantity = 1)
+        public void SetResult(int itemID, int quantity = 1)
         {
 
             result = new Item();
@@ -49,11 +49,12 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge
             resultName = result.Name;
         }
 
-        internal bool checkItem(Item[] ingredients)
+        public bool checkItem(Item[] ingredients)
         {
             string ingredientList = "";
-            foreach (Item i in ingredients)
+            for (int i1 = 0; i1 < ingredients.Length; i1++)
             {
+                Item i = ingredients[i1];
                 if (i != null)
                 {
                     ingredientList += i.Name + " ";
@@ -62,12 +63,13 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge
             return ingredientList.Contains(ingredient.Name) && ingredientList.Contains(ingredient2.Name);
         }
 
-        internal bool checkQuantity(Item[] ingredients)
+        public bool checkQuantity(Item[] ingredients)
         {
             bool ingredientFlag = false;
             bool catalyserFlag = false;
-            foreach (Item i in ingredients)
+            for (int i1 = 0; i1 < ingredients.Length; i1++)
             {
+                Item i = ingredients[i1];
                 if (i.Name == ingredient.Name && i.stack >= ingredient.stack)
                 {
                     ingredientFlag = true;
@@ -80,7 +82,7 @@ namespace TerrariaUltraApocalypse.API.TerraEnergy.MachineRecipe.Forge
             return ingredientFlag && catalyserFlag;
         }
 
-        public void addRecipe()
+        public void AddRecipe()
         {
             ForgeRecipeManager.getInstance().AddRecipe(this);
         }

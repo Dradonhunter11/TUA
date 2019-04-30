@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.API
+namespace TUA.API
 {
-    class TUAModLegacyItem : TUAModItem
+    public class TUAModLegacyItem : TUAModItem
     {
         public override bool Autoload(ref string name)
         {

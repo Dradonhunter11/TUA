@@ -1,134 +1,162 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 
-namespace TerrariaUltraApocalypse.MoonEvent
+namespace TUA.MoonEvent
 {
-    class ApocalypseMoon : GlobalNPC 
+    public class ApocalypseMoon : API.EventManager.MoonEvent
     {
-        public static int wave = 0;
-
-        private static List<int[]> npcList = new List<int[]>();
-        private static bool initialMessage = false;
-
-        public ApocalypseMoon() {
-            npcList.Add(new int[] {NPCID.TheDestroyer, NPCID.Retinazer, NPCID.Spazmatism, NPCID.SkeletronPrime });
-            npcList.Add(new int[] { NPCID.DukeFishron, NPCID.Plantera, NPCID.Golem });
-            npcList.Add(new int[] { NPCID.Pumpking, NPCID.MourningWood });
-            npcList.Add(new int[] { NPCID.IceQueen, NPCID.SantaNK1, NPCID.Everscream });
-            npcList.Add(new int[] { NPCID.VortexHornet, NPCID.VortexHornetQueen, NPCID.VortexLarva, NPCID.VortexRifleman, NPCID.VortexSoldier});
-            npcList.Add(new int[] { NPCID.SolarCorite, NPCID.SolarCrawltipedeHead, NPCID.SolarDrakomire, NPCID.SolarDrakomireRider});
-            npcList.Add(new int[] { NPCID.StardustCellBig, NPCID.StardustJellyfishBig, NPCID.StardustSoldier, NPCID.StardustSpiderBig, NPCID.StardustWormHead });
-            npcList.Add(new int[] { NPCID.NebulaBeast, NPCID.NebulaBrain, NPCID.NebulaHeadcrab, NPCID.NebulaSoldier });
-            npcList.Add(new int[] { NPCID.MoonLordCore });
-            
-        }
-
-        public override bool CheckDead(NPC npc)
+        public override List<int> scoreThresholdLimitPerWave => new List<int>()
         {
-            if (TUAWorld.apocalypseMoon)
-            {
-                if (npc.type == NPCID.TheDestroyer || npc.type == NPCID.Retinazer || npc.type == NPCID.Spazmatism || npc.type == NPCID.Skeleton || npc.type == NPCID.DukeFishron || npc.type == NPCID.Plantera || npc.type == NPCID.Golem || npc.type == NPCID.SantaNK1 || npc.type == NPCID.IceQueen || npc.type == NPCID.Everscream || npc.type == NPCID.MourningWood || npc.type == NPCID.Pumpking || npc.type == NPCID.VortexHornet || npc.type == NPCID.VortexHornetQueen || npc.type == NPCID.VortexLarva || npc.type == NPCID.VortexRifleman || npc.type == NPCID.VortexSoldier || npc.type == NPCID.SolarCorite || npc.type == NPCID.SolarCrawltipedeHead || npc.type == NPCID.SolarDrakomire || npc.type == NPCID.SolarDrakomireRider || npc.type == NPCID.StardustCellSmall || npc.type == NPCID.StardustJellyfishBig || npc.type == NPCID.StardustSoldier || npc.type == NPCID.StardustSpiderBig || npc.type == NPCID.StardustWormHead || npc.type == NPCID.NebulaBeast || npc.type == NPCID.NebulaBrain || npc.type == NPCID.NebulaHeadcrab || npc.type == NPCID.NebulaSoldier || npc.type == NPCID.MoonLordCore)
-                {
-                    TUAWorld.apocalypseMoonPoint += 5;
-                    return true;
-                }
-            }
-            return true;
-        }
+            50, 40, 150, 150, 200, 200, 200, 200, 20
+        };
 
-        public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
+        public override Texture2D moonTexture => mod.GetTexture("Texture/Moon/ApoMoon");
+
+        public Texture2D _field;
+
+        public Texture2D Field
         {
-            if (TUAWorld.apocalypseMoon) {
-                pool.Clear();
-                editPool(pool);
-                checkWave();
-            }
-            base.EditSpawnPool(pool, spawnInfo);
+            get => _field;
+            set => _field = value;
         }
 
-        private void editPool(IDictionary<int, float> pool) {
-            for (int i = 0; i < npcList[wave].Length; i++) {
-                pool.Add(npcList[wave][i], 10f);
-            } 
-        }
-
-        private void checkWave()
+        public override string EventName => "Apocalypse Moon";
+        public override int MaxWave => 8;
+        public override void Initialize()
         {
-            if(!initialMessage)
+            SetMechanicalWave();
+            SetMysthicalBeastWave();
+            SetScaryKingWave();
+            SetChillingQueenWave();
+            SetSolarWave();
+            SetStardustWave();
+            SetNebulaWave();
+            SetVortexWave();
+        }
+
+        public override void Message(int wave)
+        {
+            switch (wave)
             {
-                Main.NewText("The mechanical are raising against you...", Microsoft.Xna.Framework.Color.Purple);
-                initialMessage = true;
-                return;
+                case 0:
+                    BaseUtility.Chat("The mechanical madness arises from the ground", Color.DarkSlateGray);
+                    break;
+                case 1:
+                    BaseUtility.Chat("The mythical beast from the jungle and the legendary fish of the ocean are enraged", Color.Green);
+                    break;
+                case 2:
+                    BaseUtility.Chat("The scary king and his minions decided to get out...", Color.Orange);
+                    break;
+                case 3:
+                    BaseUtility.Chat("The chilling queen and her children are freezing the atmosphere...", Color.LightBlue);
+                    break;
+                case 4:
+                    BaseUtility.Chat("I see a breach in the sky, seem like it's the Solar invading the world", Color.Red);
+                    break;
+                case 5:
+                    BaseUtility.Chat("A glimpse of a mystic portal just flashed before you, seems like Stardust vermin are coming...", Color.Blue);
+                    break;
+                case 6:
+                    BaseUtility.Chat("Your mind rapidly feels overtaken by creature from another world, it's likely they are from the Nebula", Color.Violet);
+                    break;
+                case 7:
+                    BaseUtility.Chat("The vortex queen decided to send her minions from Nebula to her, seems like they are invading", Color.Cyan);
+                    break;
+                case 8:
+                    NPC.SpawnOnPlayer(Main.LocalPlayer.whoAmI, NPCID.MoonLordCore);
+                    NPC.SpawnOnPlayer(Main.LocalPlayer.whoAmI, NPCID.MoonLordCore);
+                    BaseUtility.Chat("The god of destruction has summoned a mini moon lord invasian", Color.Black);
+                    break;
             }
-            if (wave == 0 && TUAWorld.apocalypseMoonPoint >= 50)
-            {
-                Main.NewText("The hidden beast are coming out!", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
-            else if (wave == 1 && TUAWorld.apocalypseMoonPoint >= 20)
-            {
-                Main.NewText("The spooky boss are invading the world!", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
-            else if (wave == 2 && TUAWorld.apocalypseMoonPoint >= 60)
-            {
-                Main.NewText("The festive boss are invading the world!", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
-            else if (wave == 3 && TUAWorld.apocalypseMoonPoint >= 60)
-            {
-                Main.NewText("The Vortex creature are invading the world!", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
-            else if (wave == 4 && TUAWorld.apocalypseMoonPoint >= 600)
-            {
-                Main.NewText("The Solar creature are invading the world!", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
-            else if (wave == 5 && TUAWorld.apocalypseMoonPoint >= 600)
-            {
-                Main.NewText("The stradust creature are invading the world!", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
-            else if (wave == 6 && TUAWorld.apocalypseMoonPoint >= 600)
-            {
-                Main.NewText("The nebula creature are invading the world!", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
-            else if (wave == 7 && TUAWorld.apocalypseMoonPoint >= 600)
-            {
-                Main.NewText("The moon lord is invading the world!", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
-            else if (wave == 8 && TUAWorld.apocalypseMoonPoint >= 15)
-            {
-                Main.NewText("<Eye of the apocalypse> : WHO SUMMONED ME, I AM ONE OF THE GOD THAT CREATED THIS WORLD AND THAT WILL DESTROY IT", Microsoft.Xna.Framework.Color.Purple);
-                wave++;
-                TUAWorld.apocalypseMoonPoint = 0;
-                return;
-            }
+        }
+
+        public override void OnDefeat()
+        {
+            TUAWorld.ApoMoonDowned = true;
+            BaseUtility.Chat("You proved yourself worthy of defeating god that once led destruction onto the world, the Apocalypsio seems to have changed, can you feel it?", Color.White);
+        }
+
+        private void SetMechanicalWave()
+        {
+            AddEnemy(NPCID.TheDestroyer, 0.3f, 5);
+            AddEnemy(NPCID.SkeletronPrime, 0.2f, 10);
+            AddEnemy(NPCID.Retinazer, 0.4f, 5);
+            AddEnemy(NPCID.Spazmatism, 0.1f, 15);
+            nextWave++;
+        }
+
+        private void SetMysthicalBeastWave()
+        {
+            AddEnemy(NPCID.Plantera, 0.3f, 10);
+            AddEnemy(NPCID.DukeFishron, 0.1f, 30);
+            AddEnemy(NPCID.Golem, 0.6f, 5);
+            nextWave++;
+        }
+
+        private void SetScaryKingWave()
+        {
+            AddEnemy(NPCID.Pumpking, 0.5f, 10);
+            AddEnemy(NPCID.MourningWood, 0.2f, 5);
+            AddEnemy(NPCID.HeadlessHorseman, 0.3f, 5);
+            nextWave++;
+        }
+
+        private void SetChillingQueenWave()
+        {
+            AddEnemy(NPCID.IceQueen, 0.5f, 10);
+            AddEnemy(NPCID.SantaNK1, 0.2f, 5);
+            AddEnemy(NPCID.Everscream, 0.3f, 5);
+            nextWave++;
+        }
+
+        private void SetSolarWave()
+        {
+            AddEnemy(NPCID.LunarTowerSolar, 0.05f, 20); //5%
+            AddEnemy(NPCID.SolarDrakomireRider, 0.03f, 5); //35%
+            AddEnemy(NPCID.SolarCorite, 0.1f, 5); //45%
+            AddEnemy(NPCID.SolarCrawltipedeHead, 0.05f, 10); //50%
+            AddEnemy(NPCID.SolarDrakomire, 0.1f, 5); //60%
+            AddEnemy(NPCID.SolarSolenian, 0.2f, 5);
+            AddEnemy(NPCID.SolarSpearman, 0.15f, 5);
+            AddEnemy(NPCID.SolarSroller, 0.05f, 10);
+            nextWave++;
+        }
+
+        private void SetStardustWave()
+        {
+            AddEnemy(NPCID.LunarTowerStardust, 0.05f, 20); //5%
+            AddEnemy(NPCID.StardustCellBig, 0.25f, 5); //30%
+            AddEnemy(NPCID.StardustCellSmall, 0, 1); //30%
+            AddEnemy(NPCID.StardustJellyfishBig, 0.05f, 5); //35%
+            AddEnemy(NPCID.StardustJellyfishSmall, 0.05f, 5); //40%
+            AddEnemy(NPCID.StardustSoldier, 0.2f, 5); //60%
+            AddEnemy(NPCID.StardustSpiderBig, 0.1f, 5); // 70%
+            AddEnemy(NPCID.StardustSpiderSmall, 0.1f, 5); // 80%
+            AddEnemy(NPCID.StardustWormHead, 0.2f, 5); //100%
+            nextWave++;
+        }
+
+        private void SetNebulaWave()
+        {
+            AddEnemy(NPCID.LunarTowerNebula, 0.05f, 20);
+            AddEnemy(NPCID.NebulaSoldier, 0.35f, 5);
+            AddEnemy(NPCID.NebulaHeadcrab, 0.2f, 5);
+            AddEnemy(NPCID.NebulaBrain, 0.1f, 5);
+            AddEnemy(NPCID.NebulaBeast, 0.3f, 5);
+            nextWave++;
+        }
+
+        private void SetVortexWave()
+        {
+            AddEnemy(NPCID.LunarTowerVortex, 0.05f, 20);
+            AddEnemy(NPCID.VortexHornet, 0.2f, 5);
+            AddEnemy(NPCID.VortexLarva, 0.2f, 5);
+            AddEnemy(NPCID.VortexRifleman, 0.2f, 5);
+            AddEnemy(NPCID.VortexSoldier, 0.2f, 5);
+            AddEnemy(NPCID.VortexHornetQueen, 0.15f, 5);
         }
     }
 }

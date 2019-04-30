@@ -11,9 +11,9 @@ using Terraria.IO;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 
-namespace TerrariaUltraApocalypse
+namespace TUA
 {
-    class StardustWorldGen : Dimlibs.API.DimGenerator
+    /*class StardustWorldGen : Dimlibs.API.ModDimension
     {
         public static double iceLayer;
 
@@ -152,7 +152,7 @@ namespace TerrariaUltraApocalypse
             WorldGen.EveryTileFrame();
         }
 
-        internal void initialShaping(GenerationProgress progress)
+        public void initialShaping(GenerationProgress progress)
         {
             progress.Message = "Stardust world Gen : Shaping the land";
             int curveInfluence = 0;
@@ -245,14 +245,14 @@ namespace TerrariaUltraApocalypse
                     if ((double)currentY < rockLayer)
                     {
                         Main.tile[currentX, currentY].active(true);
-                        Main.tile[currentX, currentY].type = (ushort)ModLoader.GetMod("TerrariaUltraApocalypse").TileType("StardustIce");
+                        Main.tile[currentX, currentY].type = (ushort)ModLoader.GetMod("TUA").TileType("StardustIce");
                         Main.tile[currentX, currentY].frameX = -1;
                         Main.tile[currentX, currentY].frameY = -1;
                     }
                     else
                     {
                         Main.tile[currentX, currentY].active(true);
-                        Main.tile[currentX, currentY].type = (ushort)ModLoader.GetMod("TerrariaUltraApocalypse").TileType("StardustRock");
+                        Main.tile[currentX, currentY].type = (ushort)ModLoader.GetMod("TUA").TileType("StardustRock");
                         Main.tile[currentX, currentY].frameX = -1;
                         Main.tile[currentX, currentY].frameY = -1;
                     }
@@ -270,7 +270,7 @@ namespace TerrariaUltraApocalypse
         }
 
 
-        internal void Shaping(GenerationProgress progress)
+        public void Shaping(GenerationProgress progress)
         {
             progress.Message = "Stardust world Gen : Carving the ocean";
             int yLevel = (int)(Main.maxTilesY * 0.14);
@@ -347,14 +347,14 @@ namespace TerrariaUltraApocalypse
                     if ((double)currentY < rockLayer)
                     {
                         Main.tile[currentX, currentY].active(true);
-                        Main.tile[currentX, currentY].type = (ushort)ModLoader.GetMod("TerrariaUltraApocalypse").TileType("StardustIce");
+                        Main.tile[currentX, currentY].type = (ushort)ModLoader.GetMod("TUA").TileType("StardustIce");
                         Main.tile[currentX, currentY].frameX = -1;
                         Main.tile[currentX, currentY].frameY = -1;
                     }
                     else
                     {
                         Main.tile[currentX, currentY].active(true);
-                        Main.tile[currentX, currentY].type = (ushort)ModLoader.GetMod("TerrariaUltraApocalypse").TileType("StardustRock");
+                        Main.tile[currentX, currentY].type = (ushort)ModLoader.GetMod("TUA").TileType("StardustRock");
                         Main.tile[currentX, currentY].frameX = -1;
                         Main.tile[currentX, currentY].frameY = -1;
                     }
@@ -362,7 +362,7 @@ namespace TerrariaUltraApocalypse
             }
         }
 
-        internal void shapeSpawn(GenerationProgress progress)
+        public void shapeSpawn(GenerationProgress progress)
         {
             progress.Message = "Stardust world Gen : Shaping the spawn point";
             //start at 3888 and end at 3312
@@ -455,7 +455,7 @@ namespace TerrariaUltraApocalypse
             }
         }
 
-        internal void shapingTheFloor(GenerationProgress progress)
+        public void shapingTheFloor(GenerationProgress progress)
         {
             progress.Message = "Stardust world Gen : Shaping the ocean floor";
             double currentLevel = Main.maxTilesY * 0.4;
@@ -478,10 +478,10 @@ namespace TerrariaUltraApocalypse
                     
                     for (int currentY = (int) seaLevel; currentY > seaLevel + yModification; currentY--)
                     {
-                        /*Main.tile[currentX, currentY].type =
-                            (ushort)TerrariaUltraApocalypse.instance.TileType("StardustIce");*/
+                        Main.tile[currentX, currentY].type =
+                            (ushort)TUA.instance.TileType("StardustIce");
                         WorldGen.PlaceTile(currentX, currentY,
-                            TerrariaUltraApocalypse.instance.TileType("StardustIce"));
+                            TUA.instance.TileType("StardustIce"));
                     }
 
                 }
@@ -496,13 +496,13 @@ namespace TerrariaUltraApocalypse
         }
 
 
-        internal void freezingTheSpawn(GenerationProgress progress)
+        public void freezingTheSpawn(GenerationProgress progress)
         {
             
 
         }
 
-        internal void generateSea(GenerationProgress progress)
+        public void generateSea(GenerationProgress progress)
         {
             progress.Message = "Stardust world Gen : Flooding the world!";
             for (int currentX = 0; currentX < Main.maxTilesX; currentX++)
@@ -518,7 +518,7 @@ namespace TerrariaUltraApocalypse
             }
         }
 
-        internal void settleLiquid (GenerationProgress progress)
+        public void settleLiquid (GenerationProgress progress)
         {
             progress.Message = Lang.gen[27].Value;
             Liquid.QuickWater(3, -1, -1);
@@ -562,8 +562,6 @@ namespace TerrariaUltraApocalypse
             Main.tileSolid[190] = true;
         }
 
-        public StardustWorldGen() : base("Stardust")
-        {
-        }
-    }
+
+    }*/
 }
