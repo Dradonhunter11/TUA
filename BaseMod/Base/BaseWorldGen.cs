@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-
 using Terraria;
-using Terraria.ObjectData;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ObjectData;
 using Terraria.World.Generation;
 
-namespace TUA
+namespace TUA.BaseMod.Base
 {
     public class BaseWorldGen
     {

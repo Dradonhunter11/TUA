@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.UI;
 using TUA.Void;
 
-namespace UI.VoidUI
+namespace TUA.UI.VoidUI
 {
     class VoidUIState : UIState
     {

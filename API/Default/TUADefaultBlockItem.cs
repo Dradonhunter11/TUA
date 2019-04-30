@@ -2,20 +2,20 @@
 {
     abstract class TUADefaultBlockItem : TUAModItem
     {
-        public abstract string name { get; }
-        public abstract int value { get; }
-        public abstract int blockToPlace { get; }
+        public abstract string TUAName { get; }
+        public abstract int TUAValue { get; }
+        public abstract int BlockToPlace { get; }
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault(name);
+            DisplayName.SetDefault(TUAName);
         }
 
         public override void SetDefaults()
         {
             item.width = 16;
             item.height = 16;
-            item.value = value;
+            item.value = TUAValue;
             item.maxStack = 999;
             item.useTurn = true;
             item.autoReuse = true;
@@ -23,7 +23,7 @@
             item.useTime = 10;
             item.useStyle = 1;
             item.consumable = true;
-            item.createTile = blockToPlace;
+            item.createTile = BlockToPlace;
         }
     }
 }

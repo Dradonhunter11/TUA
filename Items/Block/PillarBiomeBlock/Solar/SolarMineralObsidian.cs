@@ -5,9 +5,9 @@ namespace TUA.Items.Block.PillarBiomeBlock.Solar
 {
     class SolarMineralObsidian : TUADefaultBlockItem
     {
-        public override string name => "Solar mineral obsidian";
-        public override int value => 10;
-        public override int blockToPlace => mod.TileID("SolarMineralObsidian");
+        public override string TUAName => "Solar mineral obsidian";
+        public override int TUAValue => 10;
+        public override int BlockToPlace => mod.TileID("SolarMineralObsidian");
 
         public override void SetStaticDefaults()
         {

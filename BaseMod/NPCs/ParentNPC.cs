@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
-namespace TUA
+namespace TUA.BaseMod.NPCs
 {
 	public abstract class ParentNPC : ModNPC
 	{

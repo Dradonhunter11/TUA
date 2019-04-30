@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Cinematics;
+using TUA.BaseMod.Base;
 using TUA.NPCs.Gods.EoA;
 
 namespace TUA.Movie.Boss

@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using System.Linq;
+using TUA.BaseMod.Base;
 
 namespace TUA.NPCs.Gods.EoA
 {

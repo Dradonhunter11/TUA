@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.UI;
-using UI.VoidUI;
+using TUA.UI.VoidUI;
 
 namespace TUA.Utilities
 {

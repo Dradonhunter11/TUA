@@ -1,6 +1,6 @@
 using Terraria.ModLoader;
 
-namespace TUA
+namespace TUA.BaseMod
 {
     public class MPlayer : ModPlayer
     {

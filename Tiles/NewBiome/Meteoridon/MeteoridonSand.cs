@@ -9,8 +9,8 @@ namespace TUA.Tiles.NewBiome.Meteoridon
     {
         public override int ItemDropID => mod.ItemType("MeteoridonSand");
         public override int ItemProjectileID => mod.ProjectileType("MeteoridonSandProjectile");
-        public override bool sandTile => true;
-        public override Color mapColor => Color.DarkOrange;
+        public override bool SandTile => true;
+        public override Color MapColor => Color.DarkOrange;
 
         public override void RandomUpdate(int i, int j)
         {

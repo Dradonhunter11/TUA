@@ -6,10 +6,6 @@ namespace TUA.API.Default
 {
     public abstract class TUASolution : ModProjectile
     {
-        public virtual int Size => 4;
-        public abstract string SolutionName { get; }
-        public abstract int Dust { get; }
-
         public abstract void Convert(int i, int j);
 
         public override void SetStaticDefaults()
@@ -76,6 +72,11 @@ namespace TUA.API.Default
                 projectile.ai[0] += 1f;
             }
             projectile.rotation += 0.3f * (float)projectile.direction;
-        }  
+        }
+
+        public virtual int Size => 4;
+
+        public abstract string SolutionName { get; }
+        public abstract int Dust { get; }
     }
 }

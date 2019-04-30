@@ -73,13 +73,13 @@
     <OutputPath>bin\x86\DebugFNA\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="API\CustomInventory\BasicInventory.cs" />
-    <Compile Include="API\CustomInventory\ExtraSlot.cs" />
-    <Compile Include="API\CustomInventory\TileEntityContainer\Tank.cs" />
-    <Compile Include="API\CustomInventory\UI\ChargingSlot.cs" />
-    <Compile Include="API\CustomInventory\UI\FuelSlot.cs" />
-    <Compile Include="API\CustomInventory\UI\InputOutputSlot.cs" />
-    <Compile Include="API\CustomInventory\UI\OutputOnlySlot.cs" />
+    <Compile Include="API\Inventory\BasicInventory.cs" />
+    <Compile Include="API\Inventory\ExtraSlot.cs" />
+    <Compile Include="API\Inventory\TileEntityContainer\Tank.cs" />
+    <Compile Include="API\Inventory\UI\ChargingSlot.cs" />
+    <Compile Include="API\Inventory\UI\FuelSlot.cs" />
+    <Compile Include="API\Inventory\UI\InputOutputSlot.cs" />
+    <Compile Include="API\Inventory\UI\OutputOnlySlot.cs" />
     <Compile Include="API\Default\TUADefaultBlockItem.cs" />
     <Compile Include="API\Default\TUASolution.cs" />
     <Compile Include="API\Dev\ReflectionUtils.cs" />

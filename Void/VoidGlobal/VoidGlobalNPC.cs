@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TUA.BaseMod.Base;
 
 namespace TUA.Void.VoidGlobal
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TUA.API.CustomInventory
+namespace TUA.API.Inventory
 {
     abstract class BasicInventory
     {

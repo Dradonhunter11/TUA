@@ -1,14 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace TUA.API.CustomInventory.TileEntityContainer
+namespace TUA.API.Inventory.TileEntityContainer
 {
-    interface ITank
+    public interface ITank
     {
-        int CurrentAmount { get; set; }
         bool SetCurrentAmount(int capacity);
+
         int SetMaxCapacity(int maxCapacity);
+
         int GetCurrentAmount();
+
         int GetMaxCapacity();
+
         Color GetLiquidColor();
+
+        int CurrentAmount { get; set; }
     }
 }

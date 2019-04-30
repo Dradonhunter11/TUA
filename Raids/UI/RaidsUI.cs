@@ -7,6 +7,7 @@ using Terraria.UI;
 using Terraria.UI.Chat;
 using TUA.API;
 using TUA.API.UI;
+using TUA.BaseMod.Base;
 using TUA.Localization;
 using TUA.Utilities;
 

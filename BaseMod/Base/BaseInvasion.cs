@@ -1,4 +1,4 @@
-namespace TUA
+namespace TUA.BaseMod.Base
 {
 	/*public class BaseInvasion
 	{

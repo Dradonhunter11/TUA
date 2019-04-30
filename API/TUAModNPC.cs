@@ -8,23 +8,13 @@ using TUA.NPCs.NewBiome.Wasteland.MutatedMass;
 
 namespace TUA.API
 {
-    public class TUAModNPC : ModNPC
+    public abstract class TUAModNPC : ModNPC
     {
-        public override bool Autoload(ref string name)
-        {
-            if (name == "TUAModNPC")
-            {
-                return false;
-            }
-            return base.Autoload(ref name);
-        }
-
         public override ModNPC NewInstance(NPC npcClone)
         {
             if (TUAWorld.UltraMode)
-            {
                 UltraScaleDifficulty(npcClone);
-            }
+
             return base.NewInstance(npcClone);
         }
 

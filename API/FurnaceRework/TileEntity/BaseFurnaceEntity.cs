@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using TUA.API.CustomInventory;
+using TUA.API.Inventory;
 using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 using TUA.API.TerraEnergy.UI;
 using TUA.Utilities;

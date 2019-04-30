@@ -1,10 +1,9 @@
 using System;
 using Microsoft.Xna.Framework;
-
 using Terraria;
 using Terraria.Localization;
 
-namespace TUA
+namespace TUA.BaseMod.Base
 {
     public class BaseUseStyle
     {

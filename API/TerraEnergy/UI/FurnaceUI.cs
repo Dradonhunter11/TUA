@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.UI;
 using Terraria.UI.Chat;
-using TUA.API.CustomInventory;
-using TUA.API.CustomInventory.UI;
 using TUA.API.FurnaceRework;
+using TUA.API.Inventory;
+using TUA.API.Inventory.UI;
 using TUA.API.UI;
 using TUA.Utilities;
 

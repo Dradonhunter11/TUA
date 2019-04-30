@@ -4,7 +4,7 @@ using System.IO.Compression;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using TUA.API.CustomInventory;
+using TUA.API.Inventory;
 
 namespace TUA.API.TerraEnergy.EnergyAPI
 {

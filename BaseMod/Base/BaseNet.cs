@@ -1,11 +1,10 @@
 using System.IO;
 using Microsoft.Xna.Framework;
-
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.ModLoader;
 
-namespace TUA
+namespace TUA.BaseMod.Base
 {
     public class BaseNet
     {
