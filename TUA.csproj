@@ -115,7 +115,7 @@
     <Compile Include="API\TerraEnergy\UI\UIEnergyBar.cs" />
     <Compile Include="API\TileSpreadUtils.cs" />
     <Compile Include="API\TranslationWrapper.cs" />
-    <Compile Include="API\TUABlock.cs" />
+    <Compile Include="API\TUATile.cs" />
     <Compile Include="API\TerraEnergy\Core.cs" />
     <Compile Include="API\TerraEnergy\Items\Block\BasicCapacitor.cs" />
     <Compile Include="API\TerraEnergy\Items\Block\EnergyCollector.cs" />
@@ -352,25 +352,23 @@
     <Compile Include="Walls\Wasteland\WastestoneBrickWall.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="BiomeLibrary, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BiomeLibrary.dll</HintPath>
+    <Reference Include="BiomeLibrary">
+      <HintPath>lib\BiomeLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Dimlibs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dimlibs.dll</HintPath>
+    <Reference Include="Dimlibs">
+      <HintPath>lib\Dimlibs.dll</HintPath>
     </Reference>
     <Reference Include="DiscordRPC">
       <HintPath>lib\DiscordRPC.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip.Reduced">
-      <HintPath>..\..\references\Ionic.Zip.Reduced.dll</HintPath>
+      <HintPath>lib\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="LiquidAPI">
-      <HintPath>..\LiquidAPI\bin\Debug\LiquidAPI.dll</HintPath>
+      <HintPath>lib\LiquidAPI.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\references\log4net.dll</HintPath>
+      <HintPath>lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -389,28 +387,28 @@
       <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Microsoft.Xna.Framework.Xact.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
-      <HintPath>..\..\references\Mono.Cecil.dll</HintPath>
+      <HintPath>lib\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="MonoMod.RuntimeDetour">
-      <HintPath>..\..\references\MonoMod.RuntimeDetour.dll</HintPath>
+      <HintPath>lib\MonoMod.RuntimeDetour.dll</HintPath>
     </Reference>
     <Reference Include="MonoMod.Utils">
-      <HintPath>..\..\references\MonoMod.Utils.dll</HintPath>
+      <HintPath>lib\MonoMod.Utils.dll</HintPath>
     </Reference>
     <Reference Include="ReLogic">
-      <HintPath>..\..\references\ReLogic.dll</HintPath>
+      <HintPath>lib\ReLogic.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="TerraEnergyLibrary">
-      <HintPath>..\TerraEnergyLibrary\bin\Debug\TerraEnergyLibrary.dll</HintPath>
+      <HintPath>lib\TerraEnergyLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Terraria">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\Terraria.exe</HintPath>
+      <HintPath>lib\Terraria.exe</HintPath>
     </Reference>
     <Reference Include="TerrariaHooks">
-      <HintPath>..\..\references\TerrariaHooks.dll</HintPath>
+      <HintPath>lib\TerrariaHooks.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

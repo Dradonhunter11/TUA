@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
@@ -11,13 +7,11 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 using TUA.API;
-using TUA.API.TerraEnergy.Block;
-using TUA.API.TerraEnergy.Block.FunctionnalBlock;
 using TUA.Items.Misc.Spawner;
 
 namespace TUA.Dimension.Block
 {
-    class MobSpawner : TUABlock
+    class MobSpawner : TUATile
     {
         public override void SetDefaults()
         {
@@ -71,7 +65,7 @@ namespace TUA.Dimension.Block
             }
         }
 
-        public override void readData(int x, int y)
+        public override void ReadData(int x, int y)
         {
             Player player = Main.player[Main.myPlayer];
             Item currentSelectedItem = player.inventory[player.selectedItem];

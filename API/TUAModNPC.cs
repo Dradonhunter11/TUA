@@ -10,8 +10,6 @@ namespace TUA.API
 {
     public class TUAModNPC : ModNPC
     {
-        public override bool CloneNewInstances => false;
-
         public override bool Autoload(ref string name)
         {
             if (name == "TUAModNPC")
@@ -35,8 +33,10 @@ namespace TUA.API
 
         public static void Awaken()
         {
-            for (int i = 0; i < Main.npc.Length; i++) {
+            for (int i = 0; i < Main.npc.Length; i++)
+            {
                 NPC npc = Main.npc[i];
+
                 if (npc.modNPC is HeartOfTheWasteland)
                 {
                     HeartOfTheWasteland boss = npc.modNPC as HeartOfTheWasteland;
@@ -61,5 +61,7 @@ namespace TUA.API
                 nextSlot++;
             }
         }
+
+        public override bool CloneNewInstances => false;
     }
 }

@@ -1,7 +1,6 @@
 ﻿using BiomeLibrary.API;
 using BiomeLibrary.Enums;
 using System;
-using Terraria;
 using TUA.Tiles.NewBiome.Meteoridon;
 
 namespace TUA.Biomes

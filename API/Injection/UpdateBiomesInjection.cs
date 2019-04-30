@@ -9,7 +9,6 @@ using Terraria.GameContent.Events;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TUA.API.Dev;
 
 namespace TUA.API.Injection
 {

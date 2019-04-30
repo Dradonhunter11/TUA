@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace TUA.API.TerraEnergy.Items.Block
 {

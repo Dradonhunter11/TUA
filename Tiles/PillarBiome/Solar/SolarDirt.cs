@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TUA.API;
-using TUA.Tiles.NewBiome.Meteoridon;
 
 namespace TUA.Tiles.PillarBiome.Solar
 {

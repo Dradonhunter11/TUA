@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Graphics;
 using Terraria;
-using Terraria.GameContent.UI.Elements;
-using Terraria.ID;
 using Terraria.UI;
 using TUA.API.FurnaceRework;
-using TUA.API.TerraEnergy.TileEntities;
 
 namespace TUA.API.TerraEnergy.UI
 {

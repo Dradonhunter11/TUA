@@ -1,10 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
@@ -18,7 +12,7 @@ using TUA.Utilities;
 
 namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 {
-    class TerraFurnace : TUABlock
+    class TerraFurnace : TUATile
     {
         public override void SetDefaults()
         {

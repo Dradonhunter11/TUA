@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent.Generation;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 using Terraria.World.Generation;
 using TUA.API.GenActionModifiers;
 using TUA.Dimension.Block;
-using TUA.Tiles.NewBiome.Meteoridon;
 
 namespace TUA.Dimension.MicroBiome
 {

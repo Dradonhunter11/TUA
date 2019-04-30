@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader.IO;
 using TUA.API.CustomInventory;
-using TUA.API.TerraEnergy.Block;
 using TUA.API.TerraEnergy.Block.FunctionnalBlock;
 using TUA.API.TerraEnergy.EnergyAPI;
-using TUA.API.TerraEnergy.Items.Block;
 using TUA.API.TerraEnergy.UI;
 using TUA.Utilities;
 

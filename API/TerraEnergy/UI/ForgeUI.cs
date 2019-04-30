@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Terraria.UI;
+﻿using Terraria.UI;
 using TUA.API.TerraEnergy.Block.FunctionnalBlock;
 
 namespace TUA.API.TerraEnergy.UI

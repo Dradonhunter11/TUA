@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.Localization;
 using Terraria.UI;
-using TUA.UIHijack.MainMenu.MainMenuButton;
 
 namespace TUA.UIHijack.MainMenu
 {

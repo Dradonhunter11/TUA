@@ -1,30 +1,25 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.GameContent.Events;
-using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace TUA.API
 {
     public static class ModExtension
     {
-        private static int defaultSpawnRate = 600;
-        private static int defaultMaxSpawns = 5;
-        private static bool noSpawnCycle = false;
-        private static int spawnSpaceX = 3;
-        private static int spawnSpaceY = 3;
+        private static int 
+            _defaultSpawnRate = 600,
+            _defaultMaxSpawns = 5,
+            _spawnSpaceX = 3,
+            _spawnSpaceY = 3;
+
+        private static bool _noSpawnCycle = false;
 
         public static void AddLine(this ModTranslation self, string text, int culture = 0)
         {
             string currentText;
+
             if (culture == 0)
             {
                 currentText = self.GetDefault();
@@ -41,15 +36,10 @@ namespace TUA.API
 
         public static void Reset(this ModTranslation self, int culture = 0)
         {
-            string currentText;
             if (culture == 0)
-            {
                 self.SetDefault("");
-            }
             else
-            {
                 self.AddTranslation(culture, "");
-            }
         }
 
         public static void IgnoreArmor(this Player self)
@@ -70,7 +60,7 @@ namespace TUA.API
         /// <param name="itemType"></param>
         /// <param name="quantity"></param>
         /// <returns></returns>
-        public static Item scanForItemInInventory(this Player player, int itemType, int quantity) {
+        public static Item ScanForItemInInventory(this Player player, int itemType, int quantity) {
             for (int i1 = 0; i1 < player.inventory.Length; i1++)
             {
                 Item i = player.inventory[i1];
@@ -81,8 +71,6 @@ namespace TUA.API
             }
             return null;
         }
-
-        
 
         public static bool IsFull(this object[,] self)
         {

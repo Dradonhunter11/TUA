@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
-using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 
 namespace TUA.API.TerraEnergy.MachineRecipe.Forge
 {

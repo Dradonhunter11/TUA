@@ -4,15 +4,10 @@ using System.Reflection;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
-
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.Utilities;
 using Terraria.ModLoader;
-using TUA;
 
 namespace TUA
 {
