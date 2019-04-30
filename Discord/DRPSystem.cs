@@ -45,7 +45,7 @@ namespace TUA.Discord
                     Max = Main.maxNetPlayers
                 };
             }
-            _client = new DiscordRpcClient("528086919670792233", SteamID64Checker.CurrentSteamID64, true, -1);
+            _client = new DiscordRpcClient("528086919670792233", SteamID64Checker.currentSteamID64, true, -1);
             // _client.OnError += (sender, args) => { TUA.instance.Logger.ErrorFormat("Rich Presence failed. Code {1}, {0}", args.Message, args.Code); };
             _presence.Timestamps = new Timestamps()
             {

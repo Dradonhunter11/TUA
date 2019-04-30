@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Remoting.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.IO;
-using Terraria.ModLoader;
-using Terraria.World.Generation;
-
-namespace TUA
+﻿namespace TUA
 {
     /*class StardustWorldGen : Dimlibs.API.ModDimension
     {

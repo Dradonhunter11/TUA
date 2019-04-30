@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using MonoMod.RuntimeDetour.HookGen;
-using Terraria;
-using Terraria.UI;
-using TUA.API;
+﻿using TUA.API;
 using TUA.API.Default;
 
 namespace TUA.Items.Block.PillarBiomeBlock.Solar

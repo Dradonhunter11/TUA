@@ -1,21 +1,12 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Terraria;
+﻿using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
-using TUA.API.TerraEnergy.Block.FunctionnalBlock;
-using TUA.API.TerraEnergy.Items;
 using TUA.API.TerraEnergy.TileEntities;
 
 namespace TUA.API.TerraEnergy.Block
 {
-    class Capacitor : TUABlock
+    class Capacitor : TUATile
     {
         public int maxEnergyStorage;
 

@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Content;
 
 using Terraria;
 using Terraria.ModLoader;
-using TUA;
 
 namespace TUA
 {

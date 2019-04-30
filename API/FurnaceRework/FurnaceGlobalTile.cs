@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using TUA.API.FurnaceRework.TileEntity;
-using TUA.API.TerraEnergy.Block.FunctionnalBlock;
-using TUA.API.TerraEnergy.Items;
-using TUA.API.TerraEnergy.TileEntities;
 
 namespace TUA.API.FurnaceRework
 {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.DataStructures;
 using Terraria.ObjectData;
 using TUA.API.TerraEnergy.EnergyAPI;
@@ -11,7 +6,7 @@ using TUA.API.TerraEnergy.MachineRecipe.Forge;
 
 namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 {
-    class TerraForge : TUABlock
+    class TerraForge : TUATile
     {
         private int TEx;
         private int TEy;

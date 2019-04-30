@@ -8,7 +8,6 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.Utilities;
 using Terraria.ModLoader;
-using TUA;
 
 namespace TUA
 {

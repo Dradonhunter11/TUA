@@ -1,20 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.GameContent.UI.Elements;
-using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
 using TUA.API.CustomInventory;
 using TUA.API.CustomInventory.UI;
 using TUA.API.FurnaceRework;
-using TUA.API.TerraEnergy.Block.FunctionnalBlock;
 using TUA.API.UI;
 using TUA.Utilities;
 

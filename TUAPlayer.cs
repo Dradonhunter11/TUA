@@ -5,7 +5,6 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.Utilities;
 using TUA.API.Dev;
 
 namespace TUA
@@ -15,9 +14,8 @@ namespace TUA
         public static bool augmentVortex = false;
         public static bool arenaActive = false;
         public bool noImmunityDebuff;
-        public Guid ID;
-        public bool IsScreenLocked = false;
-        public Vector2 PositionLock = Vector2.Zero;
+        public bool isScreenLocked = false;
+        public Vector2 positionLock = Vector2.Zero;
         // private static int splashTimer = 0;
         public static Vector2 initialPoint = Vector2.Zero;
         public static Vector2 endPoint = Vector2.Zero;
@@ -27,8 +25,8 @@ namespace TUA
             augmentVortex = false;
             arenaActive = false;
             noImmunityDebuff = false;
-            IsScreenLocked = false;
-            PositionLock = Vector2.Zero;
+            isScreenLocked = false;
+            positionLock = Vector2.Zero;
             // splashTimer = 0;
             initialPoint = Vector2.Zero;
             endPoint = Vector2.Zero;
@@ -59,7 +57,7 @@ namespace TUA
                 switch (Main.rand.Next(3))
                 {
                     case 0:
-                        damageSource = PlayerDeathReason.ByCustomReason($"Hey, {player.name}. You think he was more powerful than the God of Destruction... really?");
+                        damageSource = PlayerDeathReason.ByCustomReason($"Hey, {player.name}. You really thought you were more powerful than the God of Destruction... really?");
                         break;
                     case 1:
                         damageSource = PlayerDeathReason.ByCustomReason($"Ouch, looks like {player.name} thought {(player.Male ? "he" : "she")} mistakenly thought they could take on the enemy.");
@@ -70,14 +68,12 @@ namespace TUA
                         break;
                 }
             }
+
             if (Dimension.DimensionUtil.PlayerInSolar)
-            {
                 Main.WorldPath = Main.SavePath + "/World/solar";
-            }
             else if (Dimension.DimensionUtil.CurDim == "overworld")
-            {
                 Main.WorldPath = Main.SavePath + "/World";
-            }
+
             return true;
         }
 
@@ -86,6 +82,7 @@ namespace TUA
             if (Dimlibs.Dimlibs.getPlayerDim() != null) {
                 bool inSolar = Dimension.DimensionUtil.PlayerInSolar;
                 player.ManageSpecialBiomeVisuals("TUA:TUAPlayer", false, player.Center);
+
                 bool inStardust = Dimension.DimensionUtil.CurDim == "stardust";
                 player.ManageSpecialBiomeVisuals("TUA:StardustPillar", inStardust, player.Center);
             }
@@ -103,17 +100,13 @@ namespace TUA
         public override void UpdateDead()
         {
             if (SteamID64Checker.Instance.VerifyDevID() && TUA.devMode)
-            {
                 player.respawnTimer = 1; //for faster respawn while debugging
-            }
         }
 
         public override void ModifyScreenPosition()
         {
-            if (IsScreenLocked)
-            {
-                Main.screenPosition = PositionLock;
-            }
+            if (isScreenLocked)
+                Main.screenPosition = positionLock;
         }
 
         public static void LockPlayerCamera(Vector2? position, bool lockCamera)
@@ -122,29 +115,31 @@ namespace TUA
 
             if (!lockCamera || !position.HasValue)
             {
-                player.IsScreenLocked = false;
+                player.isScreenLocked = false;
                 return;
             }
 
-            
-            if (Main.netMode == 2)
+            if (Main.netMode == NetmodeID.Server)
             {
                 foreach (Player p in Main.player)
                 {
-                    if (p == null)
-                    {
-                        break;
-                    }
+                    if (p == null) break;
+
                     player = p.GetModPlayer<TUAPlayer>();
-                    player.PositionLock = position.Value;
-                    player.IsScreenLocked = lockCamera;
+                    player.positionLock = position.Value;
+                    player.isScreenLocked = lockCamera;
+
                     NetMessage.SendData(MessageID.SyncPlayer, -1, 1);
                 }
+
                 return;
             }
+
             player = Main.LocalPlayer.GetModPlayer<TUAPlayer>();
-            player.PositionLock = position.Value;
-            player.IsScreenLocked = true;
+            player.positionLock = position.Value;
+            player.isScreenLocked = true;
         }
+
+        public Guid ID { get; private set; }
     }
 }

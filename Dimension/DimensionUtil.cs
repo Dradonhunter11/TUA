@@ -1,5 +1,4 @@
-﻿using Dimlibs;
-using Terraria.ID;
+﻿using Terraria.ID;
 
 namespace TUA.Dimension
 {

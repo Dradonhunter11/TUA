@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using TUA.API.TerraEnergy.EnergyAPI;
+﻿using TUA.API.TerraEnergy.EnergyAPI;
 
 namespace TUA.API.TerraEnergy.Items
 {

@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.DataStructures;
+﻿using Terraria.DataStructures;
 using Terraria.ModLoader;
-using TUA.API.TerraEnergy.Block;
-using TUA.API.TerraEnergy.Block.FunctionnalBlock;
 using TUA.API.TerraEnergy.EnergyAPI;
-using TUA.API.TerraEnergy.TileEntities;
 
 namespace TUA.API.TerraEnergy.Items
 {

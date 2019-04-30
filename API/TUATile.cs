@@ -7,18 +7,14 @@ using TUA.Items.Misc.Debug;
 
 namespace TUA.API
 {
-    class TUABlock : ModTile
+    public class TUATile : ModTile
     {
-        public virtual ModTileEntity GetTileEntity()
-        {
-            return mod.GetTileEntity<StorageEntity>();
-        }
+        public virtual ModTileEntity GetTileEntity() => mod.GetTileEntity<StorageEntity>();
 
         public override void SetDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             TileObjectData.newTile.Origin = new Point16(1, 2);
-            
         }
 
 
@@ -32,13 +28,11 @@ namespace TUA.API
             return base.Autoload(ref name, ref texture);
         }
 
-        
-
         public sealed override void RightClick(int i, int j)
         {
             if (Main.LocalPlayer.HeldItem.type == mod.ItemType<DebugStick>())
             {
-                readData(i, j);
+                ReadData(i, j);
             }
             NewRightClick(i, j);
             
@@ -49,12 +43,10 @@ namespace TUA.API
 
         }
 
-        public virtual void readData(int x, int y)
+        public virtual void ReadData(int x, int y)
         {
 
         }
-
-        
 
     }
 }

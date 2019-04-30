@@ -1,14 +1,9 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 using TUA.API.Dev;
 using TUA.Dimension.MicroBiome;
-using Terraria.Cinematics;
-using TUA.Movie.Boss;
-using TUA.Structure.DungeonLike;
 
 namespace TUA.Items
 {
