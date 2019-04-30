@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.UI;
 
-namespace TUA.API.CustomInventory.UI
+namespace TUA.API.Inventory.UI
 {
     class InputOutputSlot : UIElement
     {

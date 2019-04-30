@@ -7,8 +7,8 @@ namespace TUA.Tiles.Furniture.Coins
     {
         public override int ItemDropID => mod.ItemType("ApocalypseDirt");
         public override int ItemProjectileID => mod.ProjectileType("DiamondCoinProjectile");
-        public override bool sandTile => false;
-        public override Color mapColor => Color.White;
-        public override string mapLegend => "Diamond Coin";
+        public override bool SandTile => false;
+        public override Color MapColor => Color.White;
+        public override string MapLegend => "Diamond Coin";
     }
 }

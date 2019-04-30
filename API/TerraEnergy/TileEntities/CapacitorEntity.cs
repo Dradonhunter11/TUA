@@ -1,6 +1,6 @@
 ﻿using Terraria;
 using Terraria.ModLoader.IO;
-using TUA.API.CustomInventory;
+using TUA.API.Inventory;
 using TUA.API.TerraEnergy.Block.FunctionnalBlock;
 using TUA.API.TerraEnergy.EnergyAPI;
 using TUA.API.TerraEnergy.UI;

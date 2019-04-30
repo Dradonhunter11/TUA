@@ -6,6 +6,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using TUA.API;
+using TUA.BaseMod.Base;
 
 namespace TUA.NPCs.UltraBoss.UltraEoC
 {

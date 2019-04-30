@@ -1,9 +1,8 @@
-
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TUA
+namespace TUA.BaseMod.Base
 {
     public class BasePlayer
 	{

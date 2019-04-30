@@ -4,8 +4,8 @@ namespace TUA.Items.Meteoridon.Tiles
 {
     class MeteoridonHardenedSand : TUADefaultBlockItem
     {
-        public override string name => "Strange hardened sand";
-        public override int value => 0;
-        public override int blockToPlace => mod.TileType("MeteoridonHardenedSand");
+        public override string TUAName => "Strange hardened sand";
+        public override int TUAValue => 0;
+        public override int BlockToPlace => mod.TileType("MeteoridonHardenedSand");
     }
 }

@@ -1,8 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
-
-namespace TUA
+namespace TUA.BaseMod.Projectiles
 {
 	public abstract class ParentProjectile : ModProjectile
 	{

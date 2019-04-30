@@ -5,8 +5,8 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.UI.Chat;
-using TUA.API.CustomInventory;
-using TUA.API.CustomInventory.UI;
+using TUA.API.Inventory;
+using TUA.API.Inventory.UI;
 using TUA.API.TerraEnergy.TileEntities;
 using TUA.Utilities;
 

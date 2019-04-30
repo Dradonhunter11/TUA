@@ -1,14 +1,12 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
-
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
-
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace TUA
+namespace TUA.BaseMod.Base
 {
 	public class BaseShaderCompiler
 	{

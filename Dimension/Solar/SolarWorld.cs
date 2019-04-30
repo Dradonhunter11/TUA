@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TUA.BaseMod.Base;
 using static Terraria.Main;
 
 namespace TUA.Dimension.Solar

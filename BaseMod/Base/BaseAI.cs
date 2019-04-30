@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Localization;
-using Terraria.Utilities;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 
-namespace TUA
+namespace TUA.BaseMod.Base
 {
     public class BaseAI
     {

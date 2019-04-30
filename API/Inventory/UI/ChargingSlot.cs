@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using TUA.API.TerraEnergy.EnergyAPI;
 
-namespace TUA.API.CustomInventory.UI
+namespace TUA.API.Inventory.UI
 {
     class ChargingSlot : InputOutputSlot
     {

@@ -1,6 +1,6 @@
 ﻿using TUA.API;
 
-namespace TUA.Raids.Script.WrathOfTheWasteland.NPC
+namespace TUA.Raids.Script.WrathOfTheWasteland
 {
     public abstract class Overgrowth : TUAModNPC
     {

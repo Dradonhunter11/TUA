@@ -1,6 +1,7 @@
 using Terraria;
+using TUA.BaseMod.Base;
 
-namespace TUA
+namespace TUA.BaseMod
 {
 	public class MNet
 	{

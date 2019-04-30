@@ -8,32 +8,22 @@ namespace TUA.API.Default
 {
     public abstract class TUAFallingBlock : ModTile
     {
-        public abstract int ItemDropID { get; }
-        public abstract int ItemProjectileID { get; }
-        public abstract bool sandTile { get; }
-        public abstract Color mapColor { get; }
-        public virtual int dustTypeID { get; }
-        public virtual string mapLegend { get; }
-
-
         public override void SetDefaults()
         {
-            if (sandTile)
-            {
-                Main.tileSolid[Type] = true;
-                
-            }
+            if (SandTile)
+                Main.tileSolid[Type] = true;    
             else
             {
                 Main.tilePile[Type] = true;
                 
-                dustType = dustTypeID;
+                dustType = DustTypeID;
             }
+
             //TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidWithTop, TileObjectData.newTile.Width, 0);
             //TileObjectData.addTile(Type);
             drop = ItemDropID;
             soundStyle = 18;
-            AddMapEntry(mapColor, CreateMapEntryName(mapLegend));
+            AddMapEntry(MapColor, CreateMapEntryName(MapLegend));
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
@@ -103,5 +93,12 @@ namespace TUA.API.Default
             }
             return true;
         }
+
+        public abstract int ItemDropID { get; }
+        public abstract int ItemProjectileID { get; }
+        public abstract bool SandTile { get; }
+        public abstract Color MapColor { get; }
+        public virtual int DustTypeID { get; }
+        public virtual string MapLegend { get; }
     }
 }

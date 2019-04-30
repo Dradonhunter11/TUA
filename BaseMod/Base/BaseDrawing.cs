@@ -2,16 +2,17 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using Terraria;
-using Terraria.UI.Chat;
-using Terraria.ObjectData;
 using Terraria.DataStructures;
-using Terraria.UI;
-using Terraria.ModLoader;
 using Terraria.Graphics.Shaders;
+using Terraria.ModLoader;
+using Terraria.ObjectData;
+using Terraria.UI;
+using Terraria.UI.Chat;
+using TUA.BaseMod.NPCs;
+using TUA.BaseMod.Projectiles;
 
-namespace TUA
+namespace TUA.BaseMod.Base
 {
 	public class DrawAnimationPrecise : DrawAnimation
 	{

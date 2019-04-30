@@ -2,46 +2,42 @@
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.UI;
-using TUA.API.CustomInventory.TileEntityContainer;
+using TUA.API.Inventory.TileEntityContainer;
 
 namespace TUA.API.UI
 {
-    class LiquidTank : UIElement
+    public class LiquidTank : UIElement
     {
-        private Texture2D backTexture;
-        private Texture2D frontTexture;
-        private ITank tank;
-        
+        private readonly ITank _tank;
 
         public LiquidTank(Texture2D texture, ITank tank)
         {
-            backTexture = texture.SubImage(0, 0, 20, 28);
-            frontTexture = texture.SubImage(20, 0, 20, 28);
-            this.tank = tank;
+            BackTexture = texture.SubImage(0, 0, 20, 28);
+            FrontTexture = texture.SubImage(20, 0, 20, 28);
+
+            _tank = tank;
         }
 
         public LiquidTank(Texture2D textureFront, Texture2D textureBack, ITank tank)
         {
-            backTexture = textureBack;
-            frontTexture = textureFront;
-            this.tank = tank;
-        }
+            BackTexture = textureBack;
+            FrontTexture = textureFront;
 
-        public override void OnInitialize()
-        {
-            
+            _tank = tank;
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             CalculatedStyle style = GetInnerDimensions();
-            float calculateLiquidQuantity = tank.GetCurrentAmount() * 100 / tank.GetMaxCapacity();
+            float calculateLiquidQuantity = _tank.GetCurrentAmount() * 100 / _tank.GetMaxCapacity();
 
-            spriteBatch.Draw(backTexture, style.Position(), Color.White);
+            spriteBatch.Draw(BackTexture, style.Position(), Color.White);
+
             if (IsMouseHovering)
-            {
-                Main.hoverItemName = tank.GetCurrentAmount() + " mB";
-            }   
+                Main.hoverItemName = _tank.GetCurrentAmount() + " mB";
         }
+
+        public Texture2D BackTexture { get; }
+        public Texture2D FrontTexture { get; }
     }
 }

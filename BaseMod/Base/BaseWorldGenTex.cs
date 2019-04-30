@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ID;
 
-namespace TUA
+namespace TUA.BaseMod.Base
 {
     public class BaseWorldGenTex
     {

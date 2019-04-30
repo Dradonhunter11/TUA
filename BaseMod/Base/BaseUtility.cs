@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Linq;
+using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Terraria;
 using Terraria.Localization;
-using Terraria.Utilities;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 
-namespace TUA
+namespace TUA.BaseMod.Base
 {
 	public class BaseUtility
 	{

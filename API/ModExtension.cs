@@ -45,7 +45,6 @@ namespace TUA.API
         public static void IgnoreArmor(this Player self)
         {
             self.armorPenetration = 0;
-
         }
 
         public static void IgnoreArmor(this NPC self)
@@ -72,32 +71,25 @@ namespace TUA.API
             return null;
         }
 
-        public static bool IsFull(this object[,] self)
+        public static bool IsFull(this object[,] array)
         {
-            int rowCount = self.GetLength(0);
-            int columnCount = self.GetLength(1);
-            int validCase = 0;
+            int rowCount = array.GetLength(0);
+            int columnCount = array.GetLength(1);
+
             for (int i = 0; i < rowCount; i++)
-            {
                 for (int j = 0; j < columnCount; j++)
-                {
-                    if (self[i, j] != null)
-                    {
-                        validCase++;
-                    }
-                }
-            }
-            return validCase == rowCount * columnCount;
+                    if (array[i, j] == null)
+                        return false;
+
+            return true;
         }
 
-        public static bool IsFull(this object[] self)
+        public static bool IsFull(this object[] array)
         {
-            foreach(object obj in self) {
-                if (obj == null)
-                {
+            for (int i = 0; i < array.Length; i++)
+                if (array[i] == null)
                     return false;
-                }
-            }
+
             return true;
         }
 

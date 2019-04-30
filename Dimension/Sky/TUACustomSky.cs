@@ -5,7 +5,7 @@ using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace TUA.NPCs
+namespace TUA.Dimension.Sky
 {
     public class TUACustomSky : CustomSky
     {
