@@ -3,26 +3,24 @@ using Terraria.UI;
 
 namespace TUA
 {
-    class TUAInterface : UIState
+    public abstract class TUAInterface : UIState
     {
-        private UIElement area;
-        private UITextPanel<string> hallowAltEnablerPanel;
-        private UITextPanel<string> hallowAlt;
+        protected UIElement _area;
+        protected UITextPanel<string> hallowAlt;
 
         public override void OnInitialize()
         {
-            area = new UIElement();
-            area.Width.Set(0, 0.8f);
-            area.Height.Set(-210, 1f);
-            area.Top.Set(200f, 0f);
-            area.HAlign = 0.5f;
+            _area = new UIElement();
+            _area.Width.Set(0, 0.8f);
+            _area.Height.Set(-210, 1f);
+            _area.Top.Set(200f, 0f);
+            _area.HAlign = 0.5f;
 
-            hallowAltEnablerPanel = new UITextPanel<string>("Hallow alt : ", 1f, false);
-            hallowAltEnablerPanel.Width.Set(10f, 0.8f);
-            hallowAltEnablerPanel.Height.Set(20f, 1f);
+            hallowAlt = new UITextPanel<string>("Hallow alt : ", 1f, false);
+            hallowAlt.Width.Set(10f, 0.8f);
+            hallowAlt.Height.Set(20f, 1f);
 
-
-            area.Append(hallowAltEnablerPanel);
+            _area.Append(hallowAlt);
         }
     }
 }

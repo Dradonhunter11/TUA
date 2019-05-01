@@ -6,11 +6,11 @@ using Terraria.ModLoader;
 
 namespace TUA
 {
-    class RecipeUtils
+    public class RecipeUtils
     {
-        private static List<Recipe> removedRecipes = new List<Recipe>();
+        private static readonly List<Recipe> _removedRecipes = new List<Recipe>();
 
-        public static void removeRecipe(int itemID)
+        public static void RemoveRecipe(int itemID)
         {
             RecipeFinder rf = new RecipeFinder();
             rf.SetResult(itemID);
@@ -71,7 +71,7 @@ namespace TUA
                 if (recipe.requiredItem.Length == 1)
                 {
                     TUA.instance.AddFurnaceRecipe(recipe.requiredItem[0].type, recipe.createItem.type, 20);
-                    removedRecipes.Add(r);
+                    _removedRecipes.Add(r);
                     RecipeEditor re = new RecipeEditor(r);
                     re.DeleteRecipe();
                 }
