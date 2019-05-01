@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 namespace TUA.Dimension
 {
     [Obsolete("Delete later")]
-    class DimGlobalNPC : GlobalNPC
+    public class DimGlobalNPC : GlobalNPC
     {
         private static List<int[]> npcList;
 
@@ -13,10 +13,10 @@ namespace TUA.Dimension
         {
             npcList = new List<int[]>
             {
-                DimensionUtil.VortexEnemy,
-                DimensionUtil.SolarEnemy,
-                DimensionUtil.StardustEnemy,
-                DimensionUtil.NebulaEnemy
+                DimensionUtil.vortexEnemy,
+                DimensionUtil.solarEnemy,
+                DimensionUtil.stardustEnemy,
+                DimensionUtil.nebulaEnemy
             };
         }
 
