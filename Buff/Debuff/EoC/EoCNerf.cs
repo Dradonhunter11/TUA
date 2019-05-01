@@ -3,12 +3,16 @@ using Terraria.ModLoader;
 
 namespace TUA.Buff.Debuff.EoC
 {
-    class EoCNerf : ModBuff
+    public sealed class EoCNerf : TUABuff
     {
+        public EoCNerf() : base("Ultra Nerf : EoC", "Nothing can cancel it")
+        {
+        }
+
         public override void SetDefaults()
         {
-            DisplayName.SetDefault("Ultra Nerf : EoC");
-            Description.SetDefault("Nothing can cancel it... unless you cancel the AI...");
+            base.SetDefaults();
+
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
             canBeCleared = false;

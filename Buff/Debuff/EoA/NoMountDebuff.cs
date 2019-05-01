@@ -3,12 +3,16 @@ using Terraria;
 
 namespace TUA.Buff.Debuff.EoA
 {
-    class NoMountDebuff : ModBuff
+    public sealed class NoMountDebuff : TUABuff
     {
+        public NoMountDebuff() : base("Blue Soul", "You can only jump and fly")
+        {
+        }
+
         public override void SetDefaults()
         {
-            DisplayName.SetDefault("Blue soul");
-            Description.SetDefault("You can only jump and fly...");
+            base.SetDefaults();
+
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
             canBeCleared = false;

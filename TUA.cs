@@ -747,17 +747,13 @@ namespace TUA
 
         protected struct Title
         {
-            public string text;
-            public string subText;
-            public Color textColor;
-            public Color subTextColor;
+            public string text, subText;
+            public Color textColor, subTextColor;
             public DynamicSpriteFont font;
-            public float baseOpacity;
-            public float currentOpacity;
+            public float baseOpacity, currentOpacity;
             public bool fadeEffect;
             public int maxTimer;
             public bool active;
-
 
             public Title(string text, string subText, Color textColor, Color subTextColor, DynamicSpriteFont font, int maxTimer = 30, float baseOpacity = 1, bool fadeEffect = true)
             {
