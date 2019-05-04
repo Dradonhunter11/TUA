@@ -4,6 +4,7 @@ using System.Reflection;
 using Terraria;
 using Terraria.ID;
 using Terraria.IO;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 using TUA.Utilities;
@@ -14,7 +15,8 @@ namespace TUA
 	{
         public static bool GetMudwall()
 		{
-			FieldInfo info = typeof(WorldGen).GetField("mudWall", BindingFlags.Static | BindingFlags.NonPublic);
+			FieldInfo info = typeof(WorldGen).GetField("mudWall",
+                BindingFlags.Static | BindingFlags.NonPublic);
 			return (bool)info.GetValue(null);
 		}
 
@@ -25,23 +27,26 @@ namespace TUA
                 int maxtilesX = 8400;
                 int maxtilesY = 3000;
 
-                FieldInfo info = typeof(WorldFileData).GetField("WorldSizeX", BindingFlags.Instance | BindingFlags.Public);
-                int get = (int)info.GetValue(Main.ActiveWorldFileData);
-                info.SetValue(Main.ActiveWorldFileData, maxtilesX);
+                var wldType = typeof(WorldFileData);
+                var wldgenType = typeof(WorldGen);
 
-                info = typeof(WorldFileData).GetField("WorldSizeY", BindingFlags.Instance | BindingFlags.Public);
-                get = (int)info.GetValue(Main.ActiveWorldFileData);
-                info.SetValue(Main.ActiveWorldFileData, maxtilesY);
+                FieldInfo fldInfo = wldType.GetField("WorldSizeX", BindingFlags.Instance | BindingFlags.Public);
+                int get = (int)fldInfo.GetValue(Main.ActiveWorldFileData);
+                fldInfo.SetValue(Main.ActiveWorldFileData, maxtilesX);
 
-                info = typeof(WorldGen).GetField("lastMaxTilesX",
+                fldInfo = wldType.GetField("WorldSizeY", BindingFlags.Instance | BindingFlags.Public);
+                get = (int)fldInfo.GetValue(Main.ActiveWorldFileData);
+                fldInfo.SetValue(Main.ActiveWorldFileData, maxtilesY);
+
+                fldInfo = wldgenType.GetField("lastMaxTilesX",
                     BindingFlags.Static | BindingFlags.NonPublic);
-                get = (int)info.GetValue(null);
-                info.SetValue(null, maxtilesX);
+                get = (int)fldInfo.GetValue(null);
+                fldInfo.SetValue(null, maxtilesX);
 
-                info = typeof(WorldGen).GetField("lastMaxTilesY",
+                fldInfo = wldgenType.GetField("lastMaxTilesY",
                     BindingFlags.Static | BindingFlags.NonPublic);
-                get = (int)info.GetValue(null);
-                info.SetValue(null, maxtilesY);
+                get = (int)fldInfo.GetValue(null);
+                fldInfo.SetValue(null, maxtilesY);
 
                 Main.maxTilesX = maxtilesX;
                 Main.maxTilesY = maxtilesY;
@@ -51,7 +56,6 @@ namespace TUA
                 Main.maxSectionsX = Main.maxTilesX / 200;
                 Main.maxSectionsY = Main.maxTilesY / 150;
 
-
                 //Main.tile = new Tile[Main.maxTilesX, Main.maxTilesY];
 
                 for (int x = 0; x < Main.maxTilesX; x++)
@@ -59,7 +63,6 @@ namespace TUA
                     for (int y = 0; y < Main.maxTilesY; y++)
                     {
                         Main.tile[x, y] = new Tile();
-                        
                     }
                 }
 
@@ -94,8 +97,8 @@ namespace TUA
                 WorldGen.gen = true;
                 WorldGen.numLarva = 0;
                 int num = 86400;
-                Main.slimeRainTime = (double)(-(double)WorldGen.genRand.Next(num * 2, num * 3));
-                Main.cloudBGActive = (float)(-(float)WorldGen.genRand.Next(8640, 86400));
+                Main.slimeRainTime = -WorldGen.genRand.Next(num * 2, num * 3);
+                Main.cloudBGActive = -WorldGen.genRand.Next(8640, 86400);
                 WorldGen.CopperTierOre = 7;
                 WorldGen.IronTierOre = 6;
                 WorldGen.SilverTierOre = 9;
@@ -169,17 +172,17 @@ namespace TUA
                 progress.Message = "Solar world Gen : Terrain";
                 int num = 0;
                 int num2 = 0;
-                worldSurface = (double)Main.maxTilesY * 0.3;
-                worldSurface *= (double)WorldGen.genRand.Next(90, 110) * 0.005;
-                rockLayer = worldSurface + (double)Main.maxTilesY * 0.2;
-                rockLayer *= (double)WorldGen.genRand.Next(90, 110) * 0.01;
+                worldSurface = Main.maxTilesY * 0.3;
+                worldSurface *= WorldGen.genRand.Next(90, 110) * 0.005;
+                rockLayer = worldSurface + Main.maxTilesY * 0.2;
+                rockLayer *= WorldGen.genRand.Next(90, 110) * 0.01;
                 WorldGen.worldSurfaceLow = worldSurface;
                 worldSurfaceHigh = worldSurface;
                 rockLayerLow = rockLayer;
                 rockLayerHigh = rockLayer;
                 for (int k = 0; k < Main.maxTilesX; k++)
                 {
-                    float value = (float)k / (float)Main.maxTilesX;
+                    float value = k / (float)Main.maxTilesX;
                     progress.Set(value);
                     if (worldSurface < WorldGen.worldSurfaceLow)
                     {
@@ -203,15 +206,15 @@ namespace TUA
                         num2 = WorldGen.genRand.Next(5, 40);
                         if (num == 0)
                         {
-                            num2 *= (int)((double)WorldGen.genRand.Next(5, 30) * 0.2);
+                            num2 *= (int)(WorldGen.genRand.Next(5, 30) * 0.2);
                         }
                     }
                     num2--;
-                    if ((double)k > (double)Main.maxTilesX * 0.43 && (double)k < (double)Main.maxTilesX * 0.57 && num >= 3)
+                    if (k > Main.maxTilesX * 0.43 && k < Main.maxTilesX * 0.57 && num >= 3)
                     {
                         num = WorldGen.genRand.Next(3);
                     }
-                    if ((double)k > (double)Main.maxTilesX * 0.47 && (double)k < (double)Main.maxTilesX * 0.53)
+                    if (k > Main.maxTilesX * 0.47 && k < Main.maxTilesX * 0.53)
                     {
                         num = 0;
                     }
@@ -219,7 +222,7 @@ namespace TUA
                     {
                         while (WorldGen.genRand.Next(0, 7) == 0)
                         {
-                            worldSurface += (double)WorldGen.genRand.Next(-1, 2);
+                            worldSurface += WorldGen.genRand.Next(-1, 2);
                         }
                     }
                     else if (num == 1)
@@ -352,14 +355,14 @@ namespace TUA
                     }
                     for (int m = 0; m < 10; m++)
                     {
-                        SolarWorldGen.TileRunner(array[m], array2[m], (double)WorldGen.genRand.Next(5, 8), WorldGen.genRand.Next(6, 9), ModLoader.GetMod("TUA").TileType("SolarDirt"), true, -2f, -0.3f, false, true);
-                        SolarWorldGen.TileRunner(array[m], array2[m], (double)WorldGen.genRand.Next(5, 8), WorldGen.genRand.Next(6, 9), ModLoader.GetMod("TUA").TileType("SolarDirt"), true, 2f, -0.3f, false, true);
+                        TileRunner(array[m], array2[m], (double)WorldGen.genRand.Next(5, 8), WorldGen.genRand.Next(6, 9), ModLoader.GetMod("TUA").TileType("SolarDirt"), true, -2f, -0.3f, false, true);
+                        TileRunner(array[m], array2[m], (double)WorldGen.genRand.Next(5, 8), WorldGen.genRand.Next(6, 9), ModLoader.GetMod("TUA").TileType("SolarDirt"), true, 2f, -0.3f, false, true);
                     }
                 }
             });
             AddGenerationPass("Dirt Wall Backgrounds", delegate (GenerationProgress progress)
             {
-                progress.Message = Lang.gen[3].Value;
+                progress.Message = Language.GetTextValue("LegacyGen.3");
                 for (int k = 1; k < Main.maxTilesX - 1; k++)
                 {
                     byte wall = 2;
@@ -612,7 +615,7 @@ namespace TUA
 
             AddGenerationPass("Smooth World", delegate (GenerationProgress progress)
             {
-                progress.Message = "Solar world Gen : " + Lang.gen[60].Value;
+                progress.Message = "Solar World Gen : " + Language.GetTextValue("LegacyGen.60");
                 for (int k = 20; k < Main.maxTilesX - 20; k++)
                 {
                     float value = (float)k / (float)Main.maxTilesX;

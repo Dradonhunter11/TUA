@@ -2,7 +2,6 @@ using BiomeLibrary.API;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Mono.Cecil;
-using MonoMod.RuntimeDetour.HookGen;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
@@ -10,7 +9,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using Ionic.Zip;
 using log4net;
 using Terraria;
 using Terraria.GameContent.UI.States;
@@ -41,6 +39,8 @@ using TUA.UIHijack.MainMenu;
 using TUA.UIHijack.WorldSelection;
 using TUA.Utilities;
 using TUA.Void;
+using MonoMod.Cil;
+using TUA.Raids;
 
 namespace TUA
 {
@@ -149,7 +149,7 @@ namespace TUA
                 client.Value.DownloadFile("https://github.com/Dradonhunter11/TerrariaUltraApocalypse/" +
                     $"files/3075678/{dep}.zip", $".\\TUACache\\Temp\\{dep}.zip");
 
-                ZipFile.Read($".\\TUACache\\Temp\\{dep}.zip").ExtractAll(".\\TUACache\\");
+                // ZipFile.OpenRead($".\\TUACache\\Temp\\{dep}.zip").ExtractAll(".\\TUACache\\");
 
                 AutoloadDep(dep);
             }
@@ -244,28 +244,24 @@ namespace TUA
 
         private static void HookGenLoader()
         {
-
-            HookILCursor c;
-            /*IL.Terraria.Main.GUIChatDrawInner += il =>
+            IL.Terraria.Main.GUIChatDrawInner += il =>
             {
-                
-                c = il.At(0);
+                var c = new ILCursor(il).Goto(0);
 
                 // Let's go to the next SetChatButtons call.
                 // From the start of the method, it's the first one.
-                // Assuming that SetChatButtons is a static method in NPCLoader...
+                // Assuming that SetChatButtons is a static method in NPCLoader
                 if (c.TryGotoNext(i => i.MatchCall(typeof(NPCLoader), "SetChatButtons")))
                 {
-
                     c.Index++;
-                    c.EmitDelegate<RaidsGlobalNPC.SetChatButtonsCustomDelegate>(RaidsGlobalNPC.SetChatButtonsCustom);
+                    c.EmitDelegate<RaidsGlobalNPC.SetChatButtonsCustomDelegate>
+                    (RaidsGlobalNPC.SetChatButtonsCustom);
                 }
-            };*/
+            };
 
             IL.Terraria.Main.UpdateAudio += il =>
             {
-
-                c = il.At(0);
+                var c = new ILCursor(il).Goto(0);
                 if (c.TryGotoNext(i =>
                     i.MatchLdarg(out int empty),
                     i => i.MatchLdfld(out FieldReference reference),
@@ -297,7 +293,8 @@ namespace TUA
                     new ScreenShaderData("FilterMoonLord").UseColor(0.4f, 0, 0).UseOpacity(0.7f),
                     EffectPriority.VeryHigh);
             SkyManager.Instance["TUA:StardustPillar"] = new StardustCustomSky();
-            Filters.Scene["TUA:SolarMist"] = new Filter(new MeteoridonScreenShader().UseColor(0.4f, 0, 0).UseOpacity(0.7f),
+            Filters.Scene["TUA:SolarMist"] = new Filter(new MeteoridonScreenShader()
+                .UseColor(0.4f, 0, 0).UseOpacity(0.7f),
                 EffectPriority.VeryHigh);
             SkyManager.Instance["TUA:SolarMist"] = new HeavyMistSky();
         }
