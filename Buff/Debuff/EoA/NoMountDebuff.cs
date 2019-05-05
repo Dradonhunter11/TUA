@@ -1,5 +1,4 @@
-﻿using Terraria.ModLoader;
-using Terraria;
+﻿using Terraria;
 
 namespace TUA.Buff.Debuff.EoA
 {

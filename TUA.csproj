@@ -268,6 +268,7 @@
     <Compile Include="NPCs\NewBiome\Meteoridon\EvolvedMeteorideWorm\EvolvedMeteorideWormHead.cs" />
     <Compile Include="NPCs\NewBiome\Meteoridon\Meteoride.cs" />
     <Compile Include="NPCs\NewBiome\Meteoridon\MeteoridonEye.cs" />
+    <Compile Include="NPCs\NewBiome\Wasteland\WastelandWatcher.cs" />
     <Compile Include="NPCs\UltraEoC.cs" />
     <Compile Include="NPCs\UltraBoss\UltraDestroyer\UltraDestroyerWorm.cs" />
     <Compile Include="NPCs\UltraBoss\UltraEoC\UltraEoC.cs" />
@@ -354,22 +355,22 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="BiomeLibrary">
-      <HintPath>lib\BiomeLibrary.dll</HintPath>
+      <HintPath>references\BiomeLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Dimlibs">
-      <HintPath>lib\Dimlibs.dll</HintPath>
+      <HintPath>references\Dimlibs.dll</HintPath>
     </Reference>
     <Reference Include="DiscordRPC">
       <HintPath>lib\DiscordRPC.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip.Reduced">
-      <HintPath>lib\Ionic.Zip.Reduced.dll</HintPath>
+      <HintPath>references\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="LiquidAPI">
-      <HintPath>lib\LiquidAPI.dll</HintPath>
+      <HintPath>references\LiquidAPI.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>lib\log4net.dll</HintPath>
+      <HintPath>references\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -388,28 +389,29 @@
       <HintPath>..\..\..\..\..\..\steam game\steamapps\steamapps\common\Terraria\Microsoft.Xna.Framework.Xact.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
-      <HintPath>lib\Mono.Cecil.dll</HintPath>
+      <HintPath>references\Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="MonoMod.RuntimeDetour">
-      <HintPath>lib\MonoMod.RuntimeDetour.dll</HintPath>
+      <HintPath>references\MonoMod.RuntimeDetour.dll</HintPath>
     </Reference>
     <Reference Include="MonoMod.Utils">
-      <HintPath>lib\MonoMod.Utils.dll</HintPath>
+      <HintPath>references\MonoMod.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="ReLogic">
-      <HintPath>lib\ReLogic.dll</HintPath>
+    <Reference Include="ReLogicWindows">
+      <HintPath>references\ReLogicWindows.dll</HintPath>
+    </Reference>
+    <Reference Include="Steamworks.NET.Windows">
+      <HintPath>references\Steamworks.NET.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="TerraEnergyLibrary">
       <HintPath>lib\TerraEnergyLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Terraria">
-      <HintPath>lib\Terraria.exe</HintPath>
+    <Reference Include="TerrariaHooks.XNA">
+      <HintPath>references\TerrariaHooks.XNA.dll</HintPath>
     </Reference>
-    <Reference Include="TerrariaHooks">
-      <HintPath>lib\TerrariaHooks.dll</HintPath>
+    <Reference Include="tModLoader">
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Terraria\tModLoader.exe</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -34,7 +34,6 @@ namespace TUA.API.Dev
             value = ptr.ToInt32();
             Marshal.WriteInt32(ptr, Marshal.ReadInt32(ptr2));
             Marshal.WriteInt32(ptr2, Marshal.ReadInt32(new IntPtr(value)));
-            
         }
 
         public static unsafe void MethodSwap64bit(Type OriginalMethodType, string OriginalMethodName, Type NewMethodType, string NewMethodName)
