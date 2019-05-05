@@ -30,7 +30,7 @@ namespace TUA.NPCs.NewBiome.Wasteland
             }
             while (!success);
             int spawnX = spawnPos.X += spawnPos.X > x ? -1 : 1;
-            int spawnY = spawnPos.Y += spawnPos.Y > x ? 1 : -1;
+            int spawnY = spawnPos.Y += spawnPos.Y > y ? 1 : -1;
             NPC.NewNPC(spawnX, spawnY, TUA.instance.NPCType("WastelandWatcher"),
                 ai0: spawnPos.X, ai1: spawnPos.Y);
         }
