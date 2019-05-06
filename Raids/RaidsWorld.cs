@@ -37,13 +37,15 @@ namespace TUA.Raids
         public const byte None = 0;
         public const byte TheGreatHellRide = 1;
         public const byte TheWrathOfTheWasteland = 2;
-        public const byte TheEyeOfDestruction = 3;
+        public const byte ApoMoon = 3;
+        public const byte TheEyeOfDestruction = 4;
         // public const byte DryadsRequest = 4;
         public static string[] raidsName = new string[]
             {
-                "No active raids",
+                "No Active Raid",
                 "The Great Hell Ride!",
                 "The Wrath of the Wasteland!",
+                "Apocalypse by the Moon",
                 "The God of Destruction"
             };
     }

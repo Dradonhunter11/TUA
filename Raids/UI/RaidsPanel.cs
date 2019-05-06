@@ -5,19 +5,23 @@ using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 using Terraria.UI.Chat;
+using TUA.Utilities;
 
 namespace TUA.Raids.UI
 {
     public class RaidsPanel : UIPanel
     {
         public byte RaidsType { get; }
-        public Func<bool> Eligible { get; }
+
+        public Func<bool> Complete { get; }
+
+        public bool Eligible => RaidsType == RaidsID.None || !Complete() && RaidsManager.IsComplete(RaidsType - 1);
         private bool highlight = false;
 
-        public RaidsPanel(byte raid, Func<bool> eligible)
+        public RaidsPanel(byte raid, Func<bool> complete)
         {
-            this.RaidsType = raid;
-            Eligible = eligible;
+            RaidsType = raid;
+            Complete = complete;
         }
 
         public string GetRaidsName()

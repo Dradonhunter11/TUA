@@ -28,7 +28,7 @@ namespace TUA.Raids.UI
         private UIElement xButton;
         private Texture2D xButtonTexture;
 
-        internal RaidsPanel currentlySelectedRaids = new RaidsPanel(RaidsID.None, () => true);
+        internal RaidsPanel currentlySelectedRaids = new RaidsPanel(RaidsID.None, () => false);
         internal RaidsPanel previousRaidsPanel;
 
         public override void OnInitialize()
