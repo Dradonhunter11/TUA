@@ -14,8 +14,8 @@ namespace TUA.Utilities
         {
             Panels = new HashSet<RaidsPanel>
             {
-                // 'false' doesn't matter, the none always shows up if no other raid is selected
-                new RaidsPanel(RaidsID.None, () => false),
+                // 'true’ doesn't matter, the none always shows up if no other raid is selected
+                new RaidsPanel(RaidsID.None, () => true),
                 new RaidsPanel(RaidsID.TheGreatHellRide, () => Main.hardMode && TUAWorld.Wasteland),
                 new RaidsPanel(RaidsID.TheWrathOfTheWasteland, () => Main.hardMode && !TUAWorld.Wasteland),
                 new RaidsPanel(RaidsID.ApoMoon, () => TUAWorld.ApoMoonDowned),
