@@ -18,7 +18,7 @@ namespace TUA.Utilities
                 new RaidsPanel(RaidsID.None, () => false),
                 new RaidsPanel(RaidsID.TheGreatHellRide, () => Main.hardMode && TUAWorld.Wasteland),
                 new RaidsPanel(RaidsID.TheWrathOfTheWasteland, () => Main.hardMode && !TUAWorld.Wasteland),
-                new RaidsPanel(RaidsID.ApoMoon, () => TUAWorld.ApoMoonDowned)
+                new RaidsPanel(RaidsID.ApoMoon, () => TUAWorld.ApoMoonDowned),
                 new RaidsPanel(RaidsID.TheEyeOfDestruction, () => TUAWorld.EoADowned)
             };
         }
