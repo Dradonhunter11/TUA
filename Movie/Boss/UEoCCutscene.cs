@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Cinematics;
-using TUA.BaseMod.Base;
+
 using TUA.NPCs.Gods.EoA;
 
 namespace TUA.Movie.Boss
@@ -49,7 +49,7 @@ namespace TUA.Movie.Boss
 
         private void UEoCInitialDialog(FrameEventData evt)
         {
-            BaseUtility.Chat("<Eye of Cthulhu> ... Not again, I'm too weak to defeat the terrarian, sorry lord but I cannot avenge you...");
+            TUA.BroadcastMessage("<Eye of Cthulhu> ... Not again, I'm too weak to defeat the terrarian, sorry lord but I cannot avenge you...");
             _UEoC.Opacity -= 0.25f;
         }
 
@@ -92,11 +92,11 @@ namespace TUA.Movie.Boss
             if (Main.netMode == 0)
             {
                 string gender = Main.LocalPlayer.Male ? "him" : "her";
-                BaseUtility.Chat($"<???> You failure of a minion, you can't even avenge your lord properly. But I am willing to give you a chance to beat {gender}.");
+                TUA.BroadcastMessage($"<???> You failure of a minion, you can't even avenge your lord properly. But I am willing to give you a chance to beat {gender}.");
             }
             else
             {
-                BaseUtility.Chat($"<???> You failure of a minion, you can't even avenge your lord properly. But I am willing to give you a chance to beat them.");
+                TUA.BroadcastMessage($"<???> You failure of a minion, you can't even avenge your lord properly. But I am willing to give you a chance to beat them.");
             }
         }
 
@@ -107,7 +107,7 @@ namespace TUA.Movie.Boss
 
         private void UEoCfirstTalk(FrameEventData evt)
         {
-            BaseUtility.Chat("<Eye of Cthulhu> Who are you???");
+            TUA.BroadcastMessage("<Eye of Cthulhu> Who are you???");
         }
 
         private void FreeLock(FrameEventData evt)

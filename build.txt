@@ -1,9 +1,9 @@
-author = Apocalypse Mod Team
+﻿author = Apocalypse Mod Team
 version = 0.1
-displayName = TUA
+displayName = Terraria Ultra Apocalypse
 hideCode = true
 hideResources = true
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*, icon_resize.png, _scripts\*, resources\*
 includePDB = true
-modReferences = BiomeLibrary, LiquidAPI, Dimlibs
+modReferences = BiomeLibrary, SubworldLibrary, InfinityCore
 dllReferences =  DiscordRPC

@@ -5,7 +5,7 @@ using Terraria.ID;
 using Terraria.Localization;
 using Microsoft.Xna.Framework;
 using System.Linq;
-using TUA.BaseMod.Base;
+
 
 namespace TUA.NPCs.Gods.EoA
 {
@@ -113,36 +113,36 @@ namespace TUA.NPCs.Gods.EoA
                 {
                     case 0:
                         TUA.instance.SetTitle("Eye of Azathoth", "The god of destruction", Color.Red, Color.Black, Main.fontDeathText, 300, 1, true);
-                        BaseUtility.Chat("<???> Who hath summoned this to this wretched world? " +
+                        TUA.BroadcastMessage("<???> Who hath summoned this to this wretched world? " +
                             "It will be a pleasure to destroy them, like I did a years ago.", Color.Black);
                         npc.GivenName = "???";
                         break;
                     case 1:
-                        BaseUtility.Chat("<???> Humans sealed me eons ago, but now I'm finally free " +
+                        TUA.BroadcastMessage("<???> Humans sealed me eons ago, but now I'm finally free " +
                             "and I'll bring this world back to its most glorious stage, the era of destruction!");
                         break;
                     case 2:
                         npc.GivenName = "Eye of Azathoth";
-                        BaseUtility.Chat($"<{npc.GivenName}> I, the Eye of Azathoth, the divine incarnation of destruction, " +
+                        TUA.BroadcastMessage($"<{npc.GivenName}> I, the Eye of Azathoth, the divine incarnation of destruction, " +
                             "will bring the world back to the times when humanity was nothing more than a speck on the earth.");
                         break;
                     case 3:
-                        BaseUtility.Chat($"<{npc.GivenName}> Once I reigned supreme over all other gods of this world , " +
+                        TUA.BroadcastMessage($"<{npc.GivenName}> Once I reigned supreme over all other gods of this world , " +
                             "but that despicable man completely defeated me, impossibly, " +
                             "and somehow me and my brotherhood was rendered powerless and trapped in another dimension.");
                         break;
                     case 4:
-                        BaseUtility.Chat($"<{npc.GivenName}> I'll never forgive that human, never.");
+                        TUA.BroadcastMessage($"<{npc.GivenName}> I'll never forgive that human, never.");
                         break;
                     case 5:
-                        BaseUtility.Chat($"<{npc.GivenName}> But now I am back to seek revenge on the humans, " +
+                        TUA.BroadcastMessage($"<{npc.GivenName}> But now I am back to seek revenge on the humans, " +
                             "their worthless spells and so-called \"technology\" won't be able to stop me this time " +
                             "and everyone will perish under the plagues! I will allow all of humanity to be crushed by " +
                             "our divine power!");
                         break;
                     case 6:
                         TUA.instance.SetTitle("Eye of Azathoth", "The god of destruction", Color.Red, Color.Black, Main.fontDeathText, 300, 1, true);
-                        BaseUtility.Chat($"<{npc.GivenName}> We are taking our throne back " +
+                        TUA.BroadcastMessage($"<{npc.GivenName}> We are taking our throne back " +
                             "and we will conquer the world like we did a millenia ago, I hope you're ready to fight Terraria, " +
                             "otherwise it would be boring for me.");
                         break;

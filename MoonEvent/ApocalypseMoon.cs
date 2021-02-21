@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using TUA.BaseMod.Base;
+
 
 namespace TUA.MoonEvent
 {
@@ -43,33 +43,33 @@ namespace TUA.MoonEvent
             switch (wave)
             {
                 case 0:
-                    BaseUtility.Chat("The mechanical madness arises from the ground", Color.DarkSlateGray);
+                    TUA.BroadcastMessage("The mechanical madness arises from the ground", Color.DarkSlateGray);
                     break;
                 case 1:
-                    BaseUtility.Chat("The mythical beast from the jungle and the legendary fish of the ocean are enraged", Color.Green);
+                    TUA.BroadcastMessage("The mythical beast from the jungle and the legendary fish of the ocean are enraged", Color.Green);
                     break;
                 case 2:
-                    BaseUtility.Chat("The scary king and his minions decided to get out...", Color.Orange);
+                    TUA.BroadcastMessage("The scary king and his minions decided to get out...", Color.Orange);
                     break;
                 case 3:
-                    BaseUtility.Chat("The chilling queen and her children are freezing the atmosphere...", Color.LightBlue);
+                    TUA.BroadcastMessage("The chilling queen and her children are freezing the atmosphere...", Color.LightBlue);
                     break;
                 case 4:
-                    BaseUtility.Chat("I see a breach in the sky, seem like it's the Solar invading the world", Color.Red);
+                    TUA.BroadcastMessage("I see a breach in the sky, seem like it's the Solar invading the world", Color.Red);
                     break;
                 case 5:
-                    BaseUtility.Chat("A glimpse of a mystic portal just flashed before you, seems like Stardust vermin are coming...", Color.Blue);
+                    TUA.BroadcastMessage("A glimpse of a mystic portal just flashed before you, seems like Stardust vermin are coming...", Color.Blue);
                     break;
                 case 6:
-                    BaseUtility.Chat("Your mind rapidly feels overtaken by creature from another world, it's likely they are from the Nebula", Color.Violet);
+                    TUA.BroadcastMessage("Your mind rapidly feels overtaken by creature from another world, it's likely they are from the Nebula", Color.Violet);
                     break;
                 case 7:
-                    BaseUtility.Chat("The vortex queen decided to send her minions from Nebula to her, seems like they are invading", Color.Cyan);
+                    TUA.BroadcastMessage("The vortex queen decided to send her minions from Nebula to her, seems like they are invading", Color.Cyan);
                     break;
                 case 8:
                     NPC.SpawnOnPlayer(Main.LocalPlayer.whoAmI, NPCID.MoonLordCore);
                     NPC.SpawnOnPlayer(Main.LocalPlayer.whoAmI, NPCID.MoonLordCore);
-                    BaseUtility.Chat("The god of destruction has summoned a mini moon lord invasian", Color.Black);
+                    TUA.BroadcastMessage("The god of destruction has summoned a mini moon lord invasian", Color.Black);
                     break;
             }
         }
@@ -77,7 +77,7 @@ namespace TUA.MoonEvent
         public override void OnDefeat()
         {
             TUAWorld.ApoMoonDowned = true;
-            BaseUtility.Chat("You proved yourself worthy of defeating god that once led destruction onto the world, the Apocalypsio seems to have changed, can you feel it?", Color.White);
+            TUA.BroadcastMessage("You proved yourself worthy of defeating god that once led destruction onto the world, the Apocalypsio seems to have changed, can you feel it?", Color.White);
         }
 
         private void SetMechanicalWave()

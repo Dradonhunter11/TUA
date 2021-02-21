@@ -7,7 +7,7 @@ using Terraria.UI;
 using Terraria.UI.Chat;
 using TUA.API;
 using TUA.API.UI;
-using TUA.BaseMod.Base;
+
 using TUA.Localization;
 using TUA.Utilities;
 
@@ -183,7 +183,7 @@ namespace TUA.Raids.UI
                 return;
             }
             RaidsWorld.currentRaid = currentlySelectedRaids.RaidsType;
-            BaseUtility.Chat(Main.LocalPlayer.name + " has started [" + RaidsID.raidsName[currentlySelectedRaids.RaidsType] + "] raids!");
+            TUA.BroadcastMessage(Main.LocalPlayer.name + " has started [" + RaidsID.raidsName[currentlySelectedRaids.RaidsType] + "] raids!");
         }
     }
 }

@@ -22,7 +22,7 @@ namespace TUA.Dimension
 
         public override void EditSpawnPool(IDictionary<int, float> pool, NPCSpawnInfo spawnInfo)
         {
-            if (DimensionUtil.PlayerInSolar)
+            if (DimensionUtil.InSolar)
             {
                 pool.Clear();
                 pool.Add(npcList[1][0], 10f);

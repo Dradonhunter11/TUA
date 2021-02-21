@@ -20,6 +20,15 @@ namespace TUA
         public static Vector2 initialPoint = Vector2.Zero;
         public static Vector2 endPoint = Vector2.Zero;
 
+        #region LoreBook Trigger
+        public bool UnlockedHell;
+        public bool UnlockedWasteland;
+        public bool UnlockedUltraBoss;
+        public bool UnlockedTraveller;
+        public bool UnlockedWoF;
+        public bool UnlockedHotW;
+        #endregion
+
         public override void Initialize()
         {
             augmentVortex = false;
@@ -69,23 +78,16 @@ namespace TUA
                 }
             }
 
-            if (Dimension.DimensionUtil.PlayerInSolar)
-                Main.WorldPath = Main.SavePath + "/World/solar";
-            else if (Dimension.DimensionUtil.CurDim == "overworld")
-                Main.WorldPath = Main.SavePath + "/World";
-
             return true;
         }
 
         public override void UpdateBiomeVisuals()
         {
-            if (Dimlibs.Dimlibs.getPlayerDim() != null) {
-                bool inSolar = Dimension.DimensionUtil.PlayerInSolar;
-                player.ManageSpecialBiomeVisuals("TUA:TUAPlayer", false, player.Center);
+            bool inSolar = Dimension.DimensionUtil.InSolar;
+            player.ManageSpecialBiomeVisuals("TUA:TUAPlayer", inSolar, player.Center);
 
-                bool inStardust = Dimension.DimensionUtil.CurDim == "stardust";
-                player.ManageSpecialBiomeVisuals("TUA:StardustPillar", inStardust, player.Center);
-            }
+            bool inStardust = Dimension.DimensionUtil.InStardust;
+            player.ManageSpecialBiomeVisuals("TUA:StardustPillar", inStardust, player.Center);
         }
 
         public override void PreUpdate()

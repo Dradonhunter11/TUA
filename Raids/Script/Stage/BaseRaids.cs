@@ -1,7 +1,6 @@
-﻿
-/*using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace TerrariaUltraApocalypse.Raids.Script.Stage
+namespace TUA.Raids.Script.Stage
 {
     abstract class BaseRaids
     {
@@ -13,4 +12,3 @@ namespace TerrariaUltraApocalypse.Raids.Script.Stage
         }
     }
 }
-*/

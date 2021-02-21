@@ -5,7 +5,7 @@ using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using TUA.BaseMod.Base;
+
 
 namespace TUA.API.EventManager
 {
@@ -153,7 +153,7 @@ namespace TUA.API.EventManager
             if (enemyWave[waveCount].Any(i => i.Item1 == NPCID))
             {
                 score += enemyWave[waveCount].Single(i => i.Item1 == NPCID).Item3;
-                BaseUtility.Chat(this.Name);
+                
             }
 
             return true;

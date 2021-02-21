@@ -157,8 +157,8 @@ namespace TUA.Dimension.MicroBiome
             int x = origin.X - 1 + WorldGen.genRand.Next(width - 2);
             int y = origin.Y + height - 1;
 
-            WorldGen.PlaceTile(x, y, TUA.instance.TileType<MobSpawner>());
-            TUA.instance.GetTileEntity<MobSpawnerEntity>().Place(x - 1, y - 1);
+            WorldGen.PlaceTile(x, y, ModContent.TileType<MobSpawner>());
+            ModContent.GetInstance<MobSpawnerEntity>().Place(x - 1, y - 1);
         }
     }
 }

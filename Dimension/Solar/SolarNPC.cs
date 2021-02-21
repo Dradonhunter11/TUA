@@ -9,7 +9,7 @@ namespace TUA.Dimension.Solar
     {
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Color drawColor)
         {
-            SolarWorld solar = TUA.instance.GetModWorld<SolarWorld>();
+            SolarWorld solar = ModContent.GetInstance<SolarWorld>();
             if (solar.PillarCrashEvent && solar.PillarDetection())
             {
                 drawColor *= 0.1f;

@@ -9,7 +9,7 @@ using TUA.API;
 namespace TUA.NPCs.NewBiome.Wasteland.MutatedMass
 {
     [AutoloadBossHead]
-    class HeartOfTheWasteland : TUAModNPC
+    class HeartOfTheWasteland : ModNPC
     {
         public bool IsSleeping { private get; set; }
 

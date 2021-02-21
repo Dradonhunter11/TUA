@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SubworldLibrary;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
@@ -30,12 +31,9 @@ namespace TUA.Dimension.Sky
             if (!Main.gameMenu)
             {
 
-                if (Dimlibs.Dimlibs.getPlayerDim() != "overworld")
+                if (Subworld.IsActive<StardustSubworld>())
                 {
-                    if (Dimlibs.Dimlibs.getPlayerDim() == "stardust")
-                    {
-                        isActive = true;
-                    }
+                    isActive = true;
                     for (int i = 0; i < 50; i++)
                     {
                         zDistance[i] = Main.rand.NextFloat(0.1f, 0.7f); // get a random 3rd Dimension distance

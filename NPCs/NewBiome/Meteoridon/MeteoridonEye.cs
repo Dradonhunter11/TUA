@@ -8,7 +8,7 @@ using TUA.API;
 
 namespace TUA.NPCs.NewBiome.Meteoridon
 {
-    public class MeteoridonEye : TUAModNPC
+    public class MeteoridonEye : ModNPC
     {
         private static Texture2D infernoRing;
         private bool isCharging = false;
@@ -67,13 +67,6 @@ namespace TUA.NPCs.NewBiome.Meteoridon
             npc.damage = (int)(npc.damage * 1.5);
             npc.lifeMax = (int)(npc.lifeMax * 2.5);
             npc.defense = (int)(npc.defense * 1.2);
-        }
-
-        public override void UltraScaleDifficulty(NPC npc)
-        {
-            npc.damage = (npc.damage * 2);
-            npc.lifeMax = (npc.lifeMax * 5);
-            npc.defense = (npc.defense * 2);
         }
 
         public override void AI()

@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TUA.BaseMod.Base;
+
 
 namespace TUA.Void.VoidGlobal
 {
@@ -19,7 +19,7 @@ namespace TUA.Void.VoidGlobal
                     player = Main.LocalPlayer.GetModPlayer<VoidPlayer>();
                     if (!player.voidTier2Unlocked)
                     {
-                        BaseUtility.Chat("You feel that the darkness is taking more space...", new Color(0, 0, 0), true);
+                        TUA.BroadcastMessage("You feel that the darkness is taking more space...", new Color(0, 0, 0));
                         player.voidTier2Unlocked = true;
                     }
                 }
@@ -35,7 +35,7 @@ namespace TUA.Void.VoidGlobal
                         player = p.GetModPlayer<VoidPlayer>();
                         if (!player.voidTier2Unlocked)
                         {
-                            BaseUtility.Chat("You feel that the darkness is taking more space...", new Color(0, 0, 0), true);
+                            TUA.BroadcastMessage("You feel that the darkness is taking more space...", new Color(0, 0, 0));
                             player.voidTier2Unlocked = true;
                         }
                     }
@@ -50,7 +50,7 @@ namespace TUA.Void.VoidGlobal
                     player = Main.LocalPlayer.GetModPlayer<VoidPlayer>();
                     if (player.voidTier2Unlocked && !player.voidTier3Unlocked)
                     {
-                        BaseUtility.Chat("The void inside you is getting bigger...", new Color(0, 0, 0), true);
+                        TUA.BroadcastMessage("The void inside you is getting bigger...", new Color(0, 0, 0));
                         player.voidTier3Unlocked = true;
                     }
                 }
@@ -66,7 +66,7 @@ namespace TUA.Void.VoidGlobal
                         player = p.GetModPlayer<VoidPlayer>();
                         if (player.voidTier2Unlocked && !player.voidTier3Unlocked)
                         {
-                            BaseUtility.Chat("The void inside you is getting bigger...", new Color(0, 0, 0), true);
+                            TUA.BroadcastMessage("The void inside you is getting bigger...", new Color(0, 0, 0));
                             player.voidTier3Unlocked = true;
                         }
                     }
@@ -76,7 +76,7 @@ namespace TUA.Void.VoidGlobal
 
             if (npc.boss && Main.rand.Next(5) == 0)
             {
-                BaseUtility.Chat("You are assimilating the darkness...", new Color(0, 0, 0), true);
+                TUA.BroadcastMessage("You are assimilating the darkness...", new Color(0, 0, 0));
                 VoidPlayer player;
                 if (Main.netMode == 0)
                 {

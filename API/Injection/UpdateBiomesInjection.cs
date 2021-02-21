@@ -86,23 +86,6 @@ namespace TUA.API.Injection
             self.ZonePeaceCandle = (Main.peaceCandles > 0);
             self.ZoneDesert = (Main.sandTiles > 1000);
             self.ZoneGlowshroom = (Main.shroomTiles > 100);
-            if (Dimlibs.Dimlibs.getPlayerDim() != "overworld")
-            {
-                self.ZoneUnderworldHeight = false;
-                self.ZoneSkyHeight = false;
-                self.ZoneBeach = false;
-            }
-            else
-            {
-                /*
-                self.ZoneUnderworldHeight = (point.Y > Main.maxTilesY - 200);
-                self.ZoneSkyHeight = ((double)point.Y <= Main.worldSurface * 0.34999999403953552);
-                self.ZoneBeach = (self.ZoneOverworldHeight && (point.X < 380 || point.X > Main.maxTilesX - 380));*/
-
-                self.ZoneUnderworldHeight = false;
-                self.ZoneSkyHeight = false;
-                self.ZoneBeach = false;
-            }
             //Main.NewText("Update biome Dim was succesfully injected");
             //self.ZoneUnderworldHeight = (point.Y > Main.maxTilesY - 200);
             self.ZoneRockLayerHeight = (point.Y <= Main.maxTilesY - 200 && (double)point.Y > Main.rockLayer);

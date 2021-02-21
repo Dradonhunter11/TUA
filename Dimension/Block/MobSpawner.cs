@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 using TUA.API;
-using TUA.Items.Misc.Spawner;
+using TUA.Items;
 
 namespace TUA.Dimension.Block
 {
@@ -19,7 +19,7 @@ namespace TUA.Dimension.Block
             TileObjectData.newTile.Origin = new Point16(0, 0);
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16 };
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<MobSpawnerEntity>().Hook_AfterPlacement, -1, 0, false);
+            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(ModContent.GetInstance<MobSpawnerEntity>().Hook_AfterPlacement, -1, 0, false);
             TileObjectData.addTile(Type);
         }
 
@@ -28,7 +28,7 @@ namespace TUA.Dimension.Block
         {
             if (base.CanPlace(i, j))
             {
-                int index = mod.GetTileEntity<MobSpawnerEntity>().Place(i, j);
+                int index = ModContent.GetInstance<MobSpawnerEntity>().Place(i, j);
                 MobSpawnerEntity te = (MobSpawnerEntity)TileEntity.ByID[index];
                 te.Hook_AfterPlacement(i, j, 0, 0, 0);
                 return true;
@@ -46,7 +46,7 @@ namespace TUA.Dimension.Block
             int left = i - (tile.frameX / 18);
             int top = j - (tile.frameY / 18);
 
-            int index = mod.GetTileEntity<MobSpawnerEntity>().Find(left, top);
+            int index = ModContent.GetInstance<MobSpawnerEntity>().Find(left, top);
 
             if (index == -1)
             {
@@ -75,7 +75,7 @@ namespace TUA.Dimension.Block
             int left = x - (tile.frameX / 18);
             int top = y - (tile.frameY / 18);
 
-            int index = mod.GetTileEntity<MobSpawnerEntity>().Find(left, top);
+            int index = ModContent.GetInstance<MobSpawnerEntity>().Find(left, top);
 
             if (index == -1)
             {
@@ -90,7 +90,7 @@ namespace TUA.Dimension.Block
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            mod.GetTileEntity<MobSpawnerEntity>().Kill(i, j);
+            ModContent.GetInstance<MobSpawnerEntity>().Kill(i, j);
         }
     }
 
@@ -211,7 +211,7 @@ namespace TUA.Dimension.Block
         public override bool ValidTile(int i, int j)
         {
             Tile tile = Main.tile[i, j];
-            return tile.active() && (tile.type == mod.TileType<MobSpawner>()) && tile.frameX == 0 && tile.frameY == 0;
+            return tile.active() && (tile.type == ModContent.TileType<MobSpawner>()) && tile.frameX == 0 && tile.frameY == 0;
         }
 
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)

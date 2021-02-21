@@ -1,13 +1,14 @@
 ﻿using Terraria;
 using Terraria.DataStructures;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 using TUA.API.Inventory;
 using TUA.API.TerraEnergy.EnergyAPI;
-using TUA.API.TerraEnergy.Items;
 using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 using TUA.API.TerraEnergy.TileEntities;
 using TUA.API.TerraEnergy.UI;
+using TUA.Items;
 using TUA.Utilities;
 
 namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
@@ -27,7 +28,7 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinatePadding = 2;
             TileObjectData.newTile.UsesCustomCanPlace = true;
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<TerraFurnaceEntity>().Hook_AfterPlacement, -1, 0, false);
+            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(ModContent.GetInstance<TerraFurnaceEntity>().Hook_AfterPlacement, -1, 0, false);
             TileObjectData.addTile(Type);
         }
 
@@ -47,7 +48,7 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             int left = i - (tile.frameX / 18);
             int top = j - (tile.frameY / 18);
 
-            int index = mod.GetTileEntity<TerraFurnaceEntity>().Find(left, top);
+            int index = ModContent.GetInstance<TerraFurnaceEntity>().Find(left, top);
 
             Main.NewText("X " + i + " Y " + j);
 
@@ -218,8 +219,8 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
         {
             Tile tile = Main.tile[i, j];
 
-            Main.NewText((tile.active() && tile.type == mod.TileType<TerraFurnace>() && tile.frameX == 0 && tile.frameY == 0));
-            return tile.active() && (tile.type == mod.TileType<TerraFurnace>()) && tile.frameX == 0 && tile.frameY == 0;
+            Main.NewText((tile.active() && tile.type == ModContent.TileType<TerraFurnace>() && tile.frameX == 0 && tile.frameY == 0));
+            return tile.active() && (tile.type == ModContent.TileType<TerraFurnace>()) && tile.frameX == 0 && tile.frameY == 0;
         }
 
 

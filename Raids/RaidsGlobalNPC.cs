@@ -37,7 +37,7 @@ namespace TUA.Raids
             var npc = Main.npc[Main.LocalPlayer.talkNPC];
             if (npc.type == NPCID.Guide)
             {
-                if (!RaidsWorld.hasTalkedToGuide.Contains(Main.player[Main.myPlayer].GetModPlayer<TUAPlayer>().ID.Raw.ToString()))
+                if (!RaidsWorld.hasTalkedToGuide.Contains(Main.player[Main.myPlayer].GetModPlayer<TUAPlayer>().ID.ToString()))
                 {
                     focusText = "Next";
                     focusText2 = "";
@@ -86,7 +86,7 @@ namespace TUA.Raids
             {
                 if (firstButton)
                 {
-                    if (!RaidsWorld.hasTalkedToGuide.Contains(Main.player[Main.myPlayer].GetModPlayer<TUAPlayer>().ID.Raw.ToString()))
+                    if (!RaidsWorld.hasTalkedToGuide.Contains(Main.player[Main.myPlayer].GetModPlayer<TUAPlayer>().ID.ToString()))
                     {
                         Main.npcChatText = GetGuideStartText();
                         currentGuideText++;
@@ -132,7 +132,7 @@ namespace TUA.Raids
                     chat = "Come back when you'll have rescued the cursed man";
                     return;
                 }*/
-                if (!RaidsWorld.hasTalkedToGuide.Contains(Main.player[Main.myPlayer].GetModPlayer<TUAPlayer>().ID.Raw.ToString()))
+                if (!RaidsWorld.hasTalkedToGuide.Contains(Main.player[Main.myPlayer].GetModPlayer<TUAPlayer>().ID.ToString()))
                 {
                     chat = GetGuideStartText();
                 }
@@ -184,7 +184,7 @@ namespace TUA.Raids
                 case 8:
                     return "But my father, his father before him, and all the fathers in the sky above knew, that one day, the descendant of the mighty hero would one day come in a dark hour to defeat the gods again.";
                 case 9:
-                    RaidsWorld.hasTalkedToGuide.Add(Main.player[Main.myPlayer].GetModPlayer<TUAPlayer>().ID.Raw.ToString());
+                    RaidsWorld.hasTalkedToGuide.Add(Main.player[Main.myPlayer].GetModPlayer<TUAPlayer>().ID.ToString());
                     return "I believe that that descendant stands before me now. " +
                         $"{(Main.rand.NextBool(100) ? "" : "YES YOU IDIOT WHO ELSE.")}";
                 default:

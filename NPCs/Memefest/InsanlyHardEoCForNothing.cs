@@ -2,12 +2,23 @@
 using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using TUA.API;
 
 namespace TUA.NPCs.Memefest
 {
-    class InsanlyHardEoCForNothing : TUAModNPC
+    class InsanlyHardEoCForNothing : ModNPC
     {
+        /// <summary>
+        /// Meme boss by matt
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public override bool Autoload(ref string name)
+        {
+            return false;
+        }
+
         private int _currentFrame = 1;
         private int _animationTimer = 50;
 
@@ -40,10 +51,6 @@ namespace TUA.NPCs.Memefest
             npc.lifeMax = (int)(npc.lifeMax * 0.65 * bossLifeScale);
         }
 
-        public override void UltraScaleDifficulty(NPC npc)
-        {
-            npc.lifeMax = (int)(npc.lifeMax * 5 * (TUAWorld.EoCDeathCount + 1));
-        }
 
         public override void NPCLoot()
         {

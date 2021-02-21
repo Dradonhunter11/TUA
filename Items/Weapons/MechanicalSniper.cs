@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 using TUA.API;
+using TUA.Projectiles;
 
 namespace TUA.Items.Weapons
 {
@@ -21,7 +23,7 @@ namespace TUA.Items.Weapons
             item.height = 24;
             item.ranged = true;
             item.damage = 300;
-            item.shoot = mod.ProjectileType("GhosterBullet");
+            item.shoot = ModContent.ProjectileType<GhosterBullet>();
             item.useStyle = 5;
             item.noMelee = true;
             item.rare = 12;

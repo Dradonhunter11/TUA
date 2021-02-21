@@ -8,8 +8,8 @@ namespace TUA.Items.Meteoridon.Materials
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Meteoride Bar");
-            Tooltip.SetDefault("SPACE!");
+            DisplayName.SetDefault("Ether Bar");
+            Tooltip.SetDefault("A weird shiny metal that come from outer space.");
         }
 
         public override void SetDefaults()

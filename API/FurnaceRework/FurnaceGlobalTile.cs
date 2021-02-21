@@ -11,9 +11,9 @@ namespace TUA.API.FurnaceRework
     {
         public override void SetDefaults()
         {
-            TileObjectData.GetTileData(TileID.Furnaces, 0).HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<RegularFurnaceEntity>().Hook_AfterPlacement, -1, 0, false);
-            TileObjectData.GetTileData(TileID.Hellforge, 0).HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<HellForgeEntity>().Hook_AfterPlacement, -1, 0, false);
-            TileObjectData.GetTileData(TileID.AdamantiteForge, 0).HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<AdamantiteTitaniumForgeEntity>().Hook_AfterPlacement, -1, 0, false);
+            TileObjectData.GetTileData(TileID.Furnaces, 0).HookPostPlaceMyPlayer = new PlacementHook(ModContent.GetInstance<RegularFurnaceEntity>().Hook_AfterPlacement, -1, 0, false);
+            TileObjectData.GetTileData(TileID.Hellforge, 0).HookPostPlaceMyPlayer = new PlacementHook(ModContent.GetInstance<HellForgeEntity>().Hook_AfterPlacement, -1, 0, false);
+            TileObjectData.GetTileData(TileID.AdamantiteForge, 0).HookPostPlaceMyPlayer = new PlacementHook(ModContent.GetInstance<AdamantiteTitaniumForgeEntity>().Hook_AfterPlacement, -1, 0, false);
         }
 
         public override void RightClick(int i, int j, int type)
@@ -46,11 +46,11 @@ namespace TUA.API.FurnaceRework
             switch (type)
             {
                 case TileID.AdamantiteForge:
-                    return mod.GetTileEntity<AdamantiteTitaniumForgeEntity>();
+                    return ModContent.GetInstance<AdamantiteTitaniumForgeEntity>();
                 case TileID.Hellforge:
-                    return mod.GetTileEntity<HellForgeEntity>();
+                    return ModContent.GetInstance<HellForgeEntity>();
                 case TileID.Furnaces:
-                    return mod.GetTileEntity<RegularFurnaceEntity>();
+                    return ModContent.GetInstance<RegularFurnaceEntity>();
                 default:
                     return null;
             }

@@ -6,11 +6,11 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using TUA.API;
-using TUA.BaseMod.Base;
+
 
 namespace TUA.NPCs.UltraBoss.UltraEoC
 {
-    public class UltraEoC : TUAModNPC
+    public class UltraEoC : ModNPC
     {
         public override string Texture { get { return "Terraria/NPC_" + NPCID.EyeofCthulhu; } }
 
@@ -72,28 +72,28 @@ namespace TUA.NPCs.UltraBoss.UltraEoC
                 {
                     case 0:
                         npc.GivenName = "Eye of Cthulhu";
-                        BaseUtility.Chat("<Eye of Cthulhu> I'm sorry, I failed you master... The terrarian are much more stronger than I thought");
+                        TUA.BroadcastMessage("<Eye of Cthulhu> I'm sorry, I failed you master... The terrarian are much more stronger than I thought");
                         CutsceneTimer = 200;
                         CutscenePhase++;
                         break;
                     case 1:
-                        BaseUtility.Chat("<???> You failure of a minion, you can't even do your job properly. I was sealed for 1000 year ago and when I wake up I find that the terrarian are more strong than what they were during the god reign time.");
+                        TUA.BroadcastMessage("<???> You failure of a minion, you can't even do your job properly. I was sealed for 1000 year ago and when I wake up I find that the terrarian are more strong than what they were during the god reign time.");
                         CutsceneTimer = 300;
                         CutscenePhase++;
                         break;
                     case 2:
-                        BaseUtility.Chat("<Eye of Cthulhu> But master, those are not the same from 1000 year ago, those area new race.");
+                        TUA.BroadcastMessage("<Eye of Cthulhu> But master, those are not the same from 1000 year ago, those area new race.");
                         CutsceneTimer = 250;
                         CutscenePhase++;
                         break;
                     case 3:
-                        BaseUtility.Chat("<???> I do not care about what they are or what they became, I can still smell the presence of the traveler around the world, the one that made us perish.");
-                        BaseUtility.Chat("<???> Anyway, enough talking for now, I'll give you one last chance and don't fail on me. Here is a fraction of my power");
+                        TUA.BroadcastMessage("<???> I do not care about what they are or what they became, I can still smell the presence of the traveler around the world, the one that made us perish.");
+                        TUA.BroadcastMessage("<???> Anyway, enough talking for now, I'll give you one last chance and don't fail on me. Here is a fraction of my power");
                         CutsceneTimer = 400;
                         CutscenePhase++;
                         break;
                     case 4:
-                        BaseUtility.Chat("<Ultra Eye of Cthulhu> Master, I promise I will do this request, the terrarian will be destroyed.");
+                        TUA.BroadcastMessage("<Ultra Eye of Cthulhu> Master, I promise I will do this request, the terrarian will be destroyed.");
                         TUA.instance.SetTitle("Ultra Eye of Cthulhu", "Not what you were expecting?", Color.White, Color.DarkRed, Main.fontDeathText, 600, 0.8f, true);
                         TUAPlayer.LockPlayerCamera(null, false);
                         IsCutsceneExecuting = false;

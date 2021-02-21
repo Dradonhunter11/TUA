@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using TUA.API;
+using TUA.Projectiles;
 
 namespace TUA.Items.Weapons
 {
@@ -31,7 +32,7 @@ namespace TUA.Items.Weapons
             item.damage = 150;
             item.ranged = true;
             item.useStyle = 5;
-            item.shoot = mod.ProjectileType("GodExplosiveArrow");
+            item.shoot = ModContent.ProjectileType<GodExplosiveArrow>();
             item.autoReuse = true;
             item.shootSpeed = 12;
             item.knockBack = 10;

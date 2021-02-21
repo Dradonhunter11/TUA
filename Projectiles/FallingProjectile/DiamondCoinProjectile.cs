@@ -1,8 +1,11 @@
-﻿namespace TUA.Projectiles.FallingProjectile
+﻿using Terraria.ModLoader;
+using TUA.Tiles.Furniture.Coins;
+
+namespace TUA.Projectiles.FallingProjectile
 {
     class DiamondCoinProjectile : TUAFallingProjectile
     {
         public override string name => "Diamond Coin";
-        public override int Tile => mod.TileType("DiamondCoins");
+        public override int Tile => ModContent.TileType<DiamondCoins>();
     }
 }

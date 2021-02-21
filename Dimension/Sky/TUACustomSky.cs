@@ -29,12 +29,11 @@ namespace TUA.Dimension.Sky
             if (!Main.gameMenu)
             {
 
-                if (Dimlibs.Dimlibs.getPlayerDim() != "overworld")
+                if (DimensionUtil.InSolar)
                 {
-                    if (Dimlibs.Dimlibs.getPlayerDim() == "solar")
-                    {
+                    
                         isActive = true;
-                    }
+                    
                     for (int i = 0; i < 50; i++)
                     {
                         zDistance[i] = Main.rand.NextFloat(0.1f, 0.7f); // get a random 3rd Dimension distance

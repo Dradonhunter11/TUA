@@ -2,12 +2,24 @@
 using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using TUA.API;
 
 namespace TUA.NPCs.Memefest
 {
-    class EvenMoreHarderEoCForNoReason : TUAModNPC
+    class EvenMoreHarderEoCForNoReason : ModNPC
     {
+        
+        /// <summary>
+        /// Meme boss by matt
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public override bool Autoload(ref string name)
+        {
+            return false;
+        }
+
         private int _currentFrame = 1;
         private int _animationTimer = 50;
 

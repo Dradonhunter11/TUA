@@ -1,6 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using TUA.Dimension;
 
 namespace TUA.CustomScreenShader
 {
@@ -37,7 +38,7 @@ namespace TUA.CustomScreenShader
 
         public override void PostDrawTiles()
         {
-            if (Dimlibs.Dimlibs.getPlayerDim() == "Solar" && solarMist && Main.netMode == 0)
+            if (DimensionUtil.InSolar && solarMist && Main.netMode == 0)
             {
                 ScreenFog.Draw(TUA.SolarFog, 0.3f, 0.1f);
             }

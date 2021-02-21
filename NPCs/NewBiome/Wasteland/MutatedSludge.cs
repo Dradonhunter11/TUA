@@ -1,10 +1,11 @@
 ﻿using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using TUA.API;
 
 namespace TUA.NPCs.NewBiome.Wasteland
 {
-    class MutatedSludge : TUAModNPC
+    class MutatedSludge : ModNPC
     {
         public override void SetStaticDefaults()
         {

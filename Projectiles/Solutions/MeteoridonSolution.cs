@@ -1,8 +1,9 @@
 ﻿using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
 using TUA.API.Default;
-using TUA.Tiles.NewBiome.Meteoridon;
+using TUA.Tiles.Meteoridon;
 
 namespace TUA.Projectiles.Solutions
 {
@@ -23,37 +24,37 @@ namespace TUA.Projectiles.Solutions
                         int type = (int)Main.tile[k, l].type;
                         if (TileID.Sets.Conversion.Stone[type])
                         {
-                            Main.tile[k, l].type = (ushort)mod.TileType<MeteoridonStone>();
+                            Main.tile[k, l].type = (ushort)ModContent.TileType<MeteoridonStone>();
                             WorldGen.SquareTileFrame(k, l, true);
                             NetMessage.SendTileSquare(-1, k, l, 1);
                         }
                         else if (TileID.Sets.Conversion.Grass[type])
                         {
-                            Main.tile[k, l].type = (ushort)mod.TileType<MeteoridonGrass>();
+                            Main.tile[k, l].type = (ushort)ModContent.TileType<MeteoridonGrass>();
                             WorldGen.SquareTileFrame(k, l, true);
                             NetMessage.SendTileSquare(-1, k, l, 1);
                         }
                         else if (TileID.Sets.Conversion.Ice[type])
                         {
-                            Main.tile[k, l].type = (ushort)mod.TileType<BrownIce>();
+                            Main.tile[k, l].type = (ushort)ModContent.TileType<BrownIce>();
                             WorldGen.SquareTileFrame(k, l, true);
                             NetMessage.SendTileSquare(-1, k, l, 1);
                         }
                         else if (TileID.Sets.Conversion.Sand[type])
                         {
-                            Main.tile[k, l].type = (ushort)mod.TileType<MeteoridonSand>();
+                            Main.tile[k, l].type = (ushort)ModContent.TileType<MeteoridonSand>();
                             WorldGen.SquareTileFrame(k, l);
                             NetMessage.SendTileSquare(-1, k, l, 1);
                         }
                         else if (TileID.Sets.Conversion.HardenedSand[type])
                         {
-                            Main.tile[k, l].type = (ushort)mod.TileType<MeteoridonHardenedSand>();
+                            Main.tile[k, l].type = (ushort)ModContent.TileType<MeteoridonHardenedSand>();
                             WorldGen.SquareTileFrame(k, l);
                             NetMessage.SendTileSquare(-1, k, l, 1);
                         }
                         else if (TileID.Sets.Conversion.Sandstone[type])
                         {
-                            Main.tile[k, l].type = (ushort)mod.TileType<MeteoridonSandstone>();
+                            Main.tile[k, l].type = (ushort)ModContent.TileType<MeteoridonSandstone>();
                             WorldGen.SquareTileFrame(k, l);
                             NetMessage.SendTileSquare(-1, k, l, 1);
                         }

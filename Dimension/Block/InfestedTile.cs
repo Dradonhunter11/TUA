@@ -16,7 +16,7 @@ namespace TUA.Dimension.Block
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
             Main.tileLighted[Type] = true;
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity("InfestedTileEntity").Hook_AfterPlacement, -1, 0, false);
+            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(ModContent.GetInstance<InfestedTileEntity>().Hook_AfterPlacement, -1, 0, false);
             TileObjectData.addTile(Type);
             AddMapEntry(Color.Gray);
         }
@@ -28,7 +28,7 @@ namespace TUA.Dimension.Block
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            var TE = mod.GetTileEntity<InfestedTileEntity>();
+            var TE = ModContent.GetInstance<InfestedTileEntity>();
             for (int i1 = 0; i1 < TE.types.Count; i1++)
             {
                 int type = TE.types[i1];
@@ -54,7 +54,7 @@ namespace TUA.Dimension.Block
         public override bool ValidTile(int i, int j)
         {
             Tile tile = Main.tile[i, j];
-            return tile.active() && tile.type == mod.TileType("InfestedTile") 
+            return tile.active() && tile.type == ModContent.TileType<InfestedTile>() 
                 && tile.frameX == 0 && tile.frameY == 0;
         }
 

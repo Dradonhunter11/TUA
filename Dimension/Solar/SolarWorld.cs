@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using TUA.BaseMod.Base;
+
 using static Terraria.Main;
 
 namespace TUA.Dimension.Solar
@@ -23,7 +23,7 @@ namespace TUA.Dimension.Solar
 
         public override void PreUpdate()
         {
-            if (Dimlibs.Dimlibs.getPlayerDim() == "Solar")
+            if (SolarSubworld.IsActive<SolarSubworld>())
             {
                 eventTimer--;
                 if (eventTimer == 0)
@@ -45,22 +45,22 @@ namespace TUA.Dimension.Solar
             {
                 case 0:
                     PillarCrashEvent = true;
-                    BaseUtility.Chat("A pillar has crashed into the atmosphere, a massive fog cover the area around the pillar");
+                    TUA.BroadcastMessage("A pillar has crashed into the atmosphere, a massive fog cover the area around the pillar");
                     CrashPillar();
                     break;
                 case 1:
                     VolcanoTremor = true;
-                    BaseUtility.Chat("A volcano tremor is happening!");
+                    TUA.BroadcastMessage("A volcano tremor is happening!");
                     VolcanoTremorInitialize();
                     break;
                 case 2:
                     MeteorRain = true;
-                    BaseUtility.Chat("Meteor are falling from the sky");
+                    TUA.BroadcastMessage("Meteor are falling from the sky");
                     MeteorRainInitialize();
                     break;
                 case 3:
                     SolarFog = true;
-                    BaseUtility.Chat("A massive fog is surrounding the surface");
+                    TUA.BroadcastMessage("A massive fog is surrounding the surface");
                     FogInitialize();
                     break;
             }
@@ -110,14 +110,6 @@ namespace TUA.Dimension.Solar
 
         public override void PostDrawTiles()
         {
-            
-            if (Dimlibs.Dimlibs.getPlayerDim() == "Solar" && PillarCrashEvent)
-            {
-                if (PillarDetection())
-                {
-                    //Write solar pillar crash dark screen code here
-                }
-            }
         }
     }
 }

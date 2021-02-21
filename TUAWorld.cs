@@ -1,4 +1,4 @@
-﻿using BiomeLibrary.API;
+﻿using BiomeLibrary;
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -12,6 +12,7 @@ using TUA.API;
 using TUA.CustomScreenShader;
 using TUA.NPCs.NewBiome.Wasteland.MutatedMass;
 using TUA.Structure.hellalt;
+using TUA.Tiles.Wasteland;
 
 namespace TUA
 {
@@ -137,7 +138,7 @@ namespace TUA
         {
             Main.bottomWorld = Main.maxTilesY * 16 + 400;
 
-            if (NPC.CountNPCS(mod.NPCType<HeartOfTheWasteland>()) == 0 && Main.ActiveWorldFileData.HasCrimson)
+            if (NPC.CountNPCS(ModContent.NPCType<HeartOfTheWasteland>()) == 0 && Main.ActiveWorldFileData.HasCrimson)
             {
                 NPC.NewNPC((Main.maxTilesX / 2) * 16, (Main.maxTilesY - 100) * 16 + 444, mod.NPCType("HeartOfTheWasteland"), 0, 0f, 0f, 0f, 0f, 255);
             }
@@ -241,7 +242,7 @@ namespace TUA
             {
                 for (int y = Main.maxTilesY - 200; y < Main.maxTilesY; y++)
                 {
-                    Main.tile[x, y].type = (ushort)mod.TileType("WastelandRock");
+                    Main.tile[x, y].type = (ushort)ModContent.TileType<WastelandRock>();
                     Main.tile[x, y].liquid = 0;
                     Main.tile[x, y].active(true);
                     Main.tile[x, y].wall = 0;
@@ -254,7 +255,7 @@ namespace TUA
                     if (y > Main.maxTilesY - originY + waveAmplitude)
                     {
                         Main.tile[x, y].active(true);
-                        Main.tile[x, y].type = (ushort)mod.TileType("WastelandRock");
+                        Main.tile[x, y].type = (ushort)ModContent.TileType<WastelandRock>();
                     }
                 }
 
@@ -303,7 +304,7 @@ namespace TUA
             {
                 if (WorldGen.genRand.Next(50) == 0)
                 {
-                    WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(Main.maxTilesY - 140, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 7), WorldGen.genRand.Next(3, 7), mod.TileType("WastelandOre"), false, 0f, 0f, false, true);
+                    WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(Main.maxTilesY - 140, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 7), WorldGen.genRand.Next(3, 7), ModContent.TileType<WastelandOre>(), false, 0f, 0f, false, true);
                 }
             }
             GenerateSpikeTop();
@@ -537,7 +538,7 @@ namespace TUA
 
         public override void PostDrawTiles()
         {
-            if (mod.GetBiome("Meteoridon").InBiome() && Main.netMode == 0)
+            if (mod.GetBiome("Meteoridon").InBiome(Main.LocalPlayer) && Main.netMode == 0)
             {
                 ScreenFog.Draw(TUA.SolarFog, 0.3f, 0.1f);
             }

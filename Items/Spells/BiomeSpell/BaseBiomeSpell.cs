@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ModLoader;
 using TUA.API;
 
 namespace TUA.Items.Spells.BiomeSpell
 {
-    public abstract class BaseBiomeSpell : TUAModLegacyItem, ISpell
+    public abstract class BaseBiomeSpell : ModItem, ISpell
     {
         public abstract bool Cast(Player player);
 

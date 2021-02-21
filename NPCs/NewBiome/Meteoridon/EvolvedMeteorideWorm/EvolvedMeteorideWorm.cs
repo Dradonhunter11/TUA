@@ -1,4 +1,5 @@
-﻿using TUA.NPCs.AI;
+﻿using Terraria.ModLoader;
+using TUA.NPCs.AI;
 
 namespace TUA.NPCs.NewBiome.Meteoridon.EvolvedMeteorideWorm
 {
@@ -13,7 +14,7 @@ namespace TUA.NPCs.NewBiome.Meteoridon.EvolvedMeteorideWorm
         {
             minLength = 6;
             maxLength = 12;
-            headType = mod.NPCType<EvolvedMeteorideWormHead>();
+            headType = ModContent.NPCType<EvolvedMeteorideWormHead>();
             speed = 5.5f;
             turnSpeed = 0.045f;
         }

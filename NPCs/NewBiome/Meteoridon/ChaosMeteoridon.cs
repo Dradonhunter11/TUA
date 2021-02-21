@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using Terraria;
+using Terraria.ModLoader;
 using TUA.API;
 
 namespace TUA.NPCs.NewBiome.Meteoridon
 {
-    class ChaosMeteoridon : TUAModNPC
+    class ChaosMeteoridon : ModNPC
     {
         private List<Meteoride> aliveMinion = new List<Meteoride>();
 

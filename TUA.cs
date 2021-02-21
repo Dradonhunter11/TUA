@@ -1,8 +1,6 @@
-using BiomeLibrary.API;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Mono.Cecil;
-using MonoMod.RuntimeDetour.HookGen;
 using ReLogic.Graphics;
 using System;
 using System.Collections.Generic;
@@ -26,21 +24,21 @@ using TUA.API.EventManager;
 using TUA.API.Injection;
 using TUA.API.TerraEnergy.MachineRecipe.Forge;
 using TUA.API.TerraEnergy.MachineRecipe.Furnace;
-using TUA.Configs;
 using TUA.CustomScreenShader;
 using TUA.CustomSkies;
 using TUA.Dimension.Sky;
 using TUA.Discord;
 using TUA.Enum;
-using TUA.Items.EoA;
 using TUA.Items.Meteoridon.Materials;
-using TUA.Items.Wasteland.Weapons;
-using TUA.NPCs;
 using TUA.Raids.UI;
-using TUA.UIHijack.MainMenu;
-using TUA.UIHijack.WorldSelection;
 using TUA.Utilities;
 using TUA.Void;
+using BiomeLibrary;
+using MonoMod.Cil;
+using SubworldLibrary;
+using TUA.Items;
+using TUA.Items.Weapons;
+using TUA.UI.WorldSelection;
 
 namespace TUA
 {
@@ -56,10 +54,7 @@ namespace TUA
         public static Texture2D SolarFog;
 
         public UIWorldSelect originalWorldSelect;
-        public readonly MainMenuUI newMainMenu;
         public static RaidsUI raidsUI;
-
-        public static CustomTitleMenuConfig custom;
 
         public static bool devMode;
 
@@ -98,7 +93,6 @@ namespace TUA
 
         public TUA()
         {
-            newMainMenu = new MainMenuUI();
 
             animationTimer = 25;
 
@@ -175,7 +169,6 @@ namespace TUA
             Environment.SetEnvironmentVariable("MONOMOD_DMD_TYPE", "MethodBuilder");
             Environment.SetEnvironmentVariable("MONOMOD_DMD_DUMP", "dmddump");
 
-            newMainMenu.Load();
 
             UpdateBiomesInjection.InjectMe();
             Console.Write("AM I NULL? " + ReflManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
@@ -245,7 +238,7 @@ namespace TUA
         private static void HookGenLoader()
         {
 
-            HookILCursor c;
+            ILCursor c;
             /*IL.Terraria.Main.GUIChatDrawInner += il =>
             {
                 
@@ -346,13 +339,13 @@ namespace TUA
             AddInductionSmelterRecipe(ItemID.ChlorophyteBar, ItemID.Ectoplasm, ItemID.SpectreBar, 4, 1, 3);
             AddInductionSmelterRecipe(ItemID.ChlorophyteBar, ItemID.GlowingMushroom, ItemID.ShroomiteBar, 1, 5, 1, 180);
 
-            RecipeUtils.GetAllRecipeByIngredientAndReplace(ItemID.PixieDust, ItemType<MeteorideScale>());
+            RecipeUtils.GetAllRecipeByIngredientAndReplace(ItemID.PixieDust, ModContent.ItemType<MeteorideScale>());
 
             var recipe = new ModRecipe(this);
             recipe.AddIngredient(ItemID.LightsBane);
             recipe.AddIngredient(ItemID.BladeofGrass);
             recipe.AddIngredient(ItemID.Muramasa);
-            recipe.AddIngredient(ItemType<VenomousGreatBlade>());
+            recipe.AddIngredient(ModContent.ItemType<VenomousGreatBlade>());
             recipe.SetResult(ItemID.NightsEdge);
             recipe.AddRecipe();
 
@@ -360,7 +353,7 @@ namespace TUA
             recipe.AddIngredient(ItemID.BloodButcherer);
             recipe.AddIngredient(ItemID.BladeofGrass);
             recipe.AddIngredient(ItemID.Muramasa);
-            recipe.AddIngredient(ItemType<VenomousGreatBlade>());
+            recipe.AddIngredient(ModContent.ItemType<VenomousGreatBlade>());
             recipe.SetResult(ItemID.NightsEdge);
             recipe.AddRecipe();
         }
@@ -399,10 +392,10 @@ namespace TUA
             {
                 Func<bool> c = () => TUAWorld.EoADowned;
                 achievementLibs.Call("AddAchievementWithoutReward", this, "Once there was an eye that was a god...", "Kill the Eye of Apocalypse - God of Destruction!", "Achievement/EoAKill", c);
-                achievementLibs.Call("AddAchievementWithoutReward", this, "The terrible moon tried to kill us", "Use [i:" + ItemType<Spawner>() + "] and succesfully survive all 8 wave of the Apocalypse Moon", "Achievement/EoAKill", (Func<bool>)(() => TUAWorld.ApoMoonDowned));
+                achievementLibs.Call("AddAchievementWithoutReward", this, "The terrible moon tried to kill us", "Use [i:" + ModContent.ItemType<EyeOfPerception>() + "] and succesfully survive all 8 wave of the Apocalypse Moon", "Achievement/EoAKill", (Func<bool>)(() => TUAWorld.ApoMoonDowned));
                 achievementLibs.Call("AddAchievementWithoutAction", this,
                     "Once there was the Eye of Cthulhu... the ultra one", "Kill the Ultra EoC succesfully.",
-                    "Achievement/UltraEoC", new int[] { ItemType<Spawner>() }, new int[] { 1 },
+                    "Achievement/UltraEoC", new int[] { ModContent.ItemType<EyeOfPerception>() }, new int[] { 1 },
                     (Func<bool>)(() => TUAWorld.EoCDeathCount >= 1));
             }
 
@@ -437,26 +430,16 @@ namespace TUA
             {
                 UpdateInGameMusic(ref music, ref musicPriority);
             }
-
-            if (Main.menuMode == 0 && custom.CustomMenu)
-            {
-                Main.menuMode = 888;
-                Main.MenuUI.SetState(newMainMenu);
-            }
             AnimateVersion();
-            if (Main.gameMenu)
-            {
-                SetTheme();
-            }
         }
 
         private void UpdateInGameMusic(ref int music, ref MusicPriority musicPriority)
         {
-            if (this.GetBiome("Meteoridon").InBiome())
+            if (this.GetBiome("Meteoridon").InBiome(Main.LocalPlayer))
             {
                 music = this.GetSoundSlot(SoundType.Music, "Sounds/Music/Stars_Lament_Loop");
             }
-            else if (this.GetBiome("Plagues").InBiome())
+            else if (this.GetBiome("Plagues").InBiome(Main.LocalPlayer))
             {
                 music = MusicID.LunarBoss;
             }
@@ -465,7 +448,7 @@ namespace TUA
                 music = this.GetSoundSlot(SoundType.Music, "Sounds/Music/Terminal_Inception");
                 musicPriority = MusicPriority.BossHigh;
             }
-            else if (Dimlibs.Dimlibs.getPlayerDim() == "Solar")
+            else if (Subworld.IsActive<SolarSubworld>())
             {
                 music = MusicID.TheTowers;
                 Main.musicBox = 36;
@@ -524,36 +507,6 @@ namespace TUA
             }
         }
 
-        public override object Call(params object[] args)
-        {
-            string result = "";
-            int argPos = 0;
-            while (argPos != args.Length)
-            {
-                try
-                {
-                    if ((string)args[argPos++] == "RequestUltraMode")
-                    {
-                        result += $"UltraMode={TUAWorld.UltraMode};";
-                    }
-
-                    if ((string)args[argPos++] == "IsPlrInDim")
-                    {
-                        result += $"IsPlrInDim-{(string)args[argPos]}={Dimension.DimensionUtil.PlayerInDim((string)args[argPos++])}";
-                    }
-
-                    if ((string)args[argPos++] == "CurDim")
-                    {
-                        result += $"CurDim={Dimension.DimensionUtil.CurDim};";
-                    }
-                }
-                catch (Exception e)
-                {
-                    result += e.ToString() + ';';
-                }
-            }
-            return result;
-        }
 
         private void AddAllPreHardmodeRecipeFurnace()
         {
@@ -658,60 +611,6 @@ namespace TUA
             animationTimer--;
         }
 
-        private static void SetTheme()
-        {
-            Dictionary<String, CustomSky> temp2 = (Dictionary<string, CustomSky>)typeof(SkyManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(SkyManager.Instance);
-            Dictionary<String, Filter> temp = (Dictionary<string, Filter>)typeof(FilterManager).GetField("_effects", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(Filters.Scene);
-            List<String> allKey = temp.Keys.ToList();
-            for (int i = 0; i < allKey.Count; i++)
-            {
-                string key = allKey[i];
-                if (key != custom.NewMainMenuTheme)
-                {
-                    Filters.Scene[key].Deactivate();
-                }
-            }
-
-
-            allKey = temp2.Keys.ToList();
-            for (int i = 0; i < allKey.Count; i++)
-            {
-                string key = allKey[i];
-                if (key != TUA.custom.NewMainMenuTheme)
-                {
-                    SkyManager.Instance.Deactivate(key);
-                }
-            }
-
-            Main.worldSurface = 565;
-            if (TUA.custom.NewMainMenuTheme != "Vanilla" && !SkyManager.Instance[TUA.custom.NewMainMenuTheme].IsActive())
-            {
-                switch (TUA.custom.NewMainMenuTheme)
-                {
-                    case "Vanilla":
-                        return;
-                    default:
-                        if (Filters.Scene[TUA.custom.NewMainMenuTheme] != null)
-                        {
-                            Filters.Scene.Activate(TUA.custom.NewMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
-                        }
-
-                        if (SkyManager.Instance[TUA.custom.NewMainMenuTheme] != null)
-                        {
-                            SkyManager.Instance.Activate(TUA.custom.NewMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
-                        }
-
-                        if (Overlays.Scene[TUA.custom.NewMainMenuTheme] != null)
-                        {
-                            Overlays.Scene.Activate(TUA.custom.NewMainMenuTheme,
-                                Vector2.Zero - new Vector2(0f, 10f), new object[0]);
-                        }
-
-                        break;
-                }
-            }
-        }
-
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
             TUANetMessage message = (TUANetMessage)reader.ReadByte();
@@ -743,6 +642,25 @@ namespace TUA
             currentTitle = new Title(text, subText, textColor, subTextColor, font, timer, baseOpacity, fadeEffect);
 
 
+        }
+
+        // TO DO : Move this to a proper utils file
+        public static void BroadcastMessage(string text, Color color)
+        {
+            switch (Main.netMode)
+            {
+                case NetmodeID.Server:
+                    NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(text), color, -1);
+                    return;
+                case NetmodeID.SinglePlayer:
+                    Main.NewText(text, color, true);
+                    return;
+            }
+        }
+
+        public static void BroadcastMessage(string text)
+        {
+            BroadcastMessage(text, Color.White);
         }
 
         protected struct Title

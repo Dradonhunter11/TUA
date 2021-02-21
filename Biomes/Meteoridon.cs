@@ -1,30 +1,36 @@
-﻿using BiomeLibrary.API;
+﻿using BiomeLibrary;
 using BiomeLibrary.Enums;
 using System;
-using TUA.Tiles.NewBiome.Meteoridon;
+using System.Collections.Generic;
+using Terraria.ModLoader;
+using TUA.Tiles.Meteoridon;
 
 namespace TUA.Biomes
 {
     class Meteoridon : ModBiome
     {
+        public new IReadOnlyList<int> BiomeBlockTypes => new List<int>()
+        {
+            ModContent.TileType<MeteoridonGrass>(),
+            ModContent.TileType<MeteoridonStone>(),
+            ModContent.TileType<MeteoridonSand>(),
+            ModContent.TileType<BrownIce>(),
+            ModContent.TileType<MeteoridonHardenedSand>(),
+            ModContent.TileType<MeteoridonSandstone>()
+        };
+
+        public override int MinimumTileRequirement => 150;
+
         public override void SetDefault()
         {
-            BiomeAlt = BiomeAlternative.hallowAlt;
-            EvilSpecific = EvilSpecific.crimson;
-            biomeBlock.Add(mod.TileType<MeteoridonGrass>());
-            biomeBlock.Add(mod.TileType<MeteoridonStone>());
-            biomeBlock.Add(mod.TileType<MeteoridonSand>());
-            biomeBlock.Add(mod.TileType<BrownIce>());
-            biomeBlock.Add(mod.TileType<MeteoridonHardenedSand>());
-            biomeBlock.Add(mod.TileType("MeteoridonSandstone"));
-            MinimumTileRequirement = 150;
+            BiomeAlternative = BiomeAlternative.Hallow;
+            
         }
 
-        [Obsolete]
-        public override bool BiomeAltGeneration(ref string message)
+        public override bool BiomeAlternativeGeneration(ref string message)
         {
             message = "A meteor strike is happening";
-            return false;
+            return base.BiomeAlternativeGeneration(ref message);
         }
     }
 }

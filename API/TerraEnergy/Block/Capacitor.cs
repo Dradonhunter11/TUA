@@ -12,7 +12,7 @@ namespace TUA.API.TerraEnergy.Block
 
         public ModTileEntity GetCapacitorEntity()
         {
-            return mod.GetTileEntity<CapacitorEntity>();
+            return ModContent.GetInstance<CapacitorEntity>();
 
         }
 
@@ -26,7 +26,7 @@ namespace TUA.API.TerraEnergy.Block
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            mod.GetTileEntity<CapacitorEntity>().Kill(i, j);
+            ModContent.GetInstance<CapacitorEntity>().Kill(i, j);
         }
     }
 

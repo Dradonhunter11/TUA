@@ -14,11 +14,11 @@ namespace TUA.API
         {
             add
             {
-                HookEndpointManager.Add(ReflManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser").GetMethod("PopulateModBrowser", BindingFlags.NonPublic | BindingFlags.Instance), value);
+                HookEndpointManager.Add(ReflManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.ModBrowser.UIModBrowser").GetMethod("PopulateModBrowser", BindingFlags.NonPublic | BindingFlags.Instance), value);
             }
             remove
             {
-                HookEndpointManager.Remove(ReflManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser").GetMethod("PopulateModBrowser", BindingFlags.NonPublic | BindingFlags.Instance), value);
+                HookEndpointManager.Remove(ReflManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser.ModBrowser").GetMethod("PopulateModBrowser", BindingFlags.NonPublic | BindingFlags.Instance), value);
             }
         }
     }

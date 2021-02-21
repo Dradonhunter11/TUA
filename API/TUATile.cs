@@ -3,13 +3,15 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using TUA.API.TerraEnergy.EnergyAPI;
-using TUA.Items.Misc.Debug;
+using TUA.Items.Misc;
 
 namespace TUA.API
 {
-    public class TUATile : ModTile
+    /// <summary>
+    /// Keep or remove?
+    /// </summary>
+    public abstract class TUATile : ModTile
     {
-        public virtual ModTileEntity GetTileEntity() => mod.GetTileEntity<StorageEntity>();
 
         public override void SetDefaults()
         {
@@ -30,7 +32,7 @@ namespace TUA.API
 
         public sealed override void RightClick(int i, int j)
         {
-            if (Main.LocalPlayer.HeldItem.type == mod.ItemType<DebugStick>())
+            if (Main.LocalPlayer.HeldItem.type == ModContent.ItemType<DebugStick>())
             {
                 ReadData(i, j);
             }

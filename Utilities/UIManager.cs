@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.UI;
+using TUA.UI.LoreBookUI;
 using TUA.UI.VoidUI;
 
 namespace TUA.Utilities
@@ -13,11 +14,11 @@ namespace TUA.Utilities
         private static UserInterface loreInterface;
         private static UserInterface voidInterface;
 
-        private static LoreBook.UI.LoreUI loreUI;
+        private static LoreUI loreUI;
         private static Raids.UI.RaidsUI raidsUI;
         private static UI.VoidUI.VoidUIState voidUI;
 
-        internal static LoreBook.UI.LoreUI GetLoreInstance() => loreUI;
+        internal static LoreUI GetLoreInstance() => loreUI;
 
         public static void InitAll()
         {
@@ -27,7 +28,7 @@ namespace TUA.Utilities
             loreInterface = new UserInterface();
             voidInterface = new UserInterface();
 
-            loreUI = new LoreBook.UI.LoreUI();
+            loreUI = new LoreUI();
             raidsUI = new Raids.UI.RaidsUI();
 
             voidUI = new VoidUIState();
@@ -86,7 +87,7 @@ namespace TUA.Utilities
 
         public static void OpenLoreUI(Player plr)
         {
-            loreUI.InitLoreUI(plr.GetModPlayer<LoreBook.LorePlayer>());
+            loreUI.InitLoreUI(plr.GetModPlayer<TUAPlayer>());
             loreInterface.SetState(loreUI);
             loreInterface.IsVisible = true;
         }

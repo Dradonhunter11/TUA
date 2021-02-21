@@ -1,4 +1,5 @@
-﻿using TUA.Tiles.NewBiome.Meteoridon;
+﻿using Terraria.ModLoader;
+using TUA.Tiles.Meteoridon;
 
 
 namespace TUA.Projectiles.FallingProjectile
@@ -6,6 +7,6 @@ namespace TUA.Projectiles.FallingProjectile
     class MeteoridonSandProjectile : TUAFallingProjectile
     {
         public override string name => "Meteoridon Sand";
-        public override int Tile => mod.TileType<MeteoridonSand>();
+        public override int Tile => ModContent.TileType<MeteoridonSand>();
     }
 }

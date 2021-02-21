@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.GameContent.Events;
 using Terraria.ModLoader;
 using TUA.API.Dev;
-using TUA.BaseMod.Base;
+
 using TUA.Utilities;
 
 namespace TUA.Commands
@@ -39,7 +39,7 @@ namespace TUA.Commands
                                 .Invoke(null, new object[] { });
                         }
                         Sandstorm.Happening = !Sandstorm.Happening;
-                        BaseUtility.Chat("Sandstorm toggled " + ((Sandstorm.Happening) ? "on" : "off"));
+                        TUA.BroadcastMessage("Sandstorm toggled " + ((Sandstorm.Happening) ? "on" : "off"));
                         break;
                     case "Rain":
                         if (Main.raining)
@@ -53,55 +53,55 @@ namespace TUA.Commands
                                 .Invoke(null, new object[] { });
                         }
 
-                        BaseUtility.Chat("Rain toggled " + ((Main.raining) ? "on" : "off"));
+                        TUA.BroadcastMessage("Rain toggled " + ((Main.raining) ? "on" : "off"));
                         break;
                     case "SlimeRain":
                         Main.slimeRain = !Main.slimeRain;
                         Main.slimeRainTime = (Main.slimeRain) ? 54000.0 : 0;
-                        BaseUtility.Chat("Slime rain toggled " + ((Main.slimeRain) ? "on" : "off"));
+                        TUA.BroadcastMessage("Slime rain toggled " + ((Main.slimeRain) ? "on" : "off"));
                         break;
                     case "GoblinArmy":
                         Main.invasionType = ((Main.invasionType == 1) ? 0 : 1);
-                        BaseUtility.Chat("Goblin army toggled " + ((Main.invasionType == 1) ? "on" : "off"));
+                        TUA.BroadcastMessage("Goblin army toggled " + ((Main.invasionType == 1) ? "on" : "off"));
                         break;
                     case "FrostLegion":
                         Main.invasionType = ((Main.invasionType == 2) ? 0 : 2);
-                        BaseUtility.Chat("Frost legion toggled " + ((Main.invasionType == 2) ? "on" : "off"));
+                        TUA.BroadcastMessage("Frost legion toggled " + ((Main.invasionType == 2) ? "on" : "off"));
                         break;
                     case "PirateInvasion":
                         Main.invasionType = ((Main.invasionType == 3) ? 0 : 3);
-                        BaseUtility.Chat("Pirate invasion toggled " + ((Main.invasionType == 3) ? "on" : "off"));
+                        TUA.BroadcastMessage("Pirate invasion toggled " + ((Main.invasionType == 3) ? "on" : "off"));
                         break;
                     case "MartianMadness":
                         Main.invasionType = ((Main.invasionType == 4) ? 0 : 4);
-                        BaseUtility.Chat("Martian madness toggled " + ((Main.invasionType == 4) ? "on" : "off"));
+                        TUA.BroadcastMessage("Martian madness toggled " + ((Main.invasionType == 4) ? "on" : "off"));
                         break;
                     case "Eclipse":
                         Main.dayTime = true;
                         Main.time = 0;
                         Main.eclipse = !Main.eclipse;
-                        BaseUtility.Chat("Solar eclipse toggled " + ((Main.eclipse) ? "on" : "off"));
+                        TUA.BroadcastMessage("Solar eclipse toggled " + ((Main.eclipse) ? "on" : "off"));
                         break;
                     case "BloodMoon":
                         Main.dayTime = false;
                         Main.time = 0;
                         Main.bloodMoon = !Main.bloodMoon;
-                        BaseUtility.Chat("Blood moon toggled " + ((Main.bloodMoon) ? "on" : "off"));
+                        TUA.BroadcastMessage("Blood moon toggled " + ((Main.bloodMoon) ? "on" : "off"));
                         break;
                     case "FrostMoon":
                         Main.dayTime = false;
                         Main.time = 0;
                         Main.snowMoon = !Main.snowMoon;
-                        BaseUtility.Chat("Frost moon toggled " + ((Main.snowMoon) ? "on" : "off"));
+                        TUA.BroadcastMessage("Frost moon toggled " + ((Main.snowMoon) ? "on" : "off"));
                         break;
                     case "PumpkinMoon":
                         Main.dayTime = false;
                         Main.time = 0;
                         Main.pumpkinMoon = !Main.pumpkinMoon;
-                        BaseUtility.Chat("Pumpkin moon toggled " + ((Main.pumpkinMoon) ? "on" : "off"));
+                        TUA.BroadcastMessage("Pumpkin moon toggled " + ((Main.pumpkinMoon) ? "on" : "off"));
                         break;
                     default:
-                        BaseUtility.Chat("Event is not supported by the command currently");
+                        TUA.BroadcastMessage("Event is not supported by the command currently");
                         break;
                 }
             }

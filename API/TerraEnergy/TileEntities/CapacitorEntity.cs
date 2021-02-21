@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using TUA.API.Inventory;
 using TUA.API.TerraEnergy.Block.FunctionnalBlock;
@@ -59,7 +60,7 @@ namespace TUA.API.TerraEnergy.TileEntities
         public override bool ValidTile(int i, int j)
         {
             Tile tile = Main.tile[i, j];
-            return tile.active() && (tile.type == mod.TileType<BasicTECapacitor>());
+            return tile.active() && (tile.type == ModContent.TileType<BasicTECapacitor>());
         }
 
         public override void Update()

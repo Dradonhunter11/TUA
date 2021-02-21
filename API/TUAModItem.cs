@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace TUA.API
 {    
-    public class TUAModItem : ModItem
+    public abstract class TUAModItem : ModItem
     {
         public virtual bool Ultra { get; set; }
         public virtual bool Furnace { get; set; }

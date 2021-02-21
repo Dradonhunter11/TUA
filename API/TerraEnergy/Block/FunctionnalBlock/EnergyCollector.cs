@@ -1,9 +1,10 @@
 ﻿using Terraria;
 using Terraria.DataStructures;
+using Terraria.ModLoader;
 using Terraria.ObjectData;
 using TUA.API.TerraEnergy.EnergyAPI;
-using TUA.API.TerraEnergy.Items;
 using TUA.API.TerraEnergy.TileEntities;
+using TUA.Items;
 
 
 namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
@@ -16,7 +17,7 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             TileObjectData.newTile.Height = 3;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2xX);
             TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 18 };
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<EnergyCollectorEntity>().Hook_AfterPlacement, -1, 0, false);
+            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(ModContent.GetInstance<EnergyCollectorEntity>().Hook_AfterPlacement, -1, 0, false);
             TileObjectData.addTile(Type);
             disableSmartCursor = true;
         }
@@ -31,7 +32,7 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             int left = i - (tile.frameX / 18);
             int top = j - (tile.frameY / 18);
 
-            int index = mod.GetTileEntity<EnergyCollectorEntity>().Find(left, top);
+            int index = ModContent.GetInstance<EnergyCollectorEntity>().Find(left, top);
 
             Main.NewText("X " + i + " Y " + j);
 

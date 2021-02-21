@@ -1,5 +1,6 @@
 ﻿using Terraria;
 using Terraria.DataStructures;
+using Terraria.ModLoader;
 using Terraria.ObjectData;
 using TUA.API.TerraEnergy.EnergyAPI;
 using TUA.API.TerraEnergy.MachineRecipe.Forge;
@@ -20,7 +21,7 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             TileObjectData.newTile.Origin = new Point16(4, 2);
             TileObjectData.newTile.Width = 5;
             TileObjectData.newTile.Height = 3;
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<TerraForgeEntity>().Hook_AfterPlacement, -1, 0, false);
+            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(ModContent.GetInstance<TerraForgeEntity>().Hook_AfterPlacement, -1, 0, false);
             TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16, 18 };
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinatePadding = 2;
@@ -75,7 +76,7 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             TEx = left;
             TEy = top;
 
-            int index = mod.GetTileEntity<TerraForgeEntity>().Find(left, top);
+            int index = ModContent.GetInstance<TerraForgeEntity>().Find(left, top);
 
             if (index == -1)
             {
@@ -102,7 +103,7 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             int left = i - (tile.frameX / 18);
             int top = j - (tile.frameY / 18);
 
-            int index = mod.GetTileEntity<TerraForgeEntity>().Find(left, top);
+            int index = ModContent.GetInstance<TerraForgeEntity>().Find(left, top);
 
             if (index == -1) {
                 Main.NewText("false");
@@ -230,8 +231,8 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
         {
             Tile tile = Main.tile[i, j];
             Main.NewText("here");
-            Main.NewText((tile.active() && tile.type == mod.TileType<TerraForge>() && tile.frameX == 0 && tile.frameY == 0));
-            return tile.active() && (tile.type == mod.TileType<TerraForge>()) && tile.frameX == 0 && tile.frameY == 0;
+            Main.NewText((tile.active() && tile.type == ModContent.TileType<TerraForge>() && tile.frameX == 0 && tile.frameY == 0));
+            return tile.active() && (tile.type == ModContent.TileType<TerraForge>()) && tile.frameX == 0 && tile.frameY == 0;
         }
     }
 }

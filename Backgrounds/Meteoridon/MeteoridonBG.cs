@@ -1,4 +1,4 @@
-﻿using BiomeLibrary.API;
+﻿using BiomeLibrary;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -28,7 +28,7 @@ namespace TUA.Backgrounds.Meteoridon
 
         public override bool ChooseBgStyle()
         {            
-            return !Main.gameMenu && mod.GetBiome("Meteoridon").InBiome();
+            return !Main.gameMenu && mod.GetBiome("Meteoridon").InBiome(Main.LocalPlayer);
         }
     }
 }

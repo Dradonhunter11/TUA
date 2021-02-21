@@ -1,5 +1,6 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
+using TUA.Dimension;
 
 namespace TUA.Backgrounds.Solar
 {
@@ -8,12 +9,12 @@ namespace TUA.Backgrounds.Solar
         public override bool ChooseBgStyle()
         {
 
-            if (Dimlibs.Dimlibs.getPlayerDim() == "solar" && Main.LocalPlayer.Center.Y > Main.rockLayer)
+            if (DimensionUtil.InSolar && Main.LocalPlayer.Center.Y > Main.rockLayer)
             {
                 //Main.spriteBatch.Draw(mod.GetTexture("Backgrounds/Solar/SolarUnderUG0"), new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), new Color(70, 0, 0) * 0.9f);
             }
 
-            return Dimlibs.Dimlibs.getPlayerDim() == "solar";
+            return DimensionUtil.InSolar;
         }
 
         public override void FillTextureArray(int[] textureSlots)

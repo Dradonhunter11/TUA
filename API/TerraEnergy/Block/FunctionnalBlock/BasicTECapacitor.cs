@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
 using TUA.API.TerraEnergy.EnergyAPI;
-using TUA.API.TerraEnergy.Items;
 using TUA.API.TerraEnergy.TileEntities;
+using TUA.Items;
 
 namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 {
@@ -16,7 +17,7 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             base.SetDefaults();
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16 };
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(mod.GetTileEntity<BasicTECapacitorEntity>().Hook_AfterPlacement, -1, 0, false);
+            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(ModContent.GetInstance<BasicTECapacitorEntity>().Hook_AfterPlacement, -1, 0, false);
             TileObjectData.addTile(Type);
         }
 
@@ -32,7 +33,7 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 
             Main.NewText("X " + i + " Y " + j);
 
-            int index = mod.GetTileEntity<BasicTECapacitorEntity>().Find(left, top);
+            int index = ModContent.GetInstance<BasicTECapacitorEntity>().Find(left, top);
 
             if (index == -1)
             {
@@ -81,7 +82,7 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            mod.GetTileEntity<BasicTECapacitorEntity>().Kill(i, j);
+            ModContent.GetInstance<BasicTECapacitorEntity>().Kill(i, j);
         }
     }
 
