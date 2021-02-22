@@ -73,6 +73,7 @@ namespace TUA
         public override TagCompound Save()
         {
             BitsByte bits = new BitsByte();
+            
             bits[0] = UltraMode;
             bits[1] = EoADowned;
             bits[2] = Wasteland;
@@ -80,7 +81,7 @@ namespace TUA
             bits[4] = RealisticTimeMode;
             return new TagCompound
             {
-                ["Flags"] = bits,
+                ["Flags"] = (byte)bits,
                 ["EoCCutscene"] = EoCDeathCount,
                 ["_nextSnowflakeIncrement"] = _nextSnowflakeIncrement
             };

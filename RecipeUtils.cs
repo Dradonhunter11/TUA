@@ -77,15 +77,5 @@ namespace TUA
                 }
             }
         }
-
-        /*
-        public static void SetBackAllRecipe()
-        {
-            for (int i = 0; i < removedRecipes.Count; i++)
-            {
-                
-            }
-        }
-        */
     }
 }

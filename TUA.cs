@@ -439,10 +439,6 @@ namespace TUA
             {
                 music = this.GetSoundSlot(SoundType.Music, "Sounds/Music/Stars_Lament_Loop");
             }
-            else if (this.GetBiome("Plagues").InBiome(Main.LocalPlayer))
-            {
-                music = MusicID.LunarBoss;
-            }
             else if (MoonEventManagerWorld.IsActive("Apocalypse Moon"))
             {
                 music = this.GetSoundSlot(SoundType.Music, "Sounds/Music/Terminal_Inception");
