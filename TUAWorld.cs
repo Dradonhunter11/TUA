@@ -25,7 +25,7 @@ namespace TUA
         //Ultra mode phase 1 - Release : TUA - The start of a new era
         public static bool EoADowned;
         public static bool ApoMoonDowned;
-        public static bool UltraMode;
+        public bool UltraMode;
         public static bool EoCPostMLDowned;
         public static int EoCDeathCount = 0;
         public static bool EoCCutsceneFirstTimePlayed;
@@ -79,24 +79,29 @@ namespace TUA
             bits[2] = Wasteland;
             bits[3] = EoCCutsceneFirstTimePlayed;
             bits[4] = RealisticTimeMode;
-            return new TagCompound
+
+            TagCompound compound = new TagCompound()
             {
-                ["Flags"] = (byte)bits,
+                //["Flags"] = (byte)bits,
+                ["UltraMode"] = UltraMode,
                 ["EoCCutscene"] = EoCDeathCount,
                 ["_nextSnowflakeIncrement"] = _nextSnowflakeIncrement
             };
+            return compound;
             //tc.Add("apocalypseMoon", apocalypseMoon);
         }
 
         public override void Load(TagCompound tag)
         {
-            var bits = (BitsByte)tag.GetByte("Flags");
+           /* var bits = (BitsByte)tag.GetByte("Flags");
             UltraMode = bits[0];
             EoADowned = bits[1];
             Wasteland = bits[2];
             EoCCutsceneFirstTimePlayed = bits[3];
-            RealisticTimeMode = bits[4];
+            RealisticTimeMode = bits[4];*/
 
+            UltraMode = (tag.ContainsKey("UltraMode")) && tag.GetBool("UltraMode");
+            
             _nextSnowflakeIncrement = tag.Get<ushort>("_nextSnowflakeIncrement");
 
             if (!Main.ActiveWorldFileData.HasCorruption)

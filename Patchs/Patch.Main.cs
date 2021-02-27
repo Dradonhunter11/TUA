@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TUA.Patchs
 {
-    partial class Patch
+    internal static partial class Patch
     {
     }
 }

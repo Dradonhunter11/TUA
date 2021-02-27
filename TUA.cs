@@ -38,6 +38,7 @@ using MonoMod.Cil;
 using SubworldLibrary;
 using TUA.Items;
 using TUA.Items.Weapons;
+using TUA.Patchs;
 using TUA.UI.WorldSelection;
 
 namespace TUA
@@ -166,12 +167,14 @@ namespace TUA
         {
             instance = this;
 
+            MonoModHooks.RequestNativeAccess();
+            
             Environment.SetEnvironmentVariable("MONOMOD_DMD_TYPE", "MethodBuilder");
             Environment.SetEnvironmentVariable("MONOMOD_DMD_DUMP", "dmddump");
 
+            Patch.Load();
 
-            UpdateBiomesInjection.InjectMe();
-            Console.Write("AM I NULL? " + ReflManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"));
+            //UpdateBiomesInjection.InjectMe();
             //MethodInfo attempt = StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser")
             //    .GetMethod("PopulateModBrowser", BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
             //ReflectionUtils.MethodSwap(StaticManager<Type>.GetItem("TMain").Assembly.GetType("Terraria.ModLoader.UI.UIModBrowser"), "PopulateModBrowser", typeof(ModBrowserInjection), "PopulateModBrowser");
@@ -188,10 +191,10 @@ namespace TUA
 
             if (!Main.dedServ)
             {
-                FieldInfo UIWorldSelectInfo =
+                /*FieldInfo UIWorldSelectInfo =
                     ReflManager<Type>.GetItem("TMain").GetField("_worldSelectMenu", BindingFlags.Static | BindingFlags.NonPublic);
                 originalWorldSelect = (UIWorldSelect)UIWorldSelectInfo.GetValue(null);
-                UIWorldSelectInfo.SetValue(null, new NewUIWorldSelect());
+                UIWorldSelectInfo.SetValue(null, new NewUIWorldSelect());*/
 
                 SolarFog = GetTexture("CustomScreenShader/HeavyMist");
 
@@ -384,7 +387,7 @@ namespace TUA
             if (bossChecklist != null)
             {
                 bossChecklist.Call("AddBossWithInfo", "Ultra Eye of Cthulhu", 16.0f, (Func<bool>)(() => TUAWorld.EoCDeathCount >= 1), "Use a [i:" + ItemID.SuspiciousLookingEye + "] at night after Moon lord has been defeated");
-                bossChecklist.Call("AddBossWithInfo", "Eye of EoADowned - God of Destruction", 16.1f, (Func<bool>)(() => TUAWorld.UltraMode), "Use a [i:" + ItemType("Spawner") + "] after --1sing Ay. 0F C1^lh> in ^1tra and murder it, if you can...");
+                bossChecklist.Call("AddBossWithInfo", "Eye of EoADowned - God of Destruction", 16.1f, (Func<bool>)(() => ModContent.GetInstance<TUAWorld>().UltraMode), "Use a [i:" + ItemType("Spawner") + "] after --1sing Ay. 0F C1^lh> in ^1tra and murder it, if you can...");
             }
 
             Mod achievementLibs = ModLoader.GetMod("AchievementLibs");

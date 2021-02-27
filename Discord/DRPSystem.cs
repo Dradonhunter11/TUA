@@ -67,6 +67,9 @@ namespace TUA.Discord
 
 
             _presence.Assets.LargeImageKey = "logo";
+            _presence.Details = "Playing tOtherworldModLoader";
+            
+            return;
             if (!Main.gameMenu)
             {
                 _presence.Details = "Playing Terraria";
