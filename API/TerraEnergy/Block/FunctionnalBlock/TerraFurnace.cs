@@ -3,8 +3,10 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.ObjectData;
+using TUA.API.FurnaceRework;
 using TUA.API.Inventory;
 using TUA.API.TerraEnergy.EnergyAPI;
+using TUA.API.TerraEnergy.Interface;
 using TUA.API.TerraEnergy.MachineRecipe.Furnace;
 using TUA.API.TerraEnergy.TileEntities;
 using TUA.API.TerraEnergy.UI;
@@ -62,7 +64,7 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             if (currentSelectedItem.type == mod.ItemType("TerraMeter"))
             {
                 se = (StorageEntity)TileEntity.ByID[index];
-                Main.NewText(se.getEnergy().getCurrentEnergyLevel() + " / " + se.getEnergy().getMaxEnergyLevel() + " TE");
+                Main.NewText(se.GetEnergy().getCurrentEnergyLevel() + " / " + se.GetEnergy().getMaxEnergyLevel() + " TE");
                 return;
             }
 
@@ -70,7 +72,7 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             {
                 RodOfLinking it = currentSelectedItem.modItem as RodOfLinking;
                 se = (StorageEntity)TileEntity.ByID[index];
-                it.saveCollectorLocation(se);
+                it.SaveLinkableEntityLocation(se);
                 Main.NewText("Terra Furnace succesfully linked, now right click on a capacitor to unlink");
                 return;
             }
@@ -83,61 +85,54 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 
     }
 
-    class TerraFurnaceEntity : StorageEntity
+    class TerraFurnaceEntity : StorageEntity, ITECapacitorLinkable
     {
         private FurnaceUI furnaceUi;
 
         private CapacitorEntity boundCapacitor;
 
-        public ExtraSlot InputSlot;
-        public ExtraSlot OutputSlot;
+        private Ref<Item> _inputItem = new Ref<Item>();
+        private Ref<Item> _outputItem = new Ref<Item>();
+
+        public ref Item inputItem => ref _inputItem.Value;
+        public ref Item outputItem => ref _outputItem.Value;
 
         private int checkTimer = 20; //Maybe will reduce lag
-
         private int progression = 0;
 
         private FurnaceRecipe currentRecipe;
 
+        public TerraFurnaceEntity()
+        {
+            _inputItem = new Ref<Item>(new Item());
+            _outputItem = new Ref<Item>(new Item());
+            inputItem.TurnToAir();
+            outputItem.TurnToAir();
+
+            energy = new EnergyCore(50000);
+        }
+
         public void Activate()
         {
-            if (InputSlot == null)
-            {
-                InputSlot = new ExtraSlot();
-            }
-            if (OutputSlot == null)
-            {
-                OutputSlot = new ExtraSlot();
-            }
-
-            if (energy == null)
-            {
-                energy = new Core(50000);
-            }
-            if (furnaceUi == null)
-            {
-                furnaceUi = new FurnaceUI(InputSlot, OutputSlot, energy, "Terra Furnace");
-            }
-
             Main.playerInventory = true;
-            UIManager.OpenMachineUI(furnaceUi);
+            UIManager.OpenMachineUI(new FurnaceUI(_inputItem, _outputItem, energy, "Terra Furnace"));
         }
+        
+        
 
         public override void LoadEntity(TagCompound tag)
         {
-            InputSlot = new ExtraSlot();
-            OutputSlot = new ExtraSlot();
+            inputItem = new Item();
+            outputItem = new Item();
 
-            maxEnergy = 50000;
-            energy = new Core(maxEnergy);
+            Item temporaryInputItem = tag.Get<Item>("inputSlot");
+            Item temporaryOutputItem = tag.Get<Item>("outputSlot");
 
-            Item temp = tag.Get<Item>("inputSlot");
-            Item temp2 = tag.Get<Item>("outputSlot");
+            SetAir(ref temporaryInputItem);
+            SetAir(ref temporaryOutputItem);
 
-            SetAir(ref temp);
-            SetAir(ref temp2);
-
-            InputSlot.SetItem(ref temp);
-            OutputSlot.SetItem(ref temp2);
+            inputItem = temporaryInputItem;
+            outputItem = temporaryOutputItem;
         }
 
         public void SetAir(ref Item item)
@@ -148,45 +143,35 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             }
         }
 
-        public void linkToCapacitor(CapacitorEntity capacitor)
-        {
-            boundCapacitor = capacitor;
-        }
-
-        public TerraFurnaceEntity()
-        {
-            maxEnergy = 50000;
-            InputSlot = new ExtraSlot();
-            OutputSlot = new ExtraSlot();
-        }
-
-        public void setItem(Item i)
-        {
-            InputSlot.SetItem(ref i);
-        }
-
-
-
         public override void SaveEntity(TagCompound tag)
         {
-            tag.Add("inputSlot", InputSlot.GetItem());
-            tag.Add("outputSlot", OutputSlot.GetItem());
+            tag.Add("inputSlot", inputItem);
+            tag.Add("outputSlot", outputItem);
+        }
+
+        public void LinkToCapacitor(CapacitorEntity capacitor) => boundCapacitor = capacitor;
+
+        public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
+        {
+            energy = new EnergyCore(50000);
+            return Place(i - 3, j - 2);
+        }
+
+        public override bool ValidTile(int i, int j)
+        {
+            Tile tile = Main.tile[i, j];
+
+            Main.NewText((tile.active() && tile.type == ModContent.TileType<TerraFurnace>() && tile.frameX == 0 && tile.frameY == 0));
+            return tile.active() && (tile.type == ModContent.TileType<TerraFurnace>()) && tile.frameX == 0 && tile.frameY == 0;
         }
 
         public override void Update()
         {
-            if (energy == null)
-            {
-                energy = new Core(maxEnergy);
-            }
-
-
-
             if (currentRecipe == null && checkTimer <= 0)
             {
                 FurnaceRecipe recipe = GetRecipe();
                 if (recipe != null &&
-                    (OutputSlot.IsEmpty || OutputSlot.GetItem().type == recipe.GetResult().type))
+                    (outputItem.IsAir || outputItem.type == recipe.GetResult().type))
                 {
                     currentRecipe = recipe;
                 }
@@ -209,31 +194,11 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 
         }
 
-        public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
-        {
-            furnaceUi = new FurnaceUI(InputSlot, OutputSlot, energy, "Terra Furnace");
-            return Place(i - 3, j - 2);
-        }
-
-        public override bool ValidTile(int i, int j)
-        {
-            Tile tile = Main.tile[i, j];
-
-            Main.NewText((tile.active() && tile.type == ModContent.TileType<TerraFurnace>() && tile.frameX == 0 && tile.frameY == 0));
-            return tile.active() && (tile.type == ModContent.TileType<TerraFurnace>()) && tile.frameX == 0 && tile.frameY == 0;
-        }
-
-
-
-        /*****************************************************************/
-        /*                         TIME FOR FUN :D                       */
-        /*****************************************************************/
-
         private FurnaceRecipe GetRecipe()
         {
-            if (!InputSlot.IsEmpty)
+            if (!inputItem.IsAir)
             {
-                if (FurnaceRecipeManager.Instance.IsValid(InputSlot.GetItem()))
+                if (FurnaceRecipeManager.Instance.IsValid(inputItem))
                 {
                     return FurnaceRecipeManager.Instance.Recipe;
                 }
@@ -245,17 +210,17 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
         {
             if (progression >= currentRecipe.GetCookTime() && energy.ConsumeEnergy(50) == 50)
             {
-                InputSlot.ManipulateCurrentStack(-currentRecipe.GetIngredientStack());
+                inputItem.stack -= currentRecipe.GetIngredientStack();
 
                 Item result = currentRecipe.GetResult().Clone();
 
-                if (OutputSlot.IsEmpty)
+                if (outputItem.IsAir)
                 {
-                    OutputSlot.SetItem(ref result);
+                    outputItem = result;
                 }
                 else
                 {
-                    OutputSlot.ManipulateCurrentStack(1);
+                    outputItem.stack++;
                 }
 
                 currentRecipe = null;

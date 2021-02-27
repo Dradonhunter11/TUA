@@ -167,11 +167,6 @@ namespace TUA
         {
             instance = this;
 
-            MonoModHooks.RequestNativeAccess();
-            
-            Environment.SetEnvironmentVariable("MONOMOD_DMD_TYPE", "MethodBuilder");
-            Environment.SetEnvironmentVariable("MONOMOD_DMD_DUMP", "dmddump");
-
             Patch.Load();
 
             //UpdateBiomesInjection.InjectMe();
@@ -191,14 +186,10 @@ namespace TUA
 
             if (!Main.dedServ)
             {
-                /*FieldInfo UIWorldSelectInfo =
-                    ReflManager<Type>.GetItem("TMain").GetField("_worldSelectMenu", BindingFlags.Static | BindingFlags.NonPublic);
-                originalWorldSelect = (UIWorldSelect)UIWorldSelectInfo.GetValue(null);
-                UIWorldSelectInfo.SetValue(null, new NewUIWorldSelect());*/
-
                 SolarFog = GetTexture("CustomScreenShader/HeavyMist");
 
                 Main.OnTick += DRPSystem.Update;
+                
                 DRPSystem.Boot();
 
                 UIManager.InitAll();
@@ -463,7 +454,7 @@ namespace TUA
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            int MouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
+            int MouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text")) - 1;
             int setting = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Inventory"));
             int npcDialog = layers.FindIndex(layer => layer.Name.Equals("Vanilla: NPC / Sign Dialog"));
 

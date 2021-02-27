@@ -1,4 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -11,14 +16,14 @@ using TUA.Items;
 
 namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 {
-    class BasicTECapacitor : Capacitor
+    class AdvancedTECapacitor : TUATile
     {
         public override void SetDefaults()
         {
             base.SetDefaults();
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.CoordinateHeights = new int[] { 16, 16 };
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(ModContent.GetInstance<BasicTECapacitorEntity>().Hook_AfterPlacement, -1, 0, false);
+            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(ModContent.GetInstance<AdvancedTECapacitorEntity>().Hook_AfterPlacement, -1, 0, false);
             TileObjectData.addTile(Type);
         }
 
@@ -32,13 +37,10 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             int left = i - (tile.frameX / 18);
             int top = j - (tile.frameY / 18);
 
-            Main.NewText("X " + i + " Y " + j);
-
-            int index = ModContent.GetInstance<BasicTECapacitorEntity>().Find(left, top);
+            int index = ModContent.GetInstance<AdvancedTECapacitorEntity>().Find(left, top);
 
             if (index == -1)
             {
-                Main.NewText("false");
                 return;
             }
             if (currentSelectedItem.type == ModContent.ItemType<TerraMeter>())
@@ -70,32 +72,33 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
                 return;
             }
 
-            BasicTECapacitorEntity capacitorEntity = (BasicTECapacitorEntity) TileEntity.ByID[index];
+            AdvancedTECapacitorEntity capacitorEntity = (AdvancedTECapacitorEntity)TileEntity.ByID[index];
             capacitorEntity.Activate();
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            ModContent.GetInstance<BasicTECapacitorEntity>().Kill(i, j);
+            ModContent.GetInstance<AdvancedTECapacitorEntity>().Kill(i, j);
         }
     }
 
-    class BasicTECapacitorEntity : CapacitorEntity
+    class AdvancedTECapacitorEntity : CapacitorEntity
     {
-        public BasicTECapacitorEntity()
+        public AdvancedTECapacitorEntity()
         {
-            maxEnergy = 1000000;
-            maxTransferRate = 50;
+            maxEnergy = 2000000;
+            maxTransferRate = 200;
         }
 
         public override void LoadEntity(TagCompound tag)
         {
-            energy = new EnergyCore(GetMaxEnergyStored());
+            energy = new EnergyCore(maxEnergy);
         }
 
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
         {
-            maxTransferRate = 2;
+            energy = new EnergyCore(maxEnergy);
+            maxTransferRate = 200;
             return Place(i - 1, j - 1);
         }
     }

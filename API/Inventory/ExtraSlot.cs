@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Graphics;
 using Terraria;
 using Terraria.GameInput;
 using Terraria.UI;
@@ -13,15 +14,16 @@ namespace TUA.API.Inventory
         private readonly float _scale;
         public Func<Item, bool> validItemFunc;
 
-        public ExtraSlot(int context = ItemSlot.Context.ChestItem, float scale = 0.85f)
+        private Ref<Item> _item;
+
+        public ref Item item => ref _item.Value;
+        
+        public ExtraSlot(Ref<Item> item, int context = ItemSlot.Context.ChestItem, float scale = 0.85f)
         {
-            item = new Item();
-            item.TurnToAir();
+            this._item = item;
 
             _context = context;
             _scale = scale;
-            item = new Item();
-            item.SetDefaults();
 
             Width.Set(Main.inventoryBack9Texture.Width * scale, 0f);
             Height.Set(Main.inventoryBack9Texture.Height * scale, 0f);
@@ -40,11 +42,6 @@ namespace TUA.API.Inventory
             if (ContainsPoint(Main.MouseScreen) && !PlayerInput.IgnoreMouseInterface)
             {
                 Main.LocalPlayer.mouseInterface = true;
-                if (validItemFunc(Main.mouseItem))
-                {
-                    // Handle handles all the click and hover actions based on the context.
-                    ItemSlot.Handle(ref item, _context);
-                }
             }
 
             FixMouse(false);
@@ -71,31 +68,6 @@ namespace TUA.API.Inventory
             return tempItem;
         }
 
-        public bool SetItem(ref Item newItem)
-        {
-            if (!item.IsAir)
-            {
-                return false;
-            }
-            Swap(ref newItem);
-            return true;
-        }
-
-        public bool ManipulateCurrentItem(Item newItem, int i = 1)
-        {
-            if (item.type == newItem.type)
-            {
-                int calculateAfterStack = item.stack + newItem.stack;
-                if (calculateAfterStack > item.maxStack)
-                {
-                    int calculateItemToSubstract = calculateAfterStack - item.stack;
-                    item.stack += calculateItemToSubstract;
-                    newItem.stack -= calculateItemToSubstract;
-                }
-            }
-            return false;
-        }
-
         public void ManipulateCurrentStack(int number)
         {
             int preCalculate = item.stack + number;
@@ -108,17 +80,6 @@ namespace TUA.API.Inventory
             }
             item.stack = preCalculate;
         }
-
-        public void ManipulateSingleItem(ref int targetItem)
-        {
-            targetItem++;
-            item.stack--;
-
-            if (item.stack == 0)
-                item.TurnToAir();
-        }
-
-        public void Swap(ref Item mouseItem) => Utils.Swap(ref item, ref mouseItem);
 
         void FixMouse(bool fix = true)
         {
@@ -145,7 +106,7 @@ namespace TUA.API.Inventory
             }
         }
 
-        public Item item;
+        
         public int ItemStack => item.stack;
         public int ItemType => item.type;
 

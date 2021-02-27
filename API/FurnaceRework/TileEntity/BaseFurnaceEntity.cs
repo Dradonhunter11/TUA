@@ -11,12 +11,15 @@ namespace TUA.API.FurnaceRework.TileEntity
 {
     abstract class BaseFurnaceEntity : ModTileEntity
     {
-        private BudgetCore fuel;
-        private FurnaceUI furnaceUi;
+        private FuelCore fuel;
 
-        public ExtraSlot InputSlot;
-        public ExtraSlot OutputSlot;
-        public ExtraSlot FuelSlot;
+        private Ref<Item> _inputItem;
+        private Ref<Item> _outputItem;
+        private Ref<Item> _fuelItem;
+
+        public Item inputItem => _inputItem.Value;
+        public Item outputItem => _outputItem.Value;
+        public Item fuelItem => _fuelItem.Value;
 
         private int checkTimer = 20; //Maybe will reduce lag
 
@@ -30,53 +33,43 @@ namespace TUA.API.FurnaceRework.TileEntity
 
         public abstract void SetValue(ref int maxEnergy, ref int cookTimer, ref string furnaceName);
 
-        public void Activate()
+        public BaseFurnaceEntity()
         {
             SetValue(ref maxFuel, ref cookTimer, ref furnaceName);
-            if (fuel == null)
-            {
-                fuel = new BudgetCore(maxFuel);
-            }
-            if (InputSlot == null)
-            {
-                InputSlot = new ExtraSlot();
-            }
-            if (OutputSlot == null)
-            {
-                OutputSlot = new ExtraSlot();
-            }
+            _inputItem = new Ref<Item>(new Item());
+            _outputItem = new Ref<Item>(new Item());
+            _fuelItem = new Ref<Item>(new Item());
+            inputItem.TurnToAir();
+            outputItem.TurnToAir();
+            fuelItem.TurnToAir();
 
-            if (FuelSlot == null)
-            {
-                FuelSlot = new ExtraSlot();
-            }
-            
-            if (furnaceUi == null)
-            {
-                furnaceUi = new FurnaceUI(InputSlot, OutputSlot, FuelSlot, fuel, furnaceName);
-            }
-
+            fuel = new FuelCore(maxFuel);
+        }
+        
+        public void Activate()
+        {
             Main.playerInventory = true;
-            UIManager.OpenMachineUI(furnaceUi);
+            UIManager.OpenMachineUI(new FurnaceUI(_inputItem, _outputItem, _fuelItem, fuel, furnaceName));
         }
 
         public sealed override void Load(TagCompound tag)
         {
             SetValue(ref maxFuel, ref cookTimer, ref furnaceName);
-            InputSlot = new ExtraSlot();
-            OutputSlot = new ExtraSlot();
 
             maxFuel = 50000;
-            fuel = new BudgetCore(maxFuel);
+            fuel = new FuelCore(maxFuel);
 
-            Item temp = tag.Get<Item>("inputSlot");
-            Item temp2 = tag.Get<Item>("outputSlot");
+            Item temporaryInputItem = tag.Get<Item>("inputSlot");
+            Item temporaryOutputItem = tag.Get<Item>("outputSlot");
+            Item temporaryFuelItem = tag.Get<Item>("fuelSlot");
 
-            SetAir(ref temp);
-            SetAir(ref temp2);
-
-            InputSlot.SetItem(ref temp);
-            OutputSlot.SetItem(ref temp2);
+            SetAir(ref temporaryInputItem);
+            SetAir(ref temporaryOutputItem);
+            SetAir(ref temporaryFuelItem);
+            
+            _inputItem.Value = temporaryInputItem;
+            _outputItem.Value = temporaryOutputItem;
+            _fuelItem.Value = temporaryFuelItem;
         }
 
         public void SetAir(ref Item item)
@@ -86,20 +79,14 @@ namespace TUA.API.FurnaceRework.TileEntity
                 item.TurnToAir();
             }
         }
-
-        public BaseFurnaceEntity()
-        {
-            SetValue(ref maxFuel, ref cookTimer, ref furnaceName);
-            InputSlot = new ExtraSlot();
-            OutputSlot = new ExtraSlot();
-        }
-
+        
         public override TagCompound Save()
         {
             return new TagCompound
             {
-                ["inputSlot"] = InputSlot.GetItem(),
-                ["outputSlot"] = OutputSlot.GetItem(),
+                ["inputSlot"] = inputItem,
+                ["outputSlot"] = outputItem,
+                ["fuelSlot"] = fuelItem,
                 ["fuelLevel"] = fuel.getCurrentEnergyLevel()
             };
         }
@@ -108,21 +95,21 @@ namespace TUA.API.FurnaceRework.TileEntity
         {
             if (fuel == null)
             {
-                fuel = new BudgetCore(maxFuel);
+                fuel = new FuelCore(maxFuel);
             }
 
             if (currentRecipe == null && checkTimer <= 0)
             {
-                FurnaceRecipe recipe = InputSlot.IsEmpty ? null
-                    : FurnaceRecipeManager.Instance.IsValid(InputSlot.GetItem()) 
+                FurnaceRecipe recipe = inputItem.IsAir ? null
+                    : FurnaceRecipeManager.Instance.IsValid(inputItem) 
                         ? FurnaceRecipeManager.Instance.Recipe : null;
                 if (recipe != null &&
-                    (OutputSlot.IsEmpty || OutputSlot.GetItem().type == recipe.GetResult().type))
+                    (outputItem.IsAir || outputItem.type == recipe.GetResult().type))
                 {
                     currentRecipe = recipe;
                 }
 
-                checkTimer = 5;
+                checkTimer = 2;
             }
 
             if (currentRecipe != null)
@@ -136,7 +123,6 @@ namespace TUA.API.FurnaceRework.TileEntity
 
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
         {
-            furnaceUi = new FurnaceUI(InputSlot, OutputSlot, fuel, furnaceName);
             return Place(i - 1, j - 1);
         }
 
@@ -154,19 +140,19 @@ namespace TUA.API.FurnaceRework.TileEntity
 
         private void UpdateItem()
         {
-            if (progression >= cookTimer)
+            if (progression >= cookTimer && fuel.getCurrentEnergyLevel() > 0)
             {
-                InputSlot.ManipulateCurrentStack(currentRecipe.GetIngredientStack());
+                inputItem.stack -= currentRecipe.GetIngredientStack();
 
                 Item result = currentRecipe.GetResult().Clone();
 
-                if (OutputSlot.IsEmpty)
+                if (outputItem.IsAir)
                 {
-                    OutputSlot.SetItem(ref result);
+                    _outputItem.Value = result;
                 }
                 else
                 {
-                    OutputSlot.ManipulateCurrentStack(1);
+                    outputItem.stack++;
                 }
 
                 fuel.ConsumeEnergy(1);

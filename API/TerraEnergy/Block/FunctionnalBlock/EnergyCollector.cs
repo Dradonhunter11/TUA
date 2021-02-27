@@ -3,6 +3,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using TUA.API.TerraEnergy.EnergyAPI;
+using TUA.API.TerraEnergy.Interface;
 using TUA.API.TerraEnergy.TileEntities;
 using TUA.Items;
 
@@ -41,17 +42,25 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
                 Main.NewText("false");
                 return;
             }
-            if (currentSelectedItem.type == mod.ItemType("TerraMeter"))
+            if (currentSelectedItem.type == ModContent.ItemType<TerraMeter>())
             {
                 StorageEntity se = (StorageEntity)TileEntity.ByID[index];
-                Main.NewText(se.getEnergy().getCurrentEnergyLevel() + " / " + se.getEnergy().getMaxEnergyLevel() + " TE");
+                Main.NewText(se.GetEnergy().getCurrentEnergyLevel() + " / " + se.GetEnergy().getMaxEnergyLevel() + " TE");
             }
 
-            if (currentSelectedItem.type == mod.ItemType("RodOfLinking"))
+            if (currentSelectedItem.type == ModContent.ItemType<RodOfLinking>())
             {
                 RodOfLinking it = currentSelectedItem.modItem as RodOfLinking;
                 StorageEntity se = (StorageEntity)TileEntity.ByID[index];
-                it.saveCollectorLocation(se);
+
+                var TE = TileEntity.ByID[index];
+
+
+                if (TE is ITECapacitorLinkable)
+                {
+                    it.SaveLinkableEntityLocation(TE);
+                }
+                
                 Main.NewText("Succesfully linked to a collector, now right click on a capacitor to unlink");
             }
         }

@@ -13,7 +13,7 @@ namespace TUA.API.Inventory.UI
         private StorageEntity storageEntity;
         private readonly int maxTransferRate;
 
-        public ChargingSlot(ExtraSlot boundSlot, Texture2D slotTexture, StorageEntity storageEntity, int maxTransferRate) : base(boundSlot, slotTexture)
+        public ChargingSlot(Ref<Item> boundSlot, Texture2D slotTexture, StorageEntity storageEntity, int maxTransferRate) : base(boundSlot, slotTexture)
         {
             this.storageEntity = storageEntity;
             this.maxTransferRate = maxTransferRate;
@@ -21,8 +21,8 @@ namespace TUA.API.Inventory.UI
 
         public override void Update(GameTime gameTime)
         {
-            ModItem item = boundSlot.GetItem().modItem;
-            if (item is EnergyItem energyItem)
+            ModItem modItem = item?.modItem;
+            if (modItem is EnergyItem energyItem)
             {
                 if (!energyItem.isFull())
                 {
@@ -33,14 +33,15 @@ namespace TUA.API.Inventory.UI
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
+            base.DrawSelf(spriteBatch);
             CalculatedStyle innerDim = GetInnerDimensions();
-            Vector2 position = new Vector2(innerDim.X, innerDim.Y - 15);
-            ModItem item = boundSlot.GetItem()?.modItem;
-            if (item != null)
+            Vector2 position = new Vector2(innerDim.X - 5, innerDim.Y - 15);
+            ModItem modItem = item?.modItem;
+            if (modItem != null)
             {
-                if (item is EnergyItem)
+                if (modItem is EnergyItem)
                 {
-                    EnergyItem energyItem = item as EnergyItem;
+                    EnergyItem energyItem = modItem as EnergyItem;
                     if (energyItem.isFull())
                     {
                         spriteBatch.DrawString(Main.fontMouseText, "Full!", position, Color.White);

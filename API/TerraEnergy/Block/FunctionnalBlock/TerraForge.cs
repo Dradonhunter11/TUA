@@ -9,9 +9,6 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 {
     class TerraForge : TUATile
     {
-        private int TEx;
-        private int TEy;
-
         private int currentFrame = 1;
 
         public override void SetDefaults()
@@ -73,9 +70,6 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             int left = i - (tile.frameX / 18);
             int top = j - (tile.frameY / 18);
 
-            TEx = left;
-            TEy = top;
-
             int index = ModContent.GetInstance<TerraForgeEntity>().Find(left, top);
 
             if (index == -1)
@@ -85,9 +79,6 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
             }
 
             TerraForgeEntity tfe = (TerraForgeEntity)TileEntity.ByID[index];
-
-            
-
         }
 
 
@@ -223,7 +214,6 @@ namespace TUA.API.TerraEnergy.Block.FunctionnalBlock
 
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
         {
-            Main.NewText("X " + i + " Y " + j);
             return Place(i - 4, j - 2);
         }
 

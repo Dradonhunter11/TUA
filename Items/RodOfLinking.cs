@@ -1,15 +1,14 @@
 ﻿using Terraria.DataStructures;
 using Terraria.ModLoader;
 using TUA.API.TerraEnergy.EnergyAPI;
+using TUA.API.TerraEnergy.Interface;
 
 namespace TUA.Items
 {
     class RodOfLinking : ModItem
     {
+        private int _storedEntityID;
         private Point16 currentStockedEntityLocation;
-        private StorageEntity linkedEntity;
-        private int xLoc;
-        private int yLoc;
 
         public override void SetDefaults()
         {
@@ -19,41 +18,19 @@ namespace TUA.Items
             item.consumable = false;
         }
 
-        public void saveCollectorLocation(StorageEntity entity)
+        public void SaveLinkableEntityLocation<T>(T entity) where T : TileEntity
         {
-            this.linkedEntity = entity;
+            _storedEntityID = entity.ID;
         }
 
-        public void saveCollectorLocation(Point16 location)
+        public TileEntity GetStoredEntityType()
         {
-            currentStockedEntityLocation = location;
+            return ModTileEntity.ByID[_storedEntityID];
         }
 
-        public void saveCollectorLocation(int x, int y)
+        public int GetEntity()
         {
-            xLoc = x;
-            yLoc = y;
+            return _storedEntityID;
         }
-
-        public Point16 getCollectorLocation()
-        {
-            return currentStockedEntityLocation;
-        }
-
-        public StorageEntity getEntity()
-        {
-            return linkedEntity;
-        }
-
-        public int getXLoc()
-        {
-            return xLoc;
-        }
-
-        public int getYLoc()
-        {
-            return yLoc;
-        }
-
     }
 }

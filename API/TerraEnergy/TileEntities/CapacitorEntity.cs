@@ -13,9 +13,18 @@ namespace TUA.API.TerraEnergy.TileEntities
     {
         public int maxTransferRate;
         public CapacitorUI CapacitorUi;
-        private ExtraSlot[] slot;
-        
+        private Item[] slot;
 
+        public CapacitorEntity()
+        {
+            slot = new Item[4];
+            for (int i = 0; i < slot.Length; i++)
+            {
+                slot[i] = new Item();
+                slot[i].TurnToAir();
+            }
+        }
+        
         public void Activate()
         {
             InitializeItemSlot();
@@ -29,8 +38,8 @@ namespace TUA.API.TerraEnergy.TileEntities
             int itemSlotId = 0;
             for (int i = 0; i < slot.Length; i++)
             {
-                ExtraSlot extraSlot = slot[i];
-                tag.Add("slot" + 0, extraSlot.GetItem());
+                Item extraSlot = slot[i];
+                tag.Add("slot" + i, extraSlot);
                 itemSlotId++;
             }
         }
@@ -38,14 +47,11 @@ namespace TUA.API.TerraEnergy.TileEntities
         public override void LoadEntity(TagCompound tag)
         {
             InitializeItemSlot();
-            int itemSlotId = 0;
             for (int i = 0; i < slot.Length; i++)
             {
-                ExtraSlot extraSlot = slot[i];
-                Item item = tag.Get<Item>("slot" + itemSlotId);
+                Item item = tag.Get<Item>("slot" + i);
                 SetAir(ref item);
-                extraSlot.SetItem(ref item);
-                itemSlotId++;
+                slot[i] = item;
             }
         }
 
@@ -60,30 +66,31 @@ namespace TUA.API.TerraEnergy.TileEntities
         public override bool ValidTile(int i, int j)
         {
             Tile tile = Main.tile[i, j];
-            return tile.active() && (tile.type == ModContent.TileType<BasicTECapacitor>());
+            return tile.active() && (tile.type == ModContent.TileType<BasicTECapacitor>() || tile.type == ModContent.TileType<AdvancedTECapacitor>());
         }
 
         public override void Update()
         {
             if (energy == null)
             {
-                energy = new Core(maxEnergy);
+                energy = new EnergyCore(maxEnergy);
             }
         }
 
         public override int Hook_AfterPlacement(int i, int j, int type, int style, int direction)
         {
             InitializeItemSlot();
-            energy = new Core(maxEnergy);
+            energy = new EnergyCore(maxEnergy);
             return Place(i - 1, j - 1);
         }
 
         private void InitializeItemSlot()
         {
-            slot = new ExtraSlot[4];
+            slot = new Item[4];
             for(int i = 0; i < slot.Length; i++)
             {
-                slot[i] = new ExtraSlot();
+                slot[i] = new Item();
+                slot[i].TurnToAir();
             }
         }
     }

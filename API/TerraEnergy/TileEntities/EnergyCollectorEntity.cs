@@ -5,12 +5,13 @@ using Terraria.ModLoader.IO;
 using TUA.API.TerraEnergy.Block;
 using TUA.API.TerraEnergy.Block.FunctionnalBlock;
 using TUA.API.TerraEnergy.EnergyAPI;
+using TUA.API.TerraEnergy.Interface;
 using TUA.Tiles;
 
 namespace TUA.API.TerraEnergy.TileEntities
 {
 
-    class EnergyCollectorEntity : StorageEntity
+    class EnergyCollectorEntity : StorageEntity, ITECapacitorLinkable
     {
         private readonly int drainRange = 50;
         private int maxEnergy = 100000;
@@ -19,11 +20,11 @@ namespace TUA.API.TerraEnergy.TileEntities
         public override void LoadEntity(TagCompound tag)
         {
             maxEnergy = 100000;
-            energy = new Core(maxEnergy);
+            energy = new EnergyCore(maxEnergy);
   
         }
 
-        public void linkToCapacitor(CapacitorEntity capacitor)
+        public void LinkToCapacitor(CapacitorEntity capacitor)
         {
             boundCapacitor = capacitor;
         }
@@ -37,7 +38,7 @@ namespace TUA.API.TerraEnergy.TileEntities
 
             if (energy == null)
             {
-                energy = new Core(maxEnergy);
+                energy = new EnergyCore(maxEnergy);
             }
 
             if (boundCapacitor != null)
@@ -50,7 +51,7 @@ namespace TUA.API.TerraEnergy.TileEntities
                 if (Main.tile[i, j].type == TileID.LunarOre)
                 {
                     energy.addEnergy(50);
-                    Main.tile[i, j].type = (ushort)ModContent.TileType<TerraWaste>();
+                    //Main.tile[i, j].type = (ushort)ModContent.TileType<TerraWaste>();
                 }
 
                 if (Main.tile[i, j].active() && Main.tile[i, j].type != (ushort)ModContent.TileType<TerraWaste>())
@@ -59,7 +60,7 @@ namespace TUA.API.TerraEnergy.TileEntities
                     energy.addEnergy(5);
                     if (Main.rand.Next(0, 1000) == 5)
                     {
-                        Main.tile[i, j].type = (ushort)ModContent.TileType<TerraWaste>();
+                        //Main.tile[i, j].type = (ushort)ModContent.TileType<TerraWaste>();
                     }
                 }
             }

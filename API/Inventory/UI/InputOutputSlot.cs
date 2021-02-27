@@ -5,9 +5,8 @@ using Terraria.UI;
 
 namespace TUA.API.Inventory.UI
 {
-    class InputOutputSlot : UIElement
+    class InputOutputSlot : ExtraSlot
     {
-        protected ExtraSlot boundSlot;
         private Texture2D slotTexture;
         public bool debug = false;
 
@@ -16,12 +15,16 @@ namespace TUA.API.Inventory.UI
         public int customOffsetX = 2;
         public int customOffsetY = 0;
 
-        public InputOutputSlot(ExtraSlot boundSlot, Texture2D slotTexture)
+        public InputOutputSlot(Ref<Item> reference, Texture2D slotTexture) : base(reference)
         {
             CalculatedStyle s = GetInnerDimensions();
             currentSlotVector = new Vector2(s.X, s.Y);
-            this.boundSlot = boundSlot;
             this.slotTexture = slotTexture;
+        }
+
+        private void OnSlotClick(UIMouseEvent evt, UIElement listeningelement)
+        {
+            Utils.Swap(ref Main.mouseItem, ref item);
         }
 
         public sealed override void OnInitialize()
@@ -30,22 +33,23 @@ namespace TUA.API.Inventory.UI
             Height.Set(slotTexture.Height, 0f);
             
             OnMouseOver += MouseHover;
+            OnClick += OnSlotClick;
         }
 
         public void MouseHover(UIMouseEvent mouseEvent, UIElement listeningElement)
         {
-            if (!boundSlot.IsEmpty)
+            if (!IsEmpty)
             {
-                Main.hoverItemName = boundSlot.GetItem().HoverName;
+                Main.hoverItemName = item.HoverName;
             }
         }
 
         public sealed override void Draw(SpriteBatch spriteBatch)
         {
             CalculatedStyle innerDimension = GetInnerDimensions();
+            spriteBatch.Draw(slotTexture, new Vector2(innerDimension.X, innerDimension.Y), Color.White);
             DrawChildren(spriteBatch);
             DrawSelf(spriteBatch);
-            spriteBatch.Draw(slotTexture, new Vector2(innerDimension.X, innerDimension.Y), Color.White);
         }
     }
 }

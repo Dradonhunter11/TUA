@@ -19,12 +19,12 @@ namespace TUA.API.TerraEnergy.UI
         private UIEnergyBar energybar;
         private UIPanel panel;
 
-        public CapacitorUI(ExtraSlot[] slot, CapacitorEntity capacitorEntity)
+        public CapacitorUI(Item[] slot, CapacitorEntity capacitorEntity)
         {
             chargingSlot = new ChargingSlot[4];
             for (int i = 0; i < chargingSlot.Length; i++)
             {
-                chargingSlot[i] = new ChargingSlot(slot[i], TUA.instance.GetTexture("API/TerraEnergy/Texture/ChargingSlotUI"), capacitorEntity, capacitorEntity.maxTransferRate);
+                chargingSlot[i] = new ChargingSlot(new Ref<Item>(slot, i), TUA.instance.GetTexture("API/TerraEnergy/Texture/ChargingSlotUI"), capacitorEntity, capacitorEntity.maxTransferRate);
             }
 
             this.capacitorEntity = capacitorEntity;

@@ -1,11 +1,11 @@
 ﻿namespace TUA.API.TerraEnergy
 {
-    public class Core
+    public class EnergyCore
     {
         protected int maxEnergy;
         protected int currentEnergy = 0;
 
-        public Core(int maxEnergy)
+        public EnergyCore(int maxEnergy)
         {
             this.maxEnergy = maxEnergy;
         }

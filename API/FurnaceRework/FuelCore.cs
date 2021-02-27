@@ -2,13 +2,13 @@
 
 namespace TUA.API.FurnaceRework
 {
-    class BudgetCore : Core
+    class FuelCore : EnergyCore
     {
-        public BudgetCore(int maxEnergy) : base(maxEnergy)
+        public FuelCore(int maxEnergy) : base(maxEnergy)
         {
         }
 
-        public override int ConsumeEnergy(int energyToRemove)
+        public override int ConsumeEnergy(int energyToRemove = 1)
         {
             if (currentEnergy < 0)
             {

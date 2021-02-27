@@ -26,27 +26,28 @@ namespace TUA.API.TerraEnergy.UI
         private UIElement xButton;
         private Texture2D xButtonTexture;
 
-        public FurnaceUI(ExtraSlot input, ExtraSlot output, Core core, string furnaceName)
+        public Item InputItem => _input.item;
+
+        public FurnaceUI(Ref<Item> input, Ref<Item> output, EnergyCore energyCore, string furnaceName)
         {
             this._input = new InputOutputSlot(input, Main.inventoryBack10Texture);
             this._output = new InputOutputSlot(output, Main.inventoryBack10Texture);
             this._furnaceName = furnaceName;
 
-            _energyBar = new UIEnergyBar(core);
-            
+            _energyBar = new UIEnergyBar(energyCore);
         }
 
-        public FurnaceUI(ExtraSlot input, ExtraSlot output, ExtraSlot fuel, BudgetCore core, string furnaceName)
+        public FurnaceUI(Ref<Item> input, Ref<Item> output, Ref<Item> fuel, FuelCore energyCore, string furnaceName)
         {
             this._input = new InputOutputSlot(input, Main.inventoryBack10Texture);
             this._output = new InputOutputSlot(output, Main.inventoryBack10Texture);
 
-            if (core != null)
+            if (energyCore != null)
             {
-                _energyBar = new UIEnergyBar(core);
+                _energyBar = new UIEnergyBar(energyCore);
             }
 
-            this._fuel = new FuelSlot(fuel, Main.inventoryBack10Texture, core);
+            this._fuel = new FuelSlot(fuel, Main.inventoryBack10Texture, energyCore);
             this._furnaceName = furnaceName;
         }
 
@@ -122,7 +123,7 @@ namespace TUA.API.TerraEnergy.UI
             base.DrawChildren(spriteBatch);
             Vector2 nameDrawingPosition = new Vector2(Main.screenWidth / 2 - 60, Main.screenHeight / 2 - 95);
             ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, _furnaceName,
-                nameDrawingPosition, Color.White, 0f, Vector2.Zero,
+                nameDrawingPosition, Color.White * 0.7f, 0f, Vector2.Zero,
                 Vector2.One);
             upgradeUI.isVisible = false;
             furnaceUI.isVisible = true;
@@ -132,10 +133,10 @@ namespace TUA.API.TerraEnergy.UI
                 upgradeUI.isVisible = true;
                 Vector2 UpgradeDrawingPosition = new Vector2(Main.screenWidth / 2 + 230, Main.screenHeight / 2 - 95);
                 ChatManager.DrawColorCodedStringWithShadow(spriteBatch, Main.fontMouseText, "Upgrade",
-                    UpgradeDrawingPosition, Color.White, 0f, Vector2.Zero,
+                    UpgradeDrawingPosition, Color.White * 0.7f, 0f, Vector2.Zero,
                     Vector2.One);
             }
-            spriteBatch.Draw(xButtonTexture, xButton.GetInnerDimensions().Position(), Color.White);
+            spriteBatch.Draw(xButtonTexture, xButton.GetInnerDimensions().Position(), Color.White * 0.7f);
         }
     }
 }

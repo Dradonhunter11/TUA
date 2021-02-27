@@ -12,7 +12,7 @@ namespace TUA.API.TerraEnergy.EnergyAPI
         }
 
         private int maxEnergyStorage;
-        private Core core;
+        private EnergyCore _energyCore;
         public int energy = 0;
 
         public int MaxEnergyStorage
@@ -23,13 +23,13 @@ namespace TUA.API.TerraEnergy.EnergyAPI
 
         public int CurrentEnergy
         {
-            get => core.getCurrentEnergyLevel(); 
+            get => _energyCore.getCurrentEnergyLevel(); 
         }
 
         public sealed override void SetDefaults()
         {
             SafeSetDefault(ref maxEnergyStorage);
-            core = new Core(maxEnergyStorage);
+            _energyCore = new EnergyCore(maxEnergyStorage);
         }
 
         public virtual void SafeSetDefault(ref int maxEnergy)
@@ -40,7 +40,7 @@ namespace TUA.API.TerraEnergy.EnergyAPI
         public sealed override TagCompound Save()
         {
             TagCompound tag = new TagCompound();
-            tag.Set("CurrentEnergy", core.getCurrentEnergyLevel());
+            tag.Set("CurrentEnergy", _energyCore.getCurrentEnergyLevel());
             NewSave(ref tag);
             return tag;
         }
@@ -52,7 +52,7 @@ namespace TUA.API.TerraEnergy.EnergyAPI
 
         public sealed override void Load(TagCompound tag)
         {
-            core.addEnergy(tag.GetAsInt("currentEnergy"));
+            _energyCore.addEnergy(tag.GetAsInt("currentEnergy"));
             NewLoad(tag);
         }
 
@@ -63,7 +63,7 @@ namespace TUA.API.TerraEnergy.EnergyAPI
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-            TooltipLine energyLine = new TooltipLine(mod, "energy", core.getCurrentEnergyLevel() + " / " + core.getMaxEnergyLevel() + " TE");
+            TooltipLine energyLine = new TooltipLine(mod, "energy", _energyCore.getCurrentEnergyLevel() + " / " + _energyCore.getMaxEnergyLevel() + " TE");
             tooltips.Add(energyLine);
         }
 
@@ -71,12 +71,12 @@ namespace TUA.API.TerraEnergy.EnergyAPI
 
         public void AddEnergy(int energy)
         {
-            core.addEnergy(energy);
+            _energyCore.addEnergy(energy);
         }
 
         public bool isFull()
         {
-            return core.isFull();
+            return _energyCore.isFull();
         }
     }
 }

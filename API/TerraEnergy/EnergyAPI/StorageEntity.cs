@@ -10,21 +10,30 @@ namespace TUA.API.TerraEnergy.EnergyAPI
 {
     abstract class StorageEntity : ModTileEntity
     {
-        public Core energy;
+        public EnergyCore energy;
         public int maxEnergy;
 
-        public virtual List<ExtraSlot> getSlot()
+        internal int worldID => this.ID;
+
+        public virtual List<ExtraSlot> GetSlot()
         {
             List<ExtraSlot> dumpList = new List<ExtraSlot>();
             return dumpList;
         }
 
+        public sealed override TagCompound Save()
+        {
+            TagCompound tag = new TagCompound();
+            SaveEntity(tag);
+            tag.Add("energy", energy.getCurrentEnergyLevel());
+            return tag;
+        }
+
         public sealed override void Load(TagCompound tag)
         {
-            energy = new Core(0);
+            energy = new EnergyCore(0);
             LoadEntity(tag);
             energy.addEnergy(tag.GetAsInt("energy"));
-            
         }
 
         public static byte[] CompressBytes(byte[] data)
@@ -48,14 +57,7 @@ namespace TUA.API.TerraEnergy.EnergyAPI
             return output.ToArray();
         }
 
-        public sealed override TagCompound Save()
-        {
-            TagCompound tag = new TagCompound();
-            SaveEntity(tag);
-            tag.Add("energy", energy.getCurrentEnergyLevel());
-            return tag;
-
-        }
+        
 
         public override void NetSend(BinaryWriter writer, bool lightSend)
         {
@@ -68,7 +70,7 @@ namespace TUA.API.TerraEnergy.EnergyAPI
         public override void NetReceive(BinaryReader reader, bool lightReceive)
         {
             TagCompound tag = TagIO.Read(reader);
-            energy = new Core(tag.GetAsInt("maxEnergy"));
+            energy = new EnergyCore(tag.GetAsInt("maxEnergy"));
             energy.addEnergy(tag.GetAsInt("energy"));
         }
 
@@ -80,20 +82,20 @@ namespace TUA.API.TerraEnergy.EnergyAPI
         {
         }
 
-        public Core getEnergy()
+        public EnergyCore GetEnergy()
         {
             if (energy == null)
             {
-                energy = new Core(maxEnergy);
+                energy = new EnergyCore(maxEnergy);
             }
             return energy;
         }
 
-        public int getMaxEnergyStored()
+        public int GetMaxEnergyStored()
         {
             if (energy == null)
             {
-                energy = new Core(maxEnergy);
+                energy = new EnergyCore(maxEnergy);
             }
             return energy.getMaxEnergyLevel();
         }
@@ -106,7 +108,7 @@ namespace TUA.API.TerraEnergy.EnergyAPI
             modTileEntity.type = (byte)this.Type;
             TileEntity.ByID[modTileEntity.ID] = (TileEntity)modTileEntity;
             TileEntity.ByPosition[modTileEntity.Position] = (TileEntity)modTileEntity;
-            energy = new Core(maxEnergy);
+            energy = new EnergyCore(maxEnergy);
             return modTileEntity.ID;
         }
     }

@@ -36,26 +36,26 @@ namespace TUA.API.UI
             int height = point2.Y - point.Y - CORNER_SIZE;
 
             //Top part drawing
-            spriteBatch.Draw(_backgroundTexture, new Vector2(point.X, point.Y), new Rectangle(0, 0, 10, 10), Color.White);
-            spriteBatch.Draw(_backgroundTexture, new Rectangle(point.X + CORNER_SIZE, point.Y, width, 10), new Rectangle(CORNER_SIZE + 3, 0, 2, 10), Color.White);
-            spriteBatch.Draw(_backgroundTexture, new Vector2(point.X + CORNER_SIZE + width, point.Y), new Rectangle(18, 0, 10, 10), Color.White);
+            spriteBatch.Draw(_backgroundTexture, new Vector2(point.X, point.Y), new Rectangle(0, 0, 10, 10), color);
+            spriteBatch.Draw(_backgroundTexture, new Rectangle(point.X + CORNER_SIZE, point.Y, width, 10), new Rectangle(CORNER_SIZE + 3, 0, 2, 10), color);
+            spriteBatch.Draw(_backgroundTexture, new Vector2(point.X + CORNER_SIZE + width, point.Y), new Rectangle(18, 0, 10, 10), color);
             
             //Middle part drawing
-            spriteBatch.Draw(_backgroundTexture, new Rectangle(point.X, point.Y + CORNER_SIZE, 10, height), new Rectangle(0, CORNER_SIZE + 3, 10, 2), Color.White);
-            spriteBatch.Draw(_backgroundTexture, new Rectangle(point.X + CORNER_SIZE, point.Y + CORNER_SIZE, width + 1, height), new Rectangle(13, 13, 2, 2), Color.White);
-            spriteBatch.Draw(_backgroundTexture, new Rectangle(point.X + CORNER_SIZE + width + 1, point.Y + CORNER_SIZE, 10, height), new Rectangle(19, CORNER_SIZE + 3, 10, 2), Color.White);
+            spriteBatch.Draw(_backgroundTexture, new Rectangle(point.X, point.Y + CORNER_SIZE, 10, height), new Rectangle(0, CORNER_SIZE + 3, 10, 2), color);
+            spriteBatch.Draw(_backgroundTexture, new Rectangle(point.X + CORNER_SIZE, point.Y + CORNER_SIZE, width + 1, height), new Rectangle(13, 13, 2, 2), color);
+            spriteBatch.Draw(_backgroundTexture, new Rectangle(point.X + CORNER_SIZE + width + 1, point.Y + CORNER_SIZE, 10, height), new Rectangle(19, CORNER_SIZE + 3, 10, 2), color);
 
             //Bottom part drawing
-            spriteBatch.Draw(_backgroundTexture, new Vector2(point.X, point.Y + height + CORNER_SIZE), new Rectangle(0, 18, 10, 10), Color.White);
-            spriteBatch.Draw(_backgroundTexture, new Rectangle(point.X + CORNER_SIZE, point.Y + height + CORNER_SIZE, width, 10), new Rectangle(CORNER_SIZE + 3, 18, 2, 10), Color.White);
-            spriteBatch.Draw(_backgroundTexture, new Vector2(point.X + CORNER_SIZE + width, point.Y + height + CORNER_SIZE), new Rectangle(18, 18, 10, 10), Color.White);
+            spriteBatch.Draw(_backgroundTexture, new Vector2(point.X, point.Y + height + CORNER_SIZE), new Rectangle(0, 18, 10, 10), color);
+            spriteBatch.Draw(_backgroundTexture, new Rectangle(point.X + CORNER_SIZE, point.Y + height + CORNER_SIZE, width, 10), new Rectangle(CORNER_SIZE + 3, 18, 2, 10), color);
+            spriteBatch.Draw(_backgroundTexture, new Vector2(point.X + CORNER_SIZE + width, point.Y + height + CORNER_SIZE), new Rectangle(18, 18, 10, 10), color);
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             if (isVisible)
             {
-                this.DrawPanel(spriteBatch, _backgroundTexture, Color.Gray);
+                this.DrawPanel(spriteBatch, _backgroundTexture, Color.Gray * 0.7f);
             }
         }
     }

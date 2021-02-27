@@ -12,11 +12,11 @@ namespace TUA.API.TerraEnergy.UI
         private Texture2D energyBar;
         private Texture2D fullEnergyBar;
 
-        public Core boundCore;
+        public EnergyCore BoundEnergyCore;
 
-        public UIEnergyBar(Core boundCore)
+        public UIEnergyBar(EnergyCore boundEnergyCore)
         {
-            this.boundCore = boundCore;
+            this.BoundEnergyCore = boundEnergyCore;
         }
 
         
@@ -44,23 +44,23 @@ namespace TUA.API.TerraEnergy.UI
             if (IsMouseHovering)
             {
 
-                if (boundCore is BudgetCore)
+                if (BoundEnergyCore is FuelCore)
                 {
 
-                    Main.hoverItemName = boundCore.getCurrentEnergyLevel() + " / " +
-                                         boundCore.getMaxEnergyLevel() + " Fuel";
+                    Main.hoverItemName = BoundEnergyCore.getCurrentEnergyLevel() + " / " +
+                                         BoundEnergyCore.getMaxEnergyLevel() + " Fuel";
                 }
                 else
                 {
-                    Main.hoverItemName = boundCore.getCurrentEnergyLevel() + " / " +
-                                         boundCore.getMaxEnergyLevel() + " TE";
+                    Main.hoverItemName = BoundEnergyCore.getCurrentEnergyLevel() + " / " +
+                                         BoundEnergyCore.getMaxEnergyLevel() + " TE";
                 }
                 
                 //spriteBatch.Draw(Main.itemTexture[ItemID.Actuator], new Vector2(Main.mouseX, Main.mouseY + 20), r, Color.White, 0f, r.Size(), new Vector2(1f, 0.5f), SpriteEffects.None, 0f);
                 //spriteBatch.DrawString(Main.fontMouseText, currentEntity.energy.getCurrentEnergyLevel() + " / " + currentEntity.energy.getMaxEnergyLevel() + " TE", new Vector2(Main.mouseX, Main.mouseY + 20), Color.White);
             }
 
-            float percent = (boundCore.getCurrentEnergyLevel() * 100 / boundCore.getMaxEnergyLevel());
+            float percent = (BoundEnergyCore.getCurrentEnergyLevel() * 100 / BoundEnergyCore.getMaxEnergyLevel());
             Rectangle sourceRectangle = new Rectangle(0, 0, (int) (386 * (percent / 100)), 28);
             spriteBatch.Draw(fullEnergyBar, new Vector2(innerDim.X + 386, innerDim.Y + 14), sourceRectangle, Color.White, 0f, r.Size(), new Vector2(1f, 0.5f), SpriteEffects.None, 0f);
         }
